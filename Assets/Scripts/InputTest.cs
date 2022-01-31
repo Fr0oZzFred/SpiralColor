@@ -74,9 +74,9 @@ public class InputTest : MonoBehaviour
             }
         } else {
 
-            if (xboxController.startButton.isPressed) {
-                m_transform.rotation = Quaternion.identity;
-            }
+            //if (xboxController.startButton.isPressed) {
+            //    m_transform.rotation = Quaternion.identity;
+            //}
 
             if (xboxController.triangleButton.isPressed) {
                 GetComponent<MeshRenderer>().material.color = Color.green;
@@ -94,8 +94,8 @@ public class InputTest : MonoBehaviour
                 GetComponent<MeshRenderer>().material.color = pink;
             }
             Quaternion newRot = Quaternion.Euler(
-                m_transform.rotation.x* xboxController.leftStick.x.ReadValue() * sensibility,
-                m_transform.rotation.y* xboxController.leftStick.y.ReadValue() * sensibility,
+                (m_transform.rotation.x + 1)* xboxController.leftStick.y.ReadValue() * sensibility,
+                (m_transform.rotation.y + 1)* -xboxController.leftStick.x.ReadValue() * sensibility,
                 m_transform.rotation.z
                 );
             m_transform.rotation = newRot;
