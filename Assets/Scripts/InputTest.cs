@@ -61,7 +61,7 @@ public class InputTest : MonoBehaviour
                 GetComponent<MeshRenderer>().material.color = pink;
                 controller.SetLightBarColor(pink);
             }
-            m_transform.rotation *= DS4.GetRotation(sensibility * Time.deltaTime);
+            //m_transform.rotation *= DS4.GetRotation(sensibility * Time.deltaTime);
         }
 
 
@@ -98,9 +98,19 @@ public class InputTest : MonoBehaviour
                 (m_transform.rotation.y + 1)* -xboxController.leftStick.x.ReadValue() * sensibility,
                 m_transform.rotation.z
                 );
-            m_transform.rotation = newRot;
+            //m_transform.rotation = newRot;
         }
 
+    }
+    Rigidbody rb;
+    Vector3 moveDirection;
+    public Transform cam;
+    public float movementSpeed;
+    public float rotationSpeed;
+
+    public CameraManager cameraManager;
+
+    private void FixedUpdate() {
         #region CameraFixe
 
         moveDirection = cam.forward * controller.leftStick.y.ReadValue();
@@ -120,21 +130,11 @@ public class InputTest : MonoBehaviour
         targetDirection.y = 0;
         if (targetDirection == Vector3.zero)
             targetDirection = transform.forward;
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection); 
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         transform.rotation = playerRotation;
         #endregion
-
-
     }
-    Rigidbody rb;
-    Vector3 moveDirection;
-    public Transform cam;
-    public float movementSpeed;
-    public float rotationSpeed;
-
-    public CameraManager cameraManager;
-
     private void LateUpdate() {
         cameraManager.FollowTarget();
         cameraManager.RotateCamera();
