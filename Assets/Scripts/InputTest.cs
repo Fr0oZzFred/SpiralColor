@@ -7,16 +7,16 @@ using UnityEngine.InputSystem.Controls;
 
 public class InputTest : MonoBehaviour
 {
-    private DualShock4GamepadHID controller;
+    public static DualShock4GamepadHID controller;
     private Transform m_transform;
     public float sensibility;
     public Color pink;
-    XInputController xboxController;
+    public static XInputController xboxController;
     
     private void Start() {
-        
+        rb = GetComponent<Rigidbody>();
         try {
-            this.controller = DS4.GetController();
+            controller = DS4.GetController();
         } catch {
             try {
                 xboxController = (XInputController)Gamepad.current;
@@ -100,7 +100,47 @@ public class InputTest : MonoBehaviour
                 );
             m_transform.rotation = newRot;
         }
+
+        #region CameraFixe
+
+        moveDirection = cam.forward * controller.leftStick.y.ReadValue();
+        moveDirection += cam.right * controller.leftStick.x.ReadValue();
+        moveDirection.Normalize();
+        moveDirection.y = 0;
+        moveDirection = moveDirection * movementSpeed;
+
+        Vector3 movementVelocity = moveDirection;
+        rb.velocity = movementVelocity;
+
+        Vector3 targetDirection = Vector3.zero;
+
+        targetDirection = cam.forward * controller.leftStick.y.ReadValue();
+        targetDirection += cam.right * controller.leftStick.x.ReadValue();
+        targetDirection.Normalize();
+        targetDirection.y = 0;
+        if (targetDirection == Vector3.zero)
+            targetDirection = transform.forward;
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection); 
+        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        transform.rotation = playerRotation;
+        #endregion
+
+
     }
+    Rigidbody rb;
+    Vector3 moveDirection;
+    public Transform cam;
+    public float movementSpeed;
+    public float rotationSpeed;
+
+    public CameraManager cameraManager;
+
+    private void LateUpdate() {
+        cameraManager.FollowTarget();
+        cameraManager.RotateCamera();
+        cameraManager.HandleCameraCollisions();
+    }
+
     private void OnApplicationQuit() {
         if(controller != null)
         controller.SetLightBarColor(Color.black);
