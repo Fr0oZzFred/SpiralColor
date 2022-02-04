@@ -29,11 +29,6 @@ public class CameraManager : MonoBehaviour {
         defaultPos = camTransform.localPosition.z;
     }
 
-    private void Update() {
-        if (InputTest.controller.shareButton.isPressed) {
-            defaultPos = camTransform.localPosition.z;
-        }
-    }
 
     public void FollowTarget() {
         Vector3 targetPos = Vector3.SmoothDamp
@@ -42,15 +37,11 @@ public class CameraManager : MonoBehaviour {
     }
 
     public void RotateCamera() {
+        Vector2 rightStickValues = InputHandler.GetRightStickValues();
         Vector3 rotation;
         Quaternion rot;
-        if(InputTest.controller != null) {
-            lookAngle += InputTest.controller.rightStick.x.ReadValue() * lookSpeed;
-            pivotAngle += InputTest.controller.rightStick.y.ReadValue() * pivotSpeed;
-        } else {
-            lookAngle += InputTest.xboxController.rightStick.x.ReadValue() * lookSpeed;
-            pivotAngle += InputTest.xboxController.rightStick.y.ReadValue() * pivotSpeed;
-        }
+        lookAngle += rightStickValues.x * lookSpeed;
+        pivotAngle += rightStickValues.y * pivotSpeed;
         pivotAngle = Mathf.Clamp(pivotAngle, minPivotAngle,maxPivotAngle);
 
         rotation = Vector3.zero;
