@@ -33,6 +33,7 @@ public class InputHandler : MonoBehaviour
     }
 
     private void Update() {
+        if (Gamepad.current == null) SearchController();
         InputSystem.onDeviceChange +=
         (device, change) => {
             switch (change) {
@@ -53,6 +54,7 @@ public class InputHandler : MonoBehaviour
                     break;
                 default:
                     Debug.Log(change);
+                    Debug.Log(Gamepad.current);
                     // See InputDeviceChange reference for other event types.
                     break;
             }
@@ -68,7 +70,7 @@ public class InputHandler : MonoBehaviour
     }
 
     public static Quaternion GetGyroRotation() {
-        if(ds4Controller != null)  return DS4.GetRotation();
+        if(ds4Controller != null)  return DS4.GetGyroRotation();
         return new Quaternion();
     }
 
@@ -120,7 +122,7 @@ public class DS4 {
         //acclZ = ds4.GetChildControl<ButtonControl>("accl Z 24");
     }
 
-    public static Quaternion GetRotation(float scale = 1) {
+    public static Quaternion GetGyroRotation(float scale = 1) {
         float x = ProcessRawData(gyroX.ReadValue()) * scale;
         float y = ProcessRawData(gyroY.ReadValue()) * scale;
         float z = -ProcessRawData(gyroZ.ReadValue()) * scale;

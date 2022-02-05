@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Update() {
-        if (isUsingGyro) transform.rotation *= DS4.GetRotation(sensibility * Time.deltaTime);
+        if (isUsingGyro) transform.rotation *= DS4.GetGyroRotation(sensibility * Time.deltaTime);
         HandleButton();
     }
 
