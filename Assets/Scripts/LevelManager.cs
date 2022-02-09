@@ -7,7 +7,6 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     [HideInInspector]public List<string> PopupList;
     [ListToPopup(typeof(LevelManager), "TMPList")]
     public string Popup;
-
     public List<string> GetAllScenesInBuild() {
         List<string> AllScenes = new List<string>();
 
