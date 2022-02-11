@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEditor;
-
 public class DeveloperMenu {
     [MenuItem("Developer/Clear Saves")]
     public static void ClearSaves() {
