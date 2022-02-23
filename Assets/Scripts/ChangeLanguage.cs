@@ -19,12 +19,19 @@ public class ChangeLanguage : MonoBehaviour{
         PatchLanguage();
         DontDestroyOnLoad(gameObject);
     }
+    public void AddText(TextXml text) {
+        Debug.Assert(!listText.Contains(text), "ce text est déjà dans le liste", text);
+        listText.Add(text);
+    }
+    public void RemoveText(TextXml text) {
+        Debug.Assert(listText.Contains(text), "ce text n'était pas dans la liste", text);
+        listText.Remove(text);
+    }
     public void PatchLanguage() {
         currentLanguage = selectLanguage.value;
         languages[currentLanguage].TryGetValue("Name", out languageName);
         foreach(TextXml text in listText) {
-            if (text.isActiveAndEnabled) text.UpdateText();
-            else listText.Remove(text);
+            text.UpdateText();
         }
     }
     void Reader() {

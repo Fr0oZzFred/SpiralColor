@@ -9,12 +9,17 @@ public enum Balise { Name, Waifu, Game}
 public class TextXml : MonoBehaviour {
     public Balise balise;
     Text text;
-    void Start() {
-        ChangeLanguage.Instance.listText.Add(this);
+    void Awake() {
         text = GetComponent<Text>();
-        UpdateText();
     }
     public void UpdateText() {
-        text.text = ChangeLanguage.Instance.Replace(balise.ToString());
+        text.text = ChangeLanguage.Instance.Replace(balise.ToString()); 
+    }
+    void OnEnable() {
+        ChangeLanguage.Instance.AddText(this);
+        UpdateText();
+    }
+    void OnDisable() {
+        ChangeLanguage.Instance.RemoveText(this);
     }
 }
