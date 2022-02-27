@@ -6,55 +6,30 @@ using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Controls;
 public class InputHandler : MonoBehaviour
 {
-    #region variables
+    #region Fields
     bool connectedOnce = false;
-    public static DualShock4GamepadHID ds4Controller;
+    private static DualShock4GamepadHID ds4Controller => DS4.GetController();
+    public static Gamepad Controller => ds4Controller != null ? ds4Controller : Gamepad.current; 
     #endregion
 
-    private void Start() {
-        SearchController();
-        
-        //if (!connectedOnce) Message au GameManager pour dire que le joueur doit connecté sa dualshock 
-
-    }
-
-    void SearchController() {
-        try {
-            ds4Controller = DS4.GetController();
-            connectedOnce = true;
-        } catch {
-            try {
-                Gamepad gamepad = Gamepad.current;
-                connectedOnce = true;
-            } catch {
-                Debug.LogWarning(Gamepad.current.name + "is supported but not optimal");
-            }
-        }
-    }
-
     private void Update() {
-        if (Gamepad.current == null) SearchController();
         InputSystem.onDeviceChange +=
         (device, change) => {
             switch (change) {
                 case InputDeviceChange.Added:
-                    SearchController();
+                    connectedOnce = true;
                     Debug.Log(change);
                     // New Device.
                     break;
                 case InputDeviceChange.Disconnected:
-                    SearchController();
                     Debug.Log(change);
                     // Device got unplugged.
                     break;
                 case InputDeviceChange.Reconnected:
-                    SearchController();
                     Debug.Log(change);
                     // Plugged back in.
                     break;
                 default:
-                    Debug.Log(change);
-                    Debug.Log(Gamepad.current);
                     // See InputDeviceChange reference for other event types.
                     break;
             }
