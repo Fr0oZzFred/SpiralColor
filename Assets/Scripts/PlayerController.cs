@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    #region variables
+    #region Fields
     public bool isUsingGyro;
     public float sensibility;
     public GameObject ui;
@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour {
     Transform cam;
 
     [Header("Color")]
-    [Tooltip("Allowed buttons are : \n triangleButton \n circleButton \n crossButton \n squareButton")]
     public ColorController[] colorControllerEditor;
     Dictionary<string , Color> colorController;
 
