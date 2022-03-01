@@ -12,7 +12,7 @@ public class InputHandler : MonoBehaviour
     public static Gamepad Controller => ds4Controller != null ? ds4Controller : Gamepad.current; 
     #endregion
 
-    private void Update() {
+    private void Start() {
         InputSystem.onDeviceChange +=
         (device, change) => {
             switch (change) {
@@ -35,7 +35,8 @@ public class InputHandler : MonoBehaviour
             }
         };
     }
-    
+
+
     public static Gamepad GetCurrentGamepad() {
         if (Gamepad.current == null) throw new ArgumentNullException();
         return Gamepad.current;
@@ -63,6 +64,11 @@ public class InputHandler : MonoBehaviour
             Gamepad.current.rightStick.x.ReadValue(),
             Gamepad.current.rightStick.y.ReadValue()
             );
+    }
+
+    public static float UpDown() {
+        if (Gamepad.current == null) throw new ArgumentNullException("Current Gamepad is null");
+        return Gamepad.current.rightTrigger.ReadValue() - Gamepad.current.leftTrigger.ReadValue();
     }
 }
 
