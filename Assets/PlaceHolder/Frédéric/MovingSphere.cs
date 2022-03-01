@@ -2,72 +2,139 @@
 using UnityEngine.InputSystem;
 
 public class MovingSphere : MonoBehaviour {
-
+    #region Fields
+    [Tooltip("Camera pour baser le déplacement du joueur")]
 	[SerializeField]
 	Transform playerInputSpace = default, ball = default;
 
-	[SerializeField, Range(0f, 100f)]
-	float maxSpeed = 10f, maxClimbSpeed = 4f, maxSwimSpeed = 5f;
 
+	[Header("Speed")]
+	[Tooltip("Vitesse maximum")]
 	[SerializeField, Range(0f, 100f)]
-	float
-		maxAcceleration = 10f,
-		maxAirAcceleration = 1f,
-		maxClimbAcceleration = 40f,
-		maxSwimAcceleration = 5f;
+	float maxSpeed = 10f;
 
+	[Tooltip("Vitesse maximum en grimpant")]
+	[SerializeField, Range(0f, 100f)]
+	float maxClimbSpeed = 4f;
+
+	[Tooltip("Vitesse maximum en nageant")]
+	[SerializeField, Range(0f, 100f)]
+	float maxSwimSpeed = 5f;
+
+
+	[Header("Acceleration")]
+	[Tooltip("Acceleration maximum")]
+	[SerializeField, Range(0f, 100f)]
+	float maxAcceleration = 10f;
+
+	[Tooltip("Acceleration en l'air")]
+	[SerializeField, Range(0f, 100f)]
+	float maxAirAcceleration = 1f;
+
+	[Tooltip("Acceleration en grimpant")]
+	[SerializeField, Range(0f, 100f)]
+	float maxClimbAcceleration = 40f;
+
+	[Tooltip("Acceleration en nageant")]
+	[SerializeField, Range(0f, 100f)]
+	float maxSwimAcceleration = 5f;
+
+
+	[Header("Jump")]
+	[Tooltip("Hauteur du saut")]
 	[SerializeField, Range(0f, 10f)]
 	float jumpHeight = 2f;
 
+	[Tooltip("Nombre de saut sans toucher le sol")]
 	[SerializeField, Range(0, 5)]
 	int maxAirJumps = 0;
 
-	[SerializeField, Range(0, 90)]
-	float maxGroundAngle = 25f, maxStairsAngle = 50f;
 
+	[Header("Angles")]
+	[Tooltip("Angle maximum pour catégoriser le sol")]
+	[SerializeField, Range(0, 90)]
+	float maxGroundAngle = 25f;
+	
+	[Tooltip("Angle maximum pour monter des escaliers")]
+	[SerializeField, Range(0, 90)]
+	float maxStairsAngle = 50f;
+
+	[Tooltip("Angle maximum pour grimper un mur")]
 	[SerializeField, Range(90, 170)]
 	float maxClimbAngle = 140f;
 
+	[Tooltip("Vitesse maximum pour calculer l'angle")]
 	[SerializeField, Range(0f, 100f)]
 	float maxSnapSpeed = 100f;
 
+	[Tooltip("Range de détection")]
 	[SerializeField, Min(0f)]
 	float probeDistance = 1f;
 
+
+	[Header("Water")]
+	[Tooltip("Offset pour la submersion")]
 	[SerializeField]
 	float submergenceOffset = 0.5f;
 
+	[Tooltip("Range pour la submersion")]
 	[SerializeField, Min(0.1f)]
 	float submergenceRange = 1f;
 
+	[Tooltip("Flottaison")]
 	[SerializeField, Min(0f)]
 	float buoyancy = 1f;
 
+	[Tooltip("Puissance de la pression de l'eau")]
 	[SerializeField, Range(0f, 10f)]
 	float waterDrag = 1f;
 
+	[Tooltip("Puissance de modification de la vitesse quand on arrive dans l'eau")]
 	[SerializeField, Range(0.01f, 1f)]
 	float swimThreshold = 0.5f;
 
+
+	[Header("Layers")]
 	[SerializeField]
-	LayerMask probeMask = -1, stairsMask = -1, climbMask = -1, waterMask = 0;
+	LayerMask probeMask = -1;
 
 	[SerializeField]
-	Material
-		normalMaterial = default,
-		climbingMaterial = default,
-		swimmingMaterial = default;
+	LayerMask stairsMask = -1;
 
+	[SerializeField]
+	LayerMask climbMask = -1;
+
+	[SerializeField]
+	LayerMask waterMask = 0;
+
+
+	[Header("Materials")]
+	[SerializeField]
+	Material normalMaterial = default;
+
+	[SerializeField]
+	Material climbingMaterial = default;
+
+	[SerializeField]
+	Material swimmingMaterial = default;
+
+
+	[Header("Ball Settings")]
+	[Tooltip("Simplification : Vitesse de la roue donc elle avance et recule")]
 	[SerializeField, Min(0.1f)]
 	float ballRadius = 0.5f;
 
+	[Tooltip("Vitesse alignement avec la direction")]
 	[SerializeField, Min(0f)]
 	float ballAlignSpeed = 180f;
 
+	[Tooltip("Vitesse alignement avec la direction dans l'air")]
 	[SerializeField, Min(0f)]
-	float
-		ballAirRotation = 0.5f,
-		ballSwimRotation = 2f;
+	float ballAirRotation = 0.5f;
+
+	[Tooltip("Vitesse alignement avec la direction dans l'eau")]
+	[SerializeField, Min(0f)]
+	float ballSwimRotation = 2f;
 
 	Rigidbody body, connectedBody, previousConnectedBody;
 
@@ -108,7 +175,9 @@ public class MovingSphere : MonoBehaviour {
 	MeshRenderer meshRenderer;
 
 	Gamepad controller;
-	public void PreventSnapToGround() {
+
+    #endregion
+    public void PreventSnapToGround() {
 		stepsSinceLastJump = -1;
 	}
 

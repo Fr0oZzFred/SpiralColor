@@ -2,28 +2,40 @@
 
 [RequireComponent(typeof(Rigidbody))]
 public class StableFloatingRigidbody : MonoBehaviour {
+    #region Fields
 
-	[SerializeField]
+	[Header("Rigidbody")]
+	[Tooltip("Sleep d'après un timer")]
+    [SerializeField]
 	bool floatToSleep = false;
 
+
+	[Header("Water")]
+	[Tooltip("Flottaison safe")]
 	[SerializeField]
 	bool safeFloating = false;
 
+	[Tooltip("Offset pour la submersion")]
 	[SerializeField]
 	float submergenceOffset = 0.5f;
 
+	[Tooltip("Range pour la submersion")]
 	[SerializeField, Min(0.1f)]
 	float submergenceRange = 1f;
 
+	[Tooltip("Flottaison")]
 	[SerializeField, Min(0f)]
 	float buoyancy = 1f;
 
+	[Tooltip("Flottaison Offsets")]
 	[SerializeField]
 	Vector3[] buoyancyOffsets = default;
 
+	[Tooltip("Puissance de la pression de l'eau")]
 	[SerializeField, Range(0f, 10f)]
 	float waterDrag = 1f;
 
+	[Tooltip("Layer de l'eau")]
 	[SerializeField]
 	LayerMask waterMask = 0;
 
@@ -34,8 +46,8 @@ public class StableFloatingRigidbody : MonoBehaviour {
 	float[] submergence;
 
 	Vector3 gravity;
-
-	void Awake() {
+    #endregion
+    void Awake() {
 		body = GetComponent<Rigidbody>();
 		body.useGravity = false;
 		submergence = new float[buoyancyOffsets.Length];

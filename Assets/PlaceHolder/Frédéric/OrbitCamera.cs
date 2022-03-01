@@ -2,34 +2,51 @@
 
 [RequireComponent(typeof(Camera))]
 public class OrbitCamera : MonoBehaviour {
+    #region Fields
 
-	[SerializeField]
+	[Header("Target Settings")]
+	[Tooltip("Cible")]
+    [SerializeField]
 	Transform focus = default;
 
+	[Tooltip("Distance entre la cible et la camera")]
 	[SerializeField, Range(1f, 20f)]
 	float distance = 5f;
 
+	[Tooltip("Cercle de focus basé sur le centre de la cible")]
 	[SerializeField, Min(0f)]
 	float focusRadius = 5f;
 
+	[Tooltip("Focus du centre de l'objet")]
 	[SerializeField, Range(0f, 1f)]
 	float focusCentering = 0.5f;
 
+	[Header("Camera Settings")]
+	[Tooltip("Vitesse de rotation")]
 	[SerializeField, Range(1f, 360f)]
 	float rotationSpeed = 90f;
 
+	[Tooltip("Limite min de l'angle d'après la cible")]
 	[SerializeField, Range(-89f, 89f)]
-	float minVerticalAngle = -45f, maxVerticalAngle = 45f;
+	float minVerticalAngle = -45f;
 
+	[Tooltip("Limite max de l'angle d'après la cible")]
+	[SerializeField, Range(-89f, 89f)]
+	float maxVerticalAngle = 45f;
+
+	[Tooltip("Délai pour reset auto de la caméra")]
 	[SerializeField, Min(0f)]
 	float alignDelay = 5f;
 
+	[Tooltip("Smoothness lors de la rotation")]
 	[SerializeField, Range(0f, 90f)]
 	float alignSmoothRange = 45f;
 
+	[Tooltip("Vitesse lors du changement gravité")]
 	[SerializeField, Min(0f)]
 	float upAlignmentSpeed = 360f;
 
+	[Tooltip("Layers qui empêche la vision du personnage")]
 	[SerializeField]
 	LayerMask obstructionMask = -1;
 
@@ -44,8 +61,8 @@ public class OrbitCamera : MonoBehaviour {
 	Quaternion gravityAlignment = Quaternion.identity;
 
 	Quaternion orbitRotation;
-
-	Vector3 CameraHalfExtends {
+    #endregion
+    Vector3 CameraHalfExtends {
 		get {
 			Vector3 halfExtends;
 			halfExtends.y =
