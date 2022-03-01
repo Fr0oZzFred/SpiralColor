@@ -14,5 +14,12 @@ public class GameManager : MonoBehaviour {
         if (newState == CurrentState) return;
         CurrentState = newState;
         OnGameStateChanged?.Invoke(newState);
+        switch (CurrentState) {
+            case GameState.play:
+                break;
+            case GameState.pause:
+                UIManager.Instance.pauseMenu.SetActive(true);
+                break;
+        }
     }
 }
