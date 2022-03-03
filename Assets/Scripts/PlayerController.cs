@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour {
     #region Fields
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour {
     public float rayCastHeightOffSet = 0.5f;
     public LayerMask groundLayer;
     #endregion
+
     private void Start() {
         cam = cameraManager.camTransform;
         rb = GetComponent<Rigidbody>();
@@ -152,29 +154,29 @@ public class PlayerController : MonoBehaviour {
             transform.rotation = rot;
         }*/
     void HandleButton() {
-
-        if (InputHandler.GetCurrentGamepad().startButton.isPressed) {
+        var c = InputHandler.GetCurrentGamepad();
+        if (c.startButton.isPressed) {
             ui.SetActive(!ui.activeSelf);
         }
 
-        if (InputHandler.GetCurrentGamepad().triangleButton.isPressed) {
+        if (c.triangleButton.isPressed) {
             GetComponent<MeshRenderer>().material.color = colorController["triangleButton"];
-            InputHandler.SetControllerColor(Color.green);
+            InputHandler.SetControllerColor(colorController["triangleButton"]);
         }
 
-        if (InputHandler.GetCurrentGamepad().circleButton.isPressed) {
+        if (c.circleButton.isPressed) {
             GetComponent<MeshRenderer>().material.color = colorController["circleButton"];
-            InputHandler.SetControllerColor(Color.green);
+            InputHandler.SetControllerColor(colorController["circleButton"]);
         }
 
-        if (InputHandler.GetCurrentGamepad().crossButton.isPressed) {
+        if (c.crossButton.isPressed) {
             GetComponent<MeshRenderer>().material.color = colorController["crossButton"];
-            InputHandler.SetControllerColor(Color.green);
+            InputHandler.SetControllerColor(colorController["crossButton"]);
         }
 
-        if (InputHandler.GetCurrentGamepad().squareButton.isPressed) {
+        if (c.squareButton.isPressed) {
             GetComponent<MeshRenderer>().material.color = colorController["squareButton"];
-            InputHandler.SetControllerColor(Color.green);
+            InputHandler.SetControllerColor(colorController["squareButton"]);
         }
     }
     void ResetJumpTimer() {

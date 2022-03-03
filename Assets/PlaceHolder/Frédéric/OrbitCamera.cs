@@ -50,6 +50,9 @@ public class OrbitCamera : MonoBehaviour {
 	[SerializeField]
 	LayerMask obstructionMask = -1;
 
+	[Header("Temporaire")]
+	public bool inverseCameraX, inverseCameraY;
+
 	Camera regularCamera;
 
 	Vector3 focusPoint, previousFocusPoint;
@@ -155,8 +158,8 @@ public class OrbitCamera : MonoBehaviour {
 	bool ManualRotation() {
 		Vector2 input = InputHandler.GetRightStickValues();
 		float tmp = input.x;
-		input.x = input.y;
-		input.y = tmp;
+		input.x = inverseCameraY ? -input.y : input.y;
+		input.y = inverseCameraX ? -tmp : tmp;
 		const float e = 0.001f;
 		if (input.x < -e || input.x > e || input.y < -e || input.y > e) {
 			orbitAngles += rotationSpeed * Time.unscaledDeltaTime * input;

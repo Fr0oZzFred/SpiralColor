@@ -9,11 +9,10 @@ public class InputHandler : MonoBehaviour
     #region Fields
     bool connectedOnce = false;
     private static DualShock4GamepadHID ds4Controller => DS4.GetController();
-    public static Gamepad Controller => ds4Controller != null ? ds4Controller : Gamepad.current; 
+    public static Gamepad Controller => ds4Controller != null ? ds4Controller : Gamepad.current;
     #endregion
-
     private void Start() {
-        InputSystem.onDeviceChange +=
+        /*InputSystem.onDeviceChange +=
         (device, change) => {
             switch (change) {
                 case InputDeviceChange.Added:
@@ -33,12 +32,11 @@ public class InputHandler : MonoBehaviour
                     // See InputDeviceChange reference for other event types.
                     break;
             }
-        };
+        };*/
     }
 
 
     public static Gamepad GetCurrentGamepad() {
-        if (Gamepad.current == null) throw new ArgumentNullException();
         return Gamepad.current;
     }
     public static void SetControllerColor(Color color) {
