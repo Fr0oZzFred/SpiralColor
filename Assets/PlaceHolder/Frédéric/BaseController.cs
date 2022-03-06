@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MovingSphere : MonoBehaviour {
+public class BaseController : MonoBehaviour {
     #region Fields
     [Tooltip("Camera pour baser le déplacement du joueur")]
 	[SerializeField]

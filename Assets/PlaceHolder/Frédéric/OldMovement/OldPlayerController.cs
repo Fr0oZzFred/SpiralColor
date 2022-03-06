@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour {
+public class OldPlayerController : MonoBehaviour {
     #region Fields
     public bool isUsingGyro;
     public float sensibility;
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour {
         jumpTimer -= Time.deltaTime;
         if (InputHandler.Controller.rightShoulder.isPressed && grounded && jumpTimer < 0) {
             ResetJumpTimer();
-            rb.AddForce(Vector3.up * jumpForce);
+            rb.velocity += Vector3.up * jumpForce;
         }
     }
     /* Tests
