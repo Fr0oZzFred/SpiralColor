@@ -1,76 +1,9 @@
-﻿using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Controls;
-public class InputHandler : MonoBehaviour
-{
-    #region Fields
-    bool connectedOnce = false;
-    private static DualShock4GamepadHID ds4Controller => DS4.GetController();
-    public static Gamepad Controller => ds4Controller != null ? ds4Controller : Gamepad.current;
-    #endregion
-    private void Start() {
-        /*InputSystem.onDeviceChange +=
-        (device, change) => {
-            switch (change) {
-                case InputDeviceChange.Added:
-                    connectedOnce = true;
-                    Debug.Log(change);
-                    // New Device.
-                    break;
-                case InputDeviceChange.Disconnected:
-                    Debug.Log(change);
-                    // Device got unplugged.
-                    break;
-                case InputDeviceChange.Reconnected:
-                    Debug.Log(change);
-                    // Plugged back in.
-                    break;
-                default:
-                    // See InputDeviceChange reference for other event types.
-                    break;
-            }
-        };*/
-    }
-
-
-    public static Gamepad GetCurrentGamepad() {
-        return Gamepad.current;
-    }
-    public static void SetControllerColor(Color color) {
-        if (ds4Controller != null) ds4Controller.SetLightBarColor(color);
-    }
-
-    public static Quaternion GetGyroRotation() {
-        if(ds4Controller != null)  return DS4.GetGyroRotation();
-        return new Quaternion();
-    }
-
-    public static Vector2 GetLeftStickValues() {
-        if (Gamepad.current == null) throw new ArgumentNullException("Current Gamepad is null");
-        return new Vector2(
-            Gamepad.current.leftStick.x.ReadValue(),
-            Gamepad.current.leftStick.y.ReadValue()
-            );
-    }
-
-    public static Vector2 GetRightStickValues() {
-        if (Gamepad.current == null) throw new ArgumentNullException("Current Gamepad is null");
-        return new Vector2(
-            Gamepad.current.rightStick.x.ReadValue(),
-            Gamepad.current.rightStick.y.ReadValue()
-            );
-    }
-
-    public static float UpDown() {
-        if (Gamepad.current == null) throw new ArgumentNullException("Current Gamepad is null");
-        return Gamepad.current.rightTrigger.ReadValue() - Gamepad.current.leftTrigger.ReadValue();
-    }
-}
-
-public class DS4 {
+public class InputHandler : MonoBehaviour {
 
     public static ButtonControl gyroX = null;
     public static ButtonControl gyroY = null;
@@ -81,16 +14,112 @@ public class DS4 {
     //public static ButtonControl acclY = null;
     //public static ButtonControl acclZ = null;
 
-    public static DualShock4GamepadHID controller = null;
-    public static DualShock4GamepadHID GetController(string layoutFile = null) {
-        string layout = File.ReadAllText(layoutFile == null ? "Assets/Scripts/customLayout.json" : layoutFile);
-        InputSystem.RegisterLayoutOverride(layout, "DualShock4GamepadHID");
-        var ds4 = (DualShock4GamepadHID)Gamepad.current;
-        DS4.controller = ds4;
-        BindControls(DS4.controller);
-        return ds4;
+    bool connectedOnce;
+    bool ControllerIsMissing => Controller == null;
+    static bool isDS4 => Gamepad.current.device.name == "DualShock4GamepadHID";
+
+    public  static Gamepad Controller = null;
+    private static DualShock4GamepadHID DS4Controller = null;
+
+    /// <summary>
+    /// Search a frist time the controller, and add a switch on OnDeviceChange Unity Event
+    /// </summary>
+    private void Awake() {
+        SearchController();
+        if (Controller != null) connectedOnce = true;
+        InputSystem.onDeviceChange +=
+        (device, change) => {
+            switch (change) {
+
+                case InputDeviceChange.Added:
+                    // New Device.
+                    Controller = null;
+                    DS4Controller = null;
+                    connectedOnce = true;
+                    Debug.Log(change);
+                    break;
+
+                case InputDeviceChange.Disconnected:
+                    // Device got unplugged.
+                    Controller = null;
+                    DS4Controller = null;
+                    Debug.Log(change);
+                    break;
+
+                case InputDeviceChange.Reconnected:
+                    // Plugged back in.
+                    SetController();
+                    Debug.Log(change);
+                    break;
+
+                default:
+                    // See InputDeviceChange reference for other event types.
+                    break;
+            }
+        };
     }
 
+    private void Update() {
+        if (ControllerIsMissing) SearchController();
+    }
+
+    void SearchController() {
+        if (ControllerIsMissing) {
+            try {
+                SetController();
+            } catch {
+                if (connectedOnce) {
+                    Debug.Log("Reconnect the Gamepad pls");
+                } else {
+                    Debug.Log("Plug a Gamepad pls");
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// if the Controller != null or if the gamepad != DS4 will return the Gamepad.current
+    /// else it will read a custom layout controller for the Gyroscope and return it
+    /// </summary>
+    /// <param name="layoutFile"> use this param is you wanna use a other LayoutFile than Assets/Scripts/customLayout.json </param>
+    private static void SetController(string layoutFile = null) {
+        CheckForMultipleController();
+        if (!isDS4) {
+            Controller = Gamepad.current;
+            return;
+        }
+        if (DS4Controller != null) return;
+
+        // Read layout from JSON file
+        string layout = File.ReadAllText(layoutFile == null ? "Assets/Scripts/customLayout.json" : layoutFile);
+
+        // Overwrite the default layout
+        InputSystem.RegisterLayoutOverride(layout, "DualShock4GamepadHID");
+
+        var ds4 = (DualShock4GamepadHID)Gamepad.current;
+        Controller = DS4Controller = ds4;
+        BindControls(DS4Controller);
+    }
+
+    /// <summary>
+    /// Make Current the last plugged DS4 or if they aren't DS4 plugged -> Make the last plugged Gamepad current
+    /// </summary>
+    static void CheckForMultipleController() {
+        if (Gamepad.all.Count == 0) return;
+        if (Gamepad.all.Count < 2) {
+            Gamepad.all[0].MakeCurrent();
+            return;
+        }
+        foreach(Gamepad g in Gamepad.all) {
+            if(g.device.name == "DualShock4GamepadHID") {
+                g.MakeCurrent();
+                return;
+            }
+        }
+        Gamepad.all[0].MakeCurrent();
+    }
+
+    #region DS4 Controls
     private static void BindControls(Gamepad ds4) {
         gyroX = ds4.GetChildControl<ButtonControl>("gyro X 14");
         gyroY = ds4.GetChildControl<ButtonControl>("gyro Y 16");
@@ -101,19 +130,48 @@ public class DS4 {
         //acclZ = ds4.GetChildControl<ButtonControl>("accl Z 24");
     }
 
-    public static Quaternion GetGyroRotation(float scale = 1) {
-        float x = ProcessRawData(gyroX.ReadValue()) * scale;
-        float y = ProcessRawData(gyroY.ReadValue()) * scale;
-        float z = -ProcessRawData(gyroZ.ReadValue()) * scale;
-        return Quaternion.Euler(x, y, z);
-    }
     /*public static void ReadAcceleration() {
         Debug.Log("X" + acclX.ReadValue());
         Debug.Log("Y" + acclY.ReadValue());
         Debug.Log("Z" + acclZ.ReadValue());
     }*/
+
     private static float ProcessRawData(float data) {
         return data > 0.5 ? 1 - data : -data;
     }
+    public static Quaternion GetGyroRotation(float scale = 1) {
+        if (DS4Controller == null) return Quaternion.identity;
+        float x = ProcessRawData(gyroX.ReadValue()) * scale;
+        float y = ProcessRawData(gyroY.ReadValue()) * scale;
+        float z = -ProcessRawData(gyroZ.ReadValue()) * scale;
+        return Quaternion.Euler(x, y, z);
+    }
 
+    public static void SetControllerLED(Color color) {
+        if (DS4Controller != null) DS4Controller.SetLightBarColor(color);
+    }
+    #endregion
+
+    #region Gamepad Controls
+    public static Vector2 GetLeftStickValues() {
+        if (Controller == null) return Vector2.zero;
+        return new Vector2(
+            Controller.leftStick.x.ReadValue(),
+            Controller.leftStick.y.ReadValue()
+            );
+    }
+
+    public static Vector2 GetRightStickValues() {
+        if (Controller == null) return Vector2.zero;
+        return new Vector2(
+            Controller.rightStick.x.ReadValue(),
+            Controller.rightStick.y.ReadValue()
+            );
+    }
+
+    public static float UpDownTrigger() {
+        if (Controller == null) return 0f;
+        return Controller.rightTrigger.ReadValue() - Controller.leftTrigger.ReadValue();
+    }
+    #endregion
 }

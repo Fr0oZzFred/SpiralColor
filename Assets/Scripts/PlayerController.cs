@@ -45,17 +45,19 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Update() {
-        if (isUsingGyro) transform.rotation *= DS4.GetGyroRotation(sensibility * Time.deltaTime);
+        if (isUsingGyro) transform.rotation *= InputHandler.GetGyroRotation(sensibility * Time.deltaTime);
         HandleButton();
     }
 
     private void FixedUpdate() {
+        if (InputHandler.Controller == null) return;
         Movement();
         Ground();
         Jump();
     }
 
     private void LateUpdate() {
+        if (InputHandler.Controller == null) return;
         cameraManager.FollowTarget();
         cameraManager.RotateCamera();
         cameraManager.HandleCameraCollisions();
@@ -108,7 +110,7 @@ public class PlayerController : MonoBehaviour {
     }
     void Jump() {
         jumpTimer -= Time.deltaTime;
-        if (InputHandler.GetCurrentGamepad().rightShoulder.isPressed && grounded && jumpTimer < 0) {
+        if (InputHandler.Controller.rightShoulder.isPressed && grounded && jumpTimer < 0) {
             ResetJumpTimer();
             rb.AddForce(Vector3.up * jumpForce);
         }
@@ -154,35 +156,37 @@ public class PlayerController : MonoBehaviour {
             transform.rotation = rot;
         }*/
     void HandleButton() {
-        var c = InputHandler.GetCurrentGamepad();
-        if (c.startButton.isPressed) {
-            ui.SetActive(!ui.activeSelf);
-        }
+        if(InputHandler.Controller != null) {
+            var c = InputHandler.Controller;
+            if (c.startButton.isPressed) {
+                ui.SetActive(!ui.activeSelf);
+            }
 
-        if (c.triangleButton.isPressed) {
-            GetComponent<MeshRenderer>().material.color = colorController["triangleButton"];
-            InputHandler.SetControllerColor(colorController["triangleButton"]);
-        }
+            if (c.triangleButton.isPressed) {
+                GetComponent<MeshRenderer>().material.color = colorController["triangleButton"];
+                InputHandler.SetControllerLED(colorController["triangleButton"]);
+            }
 
-        if (c.circleButton.isPressed) {
-            GetComponent<MeshRenderer>().material.color = colorController["circleButton"];
-            InputHandler.SetControllerColor(colorController["circleButton"]);
-        }
+            if (c.circleButton.isPressed) {
+                GetComponent<MeshRenderer>().material.color = colorController["circleButton"];
+                InputHandler.SetControllerLED(colorController["circleButton"]);
+            }
 
-        if (c.crossButton.isPressed) {
-            GetComponent<MeshRenderer>().material.color = colorController["crossButton"];
-            InputHandler.SetControllerColor(colorController["crossButton"]);
-        }
+            if (c.crossButton.isPressed) {
+                GetComponent<MeshRenderer>().material.color = colorController["crossButton"];
+                InputHandler.SetControllerLED(colorController["crossButton"]);
+            }
 
-        if (c.squareButton.isPressed) {
-            GetComponent<MeshRenderer>().material.color = colorController["squareButton"];
-            InputHandler.SetControllerColor(colorController["squareButton"]);
+            if (c.squareButton.isPressed) {
+                GetComponent<MeshRenderer>().material.color = colorController["squareButton"];
+                InputHandler.SetControllerLED(colorController["squareButton"]);
+            }
         }
     }
     void ResetJumpTimer() {
         jumpTimer = jumpTimerBase;
     }
     private void OnApplicationQuit() {
-        InputHandler.SetControllerColor(Color.black);
+        InputHandler.SetControllerLED(Color.black);
     }
 }

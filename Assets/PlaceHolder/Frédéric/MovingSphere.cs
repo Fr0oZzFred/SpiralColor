@@ -174,8 +174,6 @@ public class MovingSphere : MonoBehaviour {
 
 	MeshRenderer meshRenderer;
 
-	Gamepad controller;
-
     #endregion
     public void PreventSnapToGround() {
 		stepsSinceLastJump = -1;
@@ -193,13 +191,10 @@ public class MovingSphere : MonoBehaviour {
 		meshRenderer = ball.GetComponent<MeshRenderer>();
 		OnValidate();
 	}
-    private void Start() {
-		controller = InputHandler.Controller;
-    }
     void Update() {
 		playerInput.x = InputHandler.GetLeftStickValues().x;
 		playerInput.z = InputHandler.GetLeftStickValues().y;
-		playerInput.y = Swimming ? InputHandler.UpDown() : 0f;
+		playerInput.y = Swimming ? InputHandler.UpDownTrigger() : 0f;
 		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
 		if (playerInputSpace) {
@@ -214,8 +209,12 @@ public class MovingSphere : MonoBehaviour {
 		if (Swimming) {
 			desiresClimbing = false;
 		} else {
-			desiredJump |= controller.buttonSouth.wasPressedThisFrame;
-			desiresClimbing = controller.buttonWest.isPressed;
+			if (InputHandler.Controller == null) {
+				UpdateBall();
+				return;
+			}
+			desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
+			desiresClimbing = InputHandler.Controller.buttonWest.isPressed;
 		}
 
 		UpdateBall();
