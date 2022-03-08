@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour
 {
-    public List<BaseController> listGO;
+    public List<GameObject> listGO;
     public int startingIndex = 0;
     int index = 0;
 
     public OrbitCamera cam;
     private void Start() {
         index = startingIndex;
-        for (int i = 0; i < listGO.Count; i++) {
-            listGO[i].Playing(index == i);
+        for (int i = 0; i < listGO.Count; i++) { 
+            listGO[i].GetComponent<IControllable>().IsPlaying(index == i);
         }
         cam.SetFocus(listGO[index].transform);
     }
     private void Update() {
+        if (InputHandler.Controller == null) return;
         if(listGO.Count > 0) {
             if (InputHandler.Controller.rightShoulder.wasPressedThisFrame) {
                 int oldIndex = index;
@@ -33,8 +34,8 @@ public class PlayerHandler : MonoBehaviour
 
     void ChangePlayer(int oldIndex) {
         index %= listGO.Count;
-        listGO[oldIndex].Playing(false);
-        listGO[index].Playing(true);
+        listGO[oldIndex].GetComponent<IControllable>().IsPlaying(false);
+        listGO[index].GetComponent<IControllable>().IsPlaying(true);
         cam.SetFocus(listGO[index].transform);
     }
 }
