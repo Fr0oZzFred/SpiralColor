@@ -212,4 +212,8 @@ public class OrbitCamera : MonoBehaviour {
 		float angle = Mathf.Acos(direction.y) * Mathf.Rad2Deg;
 		return direction.x < 0f ? 360f - angle : angle;
 	}
+
+	public void SetFocus(Transform focus) {
+		this.focus = focus;
+    }
 }
