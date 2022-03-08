@@ -15,11 +15,11 @@ D:/Projet Unity/SpiralColor
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-64283
+62078
 Successfully changed project path to: D:/Projet Unity/SpiralColor
 D:/Projet Unity/SpiralColor
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 86.88 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 291.04 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.6f1 (338bb68529b2)
 [Subsystems] Discovering subsystems at path D:/Program Files/2020.3.6f1/Editor/Data/Resources/UnitySubsystems
@@ -36,236 +36,16 @@ Initialize mono
 Mono path[0] = 'D:/Program Files/2020.3.6f1/Editor/Data/Managed'
 Mono path[1] = 'D:/Program Files/2020.3.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'D:/Program Files/2020.3.6f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56916
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56028
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: D:/Program Files/2020.3.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001199 seconds.
+Registered in 0.036896 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 79.21 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 99.86 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.237 seconds
+- Completed reload, in  7.328 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.003303 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 79.81 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.564 seconds
-Platform modules already initialized, skipping
-========================================================================
-Worker process is ready to serve import requests
-Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.10 seconds
-Refreshing native plugins compatible for Editor in 1.61 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 4353 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 188.7 MB.
-System memory in use after: 189.0 MB.
-
-Unloading 161 unused Assets to reduce memory usage. Loaded Objects now: 4775.
-Total: 6.768000 ms (FindLiveObjects: 0.808800 ms CreateObjectMapping: 0.326900 ms MarkObjects: 5.258400 ms  DeleteObjects: 0.371000 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/PlaceHolder/Frédéric/Ball Material.mat
-  artifactKey: Guid(2f10a2577c6d17b41a22647771a10fdb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/Ball Material.mat using Guid(2f10a2577c6d17b41a22647771a10fdb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6189aff0ab42c6b106dbcd03e88c8b9e') in 0.709621 seconds
-  Import took 0.718014 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000216 seconds.
-  path: Assets/PlaceHolder/Frédéric/New Material 2.mat
-  artifactKey: Guid(ad52c1fff69ccca4d84c95db74f6d205) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/New Material 2.mat using Guid(ad52c1fff69ccca4d84c95db74f6d205) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f53fb45e1c12ec2c5fbc94c7c4fed8d') in 0.014803 seconds
-  Import took 0.021483 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000247 seconds.
-  path: Assets/PlaceHolder/Frédéric/nightcore-beethoven-virus.mp3
-  artifactKey: Guid(6def6b2325979e34887d069e9e1fcfa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/nightcore-beethoven-virus.mp3 using Guid(6def6b2325979e34887d069e9e1fcfa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59060003c1ab65141740ae1585400b88') in 0.140048 seconds
-  Import took 0.146481 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000192 seconds.
-  path: Assets/PlaceHolder/Frédéric/Ball Climbing Material.mat
-  artifactKey: Guid(0ff35383e4482b64c98b4f5a20a1c542) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/Ball Climbing Material.mat using Guid(0ff35383e4482b64c98b4f5a20a1c542) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b7ba7da77a6b4fd9600a5d75ce386a3c') in 0.015767 seconds
-  Import took 0.021934 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000241 seconds.
-  path: Assets/PlaceHolder/Frédéric/Ball Swimming Material.mat
-  artifactKey: Guid(652de4238a4ca3746a9614a0c88361df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/Ball Swimming Material.mat using Guid(652de4238a4ca3746a9614a0c88361df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9773ff99a77c337c40dfb374d2235613') in 0.013813 seconds
-  Import took 0.020212 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000200 seconds.
-  path: Assets/PlaceHolder/Frédéric/Flag_of_France.svg.png
-  artifactKey: Guid(e3c5848860b973f498228b2376b4a7b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/Flag_of_France.svg.png using Guid(e3c5848860b973f498228b2376b4a7b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc5f0693468beaf5b890eb99d1f2c63e') in 0.030848 seconds
-  Import took 0.037143 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000185 seconds.
-  path: Assets/PlaceHolder/Frédéric/y2meta.com - Sonic Forces Soundtrack - Battle with Death Queen _Battle with Zavok   Remix_ (128 kbps).mp3
-  artifactKey: Guid(1c5402c079bdd1e488c71bbd8a68f2e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/y2meta.com - Sonic Forces Soundtrack - Battle with Death Queen _Battle with Zavok   Remix_ (128 kbps).mp3 using Guid(1c5402c079bdd1e488c71bbd8a68f2e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9881b688b12b359b32510b66e18b7a7b') in 0.012291 seconds
-  Import took 0.018472 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000227 seconds.
-  path: Assets/PlaceHolder/Frédéric/New Material 4.mat
-  artifactKey: Guid(613dcccd533a7d0478fb1014c1462f83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/New Material 4.mat using Guid(613dcccd533a7d0478fb1014c1462f83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b269493ea03acbc0735524590ed6edbd') in 0.033276 seconds
-  Import took 0.039947 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000228 seconds.
-  path: Assets/PlaceHolder/Frédéric/New Material 3.mat
-  artifactKey: Guid(b4802b3d96161f34d8c4560c37df5c93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/New Material 3.mat using Guid(b4802b3d96161f34d8c4560c37df5c93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8057226d9616f06d326abdfc005dd0cb') in 0.015486 seconds
-  Import took 0.022861 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000186 seconds.
-  path: Assets/PlaceHolder/Frédéric/testCircle3.fbx
-  artifactKey: Guid(499c1599ff79c8f44a876be66e48d5f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/testCircle3.fbx using Guid(499c1599ff79c8f44a876be66e48d5f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d24a6db6b0f538c47348d115b26b9f7') in 0.421815 seconds
-  Import took 0.428209 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000189 seconds.
-  path: Assets/PlaceHolder/Frédéric/MusicCube.prefab
-  artifactKey: Guid(6d488286e17933c418c2385ea093e41e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/MusicCube.prefab using Guid(6d488286e17933c418c2385ea093e41e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b300286dc4fd93e18de2cbffdffb8c3c') in 0.017143 seconds
-  Import took 0.023750 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000318 seconds.
-  path: Assets/PlaceHolder/Frédéric/testCircle2.fbx
-  artifactKey: Guid(d2dea6fa427b80044a9f282f17d7f238) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/testCircle2.fbx using Guid(d2dea6fa427b80044a9f282f17d7f238) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bfc382d5e86575a7f8608a6f0ff782a0') in 0.038924 seconds
-  Import took 0.045409 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000250 seconds.
-  path: Assets/PlaceHolder/Frédéric/Floating Obstacles.prefab
-  artifactKey: Guid(cc7910d2335d4174491b33ea3d079e85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/Floating Obstacles.prefab using Guid(cc7910d2335d4174491b33ea3d079e85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2883ae3b11662fc3a48ec263981ceca') in 0.076615 seconds
-  Import took 0.083629 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000215 seconds.
-  path: Assets/PlaceHolder/Frédéric/Obstacle.prefab
-  artifactKey: Guid(7a60471d5a750444da957dec7fa34994) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/Obstacle.prefab using Guid(7a60471d5a750444da957dec7fa34994) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '236348aee8a5521c1a909ffd0d8d51a0') in 0.015878 seconds
-  Import took 0.022792 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000242 seconds.
-  path: Assets/PlaceHolder/Frédéric/ramp.fbx
-  artifactKey: Guid(e33e1d88360c014479c41e22dbe79d54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/ramp.fbx using Guid(e33e1d88360c014479c41e22dbe79d54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '867de5b17688fee22d2196627583d4f0') in 0.025327 seconds
-  Import took 0.033777 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000261 seconds.
-  path: Assets/PlaceHolder/Frédéric/testCircle.fbx
-  artifactKey: Guid(8990e798909188f448a9997e66e90a4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/testCircle.fbx using Guid(8990e798909188f448a9997e66e90a4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eaa1b7d24277e5ac6bacc625a2910c21') in 0.027976 seconds
-  Import took 0.035133 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000231 seconds.
-  path: Assets/PlaceHolder/Frédéric/New Material.mat
-  artifactKey: Guid(005648e2acb300b4c94648311838f6b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/New Material.mat using Guid(005648e2acb300b4c94648311838f6b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c37a493c89608610c4c5de244f6a5a6') in 0.014893 seconds
-  Import took 0.022016 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000152 seconds.
-  path: Assets/PlaceHolder/Frédéric/testCircle.fbx
-  artifactKey: Guid(8990e798909188f448a9997e66e90a4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/testCircle.fbx using Guid(8990e798909188f448a9997e66e90a4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eaa1b7d24277e5ac6bacc625a2910c21') in 0.022599 seconds
-  Import took 0.029794 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000245 seconds.
-  path: Assets/PlaceHolder/Frédéric/New Material 1.mat
-  artifactKey: Guid(dd82388fca7c38945a9f76ce4321cb68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/New Material 1.mat using Guid(dd82388fca7c38945a9f76ce4321cb68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0e9c8aa8177bea049343a2957543d886') in 0.013926 seconds
-  Import took 0.021154 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000238 seconds.
-  path: Assets/PlaceHolder/Frédéric/ball.png
-  artifactKey: Guid(7d8fea92cd58bd8498d4896bc2b5d5f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/ball.png using Guid(7d8fea92cd58bd8498d4896bc2b5d5f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6a76885108ed3177096052823406683') in 0.011661 seconds
-  Import took 0.018788 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000286 seconds.
-  path: Assets/PlaceHolder/Frédéric/2560px-Flag_of_the_United_Kingdom.svg.png
-  artifactKey: Guid(b54a6e1aeb3535d41b2e5c2935c7e132) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/2560px-Flag_of_the_United_Kingdom.svg.png using Guid(b54a6e1aeb3535d41b2e5c2935c7e132) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe02c63e284e2e9e3fef754afd037fbd') in 0.013250 seconds
-  Import took 0.020380 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000164 seconds.
-  path: Assets/PlaceHolder/Frédéric/EeveeGun.png
-  artifactKey: Guid(c7b31913270de3540b9aae0ecb645a5b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/EeveeGun.png using Guid(c7b31913270de3540b9aae0ecb645a5b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08d873c250446b05ed18f6a0ba6d5c1d') in 0.010924 seconds
-  Import took 0.017210 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000226 seconds.
-  path: Assets/PlaceHolder/Frédéric/Sphere.prefab
-  artifactKey: Guid(e6745d16fd33bc144a3c55fa800c0575) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/Sphere.prefab using Guid(e6745d16fd33bc144a3c55fa800c0575) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4fb2a3750462aba1037d56fec6b7c73b') in 0.056040 seconds
-  Import took 0.062745 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000179 seconds.
-  path: Assets/PlaceHolder/Frédéric/platform.fbx
-  artifactKey: Guid(b461b407c98e2874f8c972662635b7eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PlaceHolder/Frédéric/platform.fbx using Guid(b461b407c98e2874f8c972662635b7eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2d43c0e7060c825fc9c072914554d8c') in 0.026400 seconds
-  Import took 0.032926 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 76.745071 seconds.
-  path: Assets/URP/Readme.asset
-  artifactKey: Guid(83c2ed844a8c74b779a4c823d16594b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/URP/Readme.asset using Guid(83c2ed844a8c74b779a4c823d16594b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b7eca27c2fa8a943f84bca4b6f7d5c3') in 0.011836 seconds
-  Import took 0.019425 seconds .
-
-AssetImportWorkerClient::OnTransportError - code=2 error=End of file
+Registered in 0.130237 seconds.
