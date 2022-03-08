@@ -174,7 +174,9 @@ public class BaseController : MonoBehaviour {
 
 	MeshRenderer meshRenderer;
 
-    #endregion
+	#endregion
+
+	public bool isCurrentlyPlayed = false;
     public void PreventSnapToGround() {
 		stepsSinceLastJump = -1;
 	}
@@ -192,10 +194,12 @@ public class BaseController : MonoBehaviour {
 		OnValidate();
 	}
     void Update() {
-		playerInput.x = InputHandler.GetLeftStickValues().x;
-		playerInput.z = InputHandler.GetLeftStickValues().y;
-		playerInput.y = Swimming ? InputHandler.UpDownTrigger() : 0f;
-		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
+		if (isCurrentlyPlayed) {
+			playerInput.x = InputHandler.GetLeftStickValues().x;
+			playerInput.z = InputHandler.GetLeftStickValues().y;
+			playerInput.y = Swimming ? InputHandler.UpDownTrigger() : 0f;
+			playerInput = Vector3.ClampMagnitude(playerInput, 1f);
+		} else playerInput = Vector3.zero;
 
 		if (playerInputSpace) {
 			rightAxis = ProjectDirectionOnPlane(playerInputSpace.right, upAxis);
@@ -209,7 +213,7 @@ public class BaseController : MonoBehaviour {
 		if (Swimming) {
 			desiresClimbing = false;
 		} else {
-			if (InputHandler.Controller == null) {
+			if (!isCurrentlyPlayed || InputHandler.Controller == null) {
 				UpdateBall();
 				return;
 			}
@@ -594,5 +598,9 @@ public class BaseController : MonoBehaviour {
 	float GetMinDot(int layer) {
 		return (stairsMask & (1 << layer)) == 0 ?
 			minGroundDotProduct : minStairsDotProduct;
+	}
+
+	public void Playing(bool b) {
+		isCurrentlyPlayed = b;
 	}
 }
