@@ -240,50 +240,12 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 			(body.velocity - lastConnectionVelocity) * Time.deltaTime;
 		movement -=
 			rotationPlaneNormal * Vector3.Dot(movement, rotationPlaneNormal);
-
-		float distance = movement.magnitude;
-
-		Quaternion rotation = ball.localRotation;
-		if (connectedBody && connectedBody == previousConnectedBody) {
-			rotation = Quaternion.Euler(
-				connectedBody.angularVelocity * (Mathf.Rad2Deg * Time.deltaTime)
-			) * rotation;
-			if (distance < 0.001f) {
-				ball.localRotation = rotation;
-				return;
-			}
-		} else if (distance < 0.001f) {
-			return;
-		}
-
-		float angle = distance * rotationFactor * (180f / Mathf.PI);
-		Vector3 rotationAxis =
-			Vector3.Cross(rotationPlaneNormal, movement).normalized;
-		rotation = Quaternion.Euler(rotationAxis * angle) * rotation;
-		if (ballAlignSpeed > 0f) {
-			rotation = AlignBallRotation(rotationAxis, rotation, distance);
-		}
-		ball.localRotation = rotation;
+		Quaternion rotation;
+		rotation = Quaternion.LookRotation(movement);
+		//rotation *= ballAlignSpeed;
+		ball.localRotation = rotation;// Quaternion.SlerpUnclamped(ball.localRotation, rotation, rotationFactor);
 	}
 
-	Quaternion AlignBallRotation(
-		Vector3 rotationAxis, Quaternion rotation, float traveledDistance
-	) {
-		Vector3 ballAxis = ball.up;
-		float dot = Mathf.Clamp(Vector3.Dot(ballAxis, rotationAxis), -1f, 1f);
-		float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
-		float maxAngle = ballAlignSpeed * traveledDistance;
-
-		Quaternion newAlignment =
-			Quaternion.FromToRotation(ballAxis, rotationAxis) * rotation;
-		if (angle <= maxAngle) {
-			return newAlignment;
-		} else {
-			return Quaternion.SlerpUnclamped(
-				rotation, newAlignment, maxAngle / angle
-			);
-		}
-	}
 
 	void FixedUpdate() {
 		Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
