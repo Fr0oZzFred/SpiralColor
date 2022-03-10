@@ -1,10 +1,9 @@
 using UnityEngine;
-
 public class TrianglePlayerController : MonoBehaviour, IControllable {
 	#region Fields
 	[Tooltip("Camera pour baser le déplacement du joueur")]
 	[SerializeField]
-	Transform playerInputSpace = default, ball = default;
+	Transform playerInputSpace = default, spin = default, spinPivot = default;
 
 
 	[Header("Speed")]
@@ -119,21 +118,18 @@ public class TrianglePlayerController : MonoBehaviour, IControllable {
 
 
 	[Header("Ball Settings")]
-	[Tooltip("Simplification : Vitesse de la roue donc elle avance et recule")]
+	[Tooltip("Vitesse de base")]
 	[SerializeField, Min(0.1f)]
-	float ballRadius = 0.5f;
+	float baseSpeed = 90f;
 
-	[Tooltip("Vitesse alignement avec la direction")]
-	[SerializeField, Min(0f)]
-	float ballAlignSpeed = 180f;
+	[Tooltip("Multiplicateur pour la vitesse durant le movement")]
+	[SerializeField, Min(0.1f)]
+	float movementSpeed = 5f;
+	[Tooltip("Adjustement pour la vitesse durant le movement")]
+	[SerializeField]
+	float speed;
+	Vector3 currentSpeed;
 
-	[Tooltip("Vitesse alignement avec la direction dans l'air")]
-	[SerializeField, Min(0f)]
-	float ballAirRotation = 0.5f;
-
-	[Tooltip("Vitesse alignement avec la direction dans l'eau")]
-	[SerializeField, Min(0f)]
-	float ballSwimRotation = 2f;
 
 	Rigidbody body, connectedBody, previousConnectedBody;
 
@@ -176,6 +172,7 @@ public class TrianglePlayerController : MonoBehaviour, IControllable {
 	#endregion
 
 	public bool isCurrentlyPlayed = false;
+
 	public void PreventSnapToGround() {
 		stepsSinceLastJump = -1;
 	}
@@ -189,7 +186,7 @@ public class TrianglePlayerController : MonoBehaviour, IControllable {
 	void Awake() {
 		body = GetComponent<Rigidbody>();
 		body.useGravity = false;
-		meshRenderer = ball.GetComponent<MeshRenderer>();
+		meshRenderer = spin.GetComponent<MeshRenderer>();
 		OnValidate();
 	}
 	void Update() {
@@ -213,82 +210,35 @@ public class TrianglePlayerController : MonoBehaviour, IControllable {
 			desiresClimbing = false;
 		} else {
 			if (!isCurrentlyPlayed || InputHandler.Controller == null) {
-				UpdateBall();
+				UpdateSpin();
 				return;
 			}
 			desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
 			desiresClimbing = InputHandler.Controller.buttonWest.isPressed;
 		}
 
-		UpdateBall();
+		UpdateSpin();
 	}
 
-	void UpdateBall() {
+	void UpdateSpin() {
 		Material ballMaterial = normalMaterial;
 		Vector3 rotationPlaneNormal = lastContactNormal;
-		float rotationFactor = 1f;
 		if (Climbing) {
 			ballMaterial = climbingMaterial;
 		} else if (Swimming) {
 			ballMaterial = swimmingMaterial;
-			rotationFactor = ballSwimRotation;
 		} else if (!OnGround) {
 			if (OnSteep) {
 				rotationPlaneNormal = lastSteepNormal;
-			} else {
-				rotationFactor = ballAirRotation;
 			}
 		}
 		meshRenderer.material = ballMaterial;
-
-		Vector3 movement =
-			(body.velocity - lastConnectionVelocity) * Time.deltaTime;
-		movement -=
-			rotationPlaneNormal * Vector3.Dot(movement, rotationPlaneNormal);
-
-		float distance = movement.magnitude;
-
-		Quaternion rotation = ball.localRotation;
-		if (connectedBody && connectedBody == previousConnectedBody) {
-			rotation = Quaternion.Euler(
-				connectedBody.angularVelocity * (Mathf.Rad2Deg * Time.deltaTime)
-			) * rotation;
-			if (distance < 0.001f) {
-				ball.localRotation = rotation;
-				return;
-			}
-		} else if (distance < 0.001f) {
-			return;
-		}
-
-		float angle = distance * rotationFactor * (180f / Mathf.PI) / ballRadius;
-		Vector3 rotationAxis =
-			Vector3.Cross(rotationPlaneNormal, movement).normalized;
-		rotation = Quaternion.Euler(rotationAxis * angle) * rotation;
-		if (ballAlignSpeed > 0f) {
-			rotation = AlignBallRotation(rotationAxis, rotation, distance);
-		}
-		ball.localRotation = rotation;
+		spinPivot.LookAt(forwardAxis);
+		spinPivot.localRotation = Quaternion.Euler(velocity.z , 0f, -velocity.x );
+		currentSpeed = Vector3.Lerp(currentSpeed, playerInput, speed);
+		spin.Rotate(0f, ((Mathf.Abs(currentSpeed.x) + Mathf.Abs(currentSpeed.z)) * movementSpeed) + baseSpeed * Time.deltaTime, 0f);
 	}
 
-	Quaternion AlignBallRotation(
-		Vector3 rotationAxis, Quaternion rotation, float traveledDistance
-	) {
-		Vector3 ballAxis = ball.up;
-		float dot = Mathf.Clamp(Vector3.Dot(ballAxis, rotationAxis), -1f, 1f);
-		float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
-		float maxAngle = ballAlignSpeed * traveledDistance;
-
-		Quaternion newAlignment =
-			Quaternion.FromToRotation(ballAxis, rotationAxis) * rotation;
-		if (angle <= maxAngle) {
-			return newAlignment;
-		} else {
-			return Quaternion.SlerpUnclamped(
-				rotation, newAlignment, maxAngle / angle
-			);
-		}
-	}
 
 	void FixedUpdate() {
 		Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);

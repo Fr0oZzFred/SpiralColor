@@ -1,10 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
-
     public static AudioManager Instance { get; private set; }
     
     // Start is called before the first frame update
@@ -44,4 +44,5 @@ public class AudioManager : MonoBehaviour
         }
         s.source.Play();
     }
+
 }

@@ -118,7 +118,7 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 	Material swimmingMaterial = default;
 
 
-	[Tooltip("Vitesse alignement avec la direction")]
+	/*[Tooltip("Vitesse alignement avec la direction")]
 	[SerializeField, Min(0f)]
 	float ballAlignSpeed = 180f;
 
@@ -128,7 +128,7 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 
 	[Tooltip("Vitesse alignement avec la direction dans l'eau")]
 	[SerializeField, Min(0f)]
-	float ballSwimRotation = 2f;
+	float ballSwimRotation = 2f;*/
 
 	Rigidbody body, connectedBody, previousConnectedBody;
 
@@ -208,31 +208,27 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 			desiresClimbing = false;
 		} else {
 			if (!isCurrentlyPlayed || InputHandler.Controller == null) {
-				UpdateBall();
+				UpdateSquare();
 				return;
 			}
 			desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
 			desiresClimbing = InputHandler.Controller.buttonWest.isPressed;
 		}
 
-		UpdateBall();
+		UpdateSquare();
 	}
 
-	void UpdateBall() {
+	void UpdateSquare() {
 		Material ballMaterial = normalMaterial;
 		Vector3 rotationPlaneNormal = lastContactNormal;
-		float rotationFactor = 1f;
 		if (Climbing) {
 			ballMaterial = climbingMaterial;
 		} else if (Swimming) {
 			ballMaterial = swimmingMaterial;
-			rotationFactor = ballSwimRotation;
 		} else if (!OnGround) {
 			if (OnSteep) {
 				rotationPlaneNormal = lastSteepNormal;
-			} else {
-				rotationFactor = ballAirRotation;
-			}
+			} 
 		}
 		meshRenderer.material = ballMaterial;
 
@@ -240,10 +236,12 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 			(body.velocity - lastConnectionVelocity) * Time.deltaTime;
 		movement -=
 			rotationPlaneNormal * Vector3.Dot(movement, rotationPlaneNormal);
-		Quaternion rotation;
-		rotation = Quaternion.LookRotation(movement);
-		//rotation *= ballAlignSpeed;
-		ball.localRotation = rotation;// Quaternion.SlerpUnclamped(ball.localRotation, rotation, rotationFactor);
+		Quaternion rotation = ball.localRotation;
+
+		if (movement != Vector3.zero)
+			rotation = Quaternion.LookRotation(movement);
+		
+		ball.localRotation = rotation;
 	}
 
 
