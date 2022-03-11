@@ -15,6 +15,7 @@ public class PlayerHandler : MonoBehaviour
             listGO[i].GetComponent<IControllable>().IsPlaying(index == i);
         }
         cam.SetFocus(listGO[index].transform);
+        listGO[index].GetComponent<IControllable>().SetControllerLED();
     }
     private void Update() {
         if (InputHandler.Controller == null) return;
@@ -36,6 +37,11 @@ public class PlayerHandler : MonoBehaviour
         index %= listGO.Count;
         listGO[oldIndex].GetComponent<IControllable>().IsPlaying(false);
         listGO[index].GetComponent<IControllable>().IsPlaying(true);
+        listGO[index].GetComponent<IControllable>().SetControllerLED();
         cam.SetFocus(listGO[index].transform);
+    }
+
+    private void OnApplicationQuit() {
+        InputHandler.SetControllerLED(Color.black);
     }
 }

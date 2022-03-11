@@ -176,6 +176,8 @@ public class CrossPlayerController : MonoBehaviour, IControllable {
 	#endregion
 
 	public bool isCurrentlyPlayed = false;
+	[SerializeField]
+	Color color = default;
 	public void PreventSnapToGround() {
 		stepsSinceLastJump = -1;
 	}
@@ -602,5 +604,7 @@ public class CrossPlayerController : MonoBehaviour, IControllable {
 	public void IsPlaying(bool b) {
 		isCurrentlyPlayed = b;
 	}
-
+	public void SetControllerLED() {
+		InputHandler.SetControllerLED(color);
+	}
 }

@@ -176,6 +176,8 @@ public class SpherePlayerController : MonoBehaviour, IControllable {
 	#endregion
 
 	public bool isCurrentlyPlayed = false;
+	[SerializeField]
+	Color color = default;
 	public void PreventSnapToGround() {
 		stepsSinceLastJump = -1;
 	}
@@ -193,6 +195,7 @@ public class SpherePlayerController : MonoBehaviour, IControllable {
 		OnValidate();
 	}
 	void Update() {
+		Debug.Log(velocity);
 		if (isCurrentlyPlayed) {
 			playerInput.x = InputHandler.GetLeftStickValues().x;
 			playerInput.z = InputHandler.GetLeftStickValues().y;
@@ -601,5 +604,8 @@ public class SpherePlayerController : MonoBehaviour, IControllable {
 
 	public void IsPlaying(bool b) {
 		isCurrentlyPlayed = b;
+	}
+	public void SetControllerLED() {
+		InputHandler.SetControllerLED(color);
 	}
 }
