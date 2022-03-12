@@ -16,4 +16,18 @@ public class UIManager : MonoBehaviour{
     public void QuitPause() {
         GameManager.Instance.SetState(GameState.InGame);
     }
+
+    void init() {
+        pauseHUD.SetActive(false);
+        inGameHUD.SetActive(false);
+    }
+    void OnGameStateChanged(GameState n) {
+        init();
+        switch (n) {
+            case GameState.pause:
+                pauseHUD.SetActive(true);
+                break;
+
+        }
+    }
 }
