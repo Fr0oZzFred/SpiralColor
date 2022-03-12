@@ -14,7 +14,8 @@ public class UIManager : MonoBehaviour{
         pauseHUD.SetActive(newState == GameState.Pause);
     }
     public void QuitPause() {
-        GameManager.Instance.SetState(GameState.InGame);
+        pauseMenu.SetActive(false);
+        GameManager.Instance.SetState(GameState.play);
     }
 
     void init() {
