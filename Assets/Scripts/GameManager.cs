@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-public enum GameState { MainMenu, InGame, Pause, Credits}
+public enum GameState { play, pause}
 public class GameManager : MonoBehaviour {
     public static GameManager Instance { get; private set; }
     public GameState CurrentState { get; private set; }
@@ -11,15 +10,16 @@ public class GameManager : MonoBehaviour {
     void Awake(){
         if (Instance == null) Instance = this;
     }
-    void Update() {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame) {
-            GameState newState = CurrentState == GameState.InGame ? GameState.Pause : GameState.InGame;
-            SetState(newState);
-        }
-    }
     public void SetState (GameState newState){
         if (newState == CurrentState) return;
         CurrentState = newState;
         OnGameStateChanged?.Invoke(newState);
+        switch (CurrentState) {
+            case GameState.play:
+                break;
+            case GameState.pause:
+                UIManager.Instance.pauseMenu.SetActive(true);
+                break;
+        }
     }
 }

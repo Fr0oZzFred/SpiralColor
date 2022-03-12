@@ -7,7 +7,7 @@ public class TestGameState : MonoBehaviour {
     void Update() {
         if (Keyboard.current.spaceKey.wasPressedThisFrame) {
             GameState currentState = GameManager.Instance.CurrentState;
-            GameState newState = currentState == GameState.InGame ? GameState.Pause : GameState.InGame;
+            GameState newState = currentState == GameState.play ? GameState.pause : GameState.play;
             GameManager.Instance.SetState(newState);
         }
     }
@@ -15,7 +15,7 @@ public class TestGameState : MonoBehaviour {
         GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
     }
     void OnGameStateChanged(GameState newState) {
-        if (newState == GameState.InGame) Debug.Log("le gamestate est en play");
+        if (newState == GameState.play) Debug.Log("le gamestate est en play");
         else Debug.Log("le gamestate est en pause");
     }
 }
