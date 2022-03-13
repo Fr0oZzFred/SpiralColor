@@ -195,7 +195,6 @@ public class SpherePlayerController : MonoBehaviour, IControllable {
 		OnValidate();
 	}
 	void Update() {
-		Debug.Log(velocity);
 		if (isCurrentlyPlayed) {
 			playerInput.x = InputHandler.GetLeftStickValues().x;
 			playerInput.z = InputHandler.GetLeftStickValues().y;

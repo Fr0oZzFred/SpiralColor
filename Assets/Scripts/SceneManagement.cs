@@ -4,11 +4,19 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 public class SceneManagement : MonoBehaviour {
+    public static SceneManagement Instance { get; private set; }
     public GameObject loadingScreen;
     public Slider slider;
     public TMP_Text progressText;
+
+    private void Awake() {
+        if (!Instance) Instance = this;
+    }
     public void LoadLevel(int sceneIndex) {
         StartCoroutine(LoadAsynchronously(sceneIndex));
+    }
+    public void LoadLevel(string sceneName) {
+        LoadLevel(SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/" + sceneName + ".unity"));
     }
     IEnumerator LoadAsynchronously(int sceneIndex) {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
