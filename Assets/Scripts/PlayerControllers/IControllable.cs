@@ -6,4 +6,5 @@ public interface IControllable {
     public void IsPlaying(bool b);
     public void PreventSnapToGround();
     public void SetControllerLED();
+    public void Respawn(Vector3 v3);
 }

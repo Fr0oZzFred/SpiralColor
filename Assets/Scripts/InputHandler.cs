@@ -21,10 +21,13 @@ public class InputHandler : MonoBehaviour {
     public  static Gamepad Controller = null;
     private static DualShock4GamepadHID DS4Controller = null;
 
+    public static InputHandler Instance { get; private set; }
+
     /// <summary>
     /// Search a frist time the controller, and add a switch on OnDeviceChange Unity Event
     /// </summary>
     private void Awake() {
+        if (!Instance) Instance = this;
         SearchController();
         if (Controller != null) connectedOnce = true;
         InputSystem.onDeviceChange +=

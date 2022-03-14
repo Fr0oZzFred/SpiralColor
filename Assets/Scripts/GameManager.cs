@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
-public enum GameState { MainMenu, InGame, Pause, Credits }
+public enum GameState {Boot, MainMenu, InGame, Pause, Score, Credits }
 
 [System.Serializable]
 public class GameManagerData{
@@ -29,13 +29,6 @@ public class GameManager : MonoBehaviour {
         if (newState == CurrentState) return;
         CurrentState = newState;
         OnGameStateChanged?.Invoke(newState);
-        switch (CurrentState) {
-            case GameState.InGame:
-                break;
-            case GameState.Pause:
-                UIManager.Instance.pauseMenu.SetActive(true);
-                break;
-        }
     }
     public void SaveGameManager() {
         SaveSystem.SaveGameManager(this);

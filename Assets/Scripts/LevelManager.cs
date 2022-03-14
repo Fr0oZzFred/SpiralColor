@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
-    
+
 
     [Header("Data")]
+    [SerializeField]
+    PlayerHandler playerHandler;
     [ListToPopup(typeof(LevelManager), "TMPList")]
     public string Level;
     int levelInt => int.Parse(Level.Remove(0, Level.Length - 1));
@@ -26,8 +28,8 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     public List<string> GetAllScenesInBuild() {
         List<string> AllScenes = new List<string>();
 
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++) {
-            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+        for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings; i++) {
+            string scenePath = UnityEngine.SceneManagement.SceneUtility.GetScenePathByBuildIndex(i);
             string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
             AllScenes.Add(sceneName);
         }
@@ -45,6 +47,12 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
     private void Start() {
         checkpoints.Sort();
+    }
+
+    private void Update() {
+        if (Keyboard.current.rKey.wasPressedThisFrame) {
+            playerHandler.GetCurrentPlayer().Respawn(checkpoints[checkpointProgression].transform.position);
+        }
     }
     [ContextMenu("Refresh")]
     private void OnValidate() {

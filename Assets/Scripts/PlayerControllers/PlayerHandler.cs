@@ -8,7 +8,7 @@ public class PlayerHandler : MonoBehaviour {
 
     public OrbitCamera cam;
     private void Start() {
-        index = startingIndex > listGO.Count ? 0 : startingIndex;
+        index = startingIndex > listGO.Count -1 ? 0 : startingIndex;
         for (int i = 0; i < listGO.Count; i++) {
             listGO[i].GetComponent<IControllable>().IsPlaying(index == i);
         }
@@ -43,6 +43,9 @@ public class PlayerHandler : MonoBehaviour {
         cam.SetFocus(listGO[index].transform);
     }
 
+    public IControllable GetCurrentPlayer() {
+        return listGO[index].GetComponent<IControllable>();
+    }
     private void OnApplicationQuit() {
         InputHandler.SetControllerLED(Color.black);
     }

@@ -562,4 +562,9 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 	public void SetControllerLED() {
 		InputHandler.SetControllerLED(color);
     }
+	public void Respawn(Vector3 pos) {
+		this.transform.position = pos;
+		velocity = Vector3.zero;
+	}
+
 }
