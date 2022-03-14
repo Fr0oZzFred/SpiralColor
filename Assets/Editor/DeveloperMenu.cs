@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using UnityEditor;
-using UnityEngine.SceneManagement;
+﻿using UnityEditor;
 public class DeveloperMenu {
     [MenuItem("Developer/Clear Saves")]
     public static void ClearSaves() {
@@ -10,8 +8,8 @@ public class DeveloperMenu {
     public static void Chiaki() {
         throw new System.NotImplementedException("Trop beau pour être vrai");
     }
-    [MenuItem("Developer/ChangeScene")]
-    public static void ChangeScene() {
-        SceneManager.LoadScene("quentinTest");
+    [MenuItem("Developer/GameManager/GMProgressionToMax")]
+    public static void GMProgressionToMax() {
+        GameManager.Instance.UpdateProgression(4);
     }
 }

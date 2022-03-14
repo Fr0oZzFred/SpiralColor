@@ -14,8 +14,8 @@ public class Teleporter : MonoBehaviour, ISerializationCallbackReceiver {
 
     [Header("Teleporter")]
     [ListToPopup(typeof(Teleporter), "TMPList")]
-    public string targetScene;
-
+    public string TargetScene;
+    int targetSceneInt => int.Parse(TargetScene.Remove(0, TargetScene.Length - 1));
     public static List<string> TMPList;
     [HideInInspector] public List<string> sceneList;
     
@@ -42,14 +42,18 @@ public class Teleporter : MonoBehaviour, ISerializationCallbackReceiver {
             ChangeTextContent(text);
         }
     }
-    public void ChangeTextColor(Color c) {
-        textGO.color = c;
+    private void Start() {
+        if (targetSceneInt < GameManager.Instance.progression)
+        ChangeTextColor(colorUnlocked);
     }
-    public void ChangeTextContent(string text) {
-        textGO.SetText(text);
+    void ChangeTextColor(Color c) {
+        if(textGO) textGO.color = c;
+    }
+    void ChangeTextContent(string text) {
+        if(textGO)  textGO.SetText(text);
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<IControllable>() != null) SceneManagement.Instance.LoadLevel(targetScene);
+        if (other.GetComponent<IControllable>() != null) SceneManagement.Instance.LoadLevel(TargetScene);
     }
 }

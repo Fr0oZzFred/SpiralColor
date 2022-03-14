@@ -4,7 +4,7 @@ public class UIManager : MonoBehaviour {
     public GameObject pauseMenu;
     public GameObject pauseHUD, inGameHUD, mainMenuHUD, optionHUD, creditsHUD;
     void Awake() {
-        Instance = this;
+        if(!Instance) Instance = this;
     }
     void Start() {
         GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
