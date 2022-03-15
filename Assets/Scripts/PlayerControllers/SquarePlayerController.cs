@@ -12,10 +12,6 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 	[SerializeField, Range(0f, 100f)]
 	float maxSpeed = 10f;
 
-	[Tooltip("Vitesse maximum en grimpant")]
-	[SerializeField, Range(0f, 100f)]
-	float maxClimbSpeed = 4f;
-
 	[Tooltip("Vitesse maximum en nageant")]
 	[SerializeField, Range(0f, 100f)]
 	float maxSwimSpeed = 5f;
@@ -29,10 +25,6 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 	[Tooltip("Acceleration en l'air")]
 	[SerializeField, Range(0f, 100f)]
 	float maxAirAcceleration = 1f;
-
-	[Tooltip("Acceleration en grimpant")]
-	[SerializeField, Range(0f, 100f)]
-	float maxClimbAcceleration = 40f;
 
 	[Tooltip("Acceleration en nageant")]
 	[SerializeField, Range(0f, 100f)]
@@ -57,10 +49,6 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 	[Tooltip("Angle maximum pour monter des escaliers")]
 	[SerializeField, Range(0, 90)]
 	float maxStairsAngle = 50f;
-
-	[Tooltip("Angle maximum pour grimper un mur")]
-	[SerializeField, Range(90, 170)]
-	float maxClimbAngle = 140f;
 
 	[Tooltip("Vitesse maximum pour calculer l'angle")]
 	[SerializeField, Range(0f, 100f)]
@@ -101,18 +89,12 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 	LayerMask stairsMask = -1;
 
 	[SerializeField]
-	LayerMask climbMask = -1;
-
-	[SerializeField]
 	LayerMask waterMask = 0;
 
 
 	[Header("Materials")]
 	[SerializeField]
 	Material normalMaterial = default;
-
-	[SerializeField]
-	Material climbingMaterial = default;
 
 	[SerializeField]
 	Material swimmingMaterial = default;
@@ -140,19 +122,17 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 
 	Vector3 upAxis, rightAxis, forwardAxis;
 
-	bool desiredJump, desiresClimbing;
+	bool desiredJump;
 
-	Vector3 contactNormal, steepNormal, climbNormal, lastClimbNormal;
+	Vector3 contactNormal, steepNormal;
 
 	Vector3 lastContactNormal, lastSteepNormal, lastConnectionVelocity;
 
-	int groundContactCount, steepContactCount, climbContactCount;
+	int groundContactCount, steepContactCount;
 
 	bool OnGround => groundContactCount > 0;
 
 	bool OnSteep => steepContactCount > 0;
-
-	bool Climbing => climbContactCount > 0 && stepsSinceLastJump > 2;
 
 	bool InWater => submergence > 0f;
 
@@ -180,7 +160,6 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 	void OnValidate() {
 		minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
 		minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
-		minClimbDotProduct = Mathf.Cos(maxClimbAngle * Mathf.Deg2Rad);
 	}
 
 	void Awake() {
@@ -206,16 +185,11 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 			forwardAxis = ProjectDirectionOnPlane(Vector3.forward, upAxis);
 		}
 
-		if (Swimming) {
-			desiresClimbing = false;
-		} else {
-			if (!isCurrentlyPlayed || InputHandler.Controller == null) {
+		if (!isCurrentlyPlayed || InputHandler.Controller == null) {
 				UpdateSquare();
 				return;
 			}
-			desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
-			desiresClimbing = InputHandler.Controller.buttonWest.isPressed;
-		}
+		desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
 
 		UpdateSquare();
 	}
@@ -223,9 +197,7 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 	void UpdateSquare() {
 		Material ballMaterial = normalMaterial;
 		Vector3 rotationPlaneNormal = lastContactNormal;
-		if (Climbing) {
-			ballMaterial = climbingMaterial;
-		} else if (Swimming) {
+		if (Swimming) {
 			ballMaterial = swimmingMaterial;
 		} else if (!OnGround) {
 			if (OnSteep) {
@@ -262,20 +234,13 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 			Jump(gravity);
 		}
 
-		if (Climbing) {
-			velocity -=
-				contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
-		} else if (InWater) {
+		if (InWater) {
 			velocity +=
 				gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
 		} else if (OnGround && velocity.sqrMagnitude < 0.01f) {
 			velocity +=
 				contactNormal *
 				(Vector3.Dot(gravity, contactNormal) * Time.deltaTime);
-		} else if (desiresClimbing && OnGround) {
-			velocity +=
-				(gravity - contactNormal * (maxClimbAcceleration * 0.9f)) *
-				Time.deltaTime;
 		} else {
 			velocity += gravity * Time.deltaTime;
 		}
@@ -287,8 +252,8 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 		lastContactNormal = contactNormal;
 		lastSteepNormal = steepNormal;
 		lastConnectionVelocity = connectionVelocity;
-		groundContactCount = steepContactCount = climbContactCount = 0;
-		contactNormal = steepNormal = climbNormal = Vector3.zero;
+		groundContactCount = steepContactCount = 0;
+		contactNormal = steepNormal = Vector3.zero;
 		connectionVelocity = Vector3.zero;
 		previousConnectedBody = connectedBody;
 		connectedBody = null;
@@ -299,9 +264,7 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 		stepsSinceLastGrounded += 1;
 		stepsSinceLastJump += 1;
 		velocity = body.velocity;
-		if (
-			CheckClimbing() || CheckSwimming() ||
-			OnGround || SnapToGround() || CheckSteepContacts()
+		if (CheckSwimming() || OnGround || SnapToGround() || CheckSteepContacts()
 		) {
 			stepsSinceLastGrounded = 0;
 			if (stepsSinceLastJump > 1) {
@@ -332,22 +295,6 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 		connectionLocalPosition = connectedBody.transform.InverseTransformPoint(
 			connectionWorldPosition
 		);
-	}
-
-	bool CheckClimbing() {
-		if (Climbing) {
-			if (climbContactCount > 1) {
-				climbNormal.Normalize();
-				float upDot = Vector3.Dot(upAxis, climbNormal);
-				if (upDot >= minGroundDotProduct) {
-					climbNormal = lastClimbNormal;
-				}
-			}
-			groundContactCount = 1;
-			contactNormal = climbNormal;
-			return true;
-		}
-		return false;
 	}
 
 	bool CheckSwimming() {
@@ -405,13 +352,7 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 
 	void AdjustVelocity() {
 		float acceleration, speed;
-		Vector3 xAxis, zAxis;
-		if (Climbing) {
-			acceleration = maxClimbAcceleration;
-			speed = maxClimbSpeed;
-			xAxis = Vector3.Cross(contactNormal, upAxis);
-			zAxis = upAxis;
-		} else if (InWater) {
+		Vector3 xAxis, zAxis;if (InWater) {
 			float swimFactor = Mathf.Min(1f, submergence / swimThreshold);
 			acceleration = Mathf.LerpUnclamped(
 				OnGround ? maxAcceleration : maxAirAcceleration,
@@ -422,7 +363,7 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 			zAxis = forwardAxis;
 		} else {
 			acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
-			speed = OnGround && desiresClimbing ? maxClimbSpeed : maxSpeed;
+			speed = maxSpeed;
 			xAxis = rightAxis;
 			zAxis = forwardAxis;
 		}
@@ -506,15 +447,6 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
 					if (groundContactCount == 0) {
 						connectedBody = collision.rigidbody;
 					}
-				}
-				if (
-					desiresClimbing && upDot >= minClimbDotProduct &&
-					(climbMask & (1 << layer)) != 0
-				) {
-					climbContactCount += 1;
-					climbNormal += normal;
-					lastClimbNormal = normal;
-					connectedBody = collision.rigidbody;
 				}
 			}
 		}
