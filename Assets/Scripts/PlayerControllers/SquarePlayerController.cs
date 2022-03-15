@@ -4,7 +4,7 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
     #region Fields
     [Tooltip("Camera pour baser le déplacement du joueur")]
     [SerializeField]
-    Transform playerInputSpace = default, ball = default;
+    Transform playerInputSpace = default, square = default;
 
 
     [Header("Speed")]
@@ -159,7 +159,7 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
     void Awake() {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
-        meshRenderer = ball.GetComponent<MeshRenderer>();
+        meshRenderer = square.GetComponent<MeshRenderer>();
         OnValidate();
     }
     /// <summary>
@@ -186,7 +186,8 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
             UpdateSquare();
             return;
         }
-        desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
+        if(!OnGround)
+            desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
 
         UpdateSquare();
     }
@@ -210,13 +211,13 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
         movement -=
             rotationPlaneNormal * Vector3.Dot(movement, rotationPlaneNormal);
         float distance = movement.magnitude;
-        Quaternion rotation = ball.localRotation;
+        Quaternion rotation = square.localRotation;
         if (connectedBody && connectedBody == previousConnectedBody) {
             rotation = Quaternion.Euler(
                 connectedBody.angularVelocity * (Mathf.Rad2Deg * Time.deltaTime)
             ) * rotation;
             if (distance < 0.001f) {
-                ball.localRotation = rotation;
+                square.localRotation = rotation;
                 return;
             }
         } else if (distance < 0.001f) {
@@ -226,7 +227,7 @@ public class SquarePlayerController : MonoBehaviour, IControllable {
         if (movement != Vector3.zero)
             rotation = Quaternion.LookRotation(movement);
 
-        ball.localRotation = Quaternion.Lerp(ball.localRotation, rotation, baseAlignementSpeed);
+        square.localRotation = Quaternion.Lerp(square.localRotation, rotation, baseAlignementSpeed);
     }
 
 

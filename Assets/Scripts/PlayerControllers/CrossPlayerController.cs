@@ -4,7 +4,7 @@ public class CrossPlayerController : MonoBehaviour, IControllable {
     #region Fields
     [Tooltip("Camera pour baser le déplacement du joueur")]
     [SerializeField]
-    Transform playerInputSpace = default, ball = default;
+    Transform playerInputSpace = default, cross = default;
 
 
     [Header("Speed")]
@@ -191,7 +191,7 @@ public class CrossPlayerController : MonoBehaviour, IControllable {
     void Awake() {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
-        meshRenderer = ball.GetComponent<MeshRenderer>();
+        meshRenderer = cross.GetComponent<MeshRenderer>();
         OnValidate();
     }
 
@@ -222,7 +222,8 @@ public class CrossPlayerController : MonoBehaviour, IControllable {
                 UpdateCross();
                 return;
             }
-            desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
+            if(Climbing)
+                desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
             desiresClimbing = InputHandler.Controller.buttonWest.isPressed;
         }
 
@@ -257,13 +258,13 @@ public class CrossPlayerController : MonoBehaviour, IControllable {
 
         float distance = movement.magnitude;
 
-        Quaternion rotation = ball.localRotation;
+        Quaternion rotation = cross.localRotation;
         if (connectedBody && connectedBody == previousConnectedBody) {
             rotation = Quaternion.Euler(
                 connectedBody.angularVelocity * (Mathf.Rad2Deg * Time.deltaTime)
             ) * rotation;
             if (distance < 0.001f) {
-                ball.localRotation = rotation;
+                cross.localRotation = rotation;
                 return;
             }
         } else if (distance < 0.001f) {
@@ -277,13 +278,13 @@ public class CrossPlayerController : MonoBehaviour, IControllable {
         if (ballAlignSpeed > 0f) {
             rotation = AlignCrossRotation(rotationAxis, rotation, distance);
         }
-        ball.localRotation = rotation;
+        cross.localRotation = rotation;
     }
 
     Quaternion AlignCrossRotation(
         Vector3 rotationAxis, Quaternion rotation, float traveledDistance
     ) {
-        Vector3 ballAxis = ball.up;
+        Vector3 ballAxis = cross.up;
         float dot = Mathf.Clamp(Vector3.Dot(ballAxis, rotationAxis), -1f, 1f);
         float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
         float maxAngle = ballAlignSpeed * traveledDistance;

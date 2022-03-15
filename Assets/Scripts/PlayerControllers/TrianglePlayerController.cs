@@ -195,7 +195,8 @@ public class TrianglePlayerController : MonoBehaviour, IControllable {
             UpdateSpin();
             return;
         }
-        desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
+        if(!OnGround)
+            desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
 
         UpdateSpin();
     }
