@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
-public enum GameState {Boot, MainMenu, InGame, Pause, Score, Credits }
+public enum GameState {Boot, Loading, Cutscene, MainMenu, InHUB, InLevel, Pause, Score, Credits }
 
 [System.Serializable]
 public class GameManagerData{
@@ -18,12 +18,6 @@ public class GameManager : MonoBehaviour {
     void Awake(){
         if (Instance == null) Instance = this;
         progression = 0; // Temporaire
-    }
-    void Update() {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame) {
-            GameState newState = CurrentState == GameState.InGame ? GameState.Pause : GameState.InGame;
-            SetState(newState);
-        }
     }
     public void SetState (GameState newState){
         if (newState == CurrentState) return;

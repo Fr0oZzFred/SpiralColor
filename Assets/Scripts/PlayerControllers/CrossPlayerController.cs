@@ -118,7 +118,7 @@ public class CrossPlayerController : MonoBehaviour, IControllable {
     Material swimmingMaterial = default;
 
 
-    [Header("Ball Settings")]
+    [Header("Cross Settings")]
     [Tooltip("Simplification : Vitesse de la roue donc elle avance et recule")]
     [SerializeField, Min(0.1f)]
     float ballRadius = 0.5f;

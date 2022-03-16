@@ -99,7 +99,7 @@ public class TrianglePlayerController : MonoBehaviour, IControllable {
     Material swimmingMaterial = default;
 
 
-    [Header("Ball Settings")]
+    [Header("Spin Settings")]
     [Tooltip("Vitesse de base")]
     [SerializeField, Min(0.1f)]
     float baseSpeed = 90f;
@@ -379,14 +379,15 @@ public class TrianglePlayerController : MonoBehaviour, IControllable {
             playerInput.x * speed - Vector3.Dot(relativeVelocity, xAxis);
         adjustment.z =
             playerInput.z * speed - Vector3.Dot(relativeVelocity, zAxis);
-        adjustment.y = Swimming ?
+        adjustment.y = InWater ?
             playerInput.y * speed - Vector3.Dot(relativeVelocity, upAxis) : 0f;
 
         adjustment =
             Vector3.ClampMagnitude(adjustment, acceleration * Time.deltaTime);
 
         velocity += xAxis * adjustment.x + zAxis * adjustment.z;
-        if (Swimming) {
+
+        if (InWater) {
             velocity += upAxis * adjustment.y;
         }
     }

@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
+using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
     public static UIManager Instance { get; private set; }
     [Header("UI Main Element")]
     [SerializeField]
-    GameObject mainMenuHUD, inGameHUD , pauseHUD, scoreHUD, creditsHUD;
+    GameObject loadingHUD, mainMenuHUD, inHubHUD, inLevelHUD , pauseHUD, scoreHUD, creditsHUD;
+    [Header("Loading")]
+    [SerializeField]
+    Slider loadingSlider;
+    [SerializeField]
+    TMP_Text loadingProgressText;
     [Header("Event System")]
     [SerializeField]
     EventSystem eventSystem;
@@ -18,8 +25,10 @@ public class UIManager : MonoBehaviour {
     }
     void OnGameStateChanged(GameState newState) {
 
+        loadingHUD.SetActive(newState == GameState.Loading);
         mainMenuHUD.SetActive(newState == GameState.MainMenu);
-        inGameHUD.SetActive(newState == GameState.InGame);
+        inHubHUD.SetActive(newState == GameState.InHUB);
+        inLevelHUD.SetActive(newState == GameState.InLevel);
         pauseHUD.SetActive(newState == GameState.Pause);
         scoreHUD.SetActive(newState == GameState.Score);
         creditsHUD.SetActive(newState == GameState.Credits);
@@ -28,21 +37,23 @@ public class UIManager : MonoBehaviour {
             case GameState.MainMenu:
                 eventSystem.SetSelectedGameObject(mainMenuFirstGO);
                 break;
-            case GameState.InGame:
-                //eventSystem.firstSelectedGameObject = inGameHUD;
-                break;
             case GameState.Pause:
                 eventSystem.SetSelectedGameObject(pauseFirstGO);
                 break;
-            case GameState.Score:
-                //eventSystem.firstSelectedGameObject = scoreHUD;
-                break;
-            case GameState.Credits:
-                //eventSystem.firstSelectedGameObject = creditsHUD;
-                break;
             default:
-                Debug.Log("No GO for " + newState);
+                Debug.LogWarning("No GO in the switch for State : " + newState);
                 break;
         }
+    }
+    public void UpdateLoadingScreen(float sliderValue, float progressText) {
+        SetLoadingSlider(sliderValue);
+        SetLoadingText(progressText);
+    }
+    void SetLoadingSlider(float sliderValue) {
+        loadingSlider.value = sliderValue;
+    }
+
+    void SetLoadingText(float progressText) {
+        loadingProgressText.text = progressText + "%";
     }
 }

@@ -35,7 +35,7 @@ public class Managers : MonoBehaviour, ISerializationCallbackReceiver  {
             Debug.Log("Load GM");
         else
             Debug.Log("Save GM");
-        GameManager.Instance.SetState(baseGameState);
         SceneManagement.Instance.LoadLevel(TargetScene);
+        GameManager.Instance.SetState(baseGameState);
     }
 }

@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: a6477d516d301514dbe2b191365116a4, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -333,9 +333,8 @@ MonoBehaviour:
   colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
   TargetScene: Level 4
   sceneList:
-  - HUB Space Ship STP UNITY SUPPRIME PAS MA SCENE 0
-  - Quentin
-  - quentinTest
+  - HUB 0
+  - Main Menu
   - Level 1
   - Level 2
   - Level 3
@@ -2193,7 +2192,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-25974
+  m_Name: pb_Mesh-44564
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2391,9 +2390,8 @@ MonoBehaviour:
   colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
   TargetScene: Level 3
   sceneList:
-  - HUB Space Ship STP UNITY SUPPRIME PAS MA SCENE 0
-  - Quentin
-  - quentinTest
+  - HUB 0
+  - Main Menu
   - Level 1
   - Level 2
   - Level 3
@@ -3798,7 +3796,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-25958
+  m_Name: pb_Mesh-44548
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4325,17 +4323,14 @@ MonoBehaviour:
   playerInputSpace: {fileID: 1744498611}
   ball: {fileID: 1873023123}
   maxSpeed: 10
-  maxClimbSpeed: 4
   maxSwimSpeed: 5
   maxAcceleration: 10
   maxAirAcceleration: 1
-  maxClimbAcceleration: 40
   maxSwimAcceleration: 5
   jumpHeight: 2
   maxAirJumps: 0
   maxGroundAngle: 25
   maxStairsAngle: 50
-  maxClimbAngle: 140
   maxSnapSpeed: 100
   probeDistance: 1
   submergenceOffset: 0.5
@@ -4349,14 +4344,10 @@ MonoBehaviour:
   stairsMask:
     serializedVersion: 2
     m_Bits: 1024
-  climbMask:
-    serializedVersion: 2
-    m_Bits: 1331
   waterMask:
     serializedVersion: 2
     m_Bits: 16
   normalMaterial: {fileID: 2100000, guid: 2f10a2577c6d17b41a22647771a10fdb, type: 2}
-  climbingMaterial: {fileID: 2100000, guid: 0ff35383e4482b64c98b4f5a20a1c542, type: 2}
   swimmingMaterial: {fileID: 2100000, guid: 652de4238a4ca3746a9614a0c88361df, type: 2}
   ballRadius: 0.5
   ballAlignSpeed: 180
@@ -12555,6 +12546,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2103203076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2103203077}
+  - component: {fileID: 2103203078}
+  m_Layer: 0
+  m_Name: HUB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2103203077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103203076}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2103203078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103203076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba5c798c37a17a49a9babf28c3b20d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2110780432
 GameObject:
   m_ObjectHideFlags: 0
@@ -12595,9 +12629,8 @@ MonoBehaviour:
   colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
   TargetScene: Level 2
   sceneList:
-  - HUB Space Ship STP UNITY SUPPRIME PAS MA SCENE 0
-  - Quentin
-  - quentinTest
+  - HUB 0
+  - Main Menu
   - Level 1
   - Level 2
   - Level 3
@@ -12944,6 +12977,10 @@ PrefabInstance:
     - target: {fileID: 1585989458496305714, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585989458496305716, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1585989458496305717, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
       propertyPath: m_Mesh

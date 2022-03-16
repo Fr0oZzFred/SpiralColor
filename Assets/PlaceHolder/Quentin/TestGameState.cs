@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class TestGameState : MonoBehaviour {
-    void Update() {
+    /*void Update() {
         if (Keyboard.current.spaceKey.wasPressedThisFrame) {
             GameState currentState = GameManager.Instance.CurrentState;
             GameState newState = currentState == GameState.InGame ? GameState.Pause : GameState.InGame;
@@ -17,5 +17,5 @@ public class TestGameState : MonoBehaviour {
     void OnGameStateChanged(GameState newState) {
         if (newState == GameState.InGame) Debug.Log("le gamestate est en play");
         else Debug.Log("le gamestate est en pause");
-    }
+    }*/
 }
