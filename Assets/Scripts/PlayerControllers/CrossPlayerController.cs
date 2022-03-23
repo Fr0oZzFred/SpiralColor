@@ -175,6 +175,8 @@ public class CrossPlayerController : MonoBehaviour, IControllable {
 
     #endregion
 
+    public float jumpHeightBaseMult = 1;
+
     public bool isCurrentlyPlayed = false;
     [SerializeField]
     Color color = default;
@@ -222,14 +224,17 @@ public class CrossPlayerController : MonoBehaviour, IControllable {
                 UpdateCross();
                 return;
             }
-            if(Climbing)
-                desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
-            desiresClimbing = InputHandler.Controller.buttonWest.isPressed;
+            if (Climbing) {
+                if (InputHandler.UpDownTrigger() <= 0) jumpHeight = 0;
+                jumpHeight += InputHandler.UpDownTrigger() * jumpHeightBaseMult;
+                jumpHeight = Mathf.Clamp(jumpHeight, 0f, 2f);
+                desiredJump |= InputHandler.Controller.rightTrigger.wasReleasedThisFrame;
+            }
+            desiresClimbing = InputHandler.Controller.buttonSouth.isPressed;
         }
 
         UpdateCross();
     }
-
     /// <summary>
     /// For the Cross rotation and material
     /// </summary>

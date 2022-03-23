@@ -151,6 +151,8 @@ public class TrianglePlayerController : MonoBehaviour, IControllable {
 
     #endregion
 
+    public float gravityCoef;
+
     public bool isCurrentlyPlayed = false;
     [SerializeField]
     Color color = default;
@@ -195,8 +197,8 @@ public class TrianglePlayerController : MonoBehaviour, IControllable {
             UpdateSpin();
             return;
         }
-        if(!OnGround)
-            desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
+
+        desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
 
         UpdateSpin();
     }
@@ -240,7 +242,9 @@ public class TrianglePlayerController : MonoBehaviour, IControllable {
                 contactNormal *
                 (Vector3.Dot(gravity, contactNormal) * Time.deltaTime);
         } else {
-            velocity += gravity * Time.deltaTime;
+            velocity.x += gravity.x * Time.deltaTime;
+            velocity.y += gravityCoef * gravity.y * Time.deltaTime;
+            velocity.z += gravity.z * Time.deltaTime;
         }
         body.velocity = velocity;
         ClearState();

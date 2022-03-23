@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &692897413822908396
+--- !u!1 &2180714102939585625
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,76 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 692897413822908399}
-  - component: {fileID: 692897413822908393}
-  - component: {fileID: 692897413822908398}
+  - component: {fileID: 2180714102939585624}
   m_Layer: 8
-  m_Name: Ball
+  m_Name: SpinPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &692897413822908399
+--- !u!4 &2180714102939585624
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692897413822908396}
-  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
+  m_GameObject: {fileID: 2180714102939585625}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6890610422523337435}
+  m_Father: {fileID: 6890610422625756156}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6890610422523337432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6890610422523337435}
+  - component: {fileID: 6890610422523337437}
+  - component: {fileID: 6890610422523337434}
+  m_Layer: 8
+  m_Name: Spin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6890610422523337435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6890610422523337432}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 692897413922193096}
+  m_Father: {fileID: 2180714102939585624}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
---- !u!33 &692897413822908393
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6890610422523337437
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692897413822908396}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &692897413822908398
+  m_GameObject: {fileID: 6890610422523337432}
+  m_Mesh: {fileID: -5495902117074765545, guid: 823756f57c9ebe54ba855c45f9b3b868, type: 3}
+--- !u!23 &6890610422523337434
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692897413822908396}
+  m_GameObject: {fileID: 6890610422523337432}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -81,7 +112,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &692897413922193101
+--- !u!1 &6890610422625756153
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,54 +120,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 692897413922193096}
-  - component: {fileID: 692897413922193103}
-  - component: {fileID: 692897413922193100}
-  - component: {fileID: 692897413922193102}
-  - component: {fileID: 692897413922193097}
+  - component: {fileID: 6890610422625756156}
+  - component: {fileID: 6890610422625756155}
+  - component: {fileID: 6890610422625756152}
+  - component: {fileID: 6890610422625756154}
+  - component: {fileID: 6890610422625756151}
   m_Layer: 8
-  m_Name: Sphere
+  m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &692897413922193096
+--- !u!4 &6890610422625756156
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692897413922193101}
+  m_GameObject: {fileID: 6890610422625756153}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14, y: 0.5, z: -5}
+  m_LocalPosition: {x: -10, y: 0.5, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 692897413822908399}
+  - {fileID: 2180714102939585624}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &692897413922193103
+--- !u!135 &6890610422625756155
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692897413922193101}
+  m_GameObject: {fileID: 6890610422625756153}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!96 &692897413922193100
+  m_Radius: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!96 &6890610422625756152
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692897413922193101}
+  m_GameObject: {fileID: 6890610422625756153}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 1
@@ -149,7 +180,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 15b9b0c6571f7d04ca6824394ed57332, type: 2}
+  - {fileID: 2100000, guid: ad52c1fff69ccca4d84c95db74f6d205, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,13 +258,13 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!54 &692897413922193102
+--- !u!54 &6890610422625756154
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692897413922193101}
+  m_GameObject: {fileID: 6890610422625756153}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -243,34 +274,35 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &692897413922193097
+--- !u!114 &6890610422625756151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692897413922193101}
+  m_GameObject: {fileID: 6890610422625756153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1e75a38c8c92424d83e2238076cde20, type: 3}
+  m_Script: {fileID: 11500000, guid: 24211b9f2c0fab34da8f6361880fbccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputSpace: {fileID: 0}
-  ball: {fileID: 692897413822908399}
-  maxSpeed: 20
+  spin: {fileID: 6890610422523337435}
+  spinPivot: {fileID: 2180714102939585624}
+  maxSpeed: 40
   maxSwimSpeed: 5
-  maxAcceleration: 15
-  maxAirAcceleration: 1
-  maxSwimAcceleration: 5
-  jumpHeight: 2
-  maxAirJumps: 0
+  maxAcceleration: 8
+  maxAirAcceleration: 4
+  maxSwimAcceleration: 10
+  jumpHeight: 0.2
+  maxAirJumps: 3
   maxGroundAngle: 25
   maxStairsAngle: 50
   maxSnapSpeed: 100
   probeDistance: 1
   submergenceOffset: 0.5
   submergenceRange: 1
-  buoyancy: 1
+  buoyancy: 0.7
   waterDrag: 1
   swimThreshold: 0.5
   probeMask:
@@ -284,9 +316,9 @@ MonoBehaviour:
     m_Bits: 16
   normalMaterial: {fileID: 2100000, guid: 2f10a2577c6d17b41a22647771a10fdb, type: 2}
   swimmingMaterial: {fileID: 2100000, guid: 652de4238a4ca3746a9614a0c88361df, type: 2}
-  ballRadius: 0.5
-  ballAlignSpeed: 180
-  ballAirRotation: 0.5
-  ballSwimRotation: 2
-  isCurrentlyPlayed: 0
-  color: {r: 1, g: 0, b: 0, a: 1}
+  baseSpeed: 90
+  movementSpeed: 2.5
+  speed: 0.01
+  gravityCoef: 0.25
+  isCurrentlyPlayed: 1
+  color: {r: 0.09228456, g: 1, b: 0, a: 0}
