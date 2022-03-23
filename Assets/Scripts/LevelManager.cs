@@ -37,7 +37,8 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     }
     private void Awake() {
         if (!Instance) Instance = this;
-        GameManager.Instance.SetState(GameState.InLevel);
+        if(GameManager.Instance)
+            GameManager.Instance.SetState(GameState.InLevel);
     }
     public void OnBeforeSerialize() {
         PopupList = GetAllScenesInBuild();
