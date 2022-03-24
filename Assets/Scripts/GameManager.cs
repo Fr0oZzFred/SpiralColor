@@ -49,6 +49,6 @@ public class GameManager : MonoBehaviour {
         progression = prog;
     }
     public void CheckPiece(Piece piece) {
-        pieces["Star " + piece.level + "-" + piece.index] = true;
+        pieces["Star " + LevelManager.Instance.LevelInt + "-" + piece.index] = true;
     }
 }

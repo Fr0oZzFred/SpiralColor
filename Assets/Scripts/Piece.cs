@@ -4,15 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class Piece : MonoBehaviour{
     public enum Index { first, second, third};
-    [HideInInspector]public int level;
+    public Index indexLevel;
     public int index {
         get {
             return (int)indexLevel;
         }
-    }
-    public Index indexLevel;
-    void Start() {
-        level = int.Parse(LevelManager.Instance.Level.Remove(0, LevelManager.Instance.Level.Length - 1));
     }
     private void Update() {
         if (Keyboard.current.aKey.wasPressedThisFrame && index == 1 ||
@@ -21,6 +17,6 @@ public class Piece : MonoBehaviour{
     }
     public void Collect() {
         GameManager.Instance.CheckPiece(this);
-        gameObject.SetActive(!GameManager.Instance.pieces["Star " + level + "-" + index]);
+        gameObject.SetActive(!GameManager.Instance.pieces["Star " + LevelManager.Instance.LevelInt + "-" + index]);
     }
 }

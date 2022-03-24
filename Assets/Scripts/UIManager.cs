@@ -52,9 +52,9 @@ public class UIManager : MonoBehaviour {
     public void Score() {
         endButton.SetActive(false);
         UITest.SetActive(true);
-        star1.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.Level.Remove(0, LevelManager.Instance.Level.Length - 1) + "-1"]);
-        star2.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.Level.Remove(0, LevelManager.Instance.Level.Length - 1) + "-2"]);
-        star3.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.Level.Remove(0, LevelManager.Instance.Level.Length - 1) + "-3"]);
+        star1.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.LevelInt + "-1"]);
+        star2.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.LevelInt + "-2"]);
+        star3.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.LevelInt + "-3"]);
     }
     public void ToHub() {
         UITest.SetActive(false);
