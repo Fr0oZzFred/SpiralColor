@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpherePlayerController : MonoBehaviour, IControllable {
+public class SpherePlayerController : Controller {
     #region Fields
     [Tooltip("Camera pour baser le déplacement du joueur")]
     [SerializeField]
@@ -541,18 +541,18 @@ public class SpherePlayerController : MonoBehaviour, IControllable {
         return (stairsMask & (1 << layer)) == 0 ?
             minGroundDotProduct : minStairsDotProduct;
     }
-    #region IControllableFunctions
-    public void IsPlaying(bool b) {
+    #region Controller abstractFunctions
+    public override void IsPlaying(bool b) {
         isCurrentlyPlayed = b;
     }
-    public void PreventSnapToGround() {
+    public override void PreventSnapToGround() {
         PreventSnapToGroundP();
     }
-    public void SetControllerLED() {
+    public override void SetControllerLED() {
         InputHandler.SetControllerLED(color);
     }
 
-    public void Respawn(Vector3 pos) {
+    public override void Respawn(Vector3 pos) {
         this.transform.position = pos;
         velocity = Vector3.zero;
     }
