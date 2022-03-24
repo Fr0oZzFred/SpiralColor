@@ -31,6 +31,7 @@ AudioMixerController:
   m_Snapshots:
   - {fileID: 24500006}
   - {fileID: 3052439291707586215}
+  - {fileID: 3608531971294456461}
   m_StartSnapshot: {fileID: 24500006}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
@@ -133,6 +134,19 @@ AudioMixerSnapshotController:
   m_Name: SnapshotEnJeu
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 677f1d63ff8a0944bbde9951d4952c53
+  m_FloatValues:
+    dd162218ad0c3ea4187e512865cfd22f: 0
+    c2654ab9f8086b940ad1fadc572429f6: -0.16685188
+  m_TransitionOverrides: {}
+--- !u!245 &3608531971294456461
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SnapshotEnJeu - Copy
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: f39dbb1c93575264c9547a535a844330
   m_FloatValues:
     dd162218ad0c3ea4187e512865cfd22f: 0
     c2654ab9f8086b940ad1fadc572429f6: -0.16685188

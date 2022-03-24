@@ -20,6 +20,12 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
     int checkpointProgression = 0;
 
+    public bool HasMissingCheckPoints() {
+        foreach (Checkpoint ck in checkpoints) {
+            if (!ck) return true;
+        }
+        return false;
+    }
 
     public static LevelManager Instance { get;private set; }
 
@@ -35,17 +41,41 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
         }
         return AllScenes;
     }
-    private void Awake() {
-        if (!Instance) Instance = this;
-        if(GameManager.Instance)
-            GameManager.Instance.SetState(GameState.InLevel);
-    }
     public void OnBeforeSerialize() {
         PopupList = GetAllScenesInBuild();
         TMPList = PopupList;
     }
 
     public void OnAfterDeserialize() { }
+    public void RemoveMissingCheckpoints() {
+        if (Application.isPlaying) {
+            Debug.LogError("Do not invoke in play mode!");
+            return;
+        }
+        foreach (Checkpoint ck in checkpoints) {
+            if (!ck) checkpoints.Remove(ck);
+        }
+    }
+
+    public (int, int) HasCheckpointsWithSameProgression() {
+        for (int i = 1; i < checkpoints.Count; i++) {
+            if (checkpoints[i - 1].Progression == checkpoints[i].Progression) {
+                return (i - 1, i);
+            }
+        }
+        return (0, 2);
+    }
+
+    [ContextMenu("Refresh")]
+    private void OnValidate() {
+        checkpoints.Sort();
+    }
+
+    private void Awake() {
+        if (!Instance) Instance = this;
+        if (GameManager.Instance)
+            GameManager.Instance.SetState(GameState.InLevel);
+    }
 
     private void Start() {
         checkpoints.Sort();
@@ -56,10 +86,7 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
             playerHandler.GetCurrentPlayer().Respawn(checkpoints[checkpointProgression].transform.position);
         }
     }
-    [ContextMenu("Refresh")]
-    private void OnValidate() {
-        checkpoints.Sort();
-    }
+
     /// <summary>
     /// Function called at the end of the level
     /// </summary>
