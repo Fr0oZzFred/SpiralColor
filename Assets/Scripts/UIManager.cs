@@ -6,7 +6,7 @@ public class UIManager : MonoBehaviour {
     public static UIManager Instance { get; private set; }
     [Header("UI Main Element")]
     [SerializeField]
-    GameObject loadingHUD, mainMenuHUD, inHubHUD, inLevelHUD , pauseHUD, scoreHUD, creditsHUD;
+    GameObject loadingHUD, mainMenuHUD, inHubHUD, inLevelHUD , pauseHUD, scoreHUD, creditsHUD, UITest, endButton, star1, star2, star3;
     [Header("Loading")]
     [SerializeField]
     Slider loadingSlider;
@@ -48,6 +48,17 @@ public class UIManager : MonoBehaviour {
     public void UpdateLoadingScreen(float sliderValue, float progressText) {
         SetLoadingSlider(sliderValue);
         SetLoadingText(progressText);
+    }
+    public void Score() {
+        endButton.SetActive(false);
+        UITest.SetActive(true);
+        star1.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.Level + "-" + 1]);
+        star1.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.Level + "-" + 2]);
+        star1.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.Level + "-" + 3]);
+    }
+    public void ToHub() {
+        UITest.SetActive(false);
+        SceneManagement.Instance.LoadLevel(0);
     }
     void SetLoadingSlider(float sliderValue) {
         loadingSlider.value = sliderValue;
