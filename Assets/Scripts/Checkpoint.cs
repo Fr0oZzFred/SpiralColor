@@ -3,7 +3,11 @@ using System;
 public class Checkpoint : MonoBehaviour, IComparable {
     [SerializeField]
     int progression;
-
+    public int Progression {
+        get {
+            return progression;
+        }
+    }
     public int CompareTo(object obj) {
         if (obj == null) return 1;
         Checkpoint otherCheckpoint = obj as Checkpoint;
@@ -17,4 +21,5 @@ public class Checkpoint : MonoBehaviour, IComparable {
     private void OnTriggerEnter(Collider other) {
         LevelManager.Instance.UpdateCPProgression(progression);
     }
+
 }

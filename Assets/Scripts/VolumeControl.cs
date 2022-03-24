@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -10,8 +10,7 @@ public class VolumeControl : MonoBehaviour
     [SerializeField] Slider slider;
     [SerializeField] float multiple = 30f;
     [SerializeField] private Toggle toggle;
-    [SerializeField] AudioMixerSnapshot menu;
-    [SerializeField] AudioMixerSnapshot enJeu;
+    [SerializeField] List<AudioMixerSnapshot> snapshots;
     private bool disableToggleEvent;
 
     private void Awake()
@@ -44,18 +43,15 @@ public class VolumeControl : MonoBehaviour
         PlayerPrefs.SetFloat(volumeParameter, slider.value);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         slider.value = PlayerPrefs.GetFloat(volumeParameter, slider.value);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            
+    public void ChangeSnapshots(int index) {
+        if(index >= 0 && index < snapshots.Count) {
+            snapshots[index].TransitionTo(1f);
+            Debug.Log(snapshots[index].name);
         }
     }
 }
