@@ -54,6 +54,6 @@ public class Teleporter : MonoBehaviour, ISerializationCallbackReceiver {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<IControllable>() != null) SceneManagement.Instance.LoadLevel(TargetScene);
+        if (other.GetComponent<Controller>() != null) SceneManagement.Instance.LoadLevel(TargetScene);
     }
 }
