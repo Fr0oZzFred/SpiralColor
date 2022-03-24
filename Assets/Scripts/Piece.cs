@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class Piece : MonoBehaviour{
+    public enum Index { first, second, third};
     [HideInInspector]public int level;
-    public int index;
+    public int index {
+        get {
+            return (int)indexLevel;
+        }
+    }
+    public Index indexLevel;
     void Start() {
         level = int.Parse(LevelManager.Instance.Level.Remove(0, LevelManager.Instance.Level.Length - 1));
     }

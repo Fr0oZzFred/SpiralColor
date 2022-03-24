@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour {
         progression = 0; // Temporaire
         pieces = new Dictionary<string, bool>();
         for (int i = 1; i < 16; i++) for (int j = 1; j < 4; j++) pieces.Add("Star " + i + "-" + j, false);
-        DontDestroyOnLoad(gameObject);
     }
     public void SetState (GameState newState){
         if (newState == CurrentState) return;
