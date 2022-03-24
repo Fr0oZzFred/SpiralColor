@@ -19,11 +19,13 @@ public class GameManager : MonoBehaviour {
     public event GameStateChangeHandler OnGameStateChanged;
     public int progression { get; private set; }
     public Dictionary<string, bool> pieces { get; private set; }
+    public Piece piece1, piece2, piece3;
     void Awake(){
         if (Instance == null) Instance = this;
         progression = 0; // Temporaire
         pieces = new Dictionary<string, bool>();
         for (int i = 1; i < 16; i++) for (int j = 1; j < 4; j++) pieces.Add("Star " + i + "-" + j, false);
+        DontDestroyOnLoad(gameObject);
     }
     public void SetState (GameState newState){
         if (newState == CurrentState) return;
