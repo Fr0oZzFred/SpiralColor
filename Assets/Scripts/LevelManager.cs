@@ -26,6 +26,17 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
         }
         return false;
     }
+    public Checkpoint GetLastCheckpoint {
+        get {
+            if(checkpoints.Count == 0) {
+                return null;
+            }
+            if(!checkpoints[checkpoints.Count - 1]) {
+                Debug.LogError("Please remove missing checkpoints before adding new ones.");
+            }
+            return checkpoints[checkpoints.Count - 1];
+        }
+    }
 
     public static LevelManager Instance { get;private set; }
 
@@ -55,6 +66,16 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
         foreach (Checkpoint ck in checkpoints) {
             if (!ck) checkpoints.Remove(ck);
         }
+    }
+
+    public void AddCheckpoint(Checkpoint ck) {
+        for (int i = 0; i < checkpoints.Count; i++) {
+            if (!checkpoints[i]) {
+                checkpoints[i] = ck;
+                return;
+            }
+        } 
+        checkpoints.Add(ck);
     }
 
     public (int, int) HasCheckpointsWithSameProgression() {
