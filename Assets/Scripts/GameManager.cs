@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
     public event GameStateChangeHandler OnGameStateChanged;
     public int progression { get; private set; }
     public Dictionary<string, bool> pieces { get; private set; }
+    public Piece piece1, piece2, piece3;
     void Awake(){
         if (Instance == null) Instance = this;
         progression = 0; // Temporaire
@@ -48,6 +49,6 @@ public class GameManager : MonoBehaviour {
         progression = prog;
     }
     public void CheckPiece(Piece piece) {
-        pieces["Star " + piece.level + "-" + piece.index] = true;
+        pieces["Star " + LevelManager.Instance.LevelInt + "-" + piece.index] = true;
     }
 }

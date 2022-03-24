@@ -52,13 +52,14 @@ public class UIManager : MonoBehaviour {
     public void Score() {
         endButton.SetActive(false);
         UITest.SetActive(true);
-        star1.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.Level + "-" + 1]);
-        star1.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.Level + "-" + 2]);
-        star1.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.Level + "-" + 3]);
+        star1.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.LevelInt + "-1"]);
+        star2.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.LevelInt + "-2"]);
+        star3.SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.LevelInt + "-3"]);
     }
     public void ToHub() {
         UITest.SetActive(false);
-        SceneManagement.Instance.LoadLevel(0);
+        endButton.SetActive(true);
+        SceneManagement.Instance.LoadLevel("Level 3");
     }
     void SetLoadingSlider(float sliderValue) {
         loadingSlider.value = sliderValue;

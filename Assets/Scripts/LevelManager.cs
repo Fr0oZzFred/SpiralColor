@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     PlayerHandler playerHandler;
     [ListToPopup(typeof(LevelManager), "TMPList")]
     public string Level;
-    int levelInt => int.Parse(Level.Remove(0, Level.Length - 1));
+    public int LevelInt => int.Parse(Level.Remove(0, Level.Length - 1));
 
     [Header("Checkpoints")]
     [SerializeField]
@@ -91,7 +91,7 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     /// Function called at the end of the level
     /// </summary>
     void LevelEnds() {
-        GameManager.Instance.UpdateProgression(levelInt);
+        GameManager.Instance.UpdateProgression(LevelInt);
     }
     /// <summary>
     /// Progression of checkpoints
