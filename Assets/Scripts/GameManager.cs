@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 public enum GameState {Boot, Loading, Cutscene, MainMenu, InHUB, InLevel, Pause, Score, Credits }
 
 [System.Serializable]
 public class GameManagerData{
     public int progression;
+    public Dictionary<string, bool> pieces;
     public GameManagerData(GameManager data) {
         progression = data.progression;
+        pieces = data.pieces;
     }
 }
 public class GameManager : MonoBehaviour {
@@ -15,9 +18,12 @@ public class GameManager : MonoBehaviour {
     public delegate void GameStateChangeHandler(GameState newState);
     public event GameStateChangeHandler OnGameStateChanged;
     public int progression { get; private set; }
+    public Dictionary<string, bool> pieces { get; private set; }
     void Awake(){
         if (Instance == null) Instance = this;
         progression = 0; // Temporaire
+        pieces = new Dictionary<string, bool>();
+        for (int i = 1; i < 16; i++) for (int j = 1; j < 4; j++) pieces.Add("Star " + i + "-" + j, false);
     }
     public void SetState (GameState newState){
         if (newState == CurrentState) return;
@@ -31,6 +37,7 @@ public class GameManager : MonoBehaviour {
     public void LoadGameManager() {
         GameManagerData data = SaveSystem.LoadGameManager();
         progression = data.progression;
+        pieces = data.pieces;
     }
     /// <summary>
     /// Update the Progression of the storyline
@@ -39,5 +46,8 @@ public class GameManager : MonoBehaviour {
     public void UpdateProgression(int prog) {
         if (prog < progression) return;
         progression = prog;
+    }
+    public void CheckPiece(Piece piece) {
+        pieces["Star " + piece.level + "-" + piece.index] = true;
     }
 }
