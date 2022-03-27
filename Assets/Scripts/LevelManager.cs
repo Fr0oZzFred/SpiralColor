@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
-
+    #region Fields
 
     [Header("Data")]
     [SerializeField]
@@ -20,11 +20,28 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
     int checkpointProgression = 0;
 
+    public static LevelManager Instance { get; private set; }
+    #endregion
+
+    #region Editor
+    [ContextMenu("Refresh")]
+    private void OnValidate() {
+        checkpoints.Sort();
+    }
     public bool HasMissingCheckPoints() {
         foreach (Checkpoint ck in checkpoints) {
             if (!ck) return true;
         }
         return false;
+    }
+    public void RemoveMissingCheckpoints() {
+        if (Application.isPlaying) {
+            Debug.LogError("Do not invoke in play mode!");
+            return;
+        }
+        foreach (Checkpoint ck in checkpoints) {
+            if (!ck) checkpoints.Remove(ck);
+        }
     }
     public Checkpoint GetLastCheckpoint {
         get {
@@ -38,7 +55,24 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
         }
     }
 
-    public static LevelManager Instance { get;private set; }
+    public void AddCheckpoint(Checkpoint ck) {
+        for (int i = 0; i < checkpoints.Count; i++) {
+            if (!checkpoints[i]) {
+                checkpoints[i] = ck;
+                return;
+            }
+        }
+        checkpoints.Add(ck);
+    }
+
+    public (int, int) HasCheckpointsWithSameProgression() {
+        for (int i = 1; i < checkpoints.Count; i++) {
+            if (checkpoints[i - 1].Progression == checkpoints[i].Progression) {
+                return (i - 1, i);
+            }
+        }
+        return (0, 2);
+    }
 
     public static List<string> TMPList;
     [HideInInspector] public List<string> PopupList;
@@ -58,39 +92,9 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     }
 
     public void OnAfterDeserialize() { }
-    public void RemoveMissingCheckpoints() {
-        if (Application.isPlaying) {
-            Debug.LogError("Do not invoke in play mode!");
-            return;
-        }
-        foreach (Checkpoint ck in checkpoints) {
-            if (!ck) checkpoints.Remove(ck);
-        }
-    }
 
-    public void AddCheckpoint(Checkpoint ck) {
-        for (int i = 0; i < checkpoints.Count; i++) {
-            if (!checkpoints[i]) {
-                checkpoints[i] = ck;
-                return;
-            }
-        } 
-        checkpoints.Add(ck);
-    }
+    #endregion Editor
 
-    public (int, int) HasCheckpointsWithSameProgression() {
-        for (int i = 1; i < checkpoints.Count; i++) {
-            if (checkpoints[i - 1].Progression == checkpoints[i].Progression) {
-                return (i - 1, i);
-            }
-        }
-        return (0, 2);
-    }
-
-    [ContextMenu("Refresh")]
-    private void OnValidate() {
-        checkpoints.Sort();
-    }
 
     private void Awake() {
         if (!Instance) Instance = this;
@@ -111,8 +115,9 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     /// <summary>
     /// Function called at the end of the level
     /// </summary>
-    void LevelEnds() {
-        GameManager.Instance.UpdateProgression(LevelInt);
+    public void TriggerLevelEnd() {
+        GameManager.Instance.UpdateProgression(GameManager.Instance.Progression + 1);
+        GameManager.Instance.SetState(GameState.Score);
     }
     /// <summary>
     /// Progression of checkpoints

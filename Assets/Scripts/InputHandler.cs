@@ -94,7 +94,7 @@ public class InputHandler : MonoBehaviour {
         if (DS4Controller != null) return;
 
         // Read layout from JSON file
-        string layout = File.ReadAllText(layoutFile == null ? "Assets/Scripts/customLayout.json" : layoutFile);
+        string layout = File.ReadAllText(layoutFile == null ? Application.dataPath + "/StreamingAssets/customLayout.json" : layoutFile);
 
         // Overwrite the default layout
         InputSystem.RegisterLayoutOverride(layout, "DualShock4GamepadHID");
