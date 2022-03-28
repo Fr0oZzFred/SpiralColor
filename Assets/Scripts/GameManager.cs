@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
 public enum GameState {Boot, MainMenu, InHUB, InLevel, Pause, Score, Loading, Cutscene, Credits, Options }
 
 [System.Serializable]
@@ -15,6 +14,7 @@ public class GameManagerData{
 public class GameManager : MonoBehaviour {
     public static GameManager Instance { get; private set; }
     public GameState CurrentState { get; private set; }
+    public GameState OldState { get; private set; }
     public delegate void GameStateChangeHandler(GameState newState);
     public event GameStateChangeHandler OnGameStateChanged;
     public int Progression { get; private set; }
@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour {
     private void Awake(){
         if (Instance == null) Instance = this;
         Init();
+    }
+    private void Update() {
+        HandlePause();
     }
     private void Init() {
         Progression = 1;
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour {
     }
     public void SetState (GameState newState){
         if (newState == CurrentState) return;
+        OldState = CurrentState;
         CurrentState = newState;
         OnGameStateChanged?.Invoke(newState);
     }
@@ -99,7 +103,19 @@ public class GameManager : MonoBehaviour {
     public bool CheckStar(Star star) {
         return pieces["Star " + LevelManager.Instance.LevelInt + "-" + star.StarIndex];
     }
-
+    public void HandlePause() {
+        if (CurrentState == GameState.Boot) return;
+        if (CurrentState == GameState.MainMenu) return;
+        if (CurrentState == GameState.Score) return;
+        if (CurrentState == GameState.Loading) return;
+        if (InputHandler.Controller.startButton.wasPressedThisFrame) {
+            if (CurrentState == GameState.Pause) {
+                SetState(OldState);
+            } else {
+                SetState(GameState.Pause);
+            }
+        }
+    }
     public void QuitApplication() {
         Application.Quit();
     }

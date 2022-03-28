@@ -198,7 +198,7 @@ public class TrianglePlayerController : Controller {
             return;
         }
 
-        desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
+        desiredJump |= InputHandler.Controller.buttonNorth.wasPressedThisFrame;
 
         UpdateSpin();
     }
@@ -495,7 +495,7 @@ public class TrianglePlayerController : Controller {
             minGroundDotProduct : minStairsDotProduct;
     }
     #region Controller abstractFunctions
-    public override void IsPlaying(bool b) {
+    public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
     }
     public override void PreventSnapToGround() {

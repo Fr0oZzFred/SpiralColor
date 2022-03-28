@@ -57,7 +57,6 @@ public class SoundsManager : MonoBehaviour {
             return;
         }
         s.source.Play();
-        Debug.Log(name + "is playing");
     }
 
     public void ChangeSnapshot(int index) {

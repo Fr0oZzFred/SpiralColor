@@ -3213,7 +3213,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 707164169}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 503716304}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: QuitApplication
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &707164169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3967,7 +3979,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 929335373}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 503716304}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: HandlePause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &929335373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5884,7 +5908,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6def6b2325979e34887d069e9e1fcfa7, type: 3}
     outputGroup: {fileID: 8651735518225755797, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
 --- !u!1 &1514880004
 GameObject:

@@ -89,7 +89,6 @@ public class UIManager : MonoBehaviour {
                 eventSystem.SetSelectedGameObject(optionFirstSelectedGO);
                 break;
             default:
-                Debug.LogWarning("No GO in the switch for State : " + newState);
                 break;
         }
     }

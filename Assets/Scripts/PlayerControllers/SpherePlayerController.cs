@@ -542,7 +542,7 @@ public class SpherePlayerController : Controller {
             minGroundDotProduct : minStairsDotProduct;
     }
     #region Controller abstractFunctions
-    public override void IsPlaying(bool b) {
+    public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
     }
     public override void PreventSnapToGround() {

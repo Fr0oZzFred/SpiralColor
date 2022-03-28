@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,10 +12,13 @@ public class PlayerHandler : MonoBehaviour {
     private void Start() {
         index = startingIndex > listController.Count -1 ? 0 : startingIndex;
         for (int i = 0; i < listController.Count; i++) {
-            listController[i].IsPlaying(index == i);
+            listController[i].RegisterInputs(index == i);
         }
         cam.SetFocus(listController[index].transform);
         listController[index].SetControllerLED();
+
+        if(GameManager.Instance)
+            GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
     }
 
     private void Update() {
@@ -32,20 +36,37 @@ public class PlayerHandler : MonoBehaviour {
             }
         }
     }
+
+    private void OnGameStateChanged(GameState newState) {
+        switch (newState) {
+            case GameState.InLevel:
+            case GameState.InHUB:
+                CurrentPlayer.RegisterInputs(true);
+                break;
+            case GameState.Pause:
+            case GameState.Score:
+            case GameState.Cutscene:
+                CurrentPlayer.RegisterInputs(false);
+                break;
+        }
+    }
+
     /// <summary>
     /// Change the player who is controlled by the player
     /// </summary>
     /// <param name="oldIndex"></param>
     void ChangePlayer(int oldIndex) {
         index %= listController.Count;
-        listController[oldIndex].IsPlaying(false);
-        listController[index].IsPlaying(true);
+        listController[oldIndex].RegisterInputs(false);
+        listController[index].RegisterInputs(true);
         listController[index].SetControllerLED();
         cam.SetFocus(listController[index].transform);
     }
 
-    public Controller GetCurrentPlayer() {
-        return listController[index];
+    public Controller CurrentPlayer {
+        get {
+            return listController[index];
+        }
     }
     private void OnApplicationQuit() {
         InputHandler.SetControllerLED(Color.black);

@@ -13,11 +13,13 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     public string Level;
     public int LevelInt => int.Parse(Level.Remove(0, Level.Length - 1));
 
+    [Header("Musics")]
+    [SerializeField]
+    string music;
+
     [Header("Checkpoints")]
     [SerializeField]
     List<Checkpoint> checkpoints;
-    
-
     int checkpointProgression = 0;
 
     public static LevelManager Instance { get; private set; }
@@ -104,11 +106,13 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
     private void Start() {
         checkpoints.Sort();
+        if(SoundsManager.Instance)
+            SoundsManager.Instance.Play(music);
     }
 
     private void Update() {
         if (Keyboard.current.rKey.wasPressedThisFrame) {
-            playerHandler.GetCurrentPlayer().Respawn(checkpoints[checkpointProgression].transform.position);
+            playerHandler.CurrentPlayer.Respawn(checkpoints[checkpointProgression].transform.position);
         }
     }
 
