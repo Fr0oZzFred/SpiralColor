@@ -20,7 +20,12 @@ public class InputHandler : MonoBehaviour {
 
     public  static Gamepad Controller = null;
     private static DualShock4GamepadHID DS4Controller = null;
-
+    public string ErrorMessage {
+        get {
+            return errorMessage;
+        }
+    }
+    private string errorMessage = "";
     public static InputHandler Instance { get; private set; }
 
     /// <summary>
@@ -32,27 +37,24 @@ public class InputHandler : MonoBehaviour {
         if (Controller != null) connectedOnce = true;
         InputSystem.onDeviceChange +=
         (device, change) => {
+            if (GameManager.Instance.CurrentState == GameState.Boot) return;
             switch (change) {
-
                 case InputDeviceChange.Added:
                     // New Device.
                     Controller = null;
                     DS4Controller = null;
                     connectedOnce = true;
-                    Debug.Log(change);
                     break;
 
                 case InputDeviceChange.Disconnected:
                     // Device got unplugged.
                     Controller = null;
                     DS4Controller = null;
-                    Debug.Log(change);
                     break;
 
                 case InputDeviceChange.Reconnected:
                     // Plugged back in.
                     SetController();
-                    Debug.Log(change);
                     break;
 
                 default:
@@ -63,7 +65,10 @@ public class InputHandler : MonoBehaviour {
     }
 
     private void Update() {
+        if (!GameManager.Instance) return;
+        if (GameManager.Instance.CurrentState == GameState.Boot) return;
         if (ControllerIsMissing) SearchController();
+        
     }
 
     void SearchController() {
@@ -72,10 +77,12 @@ public class InputHandler : MonoBehaviour {
                 SetController();
             } catch {
                 if (connectedOnce) {
-                    Debug.Log("Reconnect the Gamepad pls");
+                    errorMessage = "Reconnect the Gamepad please !";
                 } else {
-                    Debug.Log("Plug a Gamepad pls");
+                    errorMessage = "Plug a Gamepad please !";
                 }
+                if (GameManager.Instance)
+                    GameManager.Instance.SetState(GameState.ControllerDisconnected);
             }
         }
     }
@@ -89,6 +96,7 @@ public class InputHandler : MonoBehaviour {
         CheckForMultipleController();
         if (!isDS4) {
             Controller = Gamepad.current;
+            GameManager.Instance.SetState(GameManager.Instance.OldState);
             return;
         }
         if (DS4Controller != null) return;
@@ -102,6 +110,8 @@ public class InputHandler : MonoBehaviour {
         var ds4 = (DualShock4GamepadHID)Gamepad.current;
         Controller = DS4Controller = ds4;
         BindControls(DS4Controller);
+
+        GameManager.Instance.SetState(GameManager.Instance.OldState);
     }
 
     /// <summary>

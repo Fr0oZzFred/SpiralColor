@@ -46,6 +46,7 @@ public class PlayerHandler : MonoBehaviour {
             case GameState.Pause:
             case GameState.Score:
             case GameState.Cutscene:
+            case GameState.ControllerDisconnected:
                 CurrentPlayer.RegisterInputs(false);
                 break;
         }

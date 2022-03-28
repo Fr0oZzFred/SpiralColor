@@ -18,6 +18,7 @@ public class SoundsManager : MonoBehaviour {
     }
 
     public Sound[] sounds;
+    Sound current;
     public static SoundsManager Instance { get; private set; }
     
     void Awake()
@@ -45,7 +46,7 @@ public class SoundsManager : MonoBehaviour {
     }
 
     private void OnGameStateChanged(GameState newState) {
-        throw new NotImplementedException();
+        throw new System.NotImplementedException();
     }
 
     public void Play(string name)
@@ -56,9 +57,25 @@ public class SoundsManager : MonoBehaviour {
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
         }
+        current = s;
         s.source.Play();
     }
-
+    public void StopCurrentMusic() {
+        if (current != null) {
+            current.source.Stop();
+            current = null;
+        }
+    }
+    public void PauseCurrentMusic() {
+        if (current != null) {
+            current.source.Pause();
+        }
+    }
+    public void UnPauseCurrentMusic() {
+        if (current != null) {
+            current.source.UnPause();
+        }
+    }
     public void ChangeSnapshot(int index) {
         if (index >= 0 && index < snapshots.Count) {
             snapshots[index].TransitionTo(1f);

@@ -121,6 +121,7 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     /// </summary>
     public void TriggerLevelEnd() {
         GameManager.Instance.UpdateProgression(GameManager.Instance.Progression + 1);
+        SoundsManager.Instance.StopCurrentMusic();
         GameManager.Instance.SetState(GameState.Score);
     }
     /// <summary>

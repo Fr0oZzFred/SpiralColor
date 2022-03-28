@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-public enum GameState {Boot, MainMenu, InHUB, InLevel, Pause, Score, Loading, Cutscene, Credits, Options }
+public enum GameState {Boot, MainMenu, InHUB, InLevel, Pause, Score, Loading, Cutscene, Credits, Options, ControllerDisconnected }
 
 [System.Serializable]
 public class GameManagerData{
@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviour {
         return pieces["Star " + LevelManager.Instance.LevelInt + "-" + star.StarIndex];
     }
     public void HandlePause() {
+        if (InputHandler.Controller == null) return;
         if (CurrentState == GameState.Boot) return;
         if (CurrentState == GameState.MainMenu) return;
         if (CurrentState == GameState.Score) return;

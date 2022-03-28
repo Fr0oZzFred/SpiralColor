@@ -47,6 +47,13 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     GameObject optionsHUD;
 
+    [Header("ControllerDisconnected")]
+    [SerializeField]
+    GameObject controllerDisconnectedHUD;
+    [SerializeField]
+    TMP_Text errorText;
+
+
     [Header("Event System")]
     [SerializeField]
     EventSystem eventSystem;
@@ -72,6 +79,7 @@ public class UIManager : MonoBehaviour {
         cutsceneHUD.SetActive(newState == GameState.Cutscene);
         creditsHUD.SetActive(newState == GameState.Credits);
         optionsHUD.SetActive(newState == GameState.Options);
+        controllerDisconnectedHUD.SetActive(newState == GameState.ControllerDisconnected);
 
         eventSystem.SetSelectedGameObject(null);
         switch (newState) {
@@ -87,6 +95,9 @@ public class UIManager : MonoBehaviour {
                 break;
             case GameState.Options:
                 eventSystem.SetSelectedGameObject(optionFirstSelectedGO);
+                break;
+            case GameState.ControllerDisconnected:
+                errorText.SetText(InputHandler.Instance.ErrorMessage);
                 break;
             default:
                 break;
