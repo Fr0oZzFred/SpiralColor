@@ -1167,7 +1167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9de4726c3ff0849b3bee3691d83645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listGO:
+  listController:
   - {fileID: 968371232}
   startingIndex: 0
   cam: {fileID: 1699802807}
@@ -7679,17 +7679,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHandler: {fileID: 138666629}
   Level: Proto Rond
+  music: 
   checkpoints: []
   PopupList:
-  - HUB 0
+  - Boot
   - Main Menu
+  - HUB
   - Level 1
   - Level 2
   - Level 3
   - Level 4
-  - Boot
   - Proto Croix 1
   - Proto Sphere
+  - Proto Croix + Sphere
+  - Proto Square
+  - Test Sphere 1
+  - Test Sphere
 --- !u!4 &930335097
 Transform:
   m_ObjectHideFlags: 0
@@ -8391,11 +8396,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa4f7982e3e18054e9b06a38dafc3c91, type: 3}
---- !u!1 &968371232 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 692897413922193101, guid: aa4f7982e3e18054e9b06a38dafc3c91, type: 3}
+--- !u!114 &968371232 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 692897413922193097, guid: aa4f7982e3e18054e9b06a38dafc3c91, type: 3}
   m_PrefabInstance: {fileID: 968371231}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e75a38c8c92424d83e2238076cde20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &968371233 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 692897413922193096, guid: aa4f7982e3e18054e9b06a38dafc3c91, type: 3}
