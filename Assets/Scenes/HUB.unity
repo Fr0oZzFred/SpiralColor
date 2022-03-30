@@ -331,15 +331,17 @@ MonoBehaviour:
   text: Level 4
   colorLocked: {r: 1, g: 0, b: 0, a: 1}
   colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
+  requiredProgression: 4
   TargetScene: Level 4
   sceneList:
-  - HUB 0
+  - Boot
   - Main Menu
+  - HUB
   - Level 1
   - Level 2
   - Level 3
   - Level 4
-  - Boot
+  - Proto Croix 1
 --- !u!114 &358185506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1251,8 +1253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9de4726c3ff0849b3bee3691d83645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listGO:
-  - {fileID: 2082127919}
+  listController:
+  - {fileID: 2082127920}
   startingIndex: 1
   cam: {fileID: 1744498612}
 --- !u!1 &530247259
@@ -2192,7 +2194,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-44564
+  m_Name: pb_Mesh-180768
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2388,15 +2390,17 @@ MonoBehaviour:
   text: Level 3
   colorLocked: {r: 1, g: 0, b: 0, a: 1}
   colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
+  requiredProgression: 3
   TargetScene: Level 3
   sceneList:
-  - HUB 0
+  - Boot
   - Main Menu
+  - HUB
   - Level 1
   - Level 2
   - Level 3
   - Level 4
-  - Boot
+  - Proto Croix 1
 --- !u!114 &967292979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3796,7 +3800,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-44548
+  m_Name: pb_Mesh-180752
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12627,15 +12631,17 @@ MonoBehaviour:
   text: Level 2
   colorLocked: {r: 1, g: 0, b: 0, a: 1}
   colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
+  requiredProgression: 2
   TargetScene: Level 2
   sceneList:
-  - HUB 0
+  - Boot
   - Main Menu
+  - HUB
   - Level 1
   - Level 2
   - Level 3
   - Level 4
-  - Boot
+  - Proto Croix 1
 --- !u!114 &2110780434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12933,6 +12939,10 @@ PrefabInstance:
     - target: {fileID: 1585989458496305712, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
       propertyPath: TargetScene
       value: Level 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585989458496305712, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
+      propertyPath: requiredProgression
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1585989458496305714, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
       propertyPath: m_RootOrder

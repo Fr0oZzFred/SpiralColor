@@ -32,9 +32,9 @@ public class Managers : MonoBehaviour, ISerializationCallbackReceiver  {
     private void Start() {
         DontDestroyOnLoad(this);
         if (File.Exists(Application.persistentDataPath + "/gameManager.test"))
-            Debug.Log("Load GM");
+            Debug.LogWarning("Load have to be done here");
         else
-            Debug.Log("Save GM");
+            Debug.LogWarning("Save have to be done here");
         SceneManagement.Instance.LoadLevel(TargetScene);
         GameManager.Instance.SetState(baseGameState);
     }

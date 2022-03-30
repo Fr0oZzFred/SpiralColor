@@ -4,24 +4,77 @@ using UnityEngine.InputSystem;
 
 public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
-
+    #region Fields
 
     [Header("Data")]
     [SerializeField]
     PlayerHandler playerHandler;
     [ListToPopup(typeof(LevelManager), "TMPList")]
     public string Level;
-    int levelInt => int.Parse(Level.Remove(0, Level.Length - 1));
+    public int LevelInt => int.Parse(Level.Remove(0, Level.Length - 1));
+
+    [Header("Musics")]
+    [SerializeField]
+    string music;
 
     [Header("Checkpoints")]
     [SerializeField]
     List<Checkpoint> checkpoints;
-    
-
     int checkpointProgression = 0;
 
+    public static LevelManager Instance { get; private set; }
+    #endregion
 
-    public static LevelManager Instance { get;private set; }
+    #region Editor
+    [ContextMenu("Refresh")]
+    private void OnValidate() {
+        checkpoints.Sort();
+    }
+    public bool HasMissingCheckPoints() {
+        foreach (Checkpoint ck in checkpoints) {
+            if (!ck) return true;
+        }
+        return false;
+    }
+    public void RemoveMissingCheckpoints() {
+        if (Application.isPlaying) {
+            Debug.LogError("Do not invoke in play mode!");
+            return;
+        }
+        foreach (Checkpoint ck in checkpoints) {
+            if (!ck) checkpoints.Remove(ck);
+        }
+    }
+    public Checkpoint GetLastCheckpoint {
+        get {
+            if(checkpoints.Count == 0) {
+                return null;
+            }
+            if(!checkpoints[checkpoints.Count - 1]) {
+                Debug.LogError("Please remove missing checkpoints before adding new ones.");
+            }
+            return checkpoints[checkpoints.Count - 1];
+        }
+    }
+
+    public void AddCheckpoint(Checkpoint ck) {
+        for (int i = 0; i < checkpoints.Count; i++) {
+            if (!checkpoints[i]) {
+                checkpoints[i] = ck;
+                return;
+            }
+        }
+        checkpoints.Add(ck);
+    }
+
+    public (int, int) HasCheckpointsWithSameProgression() {
+        for (int i = 1; i < checkpoints.Count; i++) {
+            if (checkpoints[i - 1].Progression == checkpoints[i].Progression) {
+                return (i - 1, i);
+            }
+        }
+        return (0, 2);
+    }
 
     public static List<string> TMPList;
     [HideInInspector] public List<string> PopupList;
@@ -35,11 +88,6 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
         }
         return AllScenes;
     }
-    private void Awake() {
-        if (!Instance) Instance = this;
-        if(GameManager.Instance)
-            GameManager.Instance.SetState(GameState.InLevel);
-    }
     public void OnBeforeSerialize() {
         PopupList = GetAllScenesInBuild();
         TMPList = PopupList;
@@ -47,24 +95,34 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
     public void OnAfterDeserialize() { }
 
+    #endregion Editor
+
+
+    private void Awake() {
+        if (!Instance) Instance = this;
+        if (GameManager.Instance)
+            GameManager.Instance.SetState(GameState.InLevel);
+    }
+
     private void Start() {
         checkpoints.Sort();
+        if(SoundsManager.Instance)
+            SoundsManager.Instance.Play(music);
     }
 
     private void Update() {
         if (Keyboard.current.rKey.wasPressedThisFrame) {
-            playerHandler.GetCurrentPlayer().Respawn(checkpoints[checkpointProgression].transform.position);
+            playerHandler.CurrentPlayer.Respawn(checkpoints[checkpointProgression].transform.position);
         }
     }
-    [ContextMenu("Refresh")]
-    private void OnValidate() {
-        checkpoints.Sort();
-    }
+
     /// <summary>
     /// Function called at the end of the level
     /// </summary>
-    void LevelEnds() {
-        GameManager.Instance.UpdateProgression(levelInt);
+    public void TriggerLevelEnd() {
+        GameManager.Instance.UpdateProgression(GameManager.Instance.Progression + 1);
+        SoundsManager.Instance.StopCurrentMusic();
+        GameManager.Instance.SetState(GameState.Score);
     }
     /// <summary>
     /// Progression of checkpoints

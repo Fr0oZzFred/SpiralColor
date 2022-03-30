@@ -827,7 +827,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585989458496305705}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -914,10 +914,11 @@ MonoBehaviour:
   colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
   TargetScene: HUB 0
   sceneList:
-  - HUB 0
+  - Boot
   - Main Menu
+  - HUB 0
   - Level 1
   - Level 2
   - Level 3
   - Level 4
-  - Boot
+  - Proto Croix 1

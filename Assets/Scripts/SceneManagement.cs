@@ -7,6 +7,8 @@ public class SceneManagement : MonoBehaviour {
     public static SceneManagement Instance { get; private set; }
 
 
+    //Fonction pour Load 2 scène en même temps
+
     private void Awake() {
         if (!Instance) Instance = this;
     }
@@ -29,4 +31,5 @@ public class SceneManagement : MonoBehaviour {
             yield return null;
         }
     }
+
 }

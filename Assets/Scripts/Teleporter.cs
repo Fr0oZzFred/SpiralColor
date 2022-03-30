@@ -13,9 +13,12 @@ public class Teleporter : MonoBehaviour, ISerializationCallbackReceiver {
     Color colorLocked, colorUnlocked;
 
     [Header("Teleporter")]
+    [SerializeField]
+    int requiredProgression;
     [ListToPopup(typeof(Teleporter), "TMPList")]
     public string TargetScene;
-    int targetSceneInt => int.Parse(TargetScene.Remove(0, TargetScene.Length - 1));
+
+    #region Editor
     public static List<string> TMPList;
     [HideInInspector] public List<string> sceneList;
     
@@ -36,6 +39,8 @@ public class Teleporter : MonoBehaviour, ISerializationCallbackReceiver {
     }
 
     public void OnAfterDeserialize() { }
+    #endregion
+
     private void OnValidate() {
         if (textGO) {
             ChangeTextColor(colorLocked);
@@ -43,8 +48,8 @@ public class Teleporter : MonoBehaviour, ISerializationCallbackReceiver {
         }
     }
     private void Start() {
-        if (targetSceneInt < GameManager.Instance.progression)
-        ChangeTextColor(colorUnlocked);
+        if (requiredProgression <= GameManager.Instance.Progression)
+            ChangeTextColor(colorUnlocked);
     }
     void ChangeTextColor(Color c) {
         if(textGO) textGO.color = c;
@@ -54,6 +59,6 @@ public class Teleporter : MonoBehaviour, ISerializationCallbackReceiver {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<IControllable>() != null) SceneManagement.Instance.LoadLevel(TargetScene);
+        if (other.GetComponent<Controller>() != null) SceneManagement.Instance.LoadLevel(TargetScene);
     }
 }

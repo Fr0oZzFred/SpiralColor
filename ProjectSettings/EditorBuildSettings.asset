@@ -6,11 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/HUB 0.unity
-    guid: 5e4e29272b4d3ad49b84b1011bf4c80a
+    path: Assets/Scenes/Boot.unity
+    guid: f7b289174b53741488cce62b65d86f1c
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 01a8abadb5c8bfd48961ded3902f9648
+  - enabled: 1
+    path: Assets/Scenes/HUB.unity
+    guid: 5e4e29272b4d3ad49b84b1011bf4c80a
   - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 18211f8449299514aafe884599a51899
@@ -24,17 +27,23 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 4.unity
     guid: 7a9eda491669dcc4da5c1be36f7bcca9
   - enabled: 1
-    path: Assets/Scenes/Boot.unity
-    guid: f7b289174b53741488cce62b65d86f1c
-  - enabled: 1
     path: Assets/Scenes/Proto Levels/Proto Croix 1.unity
     guid: c43c44f4f87cbff48ad96796d7965e1a
   - enabled: 1
     path: Assets/Scenes/Proto Levels/Proto Sphere.unity
     guid: e28ca55e81712034598f7525db2045cf
   - enabled: 1
-    path: Assets/Scenes/Proto Levels/Proto triangle.unity
-    guid: 1c3ebea1dab030f4799d38435e21e17b
+    path: Assets/Scenes/Proto Levels/Proto Croix + Sphere.unity
+    guid: 138794e9efbf0d94fa84960035fb58c4
+  - enabled: 1
+    path: Assets/Scenes/Proto Levels/Proto Square.unity
+    guid: 7e7ab7cb27429b2428929ae054ecd155
+  - enabled: 1
+    path: Assets/Scenes/Proto Levels/Test Sphere 1.unity
+    guid: 195611f8592ba664eb5674243bb904a8
+  - enabled: 1
+    path: Assets/Scenes/Proto Levels/Test Sphere.unity
+    guid: 4913703b40d6064468209cf26e451359
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: ea07efe930fb9b7489a423c10ebaa836, type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: 19a6db6901b5f0d47b5f2b7f00280aa5, type: 2}

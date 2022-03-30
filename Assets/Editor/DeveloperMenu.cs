@@ -12,5 +12,12 @@ public class DeveloperMenu {
     public static void GMProgressionToMax() {
         GameManager.Instance.UpdateProgression(4);
     }
-
+    [MenuItem("Developer/GameManager/Save")]
+    public static void SaveGM() {
+        GameManager.Instance.SaveGameManager();
+    }
+    [MenuItem("Developer/GameManager/Load")]
+    public static void LoadGM() {
+        GameManager.Instance.LoadGameManager();
+    }
 }

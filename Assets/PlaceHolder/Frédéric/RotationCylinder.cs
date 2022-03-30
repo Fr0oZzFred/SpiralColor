@@ -31,6 +31,36 @@ public class RotationCylinder : MonoBehaviour
                     this.transform.Rotate(0, 22.5f, 0);
                 }
                 break;
+            case 4:
+                if (Keyboard.current.numpad4Key.wasReleasedThisFrame) {
+                    this.transform.Rotate(0, 22.5f, 0);
+                }
+                break;
+            case 5:
+                if (Keyboard.current.numpad5Key.wasReleasedThisFrame) {
+                    this.transform.Rotate(0, 22.5f, 0);
+                }
+                break;
+            case 6:
+                if (Keyboard.current.numpad6Key.wasReleasedThisFrame) {
+                    this.transform.Rotate(0, 22.5f, 0);
+                }
+                break;
+            case 7:
+                if (Keyboard.current.numpad7Key.wasReleasedThisFrame) {
+                    this.transform.Rotate(0, 22.5f, 0);
+                }
+                break;
+            case 8:
+                if (Keyboard.current.numpad8Key.wasReleasedThisFrame) {
+                    this.transform.Rotate(0, 22.5f, 0);
+                }
+                break;
+            case 9:
+                if (Keyboard.current.numpad9Key.wasReleasedThisFrame) {
+                    this.transform.Rotate(0, 22.5f, 0);
+                }
+                break;
         }
     }
 }
