@@ -59,6 +59,11 @@ public class UIManager : MonoBehaviour {
     EventSystem eventSystem;
     [SerializeField]
     GameObject mainMenuFirstSelectedGO, pauseFirstSelectedGO, scoreFirstSelectedGO, optionFirstSelectedGO;
+
+    [Header("Keyboard")]
+    [SerializeField] GameObject keyboard;
+    [SerializeField] Text viewText;
+    [HideInInspector] public string inputTextKeyboard = "";
     public static UIManager Instance { get; private set; }
 
     #endregion
@@ -119,6 +124,21 @@ public class UIManager : MonoBehaviour {
             stars[i].SetActive(false);
         }
     }
+    #region keyboard
+    public void OpenKeyboard() {
+        keyboard.SetActive(true);
+        inputTextKeyboard = "";
+    }
+    public void InputKeyboard(string letter) {
+        inputTextKeyboard += letter;
+    }
+    public void DeleteLetter() {
+        if (inputTextKeyboard.Length > 0) inputTextKeyboard.Remove(inputTextKeyboard.Length - 1, inputTextKeyboard.Length); 
+    }
+    public void Enter() {
+        keyboard.SetActive(false);
+    }
+    #endregion
     void SetLoadingSlider(float sliderValue) {
         loadingSlider.value = sliderValue;
     }

@@ -17,6 +17,8 @@ public class Teleporter : MonoBehaviour, ISerializationCallbackReceiver {
     int requiredProgression;
     [ListToPopup(typeof(Teleporter), "TMPList")]
     public string TargetScene;
+    [ListToPopup(typeof(Teleporter), "TMPList")]
+    public string AdditiveScene;
 
     #region Editor
     public static List<string> TMPList;
@@ -59,6 +61,10 @@ public class Teleporter : MonoBehaviour, ISerializationCallbackReceiver {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Controller>() != null) SceneManagement.Instance.LoadLevel(TargetScene);
+        if (other.GetComponent<Controller>() != null) {
+            PlayTestData.Instance.Restart();
+            if (AdditiveScene != null) SceneManagement.Instance.LoadingRendering(TargetScene, AdditiveScene);
+            else SceneManagement.Instance.LoadLevel(TargetScene);
+        }
     }
 }
