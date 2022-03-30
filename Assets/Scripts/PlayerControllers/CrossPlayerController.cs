@@ -628,7 +628,7 @@ public class CrossPlayerController : Controller {
     }
     public override void Respawn(Vector3 pos) {
         this.transform.position = pos;
-        velocity = Vector3.zero;
+        body.velocity = velocity = Vector3.zero;
     }
     #endregion
 }

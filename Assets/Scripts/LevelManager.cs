@@ -7,8 +7,7 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     #region Fields
 
     [Header("Data")]
-    [SerializeField]
-    PlayerHandler playerHandler;
+    public PlayerHandler playerHandler;
     [ListToPopup(typeof(LevelManager), "TMPList")]
     public string Level;
     public int LevelInt => int.Parse(Level.Remove(0, Level.Length - 1));
