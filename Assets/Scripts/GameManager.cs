@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-public enum GameState {Boot, MainMenu, InHUB, InLevel, Pause, Score, Loading, Cutscene, Credits, Options, ControllerDisconnected }
+public enum GameState {Boot, MainMenu, InHUB, InLevel, Pause, Score, Loading, Cutscene, Credits, Options, ControllerDisconnected, Keyboard }
 
 [System.Serializable]
 public class GameManagerData{
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
     public event GameStateChangeHandler OnGameStateChanged;
     public int Progression { get; private set; }
     public Dictionary<string, bool> pieces { get; private set; }
+    public string Username { get; private set; }
     private void Awake(){
         if (Instance == null) Instance = this;
         Init();
@@ -116,6 +117,9 @@ public class GameManager : MonoBehaviour {
                 SetState(GameState.Pause);
             }
         }
+    }
+    public void ApplyUsername(string name) {
+        Username = name;
     }
     public void QuitApplication() {
         Application.Quit();

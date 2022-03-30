@@ -6,25 +6,30 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class PlayTestData : MonoBehaviour{
-    public InputField username;
+    public static PlayTestData Instance { get; private set; }
+    [SerializeField] string fieldName, fieldLevel, fieldTime, fieldDeath;
+    [SerializeField] string URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfUfDhbKpNkaf8i2UbzaDdYQBdtk-jvZwhkmZbUr71nq_L1tQ/formResponse";
     float time = 0;
     int death = 0;
-    [SerializeField] string URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfUfDhbKpNkaf8i2UbzaDdYQBdtk-jvZwhkmZbUr71nq_L1tQ/formResponse";
+    void Awake() {
+        Instance = this;
+    }
     void Update() {
         time += Time.deltaTime;
     }
-    public void Play() {
+    public void Restart() {
         time = 0;
         death = 0;
     }
     public void Dead() {
         death++;
     }
-    IEnumerator Post(string name, string death, string time) {
+    IEnumerator Post(string name, string level, string time, string death) {
         WWWForm form = new WWWForm();
-        form.AddField("entry.938686525", name);
-        form.AddField("entry.751726181", death);
-        form.AddField("entry.964582346", time);
+        form.AddField(fieldName, name);
+        form.AddField(fieldLevel, level);
+        form.AddField(fieldTime, time);
+        form.AddField(fieldDeath, death);
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form)) {
             yield return www.SendWebRequest();
 
@@ -36,7 +41,6 @@ public class PlayTestData : MonoBehaviour{
         }
     }
     public void Send() {
-        Debug.Log(username.text + death.ToString() + Math.Round((decimal)time, 2).ToString());
-        StartCoroutine(Post(username.text, death.ToString(), Math.Round((decimal)time, 2).ToString()));
+        StartCoroutine(Post(GameManager.Instance.Username, LevelManager.Instance.LevelInt.ToString(), Math.Round((decimal)time, 2).ToString(), death.ToString()));
     }
 }

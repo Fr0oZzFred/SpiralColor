@@ -20,4 +20,8 @@ public class DeveloperMenu {
     public static void LoadGM() {
         GameManager.Instance.LoadGameManager();
     }
+    [MenuItem("Developer/Keyboard")]
+    public static void onKeyboard() {
+        UIManager.Instance.OpenKeyboard();
+    }
 }
