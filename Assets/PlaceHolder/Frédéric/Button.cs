@@ -1,26 +1,43 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-    public Transform jumper;
-    public float height;
-    public float offset, offsetStart, offsetEnd;
+    enum Shape {
+        Cross,
+        Square
+    }
+    [SerializeField]
+    Shape shapeConcerned;
+    [SerializeField]
+    Transform jumper;
+    [SerializeField]
+    float height;
+    [SerializeField]
+    float offset, offsetStart, offsetEnd;
+    [SerializeField]
     [Min(0.01f)]
-    public float speed = 0.01f, numberOfGizmos = 0.01f;
+    float speed = 0.01f, resolutionGizmos = 0.01f;
 
-    public float distance;
+    [SerializeField]
+    float rangeForJumping;
 
     private void Update() {
         Vector3 p = transform.position - jumper.position;
-        if(p.magnitude < distance) {
-            Debug.Log("you're allowed to jump");
-            if (InputHandler.Controller.leftTrigger.wasPressedThisFrame) {
-                StartCoroutine(JumpTrajectory(jumper.position, transform.position));
-            }
+        if(p.magnitude < rangeForJumping) {
+            CheckForJump();
         }
     }
+
+    private void CheckForJump() {
+        if (shapeConcerned == Shape.Cross) {
+            if (InputHandler.Controller.buttonSouth.wasPressedThisFrame)
+                StartCoroutine(JumpTrajectory(jumper.position, transform.position));
+        } else if (InputHandler.Controller.buttonWest.wasPressedThisFrame)
+            StartCoroutine(JumpTrajectory(jumper.position, transform.position));
+    }
+
     IEnumerator JumpTrajectory(Vector3 start, Vector3 end) {
         float interpolation = 0;
         while (interpolation < 1f) {
@@ -39,14 +56,12 @@ public class Button : MonoBehaviour
     }
     private void OnDrawGizmos() {
         Gizmos.color = Color.blue;
-        Vector3 startPos = jumper.position;
-        startPos.y += offsetStart;
-        if (numberOfGizmos <= 0) return;
-        for (float i = 0; i < 1.1f; i += numberOfGizmos) {
-            Vector3 pos = JumpTrajectory(startPos, transform.position, i);
+        if (resolutionGizmos <= 0) return;
+        for (float i = 0; i < 1.1f; i += resolutionGizmos) {
+            Vector3 pos = JumpTrajectory(jumper.position, transform.position, i);
             Gizmos.DrawSphere(pos, 0.1f);
         }
-        Gizmos.DrawWireSphere(transform.position, distance);
+        Gizmos.DrawWireSphere(transform.position, rangeForJumping);
     }
     Vector3 JumpTrajectory(Vector3 start, Vector3 end, float t) {
         t = Mathf.Clamp(t, 0f, 1f);

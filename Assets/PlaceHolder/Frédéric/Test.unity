@@ -21610,14 +21610,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce79b3be68aad034abb89e689cb17e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shapeConcerned: 1
   jumper: {fileID: 5621572622322179328}
   height: 5
   offset: 0
   offsetStart: 0.5
   offsetEnd: 0.7
   speed: 0.8
-  numberOfGizmos: 0.01
-  distance: 3.76
+  resolutionGizmos: 0.01
+  rangeForJumping: 5
 --- !u!65 &1534977378
 BoxCollider:
   m_ObjectHideFlags: 0
