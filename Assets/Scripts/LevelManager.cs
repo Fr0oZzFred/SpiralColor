@@ -111,6 +111,7 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
     private void Update() {
         if (Keyboard.current.rKey.wasPressedThisFrame) {
+            PlayTestData.Instance.Dead();
             playerHandler.CurrentPlayer.Respawn(checkpoints[checkpointProgression].transform.position);
         }
     }

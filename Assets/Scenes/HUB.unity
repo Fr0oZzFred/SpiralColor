@@ -333,6 +333,7 @@ MonoBehaviour:
   colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
   requiredProgression: 4
   TargetScene: Level 4
+  AdditiveScene: 
   sceneList:
   - Boot
   - Main Menu
@@ -2194,7 +2195,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-180768
+  m_Name: pb_Mesh-36594
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2392,6 +2393,7 @@ MonoBehaviour:
   colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
   requiredProgression: 3
   TargetScene: Level 3
+  AdditiveScene: 
   sceneList:
   - Boot
   - Main Menu
@@ -3800,7 +3802,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-180752
+  m_Name: pb_Mesh-36578
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12633,6 +12635,7 @@ MonoBehaviour:
   colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
   requiredProgression: 2
   TargetScene: Level 2
+  AdditiveScene: 
   sceneList:
   - Boot
   - Main Menu
@@ -12939,6 +12942,10 @@ PrefabInstance:
     - target: {fileID: 1585989458496305712, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
       propertyPath: TargetScene
       value: Level 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585989458496305712, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
+      propertyPath: AdditiveScene
+      value: Level 2
       objectReference: {fileID: 0}
     - target: {fileID: 1585989458496305712, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
       propertyPath: requiredProgression
