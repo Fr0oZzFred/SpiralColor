@@ -137,8 +137,10 @@ public class UIManager : MonoBehaviour {
         keyboardText.text += letter;
     }
     public void DeleteLetter() {
-        keyboardText.text.Remove(keyboardText.text.Length - 1);
-        Debug.Log(keyboardText.text);
+        if (keyboardText.text.Length > 0) {
+            keyboardText.text = keyboardText.text.Remove(keyboardText.text.Length - 1);
+            Debug.Log(keyboardText.text);
+        }
     }
     public void Enter() {
         GameManager.Instance.ApplyUsername(keyboardText.text);
