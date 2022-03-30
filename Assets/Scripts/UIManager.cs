@@ -58,12 +58,11 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     EventSystem eventSystem;
     [SerializeField]
-    GameObject mainMenuFirstSelectedGO, pauseFirstSelectedGO, scoreFirstSelectedGO, optionFirstSelectedGO;
+    GameObject mainMenuFirstSelectedGO, pauseFirstSelectedGO, scoreFirstSelectedGO, optionFirstSelectedGO, keyboardFirstSelectionGO;
 
     [Header("Keyboard")]
     [SerializeField] GameObject keyboard;
-    [SerializeField] Text viewText;
-    [HideInInspector] public string inputTextKeyboard = "";
+    [SerializeField] TMP_Text keyboardText;
     public static UIManager Instance { get; private set; }
 
     #endregion
@@ -85,6 +84,7 @@ public class UIManager : MonoBehaviour {
         creditsHUD.SetActive(newState == GameState.Credits);
         optionsHUD.SetActive(newState == GameState.Options);
         controllerDisconnectedHUD.SetActive(newState == GameState.ControllerDisconnected);
+        keyboard.SetActive(newState == GameState.Keyboard);
 
         eventSystem.SetSelectedGameObject(null);
         switch (newState) {
@@ -103,6 +103,9 @@ public class UIManager : MonoBehaviour {
                 break;
             case GameState.ControllerDisconnected:
                 errorText.SetText(InputHandler.Instance.ErrorMessage);
+                break;
+            case GameState.Keyboard:
+                eventSystem.SetSelectedGameObject(keyboardFirstSelectionGO);
                 break;
             default:
                 break;
@@ -127,15 +130,18 @@ public class UIManager : MonoBehaviour {
     #region keyboard
     public void OpenKeyboard() {
         keyboard.SetActive(true);
-        inputTextKeyboard = "";
+        keyboardText.text = "";
+        GameManager.Instance.SetState(GameState.Keyboard);
     }
     public void InputKeyboard(string letter) {
-        inputTextKeyboard += letter;
+        keyboardText.text += letter;
     }
     public void DeleteLetter() {
-        if (inputTextKeyboard.Length > 0) inputTextKeyboard.Remove(inputTextKeyboard.Length - 1, inputTextKeyboard.Length); 
+        keyboardText.text.Remove(keyboardText.text.Length - 1);
+        Debug.Log(keyboardText.text);
     }
     public void Enter() {
+        GameManager.Instance.ApplyUsername(keyboardText.text);
         keyboard.SetActive(false);
     }
     #endregion

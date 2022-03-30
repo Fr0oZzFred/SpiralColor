@@ -7,11 +7,10 @@ using UnityEngine.Networking;
 
 public class PlayTestData : MonoBehaviour{
     public static PlayTestData Instance { get; private set; }
-    [SerializeField] InputField username;
     [SerializeField] string fieldName, fieldLevel, fieldTime, fieldDeath;
+    [SerializeField] string URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfUfDhbKpNkaf8i2UbzaDdYQBdtk-jvZwhkmZbUr71nq_L1tQ/formResponse";
     float time = 0;
     int death = 0;
-    [SerializeField] string URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfUfDhbKpNkaf8i2UbzaDdYQBdtk-jvZwhkmZbUr71nq_L1tQ/formResponse";
     void Awake() {
         Instance = this;
     }
@@ -42,6 +41,6 @@ public class PlayTestData : MonoBehaviour{
         }
     }
     public void Send() {
-        StartCoroutine(Post(username.text, LevelManager.Instance.LevelInt.ToString(), Math.Round((decimal)time, 2).ToString(), death.ToString()));
+        StartCoroutine(Post(GameManager.Instance.Username, LevelManager.Instance.LevelInt.ToString(), Math.Round((decimal)time, 2).ToString(), death.ToString()));
     }
 }
