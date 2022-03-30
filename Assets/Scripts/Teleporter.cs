@@ -61,7 +61,8 @@ public class Teleporter : MonoBehaviour, ISerializationCallbackReceiver {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Controller>() != null) { 
+        if (other.GetComponent<Controller>() != null) {
+            PlayTestData.Instance.Restart();
             if (AdditiveScene != null) SceneManagement.Instance.LoadingRendering(TargetScene, AdditiveScene);
             else SceneManagement.Instance.LoadLevel(TargetScene);
         }
