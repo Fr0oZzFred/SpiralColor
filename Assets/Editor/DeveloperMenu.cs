@@ -6,7 +6,7 @@ public class DeveloperMenu {
     }
     [MenuItem("Developer/CheatCodes/InvokeChiaki")]
     public static void Chiaki() {
-        throw new System.NotImplementedException("Trop beau pour être vrai");
+        throw new System.NotImplementedException("とてもきれいだ");
     }
     [MenuItem("Developer/GameManager/GMProgressionToMax")]
     public static void GMProgressionToMax() {
@@ -15,13 +15,15 @@ public class DeveloperMenu {
     [MenuItem("Developer/GameManager/Save")]
     public static void SaveGM() {
         GameManager.Instance.SaveGameManager();
+        SoundsManager.Instance.SaveSettings();
     }
     [MenuItem("Developer/GameManager/Load")]
     public static void LoadGM() {
         GameManager.Instance.LoadGameManager();
+        SoundsManager.Instance.LoadSettings();
     }
     [MenuItem("Developer/Keyboard")]
-    public static void onKeyboard() {
+    public static void OpenKeyboard() {
         UIManager.Instance.OpenKeyboard();
     }
 }

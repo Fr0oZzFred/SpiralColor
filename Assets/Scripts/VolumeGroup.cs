@@ -8,25 +8,28 @@ public class VolumeGroup : MonoBehaviour {
     [SerializeField] Slider slider;
     [SerializeField] float multiple = 30f;
     [SerializeField] private Toggle toggle;
+    float muteStock;
     private bool disableToggleEvent;
-
+    public float SliderValue {
+        get {
+            return slider.value;
+        }
+    }
     private void Awake() {
+        muteStock = slider.value;
         slider.onValueChanged.AddListener(ChangedValue);
         toggle.onValueChanged.AddListener(ToggleChangedValue);
     }
-
-    void Start() {
-        slider.value = PlayerPrefs.GetFloat(volumeParameter, slider.value);
-    }
-
     private void ToggleChangedValue(bool enableSound) {
         if (disableToggleEvent)
             return;
 
         if (enableSound)
-            slider.value = slider.maxValue;
-        else
+            slider.value = muteStock;
+        else {
+            muteStock = slider.value;
             slider.value = slider.minValue;
+        }
     }
 
     private void ChangedValue(float value) {
@@ -35,9 +38,8 @@ public class VolumeGroup : MonoBehaviour {
         toggle.isOn = slider.value > slider.minValue;
         disableToggleEvent = false;
     }
-
-    private void OnDisable() {
-        PlayerPrefs.SetFloat(volumeParameter, slider.value);
+    public void Load(float value) {
+        slider.value = value;
+        muteStock = value;
     }
-
 }
