@@ -21,4 +21,24 @@ public static class SaveSystem {
         } else Debug.Log("File don't exist");
         return null;
     }
+    public static void SaveSoundsSettings(SoundsManager sounds) {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/SoundsSettings.test";
+        FileStream stream = new FileStream(path, FileMode.Create);
+        SoundsSettingsData data = new SoundsSettingsData(sounds);
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+    public static SoundsSettingsData LoadSoundsSettings() {
+        string path = Application.persistentDataPath + "/SoundsSettings.test";
+        if (File.Exists(path)) {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+            SoundsSettingsData data = formatter.Deserialize(stream) as SoundsSettingsData;
+            stream.Close();
+            return data;
+        } else Debug.Log("File don't exist");
+        return null;
+    }
+
 }

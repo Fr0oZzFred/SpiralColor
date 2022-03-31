@@ -2,14 +2,23 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-
+[System.Serializable]
+public class SoundsSettingsData {
+    public float master, music, SFX;
+    public Dictionary<string, bool> pieces;
+    public SoundsSettingsData(SoundsManager data) {
+        master = data.volumeGroup[0].SliderValue;
+        music = data.volumeGroup[1].SliderValue;
+        SFX = data.volumeGroup[2].SliderValue;
+    }
+}
 public class SoundsManager : MonoBehaviour {
 
     [SerializeField] AudioMixer mixer;
     [SerializeField] List<AudioMixerSnapshot> snapshots;
 
     //Changer seulement les snapshot quand les settings n'ont pas été modifié et l'ajouter correctement au GS
-
+    public List<VolumeGroup> volumeGroup = new List<VolumeGroup>();
 
     public AudioMixer Mixer {
         get {
@@ -32,7 +41,7 @@ public class SoundsManager : MonoBehaviour {
 
 
     void Start() {
-        //GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+        GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
     }
     private void Init() {
         foreach (Sound s in sounds) {
@@ -44,11 +53,35 @@ public class SoundsManager : MonoBehaviour {
             s.source.loop = s.loop;
         }
     }
-
-    private void OnGameStateChanged(GameState newState) {
-        throw new System.NotImplementedException();
+    public void SaveSettings() {
+        SaveSystem.SaveSoundsSettings(this);
     }
-
+    public void LoadSettings() {
+        SoundsSettingsData data = SaveSystem.LoadSoundsSettings();
+        volumeGroup[0].Load(data.master);
+        volumeGroup[1].Load(data.music);
+        volumeGroup[2].Load(data.SFX);
+    }
+    private void OnGameStateChanged(GameState newState) {
+        if (GameManager.Instance.OldState == GameState.Options) SaveSettings();
+        if(!CustomSettings()) switch (newState) {
+            case GameState.MainMenu:
+                ChangeSnapshot(0, 1f);
+                break;
+            case GameState.InLevel:
+                ChangeSnapshot(1, 1f);
+                break;
+            case GameState.Options:
+                    LoadSettings();
+                break;
+        }
+    }
+    bool CustomSettings() {
+        for (int i = 0; i < volumeGroup.Count; i++) {
+            if (volumeGroup[i].SliderValue != 1) return true;
+        }
+        return false;
+    }
     public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -76,16 +109,16 @@ public class SoundsManager : MonoBehaviour {
             current.source.UnPause();
         }
     }
-    public void ChangeSnapshot(int index) {
+    public void ChangeSnapshot(int index, float time) {
         if (index >= 0 && index < snapshots.Count) {
-            snapshots[index].TransitionTo(1f);
+            snapshots[index].TransitionTo(time);
         }
     }
 
-    public void ChangeSnapshot(string name) {
+    public void ChangeSnapshot(string name, float time) {
         for (int i = 0; i < snapshots.Count; i++) {
             if (snapshots[i].name == name) {
-                ChangeSnapshot(i);
+                ChangeSnapshot(i, time);
                 return;
             }
         }
