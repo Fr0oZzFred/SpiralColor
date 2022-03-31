@@ -59,7 +59,12 @@ public class PlayerHandler : MonoBehaviour {
     void ChangePlayer(int oldIndex) {
         index %= listController.Count;
         listController[oldIndex].RegisterInputs(false);
-        listController[index].RegisterInputs(true);
+        CrossPlayerController c = listController[index].GetComponent<CrossPlayerController>();
+        if (c) {
+            listController[index].RegisterInputs(!c.IsOnButton);
+        } else {
+            listController[index].RegisterInputs(true);
+        }
         listController[index].SetControllerLED();
         cam.SetFocus(listController[index].transform);
     }

@@ -1,66 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.InputSystem;
 
-public class RotationCylinder : MonoBehaviour
-{
+public class RotationCylinder : MonoBehaviour {
     [SerializeField]
-    int key;
+    WheelButton wheelButton;
+
+    [SerializeField]
+    float limitAngle, powerRotation;
+
+    float oldAngle;
+
+    private void Awake() {
+        enabled = false;
+    }
 
     void Update() {
-        switch (key) {
-            case 0:
-                if (Keyboard.current.numpad0Key.wasPressedThisFrame) {
-                    this.transform.Rotate(0, 22.5f, 0);
-                }
-                break;
-            case 1:
-                if (Keyboard.current.numpad1Key.wasPressedThisFrame) {
-                    this.transform.Rotate(0, 22.5f, 0);
-                }
-                break;
-            case 2:
-                if (Keyboard.current.numpad2Key.wasPressedThisFrame) {
-                    this.transform.Rotate(0, 22.5f, 0);
-                }
-                break;
-            case 3:
-                if (Keyboard.current.numpad3Key.wasReleasedThisFrame) {
-                    this.transform.Rotate(0, 22.5f, 0);
-                }
-                break;
-            case 4:
-                if (Keyboard.current.numpad4Key.wasReleasedThisFrame) {
-                    this.transform.Rotate(0, 22.5f, 0);
-                }
-                break;
-            case 5:
-                if (Keyboard.current.numpad5Key.wasReleasedThisFrame) {
-                    this.transform.Rotate(0, 22.5f, 0);
-                }
-                break;
-            case 6:
-                if (Keyboard.current.numpad6Key.wasReleasedThisFrame) {
-                    this.transform.Rotate(0, 22.5f, 0);
-                }
-                break;
-            case 7:
-                if (Keyboard.current.numpad7Key.wasReleasedThisFrame) {
-                    this.transform.Rotate(0, 22.5f, 0);
-                }
-                break;
-            case 8:
-                if (Keyboard.current.numpad8Key.wasReleasedThisFrame) {
-                    this.transform.Rotate(0, 22.5f, 0);
-                }
-                break;
-            case 9:
-                if (Keyboard.current.numpad9Key.wasReleasedThisFrame) {
-                    this.transform.Rotate(0, 22.5f, 0);
-                }
-                break;
+        if (!LevelManager.Instance.CurrentController.GetComponent<CrossPlayerController>()) return;
+        Vector2 input = InputHandler.GetLeftStickValues();
+        float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
+        float delta = angle - oldAngle;
+        oldAngle = angle;
+        if (delta == 0f) return;
+        if (delta > limitAngle || delta < -limitAngle) return;
+        if (delta > 0) {
+            transform.Rotate(0, powerRotation, 0);
+        } else {
+            transform.Rotate(0, -powerRotation, 0);
         }
+        wheelButton.RotateSpin(delta);
     }
 }

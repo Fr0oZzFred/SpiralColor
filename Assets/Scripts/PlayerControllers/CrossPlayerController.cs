@@ -616,6 +616,11 @@ public class CrossPlayerController : Controller {
         return (stairsMask & (1 << layer)) == 0 ?
             minGroundDotProduct : minStairsDotProduct;
     }
+
+    public void TurnOnButton(float delta) {
+        cross.Rotate(delta, 0f, 0f);
+    }
+    public bool IsOnButton;
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
@@ -628,7 +633,7 @@ public class CrossPlayerController : Controller {
     }
     public override void Respawn(Vector3 pos) {
         this.transform.position = pos;
-        velocity = Vector3.zero;
+        body.velocity = velocity = Vector3.zero;
     }
     #endregion
 }

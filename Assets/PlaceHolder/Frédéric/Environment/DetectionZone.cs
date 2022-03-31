@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class DetectionZone : MonoBehaviour {
 
 	[SerializeField]
+	bool oneShoot;
+
+	[SerializeField]
 	UnityEvent onFirstEnter = default, onLastExit = default;
 
 	List<Collider> colliders = new List<Collider>();
@@ -30,7 +33,7 @@ public class DetectionZone : MonoBehaviour {
 			Collider collider = colliders[i];
 			if (!collider || !collider.gameObject.activeInHierarchy) {
 				colliders.RemoveAt(i--);
-				if (colliders.Count == 0) {
+				if (!oneShoot && colliders.Count == 0) {
 					onLastExit.Invoke();
 					enabled = false;
 				}
@@ -47,9 +50,9 @@ public class DetectionZone : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other) {
+		if (oneShoot) return;
 		if (colliders.Remove(other) && colliders.Count == 0) {
-			onLastExit.Invoke();
-			enabled = false;
+			onLastExit.Invoke();enabled = false;
 		}
 	}
 }

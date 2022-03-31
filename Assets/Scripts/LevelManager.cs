@@ -7,8 +7,7 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     #region Fields
 
     [Header("Data")]
-    [SerializeField]
-    PlayerHandler playerHandler;
+    [SerializeField] PlayerHandler playerHandler;
     [ListToPopup(typeof(LevelManager), "TMPList")]
     public string Level;
     public int LevelInt => int.Parse(Level.Remove(0, Level.Length - 1));
@@ -21,6 +20,13 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     [SerializeField]
     List<Checkpoint> checkpoints;
     int checkpointProgression = 0;
+    
+
+    public Controller CurrentController {
+        get {
+            return playerHandler.CurrentPlayer;
+        }
+    }
 
     public static LevelManager Instance { get; private set; }
     #endregion
@@ -112,7 +118,8 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
     private void Update() {
         if (Keyboard.current.rKey.wasPressedThisFrame) {
-            PlayTestData.Instance.Dead();
+            if(PlayTestData.Instance)
+                PlayTestData.Instance.Dead();
             playerHandler.CurrentPlayer.Respawn(checkpoints[checkpointProgression].transform.position);
         }
     }
