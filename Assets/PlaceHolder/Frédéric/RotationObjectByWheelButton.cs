@@ -1,31 +1,39 @@
 using UnityEngine;
 
-public class RotationCylinder : MonoBehaviour {
+public class RotationObjectByWheelButton : MonoBehaviour
+{
     [SerializeField]
     WheelButton wheelButton;
 
     [SerializeField]
+    Transform rotStart, rotEnd;
+
+    [SerializeField] 
     float limitAngle, powerRotation;
 
-    float oldAngle;
+    float value, oldAngle;
 
     private void Awake() {
         enabled = false;
     }
-
-    void Update() {
+    private void Update() {
         if (!LevelManager.Instance.CurrentController.GetComponent<CrossPlayerController>()) return;
         Vector2 input = InputHandler.GetLeftStickValues();
-        float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
+        float angle =  Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
         float delta = angle - oldAngle;
         oldAngle = angle;
         if (delta == 0f) return;
         if (delta > limitAngle || delta < -limitAngle) return;
         if (delta > 0) {
-            transform.Rotate(0, powerRotation, 0);
+            value += powerRotation;
         } else {
-            transform.Rotate(0, -powerRotation, 0);
+
+            value += -powerRotation;
         }
-        wheelButton.RotateSpin(delta);
+        value = Mathf.Clamp(value, 0f, 1f);
+        if(value != 0f && value != 1f) {
+            wheelButton.RotateSpin(delta);
+        }
+        this.transform.rotation = Quaternion.Slerp(rotStart.rotation, rotEnd.rotation, value);
     }
 }

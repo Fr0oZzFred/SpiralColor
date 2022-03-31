@@ -616,6 +616,11 @@ public class CrossPlayerController : Controller {
         return (stairsMask & (1 << layer)) == 0 ?
             minGroundDotProduct : minStairsDotProduct;
     }
+
+    public void TurnOnButton(float delta) {
+        cross.Rotate(delta, 0f, 0f);
+    }
+    public bool IsOnButton;
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
