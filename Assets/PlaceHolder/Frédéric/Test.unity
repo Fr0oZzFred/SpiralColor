@@ -21766,14 +21766,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce79b3be68aad034abb89e689cb17e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumper: {fileID: 5416746173489527014}
+  square: {fileID: 0}
+  rotationOnButton: {x: 0, y: 0, z: 0}
+  jumpSpeed: 0.01
+  rotationSpeed: 0.1
   height: 5
   offset: 0
   offsetStart: 0.5
   offsetEnd: 0.7
-  speed: 0.8
-  resolutionGizmos: 0.01
   rangeForJumping: 5
+  resolutionGizmos: 0.01
 --- !u!65 &1534977378
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22157,7 +22159,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3895
   inverseCameraX: 0
-  inverseCameraY: 1
+  inverseCameraY: 0
 --- !u!1 &1717270073
 GameObject:
   m_ObjectHideFlags: 0

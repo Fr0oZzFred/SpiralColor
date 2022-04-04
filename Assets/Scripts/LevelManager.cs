@@ -112,8 +112,10 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
     private void Start() {
         checkpoints.Sort();
-        if(SoundsManager.Instance)
+        if (SoundsManager.Instance) {
+            SoundsManager.Instance.StopCurrentMusic();
             SoundsManager.Instance.Play(music);
+        }
     }
 
     private void Update() {

@@ -64,18 +64,21 @@ public class SoundsManager : MonoBehaviour {
     }
     private void OnGameStateChanged(GameState newState) {
         if (GameManager.Instance.OldState == GameState.Options) SaveSettings();
-        if(!CustomSettings()) switch (newState) {
-            case GameState.MainMenu:
-                ChangeSnapshot(0, 1f);
-                break;
-            case GameState.InLevel:
-                ChangeSnapshot(1, 1f);
-                break;
-            case GameState.Options:
+        if (!CustomSettings()) {
+            switch (newState) {
+                case GameState.MainMenu:
+                    ChangeSnapshot(0, 1f);
+                    break;
+                case GameState.InLevel:
+                    ChangeSnapshot(1, 1f);
+                    break;
+                case GameState.Options:
                     LoadSettings();
-                break;
+                    break;
+            }
         }
     }
+
     bool CustomSettings() {
         for (int i = 0; i < volumeGroup.Count; i++) {
             if (volumeGroup[i].SliderValue != 1) return true;
