@@ -26,7 +26,6 @@ public class SceneManagement : MonoBehaviour {
         }
         LoadLevel(sceneLevel);
         StartCoroutine(LoadingRendering(sceneRendering));
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneLevel));
     }
     IEnumerator LoadingRendering(string sceneName) {
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
