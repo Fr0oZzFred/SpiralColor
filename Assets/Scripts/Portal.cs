@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
-using System;
 
 public enum ScenesEnum {
     Sphere = 1,
@@ -22,7 +21,7 @@ public enum ScenesEnum {
     Triangle_Square_Cross = 14,
     Sphere_Triangle_Square_Cross = 15
 }
-public class Teleporter : MonoBehaviour {
+public class Portal : MonoBehaviour {
 
     [Header("Text")]
     [SerializeField]
@@ -37,6 +36,7 @@ public class Teleporter : MonoBehaviour {
     float rangeDetection;
     [SerializeField]
     List<Scenes> scenes;
+    Dictionary<ScenesEnum, Scenes> scenesDico;
 
     bool sphere, triangle, square, cross;
 
@@ -56,20 +56,29 @@ public class Teleporter : MonoBehaviour {
 
 
     private void Start() {
-        ScenesEnum current = (ScenesEnum)enumValue + 1;
+        scenesDico = new Dictionary<ScenesEnum, Scenes>();
+        foreach (Scenes scene in scenes) {
+            Scenes value;
+            if (!scenesDico.TryGetValue(scene.destination, out value))
+                scenesDico.Add(scene.destination, scene);
+            else
+                Debug.LogError("The" + scene.destination.ToString() + " destination already exists in the Dictonary.");
+        }
+
+        ScenesEnum current = GameManager.Instance.Progression == 1 ? (ScenesEnum)enumValue + 1 : (ScenesEnum)enumValue;
         ChangeTextContent(current.ToString());
-        Debug.Log(GameManager.Instance.Progression);
     }
     private void Update() {
         Vector3 p = transform.position - controller.transform.position;
-        if(p.magnitude < rangeDetection) {
+        if (p.magnitude < rangeDetection) {
             CheckForLevelSelection();
         }
     }
 
     private void CheckForLevelSelection() {
         if (InputHandler.Controller == null) return;
-        //ScenesEnum current =
+        if (GameManager.Instance.Progression == 1) return;
+        //Checker la progression pour savoir s'il peut poser ou non les cristaux
         if (InputHandler.Controller.buttonEast.wasPressedThisFrame) {
             sphere = !sphere;
         }
@@ -82,15 +91,17 @@ public class Teleporter : MonoBehaviour {
         if (InputHandler.Controller.buttonSouth.wasPressedThisFrame) {
             cross = !cross;
         }
+        ScenesEnum current = (ScenesEnum)enumValue;
+        ChangeTextContent(current.ToString());
     }
 
-    /*private void OnTriggerEnter(Collider other) {
-   if (other.GetComponent<Controller>() != null) {
-       PlayTestData.Instance.Restart();
-       if (AdditiveScene != null) SceneManagement.Instance.LoadingRendering(TargetScene, AdditiveScene);
-       else SceneManagement.Instance.LoadLevel(TargetScene);
-   }
-}*/
+    private void OnTriggerEnter(Collider other) {
+        if (other.GetComponent<Controller>() != null) {
+            PlayTestData.Instance.Restart();
+            ScenesEnum current = GameManager.Instance.Progression == 1 ? (ScenesEnum)enumValue + 1 : (ScenesEnum)enumValue;
+            SceneManagement.Instance.LoadingRendering(scenesDico[current].TargetScene, scenesDico[current].AdditiveScene);
+        }
+    }
     private void OnDrawGizmos() {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, rangeDetection);
