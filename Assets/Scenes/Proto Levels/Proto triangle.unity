@@ -1787,6 +1787,8 @@ MonoBehaviour:
   - Test Sphere 1
   - Test Sphere
   - Proto triangle
+  - ProtoSphereTriangle
+  - PLACEHOLDER
 --- !u!4 &423921318
 Transform:
   m_ObjectHideFlags: 0
@@ -12543,6 +12545,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6890610422625756151, guid: edd0eab789f04d641ae471d15d163f45, type: 3}
+      propertyPath: tornado
+      value: 
+      objectReference: {fileID: 2001483483}
+    - target: {fileID: 6890610422625756151, guid: edd0eab789f04d641ae471d15d163f45, type: 3}
       propertyPath: playerInputSpace
       value: 
       objectReference: {fileID: 1798086928}
@@ -12612,6 +12618,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24211b9f2c0fab34da8f6361880fbccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2001483483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5835068631073775092, guid: edd0eab789f04d641ae471d15d163f45, type: 3}
+  m_PrefabInstance: {fileID: 2001483480}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2054032098
 Mesh:
   m_ObjectHideFlags: 0
