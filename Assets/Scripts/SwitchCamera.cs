@@ -12,11 +12,9 @@ public class SwitchCamera : MonoBehaviour {
             camera3D.SetActive(!camera3D.activeSelf);
             transform.position = camera3D.activeSelf ? pos3D : pos2D;
             if (camera3D.activeSelf) {
-                Debug.Log("Passage 3D");
                 controller.SetInputSpace(camera3D.transform);
                 other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             } else {
-                Debug.Log("Passage 2D");
                 controller.SetInputSpace(camera2D.transform);
                 other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | constraint2D;
             }
