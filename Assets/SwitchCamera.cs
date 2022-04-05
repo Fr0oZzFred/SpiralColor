@@ -8,7 +8,7 @@ public class SwitchCamera : MonoBehaviour{
     private void OnTriggerEnter(Collider other) {
         if (other.GetComponent<Controller>()) {
             transform.position = camera3D.activeSelf ? active : notActive;
-            other.GetComponent<Rigidbody>().constraints |= ~RigidbodyConstraints.FreezePositionX;
+            other.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionX;
             camera3D.SetActive(!camera3D.activeSelf);
         }
     }

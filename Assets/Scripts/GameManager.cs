@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
     public string Username { get; private set; }
     private void Awake(){
         if (Instance == null) Instance = this;
+        Username = "";
         Init();
     }
     private void Update() {
