@@ -517,5 +517,8 @@ public class TrianglePlayerController : Controller {
         this.transform.position = pos;
         body.velocity = velocity = Vector3.zero;
     }
+    public override void SetInputSpace(Transform transform) {
+        playerInputSpace = transform;
+    }
     #endregion
 }
