@@ -156,6 +156,11 @@ public class TrianglePlayerController : Controller {
     public bool isCurrentlyPlayed = false;
     [SerializeField]
     Color color = default;
+
+    bool desiredTornado;
+
+    [SerializeField] GameObject tornado;
+
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
     }
@@ -199,6 +204,7 @@ public class TrianglePlayerController : Controller {
         }
 
         desiredJump |= InputHandler.Controller.buttonNorth.wasPressedThisFrame;
+        desiredTornado = InputHandler.Controller.buttonWest.isPressed;
 
         UpdateSpin();
     }
@@ -233,6 +239,8 @@ public class TrianglePlayerController : Controller {
             desiredJump = false;
             Jump(gravity);
         }
+
+        tornado.SetActive(desiredTornado);
 
         if (InWater) {
             velocity +=
