@@ -26,6 +26,6 @@ public class RotationCylinder : MonoBehaviour {
         } else {
             transform.Rotate(0, -powerRotation, 0);
         }
-        wheelButton.RotateSpin(delta);
+        wheelButton.RotateCross(delta);
     }
 }

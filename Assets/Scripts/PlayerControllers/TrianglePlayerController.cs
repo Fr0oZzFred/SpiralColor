@@ -505,7 +505,7 @@ public class TrianglePlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        body.constraints = b ? RigidbodyConstraints.FreezeRotation : RigidbodyConstraints.FreezeAll;
+        playerInputSpace.gameObject.SetActive(b);
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();

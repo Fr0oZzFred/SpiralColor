@@ -147,6 +147,8 @@ public class SquarePlayerController : Controller {
     [SerializeField]
     Color color = default;
 
+    public bool IsOnButton;
+
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
     }
@@ -505,7 +507,8 @@ public class SquarePlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        body.constraints = b ? RigidbodyConstraints.FreezeRotation : RigidbodyConstraints.FreezeAll;
+        if (!IsOnButton)
+            playerInputSpace.gameObject.SetActive(b);
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();

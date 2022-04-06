@@ -23,7 +23,9 @@ public class AutomaticSlider : MonoBehaviour {
 		get => autoReverse;
 		set => autoReverse = value;
 	}
-
+	public void SetReverse(bool b) {
+		Reversed = b;
+    }
 	float SmoothedValue => 3f * value * value - 2f * value * value * value;
 
 	void FixedUpdate() {

@@ -5,7 +5,11 @@ using System.Collections.Generic;
 public class DetectionZone : MonoBehaviour {
 
 	[SerializeField]
+	LayerMask layermask;
+
+	[SerializeField]
 	UnityEvent onFirstEnter = default, onLastExit = default;
+
 
 	List<Collider> colliders = new List<Collider>();
 
@@ -39,11 +43,14 @@ public class DetectionZone : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (colliders.Count == 0) {
-			onFirstEnter.Invoke();
-			enabled = true;
+		if(layermask == (layermask | (1 << other.gameObject.layer))) {
+			if (colliders.Count == 0) {
+				onFirstEnter.Invoke();
+				enabled = true;
+			}
+			colliders.Add(other);
 		}
-		colliders.Add(other);
+		
 	}
 
 	void OnTriggerExit(Collider other) {

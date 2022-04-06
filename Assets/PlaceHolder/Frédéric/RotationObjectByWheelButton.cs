@@ -6,7 +6,7 @@ public class RotationObjectByWheelButton : MonoBehaviour
     WheelButton wheelButton;
 
     [SerializeField]
-    Transform rotStart, rotEnd;
+    Vector3 rotStart, rotEnd;
 
     [SerializeField] 
     float limitAngle, powerRotation;
@@ -32,8 +32,8 @@ public class RotationObjectByWheelButton : MonoBehaviour
         }
         value = Mathf.Clamp(value, 0f, 1f);
         if(value != 0f && value != 1f) {
-            wheelButton.RotateSpin(delta);
+            wheelButton.RotateCross(delta);
         }
-        this.transform.rotation = Quaternion.Slerp(rotStart.rotation, rotEnd.rotation, value);
+        this.transform.rotation = Quaternion.Euler(Vector3.Lerp(rotStart, rotEnd, value));
     }
 }

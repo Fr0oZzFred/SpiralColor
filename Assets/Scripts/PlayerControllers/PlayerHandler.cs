@@ -1,38 +1,107 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour {
-    
-    public List<Controller> listController;
-    public int startingIndex = 0;
-    int index = 0;
 
-    public OrbitCamera cam;
-    private void Start() {
-        index = startingIndex > listController.Count -1 ? 0 : startingIndex;
-        for (int i = 0; i < listController.Count; i++) {
-            listController[i].RegisterInputs(index == i);
+    [SerializeField] PlayerController player;
+
+    [SerializeField] List<Controller> listController;
+    private List<Controller> listControllerInRange;
+
+    [SerializeField] float rangeDetection = 2f;
+
+    [SerializeField] Vector3 offset = new Vector3(0,2,0);
+
+    public Controller CurrentPlayer {
+        get {
+            return current == null ? player : current;
         }
-        cam.SetFocus(listController[index].transform);
-        listController[index].SetControllerLED();
+    }
+    Controller current;
 
-        if(GameManager.Instance)
+    private void Start() {
+        if (GameManager.Instance)
             GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+
+        if (listController.Count == 0) return;
+        listControllerInRange = new List<Controller>();
+        for (int i = 0; i < listController.Count; i++) {
+            listController[i].RegisterInputs(false);
+        }
+        player.RegisterInputs(true);
+        player.SetControllerLED();
     }
 
     private void Update() {
         if (InputHandler.Controller == null) return;
+        CheckForControllerInRange();
+        CheckForControllerOutRange();
+        CheckForChange();
+    }
+
+    void CheckForControllerInRange() {
         if (listController.Count > 0) {
-            if (InputHandler.Controller.rightShoulder.wasPressedThisFrame) {
-                int oldIndex = index;
-                index++;
-                ChangePlayer(oldIndex);
-            } else if (InputHandler.Controller.leftShoulder.wasPressedThisFrame) {
-                int oldIndex = index;
-                if (index > 0) index--;
-                else index = listController.Count - 1;
-                ChangePlayer(oldIndex);
+            if (player.isCurrentlyPlayed) {
+                foreach (var item in listController) {
+                    Vector3 p = item.transform.position - player.transform.position;
+                    if (p.magnitude < rangeDetection && !listControllerInRange.Contains(item)) {
+                        listControllerInRange.Add(item);
+                    }
+                }
+            }
+        }
+    }
+    void CheckForControllerOutRange() {
+        if (listControllerInRange.Count > 0) {
+            if (player.isCurrentlyPlayed) {
+                List<Controller> outOfRangeControllers = new List<Controller>();
+                foreach (var item in listControllerInRange) {
+                    Vector3 p = item.transform.position - player.transform.position;
+                    if (p.magnitude > rangeDetection) {
+                        outOfRangeControllers.Add(item);
+                    }
+                }
+                foreach (var item in outOfRangeControllers) {
+                    listControllerInRange.Remove(item);
+                }
+            }
+        }
+    }
+
+    void CheckForChange() {
+        if (CurrentPlayer == player && listControllerInRange.Count > 0) {
+            foreach (var item in listControllerInRange) {
+                if (item is SpherePlayerController) {
+                    if (InputHandler.Controller.buttonEast.wasPressedThisFrame) {
+                        ChangePlayer(item);
+                    }
+                } else if (item is TrianglePlayerController) {
+                    if (InputHandler.Controller.buttonNorth.wasPressedThisFrame) {
+                        ChangePlayer(item);
+                    }
+                } else if (item is SquarePlayerController && !item.GetComponent<SquarePlayerController>().IsOnButton) {
+                    if (InputHandler.Controller.buttonWest.wasPressedThisFrame) {
+                        ChangePlayer(item);
+                    }
+                } else if (item is CrossPlayerController && !item.GetComponent<CrossPlayerController>().IsOnButton) {
+                    if (InputHandler.Controller.buttonSouth.wasPressedThisFrame) {
+                        ChangePlayer(item);
+                    }
+                }
+            }
+        } else if (CurrentPlayer != player) {
+            if (CurrentPlayer.GetComponent<SquarePlayerController>() &&
+                CurrentPlayer.GetComponent<SquarePlayerController>().IsOnButton) {
+                return;
+            }
+            else if (CurrentPlayer.GetComponent<CrossPlayerController>() &&
+                CurrentPlayer.GetComponent<CrossPlayerController>().IsOnButton) {
+                return;
+
+            }
+            if (InputHandler.Controller.leftShoulder.wasPressedThisFrame ||
+                    InputHandler.Controller.rightShoulder.wasPressedThisFrame) {
+                ChangePlayer(player);
             }
         }
     }
@@ -56,24 +125,35 @@ public class PlayerHandler : MonoBehaviour {
     /// Change the player who is controlled by the player
     /// </summary>
     /// <param name="oldIndex"></param>
-    void ChangePlayer(int oldIndex) {
-        index %= listController.Count;
-        listController[oldIndex].RegisterInputs(false);
-        CrossPlayerController c = listController[index].GetComponent<CrossPlayerController>();
-        if (c) {
-            listController[index].RegisterInputs(!c.IsOnButton);
+    void ChangePlayer(Controller newController) {
+        if (player == newController) {
+            current.RegisterInputs(false);
+            player.Respawn(current.transform.position + offset);
+            current = null;
+            player.RegisterInputs(true);
+            player.SetControllerLED();
         } else {
-            listController[index].RegisterInputs(true);
+            player.RegisterInputs(false);
+            if (newController is CrossPlayerController) {
+                newController.RegisterInputs(!newController.GetComponent<CrossPlayerController>().IsOnButton);
+            } 
+            else {
+                newController.RegisterInputs(true);
+            }
+            newController.SetControllerLED();
+            current = newController;
         }
-        listController[index].SetControllerLED();
-        cam.SetFocus(listController[index].transform);
     }
 
-    public Controller CurrentPlayer {
-        get {
-            return listController[index];
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(player.transform.position, rangeDetection);
+        if (listController.Count == 0) return;
+        foreach (var item in listController) {
+            Gizmos.DrawWireSphere(item.transform.position, rangeDetection);
         }
     }
+
     private void OnApplicationQuit() {
         InputHandler.SetControllerLED(Color.black);
     }

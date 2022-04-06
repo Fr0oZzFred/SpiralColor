@@ -126,7 +126,7 @@ MonoBehaviour:
   cross: {fileID: 0}
   rotationOnButton: {x: 0, y: 0, z: 270}
   jumpSpeed: 0.8
-  rotationSpeed: 0.1
+  rotationSpeed: 0.2
   rotationSpeedOnButton: 0.5
   height: 5
   offset: 0
@@ -146,7 +146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28775270e924e664db763876ec99cca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneShoot: 0
+  layermask:
+    serializedVersion: 2
+    m_Bits: 4096
   onFirstEnter:
     m_PersistentCalls:
       m_Calls:

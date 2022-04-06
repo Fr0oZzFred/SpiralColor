@@ -25,8 +25,11 @@ public class Button : MonoBehaviour
     bool currentCoroutineIsRunning;
 
     private void Update() {
+        if (LevelManager.Instance.CurrentController is SquarePlayerController)
+            square = (SquarePlayerController)LevelManager.Instance.CurrentController;
+        else return;
         Vector3 p = transform.position - square.transform.position;
-        if (p.magnitude < rangeForJumping) {
+        if (p.magnitude < rangeForJumping && square == LevelManager.Instance.CurrentController) {
             CheckForJump();
         }
     }
@@ -34,6 +37,7 @@ public class Button : MonoBehaviour
 
     private void CheckForJump() {
         if (InputHandler.Controller.buttonWest.wasPressedThisFrame) {
+            square.IsOnButton = true;
             LevelManager.Instance.CurrentController.RegisterInputs(false);
             if (!currentCoroutineIsRunning)
                 StartCoroutine(JumpTrajectory(square.transform.position, transform.position));
@@ -63,7 +67,7 @@ public class Button : MonoBehaviour
             yield return null;
         }
         LevelManager.Instance.CurrentController.RegisterInputs(true);
-        currentCoroutineIsRunning = false;
+        currentCoroutineIsRunning = square.IsOnButton = false;
     }
     private void OnDrawGizmos() {
         Gizmos.color = Color.blue;
