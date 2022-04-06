@@ -106,11 +106,12 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
 
     private void Awake() {
         if (!Instance) Instance = this;
-        if (GameManager.Instance)
-            GameManager.Instance.SetState(GameState.InLevel);
     }
 
     private void Start() {
+        if (GameManager.Instance)
+            GameManager.Instance.SetState(GameState.InLevel);
+
         checkpoints.Sort();
         if (SoundsManager.Instance) {
             SoundsManager.Instance.StopCurrentMusic();

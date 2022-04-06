@@ -23,13 +23,14 @@ public class PlayerHandler : MonoBehaviour {
         if (GameManager.Instance)
             GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
 
-        if (listController.Count == 0) return;
         listControllerInRange = new List<Controller>();
+        player.RegisterInputs(true);
+        player.SetControllerLED();
+
+        if (listController.Count == 0) return;
         for (int i = 0; i < listController.Count; i++) {
             listController[i].RegisterInputs(false);
         }
-        player.RegisterInputs(true);
-        player.SetControllerLED();
     }
 
     private void Update() {
@@ -110,13 +111,15 @@ public class PlayerHandler : MonoBehaviour {
         switch (newState) {
             case GameState.InLevel:
             case GameState.InHUB:
-                CurrentPlayer.RegisterInputs(true);
+                if(CurrentPlayer)
+                    CurrentPlayer.RegisterInputs(true);
                 break;
             case GameState.Pause:
             case GameState.Score:
             case GameState.Cutscene:
             case GameState.ControllerDisconnected:
-                CurrentPlayer.RegisterInputs(false);
+                if (CurrentPlayer)
+                    CurrentPlayer.RegisterInputs(false);
                 break;
         }
     }
