@@ -827,7 +827,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585989458496305705}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -910,15 +910,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textGO: {fileID: 1585989457431213301}
   text: Level 1
-  colorLocked: {r: 1, g: 0, b: 0, a: 1}
-  colorUnlocked: {r: 0.22441936, g: 1, b: 0, a: 1}
-  TargetScene: HUB 0
-  sceneList:
-  - Boot
-  - Main Menu
-  - HUB 0
-  - Level 1
-  - Level 2
-  - Level 3
-  - Level 4
-  - Proto Croix 1
+  controller: {fileID: 0}
+  rangeDetection: 5
+  scenes:
+  - destination: 1
+    TargetScene: Level 1
+    AdditiveScene: PLACEHOLDER
+    sceneList:
+    - Boot
+    - Main Menu
+    - HUB
+    - Level 1
+    - Level 2
+    - Level 3
+    - Level 4
+    - Proto Croix 1
+    - Proto Sphere
+    - Proto Croix + Sphere
+    - Proto Square
+    - Test Sphere 1
+    - Test Sphere
+    - Proto triangle
+    - ProtoSphereTriangle
+    - PLACEHOLDER
+  - destination: 2
+    TargetScene: Level 2
+    AdditiveScene: PLACEHOLDER
+    sceneList:
+    - Boot
+    - Main Menu
+    - HUB
+    - Level 1
+    - Level 2
+    - Level 3
+    - Level 4
+    - Proto Croix 1
+    - Proto Sphere
+    - Proto Croix + Sphere
+    - Proto Square
+    - Test Sphere 1
+    - Test Sphere
+    - Proto triangle
+    - ProtoSphereTriangle
+    - PLACEHOLDER
