@@ -358,7 +358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28775270e924e664db763876ec99cca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneShoot: 0
   onFirstEnter:
     m_PersistentCalls:
       m_Calls:
@@ -646,11 +645,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2866156737793779015, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: oneShoot
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2866156737793779015, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2866156737793779015, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: onFirstEnter.m_PersistentCalls.m_Calls.Array.size
@@ -683,11 +682,11 @@ PrefabInstance:
     - target: {fileID: 2866156737793779015, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 220859937}
+      objectReference: {fileID: 403402949}
     - target: {fileID: 2866156737793779015, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1737407020}
+      objectReference: {fileID: 403402949}
     - target: {fileID: 2866156737793779015, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 

@@ -505,6 +505,7 @@ public class TrianglePlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
+        body.constraints = b ? RigidbodyConstraints.FreezeRotation : RigidbodyConstraints.FreezeAll;
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();
@@ -516,6 +517,9 @@ public class TrianglePlayerController : Controller {
     public override void Respawn(Vector3 pos) {
         this.transform.position = pos;
         body.velocity = velocity = Vector3.zero;
+    }
+    public override void SetInputSpace(Transform transform) {
+        playerInputSpace = transform;
     }
     #endregion
 }

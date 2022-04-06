@@ -180,6 +180,8 @@ public class CrossPlayerController : Controller {
     public bool isCurrentlyPlayed = false;
     [SerializeField]
     Color color = default;
+
+    public bool IsOnButton;
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
     }
@@ -620,10 +622,10 @@ public class CrossPlayerController : Controller {
     public void TurnOnButton(float delta) {
         cross.Rotate(delta, 0f, 0f);
     }
-    public bool IsOnButton;
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
+        body.constraints = b ? RigidbodyConstraints.FreezeRotation : RigidbodyConstraints.FreezeAll;
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();
@@ -634,6 +636,9 @@ public class CrossPlayerController : Controller {
     public override void Respawn(Vector3 pos) {
         this.transform.position = pos;
         body.velocity = velocity = Vector3.zero;
+    }
+    public override void SetInputSpace(Transform transform) {
+        playerInputSpace = transform;
     }
     #endregion
 }
