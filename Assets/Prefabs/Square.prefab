@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1144187825687723762}
   - component: {fileID: 1144187825687723764}
   - component: {fileID: 1144187825687723763}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1144187825719904209}
   - component: {fileID: 1144187825719904211}
   - component: {fileID: 1144187825719904207}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ MonoBehaviour:
     m_Bits: 51
   stairsMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 16384
   waterMask:
     serializedVersion: 2
     m_Bits: 16
@@ -288,6 +288,7 @@ MonoBehaviour:
   baseAlignementSpeed: 0.1
   isCurrentlyPlayed: 0
   color: {r: 1, g: 0, b: 0.72427464, a: 0}
+  IsOnButton: 0
 --- !u!1 &8497513563827881035
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8360657892735188359}
   - component: {fileID: 1560047079411571822}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +345,7 @@ GameObject:
   - component: {fileID: 5571526721057405588}
   - component: {fileID: 2853008100756068334}
   - component: {fileID: 3440699471187583753}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Square Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +469,7 @@ MonoBehaviour:
   upAlignmentSpeed: 360
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 65335
   inverseCameraX: 0
   inverseCameraY: 0
 --- !u!114 &3440699471187583753

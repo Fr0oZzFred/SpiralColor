@@ -32,10 +32,14 @@ public class WheelButton : MonoBehaviour
     Quaternion startRot;
 
     private void Update() {
+        if (LevelManager.Instance.CurrentController is CrossPlayerController)
+            cross = (CrossPlayerController)LevelManager.Instance.CurrentController;
+        else return;
+
         if (LevelManager.Instance.CurrentController.GetComponent<CrossPlayerController>()) {
             if (i == 0) LevelManager.Instance.CurrentController.RegisterInputs(false);
             Vector3 p = transform.position - cross.transform.position;
-            if (p.magnitude < rangeForJumping) {
+            if (p.magnitude < rangeForJumping && cross == LevelManager.Instance.CurrentController) {
                 CheckForJump();
             }
         }
@@ -44,6 +48,7 @@ public class WheelButton : MonoBehaviour
 
     private void CheckForJump() {
         if (InputHandler.Controller.buttonSouth.wasPressedThisFrame) {
+            cross.IsOnButton = true;
             LevelManager.Instance.CurrentController.RegisterInputs(false);
             if (!currentCoroutineIsRunning) {
                 i = (i + 1) % 2;
@@ -51,11 +56,9 @@ public class WheelButton : MonoBehaviour
                     startpos = cross.transform.position;
                     startRot = cross.transform.GetChild(0).rotation;
                     StartCoroutine(JumpTrajectory(startpos, transform.position));
-                    cross.IsOnButton = true;
                 }
                 else if (i == 1) {
                     StartCoroutine(JumpTrajectory(transform.position, startpos));
-                    cross.IsOnButton = false;
                 }
             }
         }
@@ -91,8 +94,10 @@ public class WheelButton : MonoBehaviour
             interpolation += jumpSpeed * Time.deltaTime;
             yield return null;
         }
-        if (i == 1)
+        if (i == 1) {
             LevelManager.Instance.CurrentController.RegisterInputs(true);
+            cross.IsOnButton = false;
+        }
         currentCoroutineIsRunning = false;
     }
     private void OnDrawGizmos() {

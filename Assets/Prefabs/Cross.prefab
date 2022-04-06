@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4083906910252420433}
   - component: {fileID: 362717906947321731}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4742027453359757249}
   - component: {fileID: 5061382068205881306}
   - component: {fileID: 1009096778632626354}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cross Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ MonoBehaviour:
   upAlignmentSpeed: 360
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 65335
   inverseCameraX: 0
   inverseCameraY: 0
 --- !u!114 &1009096778632626354
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 7197104093393702380}
   - component: {fileID: 7197104093393702382}
   - component: {fileID: 7197104093393702379}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Cross
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ MonoBehaviour:
     m_Bits: 51
   stairsMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 16384
   climbMask:
     serializedVersion: 2
     m_Bits: 51
@@ -503,7 +503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ffbd26586d8c9844b8ceb71b01668058, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffbd26586d8c9844b8ceb71b01668058, type: 3}

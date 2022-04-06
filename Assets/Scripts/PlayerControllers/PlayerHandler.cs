@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour {
-    
+
     [SerializeField] PlayerController player;
 
     [SerializeField] List<Controller> listController;
@@ -11,6 +10,7 @@ public class PlayerHandler : MonoBehaviour {
 
     [SerializeField] float rangeDetection = 2f;
 
+    [SerializeField] Vector3 offset = new Vector3(0,2,0);
 
     public Controller CurrentPlayer {
         get {
@@ -35,6 +35,7 @@ public class PlayerHandler : MonoBehaviour {
     private void Update() {
         if (InputHandler.Controller == null) return;
         CheckForControllerInRange();
+        CheckForControllerOutRange();
         CheckForChange();
     }
 
@@ -43,41 +44,61 @@ public class PlayerHandler : MonoBehaviour {
             if (player.isCurrentlyPlayed) {
                 foreach (var item in listController) {
                     Vector3 p = item.transform.position - player.transform.position;
-                    if (p.magnitude < rangeDetection) {
+                    if (p.magnitude < rangeDetection && !listControllerInRange.Contains(item)) {
                         listControllerInRange.Add(item);
-                    } else if (listControllerInRange.Contains(item)) {
-                        listControllerInRange.Remove(item);
                     }
+                }
+            }
+        }
+    }
+    void CheckForControllerOutRange() {
+        if (listControllerInRange.Count > 0) {
+            if (player.isCurrentlyPlayed) {
+                List<Controller> outOfRangeControllers = new List<Controller>();
+                foreach (var item in listControllerInRange) {
+                    Vector3 p = item.transform.position - player.transform.position;
+                    if (p.magnitude > rangeDetection) {
+                        outOfRangeControllers.Add(item);
+                    }
+                }
+                foreach (var item in outOfRangeControllers) {
+                    listControllerInRange.Remove(item);
                 }
             }
         }
     }
 
     void CheckForChange() {
-        if(CurrentPlayer == player && listControllerInRange.Count > 0) {
+        if (CurrentPlayer == player && listControllerInRange.Count > 0) {
             foreach (var item in listControllerInRange) {
                 if (item is SpherePlayerController) {
                     if (InputHandler.Controller.buttonEast.wasPressedThisFrame) {
                         ChangePlayer(item);
                     }
-                }
-                else if (item is TrianglePlayerController) {
+                } else if (item is TrianglePlayerController) {
                     if (InputHandler.Controller.buttonNorth.wasPressedThisFrame) {
                         ChangePlayer(item);
                     }
-                }
-                else if (item is SquarePlayerController) {
+                } else if (item is SquarePlayerController && !item.GetComponent<SquarePlayerController>().IsOnButton) {
                     if (InputHandler.Controller.buttonWest.wasPressedThisFrame) {
                         ChangePlayer(item);
                     }
-                }
-                else if (item is CrossPlayerController) {
+                } else if (item is CrossPlayerController && !item.GetComponent<CrossPlayerController>().IsOnButton) {
                     if (InputHandler.Controller.buttonSouth.wasPressedThisFrame) {
                         ChangePlayer(item);
                     }
                 }
             }
-        } else if(CurrentPlayer != player) {
+        } else if (CurrentPlayer != player) {
+            if (CurrentPlayer.GetComponent<SquarePlayerController>() &&
+                CurrentPlayer.GetComponent<SquarePlayerController>().IsOnButton) {
+                return;
+            }
+            else if (CurrentPlayer.GetComponent<CrossPlayerController>() &&
+                CurrentPlayer.GetComponent<CrossPlayerController>().IsOnButton) {
+                return;
+
+            }
             if (InputHandler.Controller.leftShoulder.wasPressedThisFrame ||
                     InputHandler.Controller.rightShoulder.wasPressedThisFrame) {
                 ChangePlayer(player);
@@ -105,9 +126,9 @@ public class PlayerHandler : MonoBehaviour {
     /// </summary>
     /// <param name="oldIndex"></param>
     void ChangePlayer(Controller newController) {
-        if(player == newController) {
+        if (player == newController) {
             current.RegisterInputs(false);
-            player.Respawn(current.transform.position + new Vector3(0, 2, 0));
+            player.Respawn(current.transform.position + offset);
             current = null;
             player.RegisterInputs(true);
             player.SetControllerLED();
@@ -115,7 +136,8 @@ public class PlayerHandler : MonoBehaviour {
             player.RegisterInputs(false);
             if (newController is CrossPlayerController) {
                 newController.RegisterInputs(!newController.GetComponent<CrossPlayerController>().IsOnButton);
-            } else {
+            } 
+            else {
                 newController.RegisterInputs(true);
             }
             newController.SetControllerLED();

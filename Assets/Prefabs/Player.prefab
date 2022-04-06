@@ -355,13 +355,13 @@ MonoBehaviour:
   submergenceRange: 1
   buoyancy: 1
   waterDrag: 1
-  swimThreshold: 0.5
+  swimThreshold: 0.357
   probeMask:
     serializedVersion: 2
     m_Bits: 51
   stairsMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 16384
   waterMask:
     serializedVersion: 2
     m_Bits: 16
@@ -382,7 +382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4677596716726893730}
   - component: {fileID: 6743092642468119174}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 4818269812286880225}
   - component: {fileID: 4162219430955791432}
   - component: {fileID: 1035720131969215011}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ MonoBehaviour:
   upAlignmentSpeed: 360
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 65335
   inverseCameraX: 0
   inverseCameraY: 0
 --- !u!114 &1035720131969215011

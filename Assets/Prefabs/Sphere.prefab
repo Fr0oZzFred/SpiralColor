@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 692897413822908399}
   - component: {fileID: 692897413822908393}
   - component: {fileID: 692897413822908398}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 692897413922193100}
   - component: {fileID: 692897413922193102}
   - component: {fileID: 692897413922193097}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ MonoBehaviour:
     m_Bits: 51
   stairsMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 8192
   waterMask:
     serializedVersion: 2
     m_Bits: 16
@@ -301,7 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5201716742428495402}
   - component: {fileID: 5781366756058634386}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 8675184263052831687}
   - component: {fileID: 4001629254869454574}
   - component: {fileID: 6638923293753790671}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +471,7 @@ MonoBehaviour:
   upAlignmentSpeed: 360
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 65335
   inverseCameraX: 0
   inverseCameraY: 0
 --- !u!114 &6638923293753790671

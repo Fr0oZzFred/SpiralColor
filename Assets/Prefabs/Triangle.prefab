@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2180714102939585624}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: SpinPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2883074125655689571}
   - component: {fileID: 5303032286808378684}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 8829768404543184535}
   - component: {fileID: 4102053363312366813}
   - component: {fileID: 6254548219587888415}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tornado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 6890610422523337435}
   - component: {fileID: 6890610422523337437}
   - component: {fileID: 6890610422523337434}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Spin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 6890610422625756152}
   - component: {fileID: 6890610422625756154}
   - component: {fileID: 6890610422625756151}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ MonoBehaviour:
     m_Bits: 51
   stairsMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 16384
   waterMask:
     serializedVersion: 2
     m_Bits: 16
@@ -491,7 +491,7 @@ GameObject:
   - component: {fileID: 6272396983904075947}
   - component: {fileID: 7683851233037794033}
   - component: {fileID: 7147104000931830062}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Triangle Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ MonoBehaviour:
   upAlignmentSpeed: 360
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 65335
   inverseCameraX: 0
   inverseCameraY: 0
 --- !u!114 &7147104000931830062
