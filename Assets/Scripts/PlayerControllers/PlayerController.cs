@@ -185,10 +185,7 @@ public class PlayerController : Controller {
             forwardAxis = ProjectDirectionOnPlane(Vector3.forward, upAxis);
         }
 
-        if (!isCurrentlyPlayed || InputHandler.Controller == null) {
-            UpdatePlayer();
-            return;
-        }
+        
         if (!OnGround)
             desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
 
@@ -220,10 +217,12 @@ public class PlayerController : Controller {
                 connectedBody.angularVelocity * (Mathf.Rad2Deg * Time.deltaTime)
             ) * rotation;
             if (distance < 0.001f) {
-                player.localRotation = rotation;
+                player.localRotation = rotation; 
+                Levitate();
                 return;
             }
         } else if (distance < 0.001f) {
+            Levitate();
             return;
         }
 
@@ -231,13 +230,13 @@ public class PlayerController : Controller {
             rotation = Quaternion.LookRotation(movement);
 
         player.localRotation = Quaternion.Lerp(player.localRotation, rotation, baseAlignementSpeed);
-
+        Levitate();
+    }
+    void Levitate() {
         Vector3 pos = Vector3.zero;
         pos.y = (Mathf.Sin(Time.time * speed) + 1f) / 2f * amplitude;
-        Debug.Log(pos.y);
         player.localPosition = pos;
     }
-
 
     void FixedUpdate() {
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
@@ -513,7 +512,8 @@ public class PlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        body.constraints = b ? RigidbodyConstraints.FreezeRotation : RigidbodyConstraints.FreezeAll;
+        playerInputSpace.gameObject.SetActive(b);
+        gameObject.SetActive(b);
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();

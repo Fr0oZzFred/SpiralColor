@@ -51,14 +51,17 @@ public class WheelButton : MonoBehaviour
                     startpos = cross.transform.position;
                     startRot = cross.transform.GetChild(0).rotation;
                     StartCoroutine(JumpTrajectory(startpos, transform.position));
+                    cross.IsOnButton = true;
                 }
-                else if (i == 1)
+                else if (i == 1) {
                     StartCoroutine(JumpTrajectory(transform.position, startpos));
+                    cross.IsOnButton = false;
+                }
             }
         }
     }
 
-    public void RotateSpin(float delta) {
+    public void RotateCross(float delta) {
         if (!currentCoroutineIsRunning && i == 0) {
             cross.TurnOnButton(delta * rotationSpeedOnButton);
         }
@@ -73,9 +76,9 @@ public class WheelButton : MonoBehaviour
             Quaternion r;
             r = Quaternion.Euler(rotationOnButton);
             if(i == 0)
-                cross.transform.GetChild(0).rotation = Quaternion.Lerp(cross.transform.GetChild(0).rotation, r, interpolation * rotationSpeed);
+                cross.transform.GetChild(1).rotation = Quaternion.Lerp(cross.transform.GetChild(1).rotation, r, interpolation * rotationSpeed);
             else if(i ==1)
-                cross.transform.GetChild(0).rotation = Quaternion.Lerp(cross.transform.GetChild(0).rotation, startRot, interpolation * rotationSpeed);
+                cross.transform.GetChild(1).rotation = Quaternion.Lerp(cross.transform.GetChild(1).rotation, startRot, interpolation * rotationSpeed);
 
             Vector3 res = start + (end - start) * interpolation;
 
