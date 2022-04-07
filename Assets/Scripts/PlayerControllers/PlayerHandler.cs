@@ -12,6 +12,9 @@ public class PlayerHandler : MonoBehaviour {
 
     [SerializeField] Vector3 offset = new Vector3(0,2,0);
 
+    [SerializeField] float timer = 20;
+    float time = 0;
+
     public Controller CurrentPlayer {
         get {
             return current == null ? player : current;
@@ -67,27 +70,49 @@ public class PlayerHandler : MonoBehaviour {
                 }
             }
         }
+
+        if (listControllerInRange.Count == 0) {
+            time = 0;
+            if (UIManager.Instance)
+                UIManager.Instance.HideHelpMessage();
+        }
     }
 
     void CheckForChange() {
-        if (CurrentPlayer == player && listControllerInRange.Count > 0) {
+        if(timer > 0)
+            time += Time.deltaTime;
+        if (CurrentPlayer == player) {
             foreach (var item in listControllerInRange) {
                 if (item is SpherePlayerController) {
                     if (InputHandler.Controller.buttonEast.wasPressedThisFrame) {
                         ChangePlayer(item);
+                        listControllerInRange.Clear();
+                        return;
                     }
                 } else if (item is TrianglePlayerController) {
                     if (InputHandler.Controller.buttonNorth.wasPressedThisFrame) {
                         ChangePlayer(item);
+                        listControllerInRange.Clear();
+                        return;
                     }
                 } else if (item is SquarePlayerController && !item.GetComponent<SquarePlayerController>().IsOnButton) {
                     if (InputHandler.Controller.buttonWest.wasPressedThisFrame) {
                         ChangePlayer(item);
+                        listControllerInRange.Clear();
+                        return;
                     }
                 } else if (item is CrossPlayerController && !item.GetComponent<CrossPlayerController>().IsOnButton) {
                     if (InputHandler.Controller.buttonSouth.wasPressedThisFrame) {
                         ChangePlayer(item);
+                        listControllerInRange.Clear();
+                        return;
                     }
+                }
+            }
+            if(time > timer) {
+                if (UIManager.Instance) {
+                    string message = listControllerInRange[0].GetHelpBoxMessage();
+                    UIManager.Instance.DisplayHelpMessage(message);
                 }
             }
         } else if (CurrentPlayer != player) {
@@ -103,6 +128,10 @@ public class PlayerHandler : MonoBehaviour {
             if (InputHandler.Controller.leftShoulder.wasPressedThisFrame ||
                     InputHandler.Controller.rightShoulder.wasPressedThisFrame) {
                 ChangePlayer(player);
+            }
+            if (time > timer) {
+                if (UIManager.Instance)
+                    UIManager.Instance.DisplayHelpMessage("Appuyer sur R1/L1");
             }
         }
     }
@@ -129,6 +158,9 @@ public class PlayerHandler : MonoBehaviour {
     /// </summary>
     /// <param name="oldIndex"></param>
     void ChangePlayer(Controller newController) {
+        time = 0;
+        if(UIManager.Instance)
+            UIManager.Instance.HideHelpMessage();
         if (player == newController) {
             current.RegisterInputs(false);
             player.Respawn(current.transform.position + offset);

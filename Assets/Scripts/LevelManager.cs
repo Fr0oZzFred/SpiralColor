@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,7 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     [SerializeField] PlayerHandler playerHandler;
     [ListToPopup(typeof(LevelManager), "TMPList")]
     public string Level;
+
     public int LevelInt => int.Parse(Level.Remove(0, Level.Length - 1));
 
     [Header("Musics")]
@@ -123,8 +125,13 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
         if (Keyboard.current.rKey.wasPressedThisFrame) {
             if(PlayTestData.Instance)
                 PlayTestData.Instance.Dead();
-            playerHandler.CurrentPlayer.Respawn(checkpoints[checkpointProgression].transform.position);
+            Respawn(playerHandler.CurrentPlayer);
         }
+    }
+
+    public void Respawn(Controller controller) {
+        int index = controller.GetClosestAllowedCheckpoint(checkpointProgression);
+        controller.Respawn(checkpoints[index].transform.position);
     }
 
     /// <summary>

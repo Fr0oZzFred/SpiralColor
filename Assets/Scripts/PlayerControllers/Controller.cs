@@ -6,4 +6,6 @@ public abstract class Controller : MonoBehaviour {
     public abstract void SetControllerLED();
     public abstract void Respawn(Vector3 v3);
     public abstract void SetInputSpace(Transform transform);
+    public abstract int GetClosestAllowedCheckpoint(int actualProgression);
+    public abstract string GetHelpBoxMessage();
 }

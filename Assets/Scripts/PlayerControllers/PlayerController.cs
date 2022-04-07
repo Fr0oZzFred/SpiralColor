@@ -150,6 +150,13 @@ public class PlayerController : Controller {
     [SerializeField]
     Color color = default;
 
+    [Header("Checkpoints")]
+    [SerializeField]
+    int[] allowedCheckpointsList;
+
+    [SerializeField]
+    string helpBoxMessage;
+
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
     }
@@ -528,6 +535,24 @@ public class PlayerController : Controller {
     }
     public override void SetInputSpace(Transform transform) {
         playerInputSpace = transform;
+    }
+
+    public override int GetClosestAllowedCheckpoint(int actualProgression) {
+        if (allowedCheckpointsList.Length == 0) {
+            Debug.LogWarning("Allowed Checkpoints List is empty.");
+            return 0;
+        }
+        int closestCheckpoint = 0;
+        foreach (int index in allowedCheckpointsList) {
+            if (index == actualProgression)
+                return actualProgression;
+            if (closestCheckpoint < index && index < actualProgression)
+                closestCheckpoint = index;
+        }
+        return closestCheckpoint;
+    }
+    public override string GetHelpBoxMessage() {
+        return helpBoxMessage;
     }
     #endregion
 }

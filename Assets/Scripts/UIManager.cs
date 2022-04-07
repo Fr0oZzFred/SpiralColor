@@ -16,6 +16,10 @@ public class UIManager : MonoBehaviour {
     [Header("InLevel")]
     [SerializeField]
     GameObject inLevelHUD;
+    [SerializeField]
+    GameObject helpBox;
+    [SerializeField]
+    TMP_Text helpMessage;
 
     [Header("Pause")]
     [SerializeField]
@@ -126,6 +130,14 @@ public class UIManager : MonoBehaviour {
         for (int i = 0; i < stars.Count; i++) {
             stars[i].SetActive(false);
         }
+    }
+
+    public void DisplayHelpMessage(string message) {
+        helpBox.SetActive(true);
+        helpMessage.SetText(message);
+    }
+    public void HideHelpMessage() {
+        helpBox.SetActive(false);
     }
     #region keyboard
     public void OpenKeyboard() {
