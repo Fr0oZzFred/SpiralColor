@@ -117,6 +117,21 @@ public class SpherePlayerController : Controller {
     [SerializeField, Min(0f)]
     float ballSwimRotation = 2f;
 
+    [Header("Controller Color")]
+    [SerializeField]
+    Color color = default;
+
+    [Header("Checkpoints")]
+    [SerializeField]
+    int[] allowedCheckpointsList;
+
+    [Header("Help Box")]
+    [SerializeField]
+    string helpBoxMessage;
+
+
+    bool isCurrentlyPlayed = false;
+
     Rigidbody body, connectedBody, previousConnectedBody;
 
     Vector3 playerInput;
@@ -154,18 +169,6 @@ public class SpherePlayerController : Controller {
     MeshRenderer meshRenderer;
 
     #endregion
-
-    public bool isCurrentlyPlayed = false;
-    [SerializeField]
-    Color color = default;
-
-    [Header("Checkpoints")]
-    [SerializeField]
-    int[] allowedCheckpointsList;
-
-    [SerializeField]
-    string helpBoxMessage;
-
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
     }

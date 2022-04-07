@@ -135,6 +135,23 @@ public class CrossPlayerController : Controller {
     [SerializeField, Min(0f)]
     float ballSwimRotation = 2f;
 
+    [HideInInspector] public bool IsOnButton;
+
+    [Header("Checkpoints")]
+    [SerializeField]
+    int[] allowedCheckpointsList;
+
+    [Header("Help Box")]
+    [SerializeField]
+    string helpBoxMessage;
+
+    [Header("Controller Color")]
+    [SerializeField]
+    Color color = default;
+
+
+    bool isCurrentlyPlayed = false;
+
     Rigidbody body, connectedBody, previousConnectedBody;
 
     Vector3 playerInput;
@@ -174,21 +191,6 @@ public class CrossPlayerController : Controller {
     MeshRenderer meshRenderer;
 
     #endregion
-
-    public float jumpHeightBaseMult = 1;
-
-    public bool isCurrentlyPlayed = false;
-    [SerializeField]
-    Color color = default;
-
-    public bool IsOnButton;
-
-    [Header("Checkpoints")]
-    [SerializeField]
-    int[] allowedCheckpointsList;
-
-    [SerializeField]
-    string helpBoxMessage;
 
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
@@ -233,12 +235,6 @@ public class CrossPlayerController : Controller {
             if (!isCurrentlyPlayed || InputHandler.Controller == null) {
                 UpdateCross();
                 return;
-            }
-            if (Climbing) {
-                if (InputHandler.UpDownTrigger() <= 0) jumpHeight = 0;
-                jumpHeight += InputHandler.UpDownTrigger() * jumpHeightBaseMult;
-                jumpHeight = Mathf.Clamp(jumpHeight, 0f, 2f);
-                desiredJump |= InputHandler.Controller.rightTrigger.wasReleasedThisFrame;
             }
             desiresClimbing = InputHandler.Controller.buttonSouth.isPressed;
         }

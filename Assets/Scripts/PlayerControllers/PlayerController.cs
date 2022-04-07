@@ -108,6 +108,27 @@ public class PlayerController : Controller {
     [SerializeField]
     float speed, amplitude;
 
+    [Header("Checkpoints")]
+    [SerializeField]
+    int[] allowedCheckpointsList;
+
+    [Header("Help Box")]
+    [SerializeField]
+    string helpBoxMessage;
+
+    [Header("Controller Color")]
+    [SerializeField]
+    Color color = default;
+
+
+    public bool IsCurrentlyPlayed {
+        get {
+            return isCurrentlyPlayed;
+        }
+    }
+
+    bool isCurrentlyPlayed = false;
+
     Rigidbody body, connectedBody, previousConnectedBody;
 
     Vector3 playerInput;
@@ -145,17 +166,6 @@ public class PlayerController : Controller {
     MeshRenderer meshRenderer;
 
     #endregion
-
-    public bool isCurrentlyPlayed = false;
-    [SerializeField]
-    Color color = default;
-
-    [Header("Checkpoints")]
-    [SerializeField]
-    int[] allowedCheckpointsList;
-
-    [SerializeField]
-    string helpBoxMessage;
 
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
