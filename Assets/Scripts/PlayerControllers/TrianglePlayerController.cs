@@ -31,6 +31,10 @@ public class TrianglePlayerController : Controller {
 
 
     [Header("Jump")]
+    [Tooltip("Gravity lors de la chute")]
+    [SerializeField]
+    float gravityCoef;
+
     [Tooltip("Hauteur du saut")]
     [SerializeField, Range(0f, 10f)]
     float jumpHeight = 2f;
@@ -110,8 +114,30 @@ public class TrianglePlayerController : Controller {
     [Tooltip("Adjustement pour la vitesse durant le movement")]
     [SerializeField]
     float speed;
+
     Vector3 currentSpeed;
 
+    [Header("Tornado")]
+    [SerializeField] GameObject tornado;
+    [SerializeField] float maxMagnitudeForTornado = 1f;
+    [SerializeField] float timer = 2f;
+
+    bool desiredTornado;
+    float time;
+
+    [Header("Checkpoints")]
+    [SerializeField]
+    int[] allowedCheckpointsList;
+    [Header("Help Box")]
+    [SerializeField]
+    string helpBoxMessage;
+
+    [Header("Controller Color")]
+    [SerializeField]
+    Color color = default;
+
+
+    bool isCurrentlyPlayed = false;
 
     Rigidbody body, connectedBody, previousConnectedBody;
 
@@ -150,24 +176,6 @@ public class TrianglePlayerController : Controller {
     MeshRenderer meshRenderer;
 
     #endregion
-
-    public float gravityCoef;
-
-    public bool isCurrentlyPlayed = false;
-    [SerializeField]
-    Color color = default;
-
-    bool desiredTornado;
-
-    [SerializeField] GameObject tornado;
-
-    [Header("Checkpoints")]
-    [SerializeField]
-    int[] allowedCheckpointsList;
-
-    [SerializeField]
-    string helpBoxMessage;
-
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
     }
@@ -211,7 +219,14 @@ public class TrianglePlayerController : Controller {
         }
 
         desiredJump |= InputHandler.Controller.buttonNorth.wasPressedThisFrame;
-        desiredTornado = InputHandler.Controller.buttonWest.isPressed;
+
+        if(body.velocity.magnitude < maxMagnitudeForTornado && InputHandler.Controller.buttonNorth.isPressed) {
+            time += Time.deltaTime;
+            desiredTornado = time > timer ? true : false;
+        } else {
+            desiredTornado = false;
+            time = 0;
+        }
 
         UpdateSpin();
     }

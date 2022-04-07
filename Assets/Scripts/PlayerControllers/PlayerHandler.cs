@@ -45,7 +45,7 @@ public class PlayerHandler : MonoBehaviour {
 
     void CheckForControllerInRange() {
         if (listController.Count > 0) {
-            if (player.isCurrentlyPlayed) {
+            if (player.IsCurrentlyPlayed) {
                 foreach (var item in listController) {
                     Vector3 p = item.transform.position - player.transform.position;
                     if (p.magnitude < rangeDetection && !listControllerInRange.Contains(item)) {
@@ -57,7 +57,7 @@ public class PlayerHandler : MonoBehaviour {
     }
     void CheckForControllerOutRange() {
         if (listControllerInRange.Count > 0) {
-            if (player.isCurrentlyPlayed) {
+            if (player.IsCurrentlyPlayed) {
                 List<Controller> outOfRangeControllers = new List<Controller>();
                 foreach (var item in listControllerInRange) {
                     Vector3 p = item.transform.position - player.transform.position;

@@ -105,6 +105,24 @@ public class SquarePlayerController : Controller {
     [SerializeField]
     float baseAlignementSpeed = 0.01f;
 
+
+    [Header("Controller Color")]
+    [SerializeField]
+    Color color = default;
+
+    [HideInInspector] public bool IsOnButton;
+
+    [Header("Checkpoints")]
+    [SerializeField]
+    int[] allowedCheckpointsList;
+
+    [Header("Help Box")]
+    [SerializeField]
+    string helpBoxMessage;
+
+
+    bool isCurrentlyPlayed = false;
+
     Rigidbody body, connectedBody, previousConnectedBody;
 
     Vector3 playerInput;
@@ -142,20 +160,6 @@ public class SquarePlayerController : Controller {
     MeshRenderer meshRenderer;
 
     #endregion
-
-    public bool isCurrentlyPlayed = false;
-    [SerializeField]
-    Color color = default;
-
-    public bool IsOnButton;
-
-    [Header("Checkpoints")]
-    [SerializeField]
-    int[] allowedCheckpointsList;
-
-    [SerializeField]
-    string helpBoxMessage;
-
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
     }

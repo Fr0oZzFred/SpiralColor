@@ -2,14 +2,17 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
 public class DeadZone : MonoBehaviour {
+
     [SerializeField] bool gizmos;
     [SerializeField] Color gizmosColor = Color.red;
+
     private void OnTriggerEnter(Collider other) {
         Controller c = other.GetComponent<Controller>();
         if (c) {
             LevelManager.Instance.Respawn(c);
         }
     }
+
     private void OnDrawGizmos() {
         if (!gizmos) return;
         if (GetComponents<BoxCollider>() == null) return;
@@ -19,6 +22,5 @@ public class DeadZone : MonoBehaviour {
         foreach (var c in colliders) {
             Gizmos.DrawCube(c.center, c.size);
         }
-
     }
 }
