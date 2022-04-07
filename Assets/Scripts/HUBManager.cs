@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HUB : MonoBehaviour
+public class HUBManager : MonoBehaviour
 {
     [SerializeField]
     string musicName;
