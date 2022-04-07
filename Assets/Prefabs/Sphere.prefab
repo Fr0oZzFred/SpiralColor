@@ -289,7 +289,6 @@ MonoBehaviour:
   ballAlignSpeed: 180
   ballAirRotation: 0.5
   ballSwimRotation: 2
-  isCurrentlyPlayed: 0
   color: {r: 1, g: 0, b: 0, a: 1}
   allowedCheckpointsList: 
   helpBoxMessage: Press On ROND
@@ -498,7 +497,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0

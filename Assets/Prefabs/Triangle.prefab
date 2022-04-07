@@ -313,8 +313,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Radius: 0.8
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!96 &6890610422625756152
 TrailRenderer:
   serializedVersion: 2
@@ -449,6 +449,7 @@ MonoBehaviour:
   maxAcceleration: 8
   maxAirAcceleration: 4
   maxSwimAcceleration: 10
+  gravityCoef: 0.25
   jumpHeight: 0.2
   maxAirJumps: 3
   maxGroundAngle: 25
@@ -474,13 +475,12 @@ MonoBehaviour:
   baseSpeed: 90
   movementSpeed: 2.5
   speed: 0.01
-  gravityCoef: 0.25
-  isCurrentlyPlayed: 1
-  color: {r: 0.09228456, g: 1, b: 0, a: 0}
   tornado: {fileID: 5835068631073775092}
+  maxMagnitudeForTornado: 1
   timer: 2
   allowedCheckpointsList: 
   helpBoxMessage: Press On Triangle
+  color: {r: 0.09228456, g: 1, b: 0, a: 0}
 --- !u!1 &8602913737369817968
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,7 +643,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
