@@ -54,7 +54,7 @@ public class WheelButton : MonoBehaviour
                 i = (i + 1) % 2;
                 if (i == 0) {
                     startpos = cross.transform.position;
-                    startRot = cross.transform.GetChild(0).rotation;
+                    startRot = cross.transform.GetChild(1).rotation;
                     StartCoroutine(JumpTrajectory(startpos, transform.position));
                 }
                 else if (i == 1) {
