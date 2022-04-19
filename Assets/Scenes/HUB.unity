@@ -4242,7 +4242,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-5720
+  m_Name: pb_Mesh-89970
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4836,7 +4836,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1744498608}
   m_LocalRotation: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
-  m_LocalPosition: {x: 0, y: 7, z: -15}
+  m_LocalPosition: {x: -26, y: -3, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4957,7 +4957,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-5704
+  m_Name: pb_Mesh-89954
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5323,8 +5323,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicName: In HUB Theme
-  numberOfGems: 10
+  numberOfGems: 750
   gemsPool: {fileID: 1167014841}
+  secondsBetweenSpawn: 0.15
 --- !u!1001 &1585989458674639750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5356,6 +5357,18 @@ PrefabInstance:
       propertyPath: controller
       value: 
       objectReference: {fileID: 1707051453}
+    - target: {fileID: 1585989458496305712, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
+      propertyPath: scenes.Array.data[0].destination
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585989458496305712, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
+      propertyPath: scenes.Array.data[1].TargetScene
+      value: Level 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585989458496305712, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
+      propertyPath: scenes.Array.data[1].destination
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1585989458496305714, guid: 682b8198315ce3c428eade7ea390eb9e, type: 3}
       propertyPath: m_RootOrder
       value: 6

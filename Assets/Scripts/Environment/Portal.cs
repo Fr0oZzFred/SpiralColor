@@ -3,6 +3,8 @@ using TMPro;
 using System.Collections.Generic;
 
 public enum ScenesEnum {
+    Tutorial = 0,
+
     Sphere = 1,
     Triangle = 2,
     Square = 4,
@@ -65,7 +67,7 @@ public class Portal : MonoBehaviour {
                 Debug.LogError("The" + scene.destination.ToString() + " destination already exists in the Dictonary.");
         }
 
-        ScenesEnum current = GameManager.Instance.Progression == 1 ? (ScenesEnum)enumValue + 1 : (ScenesEnum)enumValue;
+        ScenesEnum current = (ScenesEnum)enumValue;
         ChangeTextContent(current.ToString());
     }
     private void Update() {
@@ -98,7 +100,7 @@ public class Portal : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.GetComponent<Controller>() != null) {
             PlayTestData.Instance.Restart();
-            ScenesEnum current = GameManager.Instance.Progression == 1 ? (ScenesEnum)enumValue + 1 : (ScenesEnum)enumValue;
+            ScenesEnum current = (ScenesEnum)enumValue;
             SceneManagement.Instance.LoadingRendering(scenesDico[current].TargetScene, scenesDico[current].AdditiveScene);
         }
     }
