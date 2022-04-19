@@ -13,13 +13,13 @@ public class HUBManager : MonoBehaviour
     public float secondsBetweenSpawn;
 
     private void Awake() {
-        gemsPool.InitPool(numberOfGems);
+        gemsPool.InitPool(GameManager.Instance.GemmeHub());
         GameManager.Instance.SetState(GameState.InHUB);
         SoundsManager.Instance.StopCurrentMusic();
         SoundsManager.Instance.Play(musicName);
     }
     private IEnumerator Start() {
-        for (int i = 0; i < numberOfGems; i++) {
+        for (int i = 0; i < GameManager.Instance.GemmeHub(); i++) {
             gemsPool.InstantiatePrefab();
             yield return new WaitForSeconds(secondsBetweenSpawn);
         }
