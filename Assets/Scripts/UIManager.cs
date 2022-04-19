@@ -20,6 +20,10 @@ public class UIManager : MonoBehaviour {
     GameObject helpBox;
     [SerializeField]
     TMP_Text helpMessage;
+    [SerializeField]
+    TMP_Text scoreText;
+    [SerializeField]
+    TMP_Text crystalText;
 
     [Header("Pause")]
     [SerializeField]
@@ -130,6 +134,10 @@ public class UIManager : MonoBehaviour {
         for (int i = 0; i < stars.Count; i++) {
             stars[i].SetActive(false);
         }
+    }
+
+    public void DisplayScore(int score) {
+        scoreText.SetText("Score : " + score);
     }
 
     public void DisplayHelpMessage(string message) {

@@ -15,6 +15,7 @@ public class PlayerHandler : MonoBehaviour {
     [SerializeField] float timer = 20;
     float time = 0;
 
+    int changement = 0;
     public Controller CurrentPlayer {
         get {
             return current == null ? player : current;
@@ -23,8 +24,10 @@ public class PlayerHandler : MonoBehaviour {
     Controller current;
 
     private void Start() {
-        if (GameManager.Instance)
+        if (GameManager.Instance) {
             GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+            UIManager.Instance.DisplayScore(changement);
+        }
 
         listControllerInRange = new List<Controller>();
         player.RegisterInputs(true);
@@ -159,16 +162,20 @@ public class PlayerHandler : MonoBehaviour {
     /// <param name="oldIndex"></param>
     void ChangePlayer(Controller newController) {
         time = 0;
-        if(UIManager.Instance)
+        if (UIManager.Instance) {
             UIManager.Instance.HideHelpMessage();
+            UIManager.Instance.DisplayScore(++changement);
+        }
         if (player == newController) {
             current.RegisterInputs(false);
+            player.SetCamRotation(current.GetCamRotation());
             player.Respawn(current.transform.position + offset);
             current = null;
             player.RegisterInputs(true);
             player.SetControllerLED();
         } else {
             player.RegisterInputs(false);
+            newController.SetCamRotation(player.GetCamRotation());
             if (newController is CrossPlayerController) {
                 newController.RegisterInputs(!newController.GetComponent<CrossPlayerController>().IsOnButton);
             } 
