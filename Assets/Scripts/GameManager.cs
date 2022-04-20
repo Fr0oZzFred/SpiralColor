@@ -95,17 +95,17 @@ public class GameManager : MonoBehaviour {
         if (prog < Progression) return;
         Progression = prog;
     }
-    public void AddGemme() {
+    public void AddGem() {
         gemmes[LevelManager.Instance.LevelInt].Add(false);
     }
-    public void CollectGemme(int index) {
+    public void CollectGem(int index) {
         gemmes[LevelManager.Instance.LevelInt][index] = true;
         gemmeCount++;
     }
-    public int GemmeHub() {
-        return 0;
+    public int GemHub() {
+        return gemmeCount;
     }
-    public bool CheckGemme(int index) {
+    public bool CheckGem(int index) {
         return gemmes[LevelManager.Instance.LevelInt][index];
     }
     public void HandlePause() {

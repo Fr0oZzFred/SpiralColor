@@ -100,6 +100,7 @@ public class Portal : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.GetComponent<Controller>() != null) {
             PlayTestData.Instance.Restart();
+            SaveSystem.SaveGemmes(HUBManager.Instance.gemsPool);
             ScenesEnum current = (ScenesEnum)enumValue;
             SceneManagement.Instance.LoadingRendering(scenesDico[current].TargetScene, scenesDico[current].AdditiveScene);
         }
