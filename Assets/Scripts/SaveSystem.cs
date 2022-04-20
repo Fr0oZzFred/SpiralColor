@@ -40,5 +40,23 @@ public static class SaveSystem {
         } else Debug.Log("File don't exist");
         return null;
     }
-
+    public static void SaveGemmes(GemsPool gems) {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/GemsPool.test";
+        FileStream stream = new FileStream(path, FileMode.Create);
+        GemsData data = new GemsData(gems);
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+    public static GemsData LoadGemmes() {
+        string path = Application.persistentDataPath + "/GemsPool.test";
+        if (File.Exists(path)) {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+            GemsData data = formatter.Deserialize(stream) as GemsData;
+            stream.Close();
+            return data;
+        } else Debug.Log("File don't exist");
+        return null;
+    }
 }

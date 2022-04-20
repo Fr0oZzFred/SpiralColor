@@ -8,7 +8,6 @@ public class GameManagerData{
     public Dictionary<string, bool> pieces;
     public GameManagerData(GameManager data) {
         progression = data.Progression;
-        pieces = data.pieces;
     }
 }
 public class GameManager : MonoBehaviour {
@@ -18,7 +17,8 @@ public class GameManager : MonoBehaviour {
     public delegate void GameStateChangeHandler(GameState newState);
     public event GameStateChangeHandler OnGameStateChanged;
     public int Progression { get; private set; }
-    public Dictionary<string, bool> pieces { get; private set; }
+    public List<List<bool>> gemmes { get; private set; }
+    int gemmeCount = 0;
     public string Username { get; private set; }
     private void Awake(){
         if (Instance == null) Instance = this;
@@ -30,11 +30,9 @@ public class GameManager : MonoBehaviour {
     }
     private void Init() {
         Progression = 1;
-        pieces = new Dictionary<string, bool>();
-        for (int level = 1; level < 16; level++) {
-            for (int starIndex = 1; starIndex < 4; starIndex++) {
-                pieces.Add("Star " + level + "-" + starIndex, false);
-            }
+        gemmes = new List<List<bool>>();
+        for (int level = 0; level < 15; level++) {
+            gemmes.Add(new List<bool>());
         }
     }
     public void SetState (GameState newState){
@@ -88,7 +86,6 @@ public class GameManager : MonoBehaviour {
     public void LoadGameManager() {
         GameManagerData data = SaveSystem.LoadGameManager();
         Progression = data.progression;
-        pieces = data.pieces;
     }
     /// <summary>
     /// Update the Progression of the storyline
@@ -98,12 +95,18 @@ public class GameManager : MonoBehaviour {
         if (prog < Progression) return;
         Progression = prog;
     }
-    public void CollectStar(Star star) {
-        pieces["Star " + LevelManager.Instance.LevelInt + "-" + star.StarIndex] = true;
+    public void AddGem() {
+        gemmes[LevelManager.Instance.LevelInt].Add(false);
     }
-
-    public bool CheckStar(Star star) {
-        return pieces["Star " + LevelManager.Instance.LevelInt + "-" + star.StarIndex];
+    public void CollectGem(int index) {
+        gemmes[LevelManager.Instance.LevelInt][index] = true;
+        gemmeCount++;
+    }
+    public int GemHub() {
+        return gemmeCount;
+    }
+    public bool CheckGem(int index) {
+        return gemmes[LevelManager.Instance.LevelInt][index];
     }
     public void HandlePause() {
         if (InputHandler.Controller == null) return;
