@@ -215,4 +215,8 @@ public class OrbitCamera : MonoBehaviour {
 	public void SetFocus(Transform focus) {
 		this.focus = focus;
     }
+	public void SetRot(Quaternion q) {
+		orbitRotation = q;
+		orbitAngles = orbitRotation.eulerAngles;
+    }
 }

@@ -8,4 +8,6 @@ public abstract class Controller : MonoBehaviour {
     public abstract void SetInputSpace(Transform transform);
     public abstract int GetClosestAllowedCheckpoint(int actualProgression);
     public abstract string GetHelpBoxMessage();
+    public abstract Quaternion GetCamRotation();
+    public abstract void SetCamRotation(Quaternion q);
 }

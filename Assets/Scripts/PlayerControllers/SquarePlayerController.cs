@@ -240,7 +240,7 @@ public class SquarePlayerController : Controller {
         if (movement != Vector3.zero)
             rotation = Quaternion.LookRotation(movement);
 
-        square.localRotation = Quaternion.Lerp(square.localRotation, rotation, baseAlignementSpeed);
+        square.localRotation = Quaternion.Lerp(square.localRotation, rotation, baseAlignementSpeed * Time.deltaTime);
     }
 
 
@@ -552,6 +552,14 @@ public class SquarePlayerController : Controller {
     }
     public override string GetHelpBoxMessage() {
         return helpBoxMessage;
+    }
+    public override Quaternion GetCamRotation() {
+        return playerInputSpace.rotation;
+    }
+    public override void SetCamRotation(Quaternion q) {
+        OrbitCamera cam = playerInputSpace.GetComponent<OrbitCamera>();
+        if (cam)
+            cam.SetRot(q);
     }
     #endregion
 }

@@ -5,8 +5,9 @@ public class RotationCylinder : MonoBehaviour {
     WheelButton wheelButton;
 
     [SerializeField]
-    float limitAngle, powerRotation;
-
+    float limitAngle;
+    [SerializeField]
+    Vector3 powerRotation;
     float oldAngle;
 
     private void Awake() {
@@ -22,9 +23,9 @@ public class RotationCylinder : MonoBehaviour {
         if (delta == 0f) return;
         if (delta > limitAngle || delta < -limitAngle) return;
         if (delta > 0) {
-            transform.Rotate(0, powerRotation, 0);
+            transform.Rotate(powerRotation);
         } else {
-            transform.Rotate(0, -powerRotation, 0);
+            transform.Rotate(-powerRotation);
         }
         wheelButton.RotateCross(delta);
     }
