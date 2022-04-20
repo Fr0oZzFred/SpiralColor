@@ -149,6 +149,12 @@ public class CrossPlayerController : Controller {
     [SerializeField]
     Color color = default;
 
+    public Vector3 GetNormal {
+        get {
+            if (previousClimbNormal == Vector3.zero) return previousContactNormal;
+            return previousClimbNormal;
+        }
+    }
 
     bool isCurrentlyPlayed = false;
 
@@ -163,6 +169,8 @@ public class CrossPlayerController : Controller {
     Vector3 upAxis, rightAxis, forwardAxis;
 
     bool desiredJump, desiresClimbing;
+
+    Vector3 previousContactNormal, previousClimbNormal;
 
     Vector3 contactNormal, steepNormal, climbNormal, lastClimbNormal;
 
@@ -348,6 +356,9 @@ public class CrossPlayerController : Controller {
     }
 
     void ClearState() {
+        previousClimbNormal = climbNormal;
+        previousContactNormal = contactNormal;
+
         lastContactNormal = contactNormal;
         lastSteepNormal = steepNormal;
         lastConnectionVelocity = connectionVelocity;
