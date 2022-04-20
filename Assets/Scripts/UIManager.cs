@@ -127,13 +127,13 @@ public class UIManager : MonoBehaviour {
     public void DisplayScore() {
         ResetScore();
         for (int i = 1; i < stars.Count + 1; i++) {
-            stars[i - 1].SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.LevelInt + "-" + i]);
+            //stars[i - 1].SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.LevelInt + "-" + i]);
         }
     }
     private void ResetScore() {
-        for (int i = 0; i < stars.Count; i++) {
-            stars[i].SetActive(false);
-        }
+        //for (int i = 0; i < stars.Count; i++) {
+           // stars[i].SetActive(false);
+        //}
     }
 
     public void DisplayScore(int score) {
