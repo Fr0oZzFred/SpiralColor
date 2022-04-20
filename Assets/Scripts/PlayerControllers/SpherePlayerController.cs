@@ -589,5 +589,13 @@ public class SpherePlayerController : Controller {
     public override string GetHelpBoxMessage() {
         return helpBoxMessage;
     }
-    #endregion
+    public override Quaternion GetCamRotation() {
+        return playerInputSpace.rotation;
+    }
+    public override void SetCamRotation(Quaternion q) {
+        OrbitCamera cam = playerInputSpace.GetComponent<OrbitCamera>();
+        if (cam)
+            cam.SetRot(q);
+    }
 }
+    #endregion

@@ -246,7 +246,7 @@ public class PlayerController : Controller {
         if (movement != Vector3.zero)
             rotation = Quaternion.LookRotation(movement);
 
-        player.localRotation = Quaternion.Lerp(player.localRotation, rotation, baseAlignementSpeed);
+        player.localRotation = Quaternion.Lerp(player.localRotation, rotation, baseAlignementSpeed * Time.deltaTime);
         Levitate();
     }
     void Levitate() {
@@ -563,6 +563,14 @@ public class PlayerController : Controller {
     }
     public override string GetHelpBoxMessage() {
         return helpBoxMessage;
+    }
+    public override Quaternion GetCamRotation() {
+        return playerInputSpace.rotation;
+    }
+    public override void SetCamRotation(Quaternion q) {
+        OrbitCamera cam = playerInputSpace.GetComponent<OrbitCamera>();
+        if(cam)
+            cam.SetRot(q);
     }
     #endregion
 }
