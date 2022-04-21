@@ -26,8 +26,7 @@ public class DecalSpawner : MonoBehaviour {
     }
     private void OnTriggerExit(Collider other) {
 		if (layermask == (layermask | (1 << other.gameObject.layer))) {
-            InstantiateDecal(transform.position, transform.rotation);
-			Debug.Log(cross.GetNormal);
+			InstantiateDecal(transform.position, CalculateRotationByNormal(cross.GetNormal));
 		}
     }
 	
@@ -49,4 +48,8 @@ public class DecalSpawner : MonoBehaviour {
 		activeIndex %= amountToPool;
 		return pooledDecals[activeIndex];
     }
+
+	Quaternion CalculateRotationByNormal(Vector3 normal) {
+		return Quaternion.LookRotation(normal);
+	}
 }
