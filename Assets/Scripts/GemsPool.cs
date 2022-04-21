@@ -47,9 +47,15 @@ public class GemsPool : MonoBehaviour
         }
         if (Keyboard.current.nKey.wasPressedThisFrame) {
             SaveSystem.SaveGemmes(this);
+        }    
+        if (Keyboard.current.bKey.wasPressedThisFrame) {
+            LoadGemsPool();
+        }        
+        if (Keyboard.current.dKey.wasPressedThisFrame) {
+            DestroyGems();
         }
     }
-    Vector3 pos {
+    Vector3 pos {   
         get {
             return transform.position;
         }
@@ -63,5 +69,10 @@ public class GemsPool : MonoBehaviour
             gems.Add(Instantiate(prefab, position, rotation));
             gems[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
+    }
+    void DestroyGems() {
+        if (gems.Count == 0) return;
+        for (int i = 0; i < gems.Count; i++) Destroy(gems[i]);
+        gems = new List<GameObject>();
     }
 }
