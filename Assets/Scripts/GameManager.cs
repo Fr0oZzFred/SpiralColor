@@ -5,12 +5,9 @@ public enum GameState {Boot, MainMenu, InHUB, InLevel, Pause, Score, Loading, Cu
 [System.Serializable]
 public class GameManagerData{
     public int progression;
-    public List<List<bool>> gemsList;
-    public int gemsCount;
+    public Dictionary<string, bool> pieces;
     public GameManagerData(GameManager data) {
         progression = data.Progression;
-        gemsList = data.gemsList;
-        gemsCount = data.gemsCount;
     }
 }
 public class GameManager : MonoBehaviour {
@@ -20,16 +17,12 @@ public class GameManager : MonoBehaviour {
     public delegate void GameStateChangeHandler(GameState newState);
     public event GameStateChangeHandler OnGameStateChanged;
     public int Progression { get; private set; }
-    public List<List<bool>> gemsList { get; private set; }
-    public int gemsCount = 0;
+    public List<List<bool>> gemmes { get; private set; }
+    int gemmeCount = 0;
     public string Username { get; private set; }
     private void Awake(){
         if (Instance == null) Instance = this;
         Username = "";
-        gemsList = new List<List<bool>>();
-        for (int level = 0; level < 15; level++) {
-            gemsList.Add(new List<bool>());
-        }
         Init();
     }
     private void Update() {
@@ -37,6 +30,10 @@ public class GameManager : MonoBehaviour {
     }
     private void Init() {
         Progression = 1;
+        gemmes = new List<List<bool>>();
+        for (int level = 0; level < 15; level++) {
+            gemmes.Add(new List<bool>());
+        }
     }
     public void SetState (GameState newState){
         if (newState == CurrentState) return;
@@ -89,8 +86,6 @@ public class GameManager : MonoBehaviour {
     public void LoadGameManager() {
         GameManagerData data = SaveSystem.LoadGameManager();
         Progression = data.progression;
-        if(data.gemsList != null) gemsList = data.gemsList;
-        gemsCount = data.gemsCount;
     }
     /// <summary>
     /// Update the Progression of the storyline
@@ -101,17 +96,17 @@ public class GameManager : MonoBehaviour {
         Progression = prog;
     }
     public void AddGem() {
-        gemsList[LevelManager.Instance.LevelInt].Add(false);
+        gemmes[LevelManager.Instance.LevelInt].Add(false);
     }
     public void CollectGem(int index) {
-        gemsList[LevelManager.Instance.LevelInt][index] = true;
-        gemsCount++;
+        gemmes[LevelManager.Instance.LevelInt][index] = true;
+        gemmeCount++;
     }
     public int GemHub() {
-        return gemsCount;
+        return gemmeCount;
     }
     public bool CheckGem(int index) {
-        return gemsList[LevelManager.Instance.LevelInt][index];
+        return gemmes[LevelManager.Instance.LevelInt][index];
     }
     public void HandlePause() {
         if (InputHandler.Controller == null) return;
@@ -135,6 +130,5 @@ public class GameManager : MonoBehaviour {
     }
     private void OnApplicationQuit() {
         Debug.LogWarning("Save have to be done here");
-        SaveGameManager();
     }
 }

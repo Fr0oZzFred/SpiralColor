@@ -3,7 +3,7 @@ public class Gems : MonoBehaviour {
     //public Material transparent;
     public int gemIndex;
     private void Start() {
-        if (GameManager.Instance.gemsList[LevelManager.Instance.LevelInt].Count < FindObjectsOfType(typeof(Gems)).Length)
+        if (GameManager.Instance.gemmes[LevelManager.Instance.LevelInt].Count < FindObjectsOfType(typeof(Gems)).Length)
             GameManager.Instance.AddGem();
         else if (GameManager.Instance.CheckGem(gemIndex)) gameObject.SetActive(false);
     }
@@ -12,7 +12,7 @@ public class Gems : MonoBehaviour {
             Collect();
     }
     public void Collect() {
-        if(!GameManager.Instance.gemsList[LevelManager.Instance.LevelInt][gemIndex]) GameManager.Instance.CollectGem(gemIndex);
+        if(!GameManager.Instance.gemmes[LevelManager.Instance.LevelInt][gemIndex]) GameManager.Instance.CollectGem(gemIndex);
         gameObject.SetActive(false);
     }
 }
