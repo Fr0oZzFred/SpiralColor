@@ -31,10 +31,13 @@ public class Managers : MonoBehaviour, ISerializationCallbackReceiver  {
 
     private void Start() {
         DontDestroyOnLoad(this);
-        if (File.Exists(Application.persistentDataPath + "/gameManager.test"))
+        if (File.Exists(Application.persistentDataPath + "/gameManager.test")) {
+            GameManager.Instance.LoadGameManager();
             Debug.LogWarning("Load have to be done here");
-        else
+        } else {
+            GameManager.Instance.SaveGameManager();
             Debug.LogWarning("Save have to be done here");
+        }
         SceneManagement.Instance.LoadLevel(TargetScene);
         GameManager.Instance.SetState(baseGameState);
     }
