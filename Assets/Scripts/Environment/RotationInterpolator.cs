@@ -3,17 +3,17 @@ using UnityEngine;
 public class RotationInterpolator : MonoBehaviour {
 	[SerializeField] float speed;
 	bool active = false;
-	float limit = 0;
+	float angle = 0;
     private void Update() {
-        if(active) transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, new Vector3(0, limit, 0), speed));
-		else transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, new Vector3(0, limit, 0), speed));
+        if(active) transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, new Vector3(0, angle, 0), speed));
+		else transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, new Vector3(0, angle, 0), speed));
 	}
-    public void Active() {
+    public void Right() {
 		active = true;
-		limit += 90;
+		angle += 90;
 	}
-	public void Unactive() {
+	public void Left() {
 		active = false;
-		limit -= 90;
+		angle -= 90;
     }
 }
