@@ -16,10 +16,6 @@ public class CrossPlayerController : Controller {
     [SerializeField, Range(0f, 100f)]
     float maxClimbSpeed = 4f;
 
-    [Tooltip("Vitesse maximum en nageant")]
-    [SerializeField, Range(0f, 100f)]
-    float maxSwimSpeed = 5f;
-
 
     [Header("Acceleration")]
     [Tooltip("Acceleration maximum")]
@@ -33,10 +29,6 @@ public class CrossPlayerController : Controller {
     [Tooltip("Acceleration en grimpant")]
     [SerializeField, Range(0f, 100f)]
     float maxClimbAcceleration = 40f;
-
-    [Tooltip("Acceleration en nageant")]
-    [SerializeField, Range(0f, 100f)]
-    float maxSwimAcceleration = 5f;
 
 
     [Header("Jump")]
@@ -71,28 +63,6 @@ public class CrossPlayerController : Controller {
     float probeDistance = 1f;
 
 
-    [Header("Water")]
-    [Tooltip("Offset pour la submersion")]
-    [SerializeField]
-    float submergenceOffset = 0.5f;
-
-    [Tooltip("Range pour la submersion")]
-    [SerializeField, Min(0.1f)]
-    float submergenceRange = 1f;
-
-    [Tooltip("Flottaison")]
-    [SerializeField, Min(0f)]
-    float buoyancy = 1f;
-
-    [Tooltip("Puissance de la pression de l'eau")]
-    [SerializeField, Range(0f, 10f)]
-    float waterDrag = 1f;
-
-    [Tooltip("Puissance de modification de la vitesse quand on arrive dans l'eau")]
-    [SerializeField, Range(0.01f, 1f)]
-    float swimThreshold = 0.5f;
-
-
     [Header("Layers")]
     [SerializeField]
     LayerMask probeMask = -1;
@@ -103,9 +73,6 @@ public class CrossPlayerController : Controller {
     [SerializeField]
     LayerMask climbMask = -1;
 
-    [SerializeField]
-    LayerMask waterMask = 0;
-
 
     [Header("Materials")]
     [SerializeField]
@@ -113,9 +80,6 @@ public class CrossPlayerController : Controller {
 
     [SerializeField]
     Material climbingMaterial = default;
-
-    [SerializeField]
-    Material swimmingMaterial = default;
 
 
     [Header("Cross Settings")]
@@ -130,10 +94,6 @@ public class CrossPlayerController : Controller {
     [Tooltip("Vitesse alignement avec la direction dans l'air")]
     [SerializeField, Min(0f)]
     float ballAirRotation = 0.5f;
-
-    [Tooltip("Vitesse alignement avec la direction dans l'eau")]
-    [SerializeField, Min(0f)]
-    float ballSwimRotation = 2f;
 
     [HideInInspector] public bool IsOnButton;
 
@@ -184,12 +144,6 @@ public class CrossPlayerController : Controller {
 
     bool Climbing => climbContactCount > 0 && stepsSinceLastJump > 2;
 
-    bool InWater => submergence > 0f;
-
-    bool Swimming => submergence >= swimThreshold;
-
-    float submergence;
-
     int jumpPhase;
 
     float minGroundDotProduct, minStairsDotProduct, minClimbDotProduct;
@@ -224,7 +178,6 @@ public class CrossPlayerController : Controller {
         if (isCurrentlyPlayed) {
             playerInput.x = InputHandler.GetLeftStickValues().x;
             playerInput.z = InputHandler.GetLeftStickValues().y;
-            playerInput.y = Swimming ? InputHandler.UpDownTrigger() : 0f;
             playerInput = Vector3.ClampMagnitude(playerInput, 1f);
         } else playerInput = Vector3.zero;
 
@@ -236,16 +189,12 @@ public class CrossPlayerController : Controller {
             rightAxis = ProjectDirectionOnPlane(Vector3.right, upAxis);
             forwardAxis = ProjectDirectionOnPlane(Vector3.forward, upAxis);
         }
-
-        if (Swimming) {
-            desiresClimbing = false;
-        } else {
-            if (!isCurrentlyPlayed || InputHandler.Controller == null) {
-                UpdateCross();
-                return;
-            }
-            desiresClimbing = InputHandler.Controller.buttonSouth.isPressed;
+        
+        if (!isCurrentlyPlayed || InputHandler.Controller == null) {
+            UpdateCross();
+            return;
         }
+        desiresClimbing = InputHandler.Controller.buttonSouth.isPressed;
 
         UpdateCross();
     }
@@ -258,9 +207,6 @@ public class CrossPlayerController : Controller {
         float rotationFactor = 1f;
         if (Climbing) {
             ballMaterial = climbingMaterial;
-        } else if (Swimming) {
-            ballMaterial = swimmingMaterial;
-            rotationFactor = ballSwimRotation;
         } else if (!OnGround) {
             if (OnSteep) {
                 rotationPlaneNormal = lastSteepNormal;
@@ -323,10 +269,6 @@ public class CrossPlayerController : Controller {
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
         UpdateState();
 
-        if (InWater) {
-            velocity *= 1f - waterDrag * submergence * Time.deltaTime;
-        }
-
         AdjustVelocity();
 
         if (desiredJump) {
@@ -337,9 +279,6 @@ public class CrossPlayerController : Controller {
         if (Climbing) {
             velocity -=
                 contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
-        } else if (InWater) {
-            velocity +=
-                gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
         } else if (OnGround && velocity.sqrMagnitude < 0.01f) {
             velocity +=
                 contactNormal *
@@ -367,7 +306,6 @@ public class CrossPlayerController : Controller {
         connectionVelocity = Vector3.zero;
         previousConnectedBody = connectedBody;
         connectedBody = null;
-        submergence = 0f;
     }
 
     void UpdateState() {
@@ -375,8 +313,8 @@ public class CrossPlayerController : Controller {
         stepsSinceLastJump += 1;
         velocity = body.velocity;
         if (
-            CheckClimbing() || CheckSwimming() ||
-            OnGround || SnapToGround() || CheckSteepContacts()
+            CheckClimbing() || OnGround ||
+            SnapToGround() || CheckSteepContacts()
         ) {
             stepsSinceLastGrounded = 0;
             if (stepsSinceLastJump > 1) {
@@ -425,17 +363,8 @@ public class CrossPlayerController : Controller {
         return false;
     }
 
-    bool CheckSwimming() {
-        if (Swimming) {
-            groundContactCount = 0;
-            contactNormal = upAxis;
-            return true;
-        }
-        return false;
-    }
-
     bool SnapToGround() {
-        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2 || InWater) {
+        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2) {
             return false;
         }
         float speed = velocity.magnitude;
@@ -489,15 +418,6 @@ public class CrossPlayerController : Controller {
             speed = maxClimbSpeed;
             xAxis = Vector3.Cross(contactNormal, upAxis);
             zAxis = upAxis;
-        } else if (InWater) {
-            float swimFactor = Mathf.Min(1f, submergence / swimThreshold);
-            acceleration = Mathf.LerpUnclamped(
-                OnGround ? maxAcceleration : maxAirAcceleration,
-                maxSwimAcceleration, swimFactor
-            );
-            speed = Mathf.LerpUnclamped(maxSpeed, maxSwimSpeed, swimFactor);
-            xAxis = rightAxis;
-            zAxis = forwardAxis;
         } else {
             acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
             speed = OnGround && desiresClimbing ? maxClimbSpeed : maxSpeed;
@@ -514,16 +434,12 @@ public class CrossPlayerController : Controller {
             playerInput.x * speed - Vector3.Dot(relativeVelocity, xAxis);
         adjustment.z =
             playerInput.z * speed - Vector3.Dot(relativeVelocity, zAxis);
-        adjustment.y = Swimming ?
-            playerInput.y * speed - Vector3.Dot(relativeVelocity, upAxis) : 0f;
+        adjustment.y = 0f;
 
         adjustment =
             Vector3.ClampMagnitude(adjustment, acceleration * Time.deltaTime);
 
         velocity += xAxis * adjustment.x + zAxis * adjustment.z;
-        if (Swimming) {
-            velocity += upAxis * adjustment.y;
-        }
     }
 
     void Jump(Vector3 gravity) {
@@ -545,9 +461,6 @@ public class CrossPlayerController : Controller {
         stepsSinceLastJump = 0;
         jumpPhase += 1;
         float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);
-        if (InWater) {
-            jumpSpeed *= Mathf.Max(0f, 1f - submergence / swimThreshold);
-        }
         jumpDirection = (jumpDirection + upAxis).normalized;
         float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
         if (alignedSpeed > 0f) {
@@ -565,9 +478,6 @@ public class CrossPlayerController : Controller {
     }
 
     void EvaluateCollision(Collision collision) {
-        if (Swimming) {
-            return;
-        }
         int layer = collision.gameObject.layer;
         float minDot = GetMinDot(layer);
         for (int i = 0; i < collision.contactCount; i++) {
@@ -595,33 +505,6 @@ public class CrossPlayerController : Controller {
                     connectedBody = collision.rigidbody;
                 }
             }
-        }
-    }
-
-    void OnTriggerEnter(Collider other) {
-        if ((waterMask & (1 << other.gameObject.layer)) != 0) {
-            EvaluateSubmergence(other);
-        }
-    }
-
-    void OnTriggerStay(Collider other) {
-        if ((waterMask & (1 << other.gameObject.layer)) != 0) {
-            EvaluateSubmergence(other);
-        }
-    }
-
-    void EvaluateSubmergence(Collider collider) {
-        if (Physics.Raycast(
-            body.position + upAxis * submergenceOffset,
-            -upAxis, out RaycastHit hit, submergenceRange + 1f,
-            waterMask, QueryTriggerInteraction.Collide
-        )) {
-            submergence = 1f - hit.distance / submergenceRange;
-        } else {
-            submergence = 1f;
-        }
-        if (Swimming) {
-            connectedBody = collider.attachedRigidbody;
         }
     }
 
