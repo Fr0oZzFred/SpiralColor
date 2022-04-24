@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
+public class LevelManager : MonoBehaviour {
 
     #region Fields
 
     [Header("Data")]
+    [SerializeField] Scenes scene;
     [SerializeField] PlayerHandler playerHandler;
-    [ListToPopup(typeof(LevelManager), "TMPList")]
-    public string Level;
 
-    public int LevelInt => int.Parse(Level.Remove(0, Level.Length - 1));
+    public int LevelInt => int.Parse(scene.TargetScene.Remove(0, scene.TargetScene.Length - 1));
 
     [Header("Musics")]
     [SerializeField]
@@ -22,7 +21,8 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     [SerializeField]
     List<Checkpoint> checkpoints;
     int checkpointProgression = 0;
-    
+
+
 
     public Controller CurrentController {
         get {
@@ -83,26 +83,6 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
         }
         return (0, 2);
     }
-
-    public static List<string> TMPList;
-    [HideInInspector] public List<string> PopupList;
-    public List<string> GetAllScenesInBuild() {
-        List<string> AllScenes = new List<string>();
-
-        for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings; i++) {
-            string scenePath = UnityEngine.SceneManagement.SceneUtility.GetScenePathByBuildIndex(i);
-            string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
-            AllScenes.Add(sceneName);
-        }
-        return AllScenes;
-    }
-    public void OnBeforeSerialize() {
-        PopupList = GetAllScenesInBuild();
-        TMPList = PopupList;
-    }
-
-    public void OnAfterDeserialize() { }
-
     #endregion Editor
 
 
@@ -138,7 +118,7 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     /// Function called at the end of the level
     /// </summary>
     public void TriggerLevelEnd() {
-        GameManager.Instance.UpdateProgression(GameManager.Instance.Progression + 1);
+        GameManager.Instance.UpdateProgression(LevelInt + 1);
         SoundsManager.Instance.StopCurrentMusic();
         GameManager.Instance.SetState(GameState.Score);
     }
@@ -149,6 +129,10 @@ public class LevelManager : MonoBehaviour, ISerializationCallbackReceiver {
     public void UpdateCPProgression(int prog) {
         if (prog < checkpointProgression) return;
         checkpointProgression = prog;
+    }
+
+    public void ReloadLevel() {
+        SceneManagement.Instance.LoadingRendering(scene.TargetScene, scene.AdditiveScene);
     }
 }
 

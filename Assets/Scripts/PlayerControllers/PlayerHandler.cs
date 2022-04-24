@@ -15,7 +15,6 @@ public class PlayerHandler : MonoBehaviour {
     [SerializeField] float timer = 20;
     float time = 0;
 
-    int changement = 0;
     public Controller CurrentPlayer {
         get {
             return current == null ? player : current;
@@ -26,7 +25,6 @@ public class PlayerHandler : MonoBehaviour {
     private void Start() {
         if (GameManager.Instance) {
             GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
-            UIManager.Instance.DisplayScore(changement);
         }
 
         listControllerInRange = new List<Controller>();
@@ -164,7 +162,6 @@ public class PlayerHandler : MonoBehaviour {
         time = 0;
         if (UIManager.Instance) {
             UIManager.Instance.HideHelpMessage();
-            UIManager.Instance.DisplayScore(++changement);
         }
         if (player == newController) {
             current.RegisterInputs(false);

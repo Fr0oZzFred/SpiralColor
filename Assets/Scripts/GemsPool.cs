@@ -32,7 +32,11 @@ public class GemsPool : MonoBehaviour
     public List<GameObject> gems = new List<GameObject>();
     public float secondsBetweenSpawn;
     void Awake() {
-        LoadGemsPool();
+        if (System.IO.File.Exists(Application.persistentDataPath + "/GemsPool.data")) {
+            LoadGemsPool();
+        } else {
+            Debug.LogWarning("Quentin");
+        }
     }
     private IEnumerator Start() {
         if (gems.Count >= GameManager.Instance.GemHub()) yield return null;     

@@ -420,7 +420,9 @@ public class PlayerController : Controller {
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
         playerInputSpace.gameObject.SetActive(b);
-        gameObject.SetActive(b);
+        if(GameManager.Instance)
+            if(GameManager.Instance.CurrentState != GameState.Pause)
+                gameObject.SetActive(b);
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();

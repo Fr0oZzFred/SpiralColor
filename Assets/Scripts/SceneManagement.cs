@@ -20,10 +20,6 @@ public class SceneManagement : MonoBehaviour {
         LoadLevel(SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/" + sceneName + ".unity"));
     }
     public void LoadingRendering(string sceneLevel, string sceneRendering) {
-        if (SceneManager.GetSceneByName(sceneLevel).isLoaded) {
-            Debug.LogWarning("Scene demandée déjà chargée");
-            return;
-        }
         LoadLevel(sceneLevel);
         StartCoroutine(LoadingRendering(sceneRendering));
     }
