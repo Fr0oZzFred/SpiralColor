@@ -1,4 +1,7 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
+
 public class TrianglePlayerController : Controller {
     #region Fields
     [Tooltip("Camera pour baser le déplacement du joueur")]
@@ -85,7 +88,8 @@ public class TrianglePlayerController : Controller {
     [SerializeField] GameObject tornado;
     [SerializeField] float maxMagnitudeForTornado = 1f;
     [SerializeField] float timer = 2f;
-
+    [SerializeField] VisualEffect tornadoVFX;
+    [SerializeField] float tornadoDeathSpeed;
     bool desiredTornado;
     float time;
 
@@ -179,13 +183,26 @@ public class TrianglePlayerController : Controller {
 
         if(body.velocity.magnitude < maxMagnitudeForTornado && InputHandler.Controller.buttonNorth.isPressed) {
             time += Time.deltaTime;
-            desiredTornado = time > timer ? true : false;
+            desiredTornado = time > timer;
+            tornadoVFX.gameObject.SetActive(desiredTornado);
+            if (desiredTornado) {
+                tornadoVFX.SetFloat("StopTime", 0);
+                StopCoroutine(KillTornado());
+            }
         } else {
-            desiredTornado = false;
             time = 0;
+            desiredTornado = false;
+            StartCoroutine(KillTornado());
         }
 
         UpdateSpin();
+    }
+    IEnumerator KillTornado() {
+        while (tornadoVFX.GetFloat("StopTime") < 1f) {
+            tornadoVFX.SetFloat("StopTime", tornadoVFX.GetFloat("StopTime") + tornadoDeathSpeed);
+            yield return new WaitForSeconds(tornadoDeathSpeed);
+        }
+        tornadoVFX.gameObject.SetActive(desiredTornado);
     }
 
     /// <summary>
@@ -242,11 +259,10 @@ public class TrianglePlayerController : Controller {
         stepsSinceLastGrounded += 1;
         stepsSinceLastJump += 1;
         velocity = body.velocity;
-        if (OnGround || SnapToGround() || CheckSteepContacts()
-        ) {
+        if (OnGround || SnapToGround() || CheckSteepContacts()) {
             stepsSinceLastGrounded = 0;
             if (stepsSinceLastJump > 1) {
-                jumpPhase = 0;
+                    jumpPhase = 0;
             }
             if (groundContactCount > 1) {
                 contactNormal.Normalize();
