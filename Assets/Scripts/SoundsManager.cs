@@ -74,8 +74,6 @@ public class SoundsManager : MonoBehaviour {
                 case GameState.Options:
                     if (System.IO.File.Exists(Application.persistentDataPath + "/SoundsSettings.data")) {
                         LoadSettings();
-                    } else {
-                        Debug.LogWarning("Quentin");
                     }
                     break;
             }

@@ -30,19 +30,17 @@ public class GemsPool : MonoBehaviour
     [SerializeField]
     GameObject prefab;
     public List<GameObject> gems = new List<GameObject>();
-    public float secondsBetweenSpawn;
+    public int GemsCount {
+        get {
+            return gems.Count;
+        }
+    }
     void Awake() {
         if (System.IO.File.Exists(Application.persistentDataPath + "/GemsPool.data")) {
             LoadGemsPool();
         }
     }
-    private IEnumerator Start() {
-        if (gems.Count >= GameManager.Instance.GemsCount) yield return null;     
-        for (int i = gems.Count; i < GameManager.Instance.GemsCount; i++) {
-            gems.Add(Instantiate(prefab, pos, Quaternion.identity));
-            yield return new WaitForSeconds(secondsBetweenSpawn);
-        }
-    }
+    
     private void Update() {
         if (Keyboard.current.aKey.wasPressedThisFrame) {
             gems.Add(Instantiate(prefab, pos, Quaternion.identity));
@@ -61,6 +59,9 @@ public class GemsPool : MonoBehaviour
         get {
             return transform.position;
         }
+    }
+    public void Spawn() {
+        gems.Add(Instantiate(prefab, pos, Quaternion.identity));
     }
     void LoadGemsPool() {
         GemsData data = SaveSystem.LoadGemmes();
