@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a314c1f3874d64ea95efd8c4b3298f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progression: 1
+  progression: 0
 --- !u!1 &384750708864135066
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,8 +85,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384750708864135066}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 2, y: -0.39999998, z: 0}
+  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 384750708434034133}
   m_RootOrder: 0
@@ -123,16 +123,16 @@ VisualEffect:
       - m_Value: -0.1
         m_Name: SquareSpeed
         m_Overridden: 1
-      - m_Value: 0.1
+      - m_Value: -0.1
         m_Name: Cross Speed
-        m_Overridden: 0
-      - m_Value: 0.1
+        m_Overridden: 1
+      - m_Value: 0.05
         m_Name: Second Circle Height
         m_Overridden: 1
-      - m_Value: 0.2
+      - m_Value: 0.05
         m_Name: Third Circle Height
         m_Overridden: 1
-      - m_Value: 0.3
+      - m_Value: 0.1
         m_Name: Fourth Circle Height
         m_Overridden: 1
       - m_Value: 5
@@ -147,7 +147,7 @@ VisualEffect:
       - m_Value: 3.5
         m_Name: Fourth Circle Size
         m_Overridden: 1
-      - m_Value: 2.5
+      - m_Value: 3
         m_Name: Circle Size
         m_Overridden: 1
       - m_Value: 3
@@ -156,7 +156,7 @@ VisualEffect:
       - m_Value: 3
         m_Name: Square Size
         m_Overridden: 1
-      - m_Value: 5
+      - m_Value: 3
         m_Name: Cross Size
         m_Overridden: 1
       - m_Value: 0.1
@@ -171,21 +171,21 @@ VisualEffect:
       - m_Value: -0.4
         m_Name: Fourth Circle Speed
         m_Overridden: 1
-      - m_Value: 0.3
+      - m_Value: 0.1
         m_Name: Circle Height
         m_Overridden: 1
-      - m_Value: 0.2
+      - m_Value: 0.15
         m_Name: Triangle Height
         m_Overridden: 1
-      - m_Value: 0.2
+      - m_Value: 0.12
         m_Name: Square Height
         m_Overridden: 1
-      - m_Value: 0
+      - m_Value: 0.14
         m_Name: Cross Height
         m_Overridden: 1
-      - m_Value: 1
+      - m_Value: 0.75
         m_Name: Flare Rate
-        m_Overridden: 0
+        m_Overridden: 1
       - m_Value: 15
         m_Name: Particles Rate
         m_Overridden: 1
