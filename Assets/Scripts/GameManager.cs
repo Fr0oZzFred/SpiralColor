@@ -10,7 +10,7 @@ public class GameManagerData{
     public GameManagerData(GameManager data) {
         progression = data.Progression;
         gemsList = data.gemsList;
-        gemsCount = data.gemsCount;
+        gemsCount = data.GemHub;
     }
 }
 public class GameManager : MonoBehaviour {
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
     public event GameStateChangeHandler OnGameStateChanged;
     public int Progression { get; private set; }
     public List<List<bool>> gemsList { get; private set; }
-    public int gemsCount = 0;
+    public int GemsCount { get; private set; }
     public string Username { get; private set; }
     private void Awake(){
         if (Instance == null) Instance = this;
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour {
         GameManagerData data = SaveSystem.LoadGameManager();
         Progression = data.progression;
         if (data.gemsList != null) gemsList = data.gemsList;
-        gemsCount = data.gemsCount;
+        GemsCount = data.gemsCount;
     }
     /// <summary>
     /// Update the Progression of the storyline
@@ -108,11 +108,9 @@ public class GameManager : MonoBehaviour {
     }
     public void CollectGem(int index) {
         gemsList[LevelManager.Instance.LevelInt][index] = true;
-        gemsCount++;
+        GemsCount++;
     }
-    public int GemHub() {
-        return gemsCount;
-    }
+    public int GemHub{get { return GemsCount; }}
     public bool CheckGem(int index) {
         return gemsList[LevelManager.Instance.LevelInt][index];
     }
