@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour {
     string music;
 
     [Header("Checkpoints")]
+    [SerializeField] Checkpoint checkpointPrefab;
     [SerializeField]
     List<Checkpoint> checkpoints;
     int checkpointProgression = 0;
@@ -37,6 +38,9 @@ public class LevelManager : MonoBehaviour {
     [ContextMenu("Refresh")]
     private void OnValidate() {
         checkpoints.Sort();
+    }
+    public Checkpoint GetCheckpointPrefab() {
+        return checkpointPrefab;
     }
     public bool HasMissingCheckPoints() {
         foreach (Checkpoint ck in checkpoints) {
