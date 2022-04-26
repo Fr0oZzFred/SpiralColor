@@ -34,13 +34,11 @@ public class GemsPool : MonoBehaviour
     void Awake() {
         if (System.IO.File.Exists(Application.persistentDataPath + "/GemsPool.data")) {
             LoadGemsPool();
-        } else {
-            Debug.LogWarning("Quentin");
         }
     }
     private IEnumerator Start() {
-        if (gems.Count >= GameManager.Instance.GemHub()) yield return null;     
-        for (int i = gems.Count; i < GameManager.Instance.GemHub(); i++) {
+        if (gems.Count >= GameManager.Instance.GemsCount) yield return null;     
+        for (int i = gems.Count; i < GameManager.Instance.GemsCount; i++) {
             gems.Add(Instantiate(prefab, pos, Quaternion.identity));
             yield return new WaitForSeconds(secondsBetweenSpawn);
         }
