@@ -31,7 +31,7 @@ public class Managers : MonoBehaviour, ISerializationCallbackReceiver  {
 
     private void Start() {
         DontDestroyOnLoad(this);
-        if (File.Exists(Application.persistentDataPath + "/gameManager.test")) {
+        if (File.Exists(Application.persistentDataPath + "/GameManager.data")) {
             GameManager.Instance.LoadGameManager();
             Debug.LogWarning("Load have to be done here");
         } else {

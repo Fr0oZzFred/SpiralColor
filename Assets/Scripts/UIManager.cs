@@ -14,59 +14,41 @@ public class UIManager : MonoBehaviour {
     GameObject inHubHUD;
 
     [Header("InLevel")]
-    [SerializeField]
-    GameObject inLevelHUD;
-    [SerializeField]
-    GameObject helpBox;
-    [SerializeField]
-    TMP_Text helpMessage;
-    [SerializeField]
-    TMP_Text scoreText;
-    [SerializeField]
-    TMP_Text crystalText;
+    [SerializeField] GameObject inLevelHUD;
+    [SerializeField] GameObject helpBox;
+    [SerializeField] TMP_Text helpMessage;
+    [SerializeField] TMP_Text crystalText;
 
     [Header("Pause")]
-    [SerializeField]
-    GameObject pauseHUD;
+    [SerializeField] GameObject pauseHUD;
+    [SerializeField] GameObject restartButton;
 
     [Header("Score")]
-    [SerializeField]
-    GameObject scoreHUD;
-    [SerializeField]
-    List<GameObject> stars;
+    [SerializeField] GameObject scoreHUD;
+    [SerializeField] List<GameObject> stars;
 
     [Header("Loading")]
-    [SerializeField]
-    GameObject loadingHUD;
-    [SerializeField]
-    Slider loadingSlider;
-    [SerializeField]
-    TMP_Text loadingProgressText;
+    [SerializeField] GameObject loadingHUD;
+    [SerializeField] Slider loadingSlider;
+    [SerializeField] TMP_Text loadingProgressText;
 
     [Header("Cutscene")]
-    [SerializeField]
-    GameObject cutsceneHUD;
+    [SerializeField] GameObject cutsceneHUD;
 
     [Header("Credits")]
-    [SerializeField]
-    GameObject creditsHUD;
+    [SerializeField] GameObject creditsHUD;
 
     [Header("Options")]
-    [SerializeField]
-    GameObject optionsHUD;
+    [SerializeField] GameObject optionsHUD;
 
     [Header("ControllerDisconnected")]
-    [SerializeField]
-    GameObject controllerDisconnectedHUD;
-    [SerializeField]
-    TMP_Text errorText;
+    [SerializeField] GameObject controllerDisconnectedHUD;
+    [SerializeField] TMP_Text errorText;
 
 
     [Header("Event System")]
-    [SerializeField]
-    EventSystem eventSystem;
-    [SerializeField]
-    GameObject mainMenuFirstSelectedGO, pauseFirstSelectedGO, scoreFirstSelectedGO, optionFirstSelectedGO, keyboardFirstSelectionGO;
+    [SerializeField] EventSystem eventSystem;
+    [SerializeField] GameObject mainMenuFirstSelectedGO, pauseFirstSelectedGO, scoreFirstSelectedGO, optionFirstSelectedGO, keyboardFirstSelectionGO;
 
     [Header("Keyboard")]
     [SerializeField] GameObject keyboard;
@@ -100,6 +82,7 @@ public class UIManager : MonoBehaviour {
                 eventSystem.SetSelectedGameObject(mainMenuFirstSelectedGO);
                 break;
             case GameState.Pause:
+                restartButton.SetActive(GameManager.Instance.OldState == GameState.InLevel);
                 eventSystem.SetSelectedGameObject(pauseFirstSelectedGO);
                 break;
             case GameState.Score:
@@ -119,11 +102,8 @@ public class UIManager : MonoBehaviour {
                 break;
         }
     }
-    public void UpdateLoadingScreen(float sliderValue, float progressText) {
-        SetLoadingSlider(sliderValue);
-        SetLoadingText(progressText);
-    }
 
+    #region InLevel
     public void DisplayScore() {
         ResetScore();
         for (int i = 1; i < stars.Count + 1; i++) {
@@ -136,10 +116,6 @@ public class UIManager : MonoBehaviour {
         //}
     }
 
-    public void DisplayScore(int score) {
-        scoreText.SetText("Score : " + score);
-    }
-
     public void DisplayHelpMessage(string message) {
         helpBox.SetActive(true);
         helpMessage.SetText(message);
@@ -147,6 +123,29 @@ public class UIManager : MonoBehaviour {
     public void HideHelpMessage() {
         helpBox.SetActive(false);
     }
+    #endregion
+
+    #region InPause
+    public void RestartLevel() {
+        LevelManager.Instance.ReloadLevel();
+    }
+    #endregion
+
+    #region LoadingScreen
+    public void UpdateLoadingScreen(float sliderValue, float progressText) {
+        SetLoadingSlider(sliderValue);
+        SetLoadingText(progressText);
+    }
+
+    void SetLoadingSlider(float sliderValue) {
+        loadingSlider.value = sliderValue;
+    }
+
+    void SetLoadingText(float progressText) {
+        loadingProgressText.text = progressText + "%";
+    }
+    #endregion
+
     #region keyboard
     public void OpenKeyboard() {
         keyboard.SetActive(true);
@@ -167,11 +166,5 @@ public class UIManager : MonoBehaviour {
         keyboard.SetActive(false);
     }
     #endregion
-    void SetLoadingSlider(float sliderValue) {
-        loadingSlider.value = sliderValue;
-    }
 
-    void SetLoadingText(float progressText) {
-        loadingProgressText.text = progressText + "%";
-    }
 }

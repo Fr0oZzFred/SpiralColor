@@ -34,8 +34,8 @@ public class AccelerationZone : MonoBehaviour {
 		}
 
 		body.velocity = transform.TransformDirection(velocity);
-		if (body.TryGetComponent(out Controller sphere)) {
-			sphere.PreventSnapToGround();
+		if (body.TryGetComponent(out Controller controller)) {
+			controller.PreventSnapToGround();
 		}
 	}
 }

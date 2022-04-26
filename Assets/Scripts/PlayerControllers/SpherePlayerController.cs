@@ -12,10 +12,6 @@ public class SpherePlayerController : Controller {
     [SerializeField, Range(0f, 100f)]
     float maxSpeed = 10f;
 
-    [Tooltip("Vitesse maximum en nageant")]
-    [SerializeField, Range(0f, 100f)]
-    float maxSwimSpeed = 5f;
-
 
     [Header("Acceleration")]
     [Tooltip("Acceleration maximum")]
@@ -25,10 +21,6 @@ public class SpherePlayerController : Controller {
     [Tooltip("Acceleration en l'air")]
     [SerializeField, Range(0f, 100f)]
     float maxAirAcceleration = 1f;
-
-    [Tooltip("Acceleration en nageant")]
-    [SerializeField, Range(0f, 100f)]
-    float maxSwimAcceleration = 5f;
 
 
     [Header("Jump")]
@@ -59,28 +51,6 @@ public class SpherePlayerController : Controller {
     float probeDistance = 1f;
 
 
-    [Header("Water")]
-    [Tooltip("Offset pour la submersion")]
-    [SerializeField]
-    float submergenceOffset = 0.5f;
-
-    [Tooltip("Range pour la submersion")]
-    [SerializeField, Min(0.1f)]
-    float submergenceRange = 1f;
-
-    [Tooltip("Flottaison")]
-    [SerializeField, Min(0f)]
-    float buoyancy = 1f;
-
-    [Tooltip("Puissance de la pression de l'eau")]
-    [SerializeField, Range(0f, 10f)]
-    float waterDrag = 1f;
-
-    [Tooltip("Puissance de modification de la vitesse quand on arrive dans l'eau")]
-    [SerializeField, Range(0.01f, 1f)]
-    float swimThreshold = 0.5f;
-
-
     [Header("Layers")]
     [SerializeField]
     LayerMask probeMask = -1;
@@ -88,16 +58,10 @@ public class SpherePlayerController : Controller {
     [SerializeField]
     LayerMask stairsMask = -1;
 
-    [SerializeField]
-    LayerMask waterMask = 0;
-
 
     [Header("Materials")]
     [SerializeField]
     Material normalMaterial = default;
-
-    [SerializeField]
-    Material swimmingMaterial = default;
 
 
     [Header("Ball Settings")]
@@ -112,10 +76,6 @@ public class SpherePlayerController : Controller {
     [Tooltip("Vitesse alignement avec la direction dans l'air")]
     [SerializeField, Min(0f)]
     float ballAirRotation = 0.5f;
-
-    [Tooltip("Vitesse alignement avec la direction dans l'eau")]
-    [SerializeField, Min(0f)]
-    float ballSwimRotation = 2f;
 
     [Header("Controller Color")]
     [SerializeField]
@@ -154,12 +114,6 @@ public class SpherePlayerController : Controller {
 
     bool OnSteep => steepContactCount > 0;
 
-    bool InWater => submergence > 0f;
-
-    bool Swimming => submergence >= swimThreshold;
-
-    float submergence;
-
     int jumpPhase;
 
     float minGroundDotProduct, minStairsDotProduct;
@@ -191,7 +145,6 @@ public class SpherePlayerController : Controller {
         if (isCurrentlyPlayed) {
             playerInput.x = InputHandler.GetLeftStickValues().x;
             playerInput.z = InputHandler.GetLeftStickValues().y;
-            playerInput.y = Swimming ? InputHandler.UpDownTrigger() : 0f;
             playerInput = Vector3.ClampMagnitude(playerInput, 1f);
         } else playerInput = Vector3.zero;
 
@@ -220,10 +173,7 @@ public class SpherePlayerController : Controller {
         Material ballMaterial = normalMaterial;
         Vector3 rotationPlaneNormal = lastContactNormal;
         float rotationFactor = 1f;
-        if (Swimming) {
-            ballMaterial = swimmingMaterial;
-            rotationFactor = ballSwimRotation;
-        } else if (!OnGround) {
+        if (!OnGround) {
             if (OnSteep) {
                 rotationPlaneNormal = lastSteepNormal;
             } else {
@@ -285,10 +235,6 @@ public class SpherePlayerController : Controller {
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
         UpdateState();
 
-        if (InWater) {
-            velocity *= 1f - waterDrag * submergence * Time.deltaTime;
-        }
-
         AdjustVelocity();
 
         if (desiredJump) {
@@ -296,10 +242,7 @@ public class SpherePlayerController : Controller {
             Jump(gravity);
         }
 
-        if (InWater) {
-            velocity +=
-                gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
-        } else if (OnGround && velocity.sqrMagnitude < 0.01f) {
+        if (OnGround && velocity.sqrMagnitude < 0.01f) {
             velocity +=
                 contactNormal *
                 (Vector3.Dot(gravity, contactNormal) * Time.deltaTime);
@@ -319,14 +262,13 @@ public class SpherePlayerController : Controller {
         connectionVelocity = Vector3.zero;
         previousConnectedBody = connectedBody;
         connectedBody = null;
-        submergence = 0f;
     }
 
     void UpdateState() {
         stepsSinceLastGrounded += 1;
         stepsSinceLastJump += 1;
         velocity = body.velocity;
-        if (CheckSwimming() || OnGround || SnapToGround() || CheckSteepContacts()
+        if (OnGround || SnapToGround() || CheckSteepContacts()
         ) {
             stepsSinceLastGrounded = 0;
             if (stepsSinceLastJump > 1) {
@@ -359,17 +301,8 @@ public class SpherePlayerController : Controller {
         );
     }
 
-    bool CheckSwimming() {
-        if (Swimming) {
-            groundContactCount = 0;
-            contactNormal = upAxis;
-            return true;
-        }
-        return false;
-    }
-
     bool SnapToGround() {
-        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2 || InWater) {
+        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2) {
             return false;
         }
         float speed = velocity.magnitude;
@@ -417,21 +350,10 @@ public class SpherePlayerController : Controller {
     void AdjustVelocity() {
         float acceleration, speed;
         Vector3 xAxis, zAxis;
-        if (InWater) {
-            float swimFactor = Mathf.Min(1f, submergence / swimThreshold);
-            acceleration = Mathf.LerpUnclamped(
-                OnGround ? maxAcceleration : maxAirAcceleration,
-                maxSwimAcceleration, swimFactor
-            );
-            speed = Mathf.LerpUnclamped(maxSpeed, maxSwimSpeed, swimFactor);
-            xAxis = rightAxis;
-            zAxis = forwardAxis;
-        } else {
-            acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
-            speed = maxSpeed;
-            xAxis = rightAxis;
-            zAxis = forwardAxis;
-        }
+        acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
+        speed = maxSpeed;
+        xAxis = rightAxis;
+        zAxis = forwardAxis;
         xAxis = ProjectDirectionOnPlane(xAxis, contactNormal);
         zAxis = ProjectDirectionOnPlane(zAxis, contactNormal);
 
@@ -442,16 +364,12 @@ public class SpherePlayerController : Controller {
             playerInput.x * speed - Vector3.Dot(relativeVelocity, xAxis);
         adjustment.z =
             playerInput.z * speed - Vector3.Dot(relativeVelocity, zAxis);
-        adjustment.y = Swimming ?
-            playerInput.y * speed - Vector3.Dot(relativeVelocity, upAxis) : 0f;
+        adjustment.y = 0f;
 
         adjustment =
             Vector3.ClampMagnitude(adjustment, acceleration * Time.deltaTime);
 
         velocity += xAxis * adjustment.x + zAxis * adjustment.z;
-        if (Swimming) {
-            velocity += upAxis * adjustment.y;
-        }
     }
 
     void Jump(Vector3 gravity) {
@@ -473,9 +391,6 @@ public class SpherePlayerController : Controller {
         stepsSinceLastJump = 0;
         jumpPhase += 1;
         float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);
-        if (InWater) {
-            jumpSpeed *= Mathf.Max(0f, 1f - submergence / swimThreshold);
-        }
         jumpDirection = (jumpDirection + upAxis).normalized;
         float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
         if (alignedSpeed > 0f) {
@@ -493,9 +408,6 @@ public class SpherePlayerController : Controller {
     }
 
     void EvaluateCollision(Collision collision) {
-        if (Swimming) {
-            return;
-        }
         int layer = collision.gameObject.layer;
         float minDot = GetMinDot(layer);
         for (int i = 0; i < collision.contactCount; i++) {
@@ -514,33 +426,6 @@ public class SpherePlayerController : Controller {
                     }
                 }
             }
-        }
-    }
-
-    void OnTriggerEnter(Collider other) {
-        if ((waterMask & (1 << other.gameObject.layer)) != 0) {
-            EvaluateSubmergence(other);
-        }
-    }
-
-    void OnTriggerStay(Collider other) {
-        if ((waterMask & (1 << other.gameObject.layer)) != 0) {
-            EvaluateSubmergence(other);
-        }
-    }
-
-    void EvaluateSubmergence(Collider collider) {
-        if (Physics.Raycast(
-            body.position + upAxis * submergenceOffset,
-            -upAxis, out RaycastHit hit, submergenceRange + 1f,
-            waterMask, QueryTriggerInteraction.Collide
-        )) {
-            submergence = 1f - hit.distance / submergenceRange;
-        } else {
-            submergence = 1f;
-        }
-        if (Swimming) {
-            connectedBody = collider.attachedRigidbody;
         }
     }
 

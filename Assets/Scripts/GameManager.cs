@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
         HandlePause();
     }
     private void Init() {
-        Progression = 1;
+        Progression = 0;
     }
     public void SetState (GameState newState){
         if (newState == CurrentState) return;
@@ -81,6 +81,9 @@ public class GameManager : MonoBehaviour {
                 Debug.LogWarning(newState + "does not exist as a GameState");
                 break;
         }
+    }
+    public void SetOldState() {
+        SetState(OldState);
     }
     public void SaveGameManager() {
         SaveSystem.SaveGameManager(this);

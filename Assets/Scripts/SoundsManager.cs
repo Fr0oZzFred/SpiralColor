@@ -17,7 +17,6 @@ public class SoundsManager : MonoBehaviour {
     [SerializeField] AudioMixer mixer;
     [SerializeField] List<AudioMixerSnapshot> snapshots;
 
-    //Changer seulement les snapshot quand les settings n'ont pas été modifié et l'ajouter correctement au GS
     public List<VolumeGroup> volumeGroup = new List<VolumeGroup>();
 
     public AudioMixer Mixer {
@@ -73,7 +72,11 @@ public class SoundsManager : MonoBehaviour {
                     ChangeSnapshot(1, 1f);
                     break;
                 case GameState.Options:
-                    LoadSettings();
+                    if (System.IO.File.Exists(Application.persistentDataPath + "/SoundsSettings.data")) {
+                        LoadSettings();
+                    } else {
+                        Debug.LogWarning("Quentin");
+                    }
                     break;
             }
         }

@@ -28,8 +28,6 @@ public class Portal : MonoBehaviour {
     [Header("Text")]
     [SerializeField]
     TMP_Text textGO;
-    [SerializeField]
-    string text;
 
     [Header("Teleporter")]
     [SerializeField]
@@ -67,8 +65,7 @@ public class Portal : MonoBehaviour {
                 Debug.LogError("The" + scene.destination.ToString() + " destination already exists in the Dictonary.");
         }
 
-        ScenesEnum current = (ScenesEnum)enumValue;
-        ChangeTextContent(current.ToString());
+        CheckForLevelSelection();
     }
     private void Update() {
         Vector3 p = transform.position - controller.transform.position;
@@ -76,21 +73,58 @@ public class Portal : MonoBehaviour {
             CheckForLevelSelection();
         }
     }
-
+    /// <summary>
+    /// Checkez la progression pour savoir s'il peut poser une orbe et le bloque en cas de tutorial
+    /// </summary>
     private void CheckForLevelSelection() {
         if (InputHandler.Controller == null) return;
-        if (GameManager.Instance.Progression == 1) return;
-        //Checker la progression pour savoir s'il peut poser ou non les cristaux
-        if (InputHandler.Controller.buttonEast.wasPressedThisFrame) {
+
+        switch (GameManager.Instance.Progression) {
+            case 0:
+                sphere = triangle = square = cross = false;
+                ScenesEnum tutorialLevel = (ScenesEnum)enumValue;
+                ChangeTextContent(tutorialLevel.ToString());
+                return;
+            case 1:
+                sphere = true;
+                triangle = square = cross = false;
+                ScenesEnum sphereLevel = (ScenesEnum)enumValue;
+                ChangeTextContent(sphereLevel.ToString());
+                return;
+            case 2:
+                triangle = true;
+                sphere = square = cross = false;
+                ScenesEnum triangleLevel = (ScenesEnum)enumValue;
+                ChangeTextContent(triangleLevel.ToString());
+                return;
+            case 4:
+                square = true;
+                sphere = triangle = cross = false;
+                ScenesEnum squareLevel = (ScenesEnum)enumValue;
+                ChangeTextContent(squareLevel.ToString());
+                return;
+            case 7:
+                cross = true;
+                sphere = triangle = square = false;
+                ScenesEnum crossLevel = (ScenesEnum)enumValue;
+                ChangeTextContent(crossLevel.ToString());
+                return;
+        }
+
+        if (GameManager.Instance.Progression >= 1 &&
+            InputHandler.Controller.buttonEast.wasPressedThisFrame) {
             sphere = !sphere;
         }
-        if (InputHandler.Controller.buttonNorth.wasPressedThisFrame) {
+        else if (GameManager.Instance.Progression >= 2 && 
+            InputHandler.Controller.buttonNorth.wasPressedThisFrame) {
             triangle = !triangle;
         }
-        if (InputHandler.Controller.buttonWest.wasPressedThisFrame) {
+        else if (GameManager.Instance.Progression >= 4 && 
+            InputHandler.Controller.buttonWest.wasPressedThisFrame) {
             square = !square;
         }
-        if (InputHandler.Controller.buttonSouth.wasPressedThisFrame) {
+        else if (GameManager.Instance.Progression >= 7 && 
+            InputHandler.Controller.buttonSouth.wasPressedThisFrame) {
             cross = !cross;
         }
         ScenesEnum current = (ScenesEnum)enumValue;
