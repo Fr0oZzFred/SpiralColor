@@ -39,8 +39,8 @@ public class GemsPool : MonoBehaviour
         }
     }
     private IEnumerator Start() {
-        if (gems.Count >= GameManager.Instance.GemHub()) yield return null;     
-        for (int i = gems.Count; i < GameManager.Instance.GemHub(); i++) {
+        if (gems.Count >= GameManager.Instance.GemHub) yield return null;     
+        for (int i = gems.Count; i < GameManager.Instance.GemHub; i++) {
             gems.Add(Instantiate(prefab, pos, Quaternion.identity));
             yield return new WaitForSeconds(secondsBetweenSpawn);
         }
