@@ -34,8 +34,6 @@ public class GemsPool : MonoBehaviour
     void Awake() {
         if (System.IO.File.Exists(Application.persistentDataPath + "/GemsPool.data")) {
             LoadGemsPool();
-        } else {
-            Debug.LogWarning("Quentin");
         }
     }
     private IEnumerator Start() {
