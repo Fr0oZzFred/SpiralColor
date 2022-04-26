@@ -10,7 +10,7 @@ public class GameManagerData{
     public GameManagerData(GameManager data) {
         progression = data.Progression;
         gemsList = data.gemsList;
-        gemsCount = data.GemHub;
+        gemsCount = data.GemsCount;
     }
 }
 public class GameManager : MonoBehaviour {
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
     }
     private void Init() {
         Progression = 0;
+        GemsCount = 0;
     }
     public void SetState (GameState newState){
         if (newState == CurrentState) return;
@@ -110,7 +111,6 @@ public class GameManager : MonoBehaviour {
         gemsList[LevelManager.Instance.LevelInt][index] = true;
         GemsCount++;
     }
-    public int GemHub{get { return GemsCount; }}
     public bool CheckGem(int index) {
         return gemsList[LevelManager.Instance.LevelInt][index];
     }
