@@ -105,6 +105,8 @@ public class TrianglePlayerController : Controller {
     Color color = default;
 
 
+    Quaternion baseCamDirection;
+
     bool isCurrentlyPlayed = false;
 
     Rigidbody body, connectedBody, previousConnectedBody;
@@ -149,6 +151,7 @@ public class TrianglePlayerController : Controller {
     }
 
     void Awake() {
+        baseCamDirection = playerInputSpace.rotation;
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = spin.GetComponent<MeshRenderer>();
@@ -443,6 +446,7 @@ public class TrianglePlayerController : Controller {
     public override void Respawn(Vector3 pos) {
         this.transform.position = pos;
         body.velocity = velocity = Vector3.zero;
+        SetCamRotation(baseCamDirection);
     }
     public override void SetInputSpace(Transform transform) {
         playerInputSpace = transform;
