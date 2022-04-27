@@ -123,6 +123,8 @@ public class SpherePlayerController : Controller {
     MeshRenderer meshRenderer;
 
     #endregion
+
+    public Transform mirror;
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
     }
@@ -230,8 +232,16 @@ public class SpherePlayerController : Controller {
             );
         }
     }
+    void CheckMirrorPosition() {
+        if (!mirror) return;
+
+        if (Physics.Raycast(this.transform.position, -upAxis, out RaycastHit hit)) {
+            mirror.transform.position = hit.point;
+        }
+    }
 
     void FixedUpdate() {
+        CheckMirrorPosition();
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
         UpdateState();
 
