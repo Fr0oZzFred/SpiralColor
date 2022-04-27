@@ -103,6 +103,10 @@ public class LevelManager : MonoBehaviour {
             SoundsManager.Instance.StopCurrentMusic();
             SoundsManager.Instance.Play(music);
         }
+        if (UIManager.Instance) {
+
+            UIManager.Instance.DisplayGems();
+        }
     }
 
     private void Update() {

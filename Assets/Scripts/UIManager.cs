@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour {
 
     [Header("Score")]
     [SerializeField] GameObject scoreHUD;
-    [SerializeField] List<GameObject> stars;
+    [SerializeField] TMP_Text scoreText;
 
     [Header("Loading")]
     [SerializeField] GameObject loadingHUD;
@@ -104,16 +104,9 @@ public class UIManager : MonoBehaviour {
     }
 
     #region InLevel
-    public void DisplayScore() {
-        ResetScore();
-        for (int i = 1; i < stars.Count + 1; i++) {
-            //stars[i - 1].SetActive(GameManager.Instance.pieces["Star " + LevelManager.Instance.LevelInt + "-" + i]);
-        }
-    }
-    private void ResetScore() {
-        //for (int i = 0; i < stars.Count; i++) {
-           // stars[i].SetActive(false);
-        //}
+    public void DisplayGems() {
+        GameManager.Instance.GetCollectedGemsOfLevel(LevelManager.Instance.LevelInt, out int collected, out int max);
+        crystalText.SetText(collected + " / " + max);
     }
 
     public void DisplayHelpMessage(string message) {
@@ -143,6 +136,12 @@ public class UIManager : MonoBehaviour {
 
     void SetLoadingText(float progressText) {
         loadingProgressText.text = progressText + "%";
+    }
+    #endregion
+    #region Score
+    public void DisplayScore() {
+        GameManager.Instance.GetCollectedGemsOfLevel(LevelManager.Instance.LevelInt, out int collected, out int max);
+        scoreText.SetText(collected + " / " + max);
     }
     #endregion
 

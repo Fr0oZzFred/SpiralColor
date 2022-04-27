@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
         if (Instance == null) Instance = this;
         Username = "";
         gemsList = new List<List<bool>>();
-        for (int level = 0; level < 15; level++) {
+        for (int level = 0; level < 16; level++) {
             gemsList.Add(new List<bool>());
         }
         Init();
@@ -113,6 +113,15 @@ public class GameManager : MonoBehaviour {
     }
     public bool CheckGem(int index) {
         return gemsList[LevelManager.Instance.LevelInt][index];
+    }
+    public void GetCollectedGemsOfLevel(int level, out int collected, out int max ) {
+        collected = 0;
+        max = 0;
+        if (gemsList[level].Count == 0) return;
+        foreach (var isCollected in gemsList[level]) {
+            if (isCollected) collected ++;
+            max++;
+        }
     }
     public void HandlePause() {
         if (InputHandler.Controller == null) return;
