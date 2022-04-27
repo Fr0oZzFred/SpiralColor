@@ -15,8 +15,6 @@ public class HUBManager : MonoBehaviour {
     [SerializeField] float secondsBetweenSpawn, secondsAfterSpawn;
 
     [SerializeField] GameObject cam;
-    [SerializeField] List<GameObject> tests;
-    [SerializeField] float multi;
 
     private void Awake() {
         if (!Instance) Instance = this;
@@ -44,13 +42,6 @@ public class HUBManager : MonoBehaviour {
         if (InputHandler.Controller.rightStickButton.wasPressedThisFrame) {
             playerHandler.CurrentPlayer.RegisterInputs(cam.activeInHierarchy);
             cam.SetActive(!cam.activeInHierarchy);
-        }
-        foreach (var item in tests) {
-            item.transform.position = new Vector3(
-                item.transform.position.x,
-                item.transform.position.y + InputHandler.GetRightStickValues().y * multi,
-                item.transform.position.z
-            );
         }
     }
     void InitLevelScreen() {
