@@ -20,6 +20,7 @@ public class Gems : MonoBehaviour {
     public void Collect() {
         if(!GameManager.Instance.gemsList[LevelManager.Instance.LevelInt][gemIndex]) GameManager.Instance.CollectGem(gemIndex);
         gameObject.SetActive(false);
+        UIManager.Instance.DisplayGems();
     }
     private void Update() {
         transform.Rotate(rotSpeed * Time.deltaTime);

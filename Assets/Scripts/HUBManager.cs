@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,10 @@ public class HUBManager : MonoBehaviour {
 
     [SerializeField] float secondsBetweenSpawn, secondsAfterSpawn;
 
-    [SerializeField] GameObject cam;
+    [SerializeField] GameObject cam, playerCam;
+    [SerializeField] GameObject levelScreen;
 
+    LevelRow[] levelRow;
     private void Awake() {
         if (!Instance) Instance = this;
         GameManager.Instance.SetState(GameState.InHUB);
@@ -25,6 +28,7 @@ public class HUBManager : MonoBehaviour {
 
     private IEnumerator Start() {
         InitLevelScreen();
+        CheckLevelRow();
         if (gemsPool.GemsCount >= GameManager.Instance.GemsCount) yield break;
         playerHandler.CurrentPlayer.RegisterInputs(false);
         for (int i = gemsPool.GemsCount; i < GameManager.Instance.GemsCount; i++) {
@@ -35,16 +39,36 @@ public class HUBManager : MonoBehaviour {
         playerHandler.CurrentPlayer.RegisterInputs(true);
     }
     private void Update() {
-        if (Keyboard.current.tKey.wasPressedThisFrame) {
-            playerHandler.CurrentPlayer.RegisterInputs(false);
-        }
         if (InputHandler.Controller == null) return;
-        if (InputHandler.Controller.rightStickButton.wasPressedThisFrame) {
-            playerHandler.CurrentPlayer.RegisterInputs(cam.activeInHierarchy);
-            cam.SetActive(!cam.activeInHierarchy);
-        }
     }
     void InitLevelScreen() {
+        levelRow = new LevelRow[levelScreen.transform.childCount];
+        for (int i = 0; i < levelScreen.transform.childCount; i++) {
+            levelRow[i] = levelScreen.transform.GetChild(i).gameObject.GetComponent<LevelRow>();
+        }
+    }
 
+    private void CheckLevelRow() {
+        for (int i = 0; i < levelRow.Length; i++) {
+            if(i < GameManager.Instance.Progression) {
+                levelRow[i].gameObject.SetActive(true);
+                GameManager.Instance.GetCollectedGemsOfLevel(i, out int collected, out int max);
+                levelRow[i].SetGemsProgression(collected + " / " + max);
+            } 
+            else if (GameManager.Instance.Progression == i) {
+                levelRow[i].gameObject.SetActive(true);
+                levelRow[i].SetGemsProgression("???");
+            } 
+            else {
+                levelRow[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void CloseLevelScreen() {
+        if (!cam && !playerCam) return;
+        playerHandler.CurrentPlayer.SetInputSpace(cam.activeInHierarchy ? cam.transform : playerCam.transform);
+        playerCam.SetActive(cam.activeInHierarchy);
+        cam.SetActive(!cam.activeInHierarchy);
     }
 }
