@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3140302866707156699}
   - component: {fileID: 3140302866707156645}
   - component: {fileID: 3140302866707156644}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,8 @@ GameObject:
   - component: {fileID: 5512925067085383427}
   - component: {fileID: 5512925067085383429}
   - component: {fileID: 5512925067085383426}
-  m_Layer: 8
+  - component: {fileID: 7950121614768913321}
+  m_Layer: 13
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,6 +165,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7950121614768913321
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512925067085383424}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: 13ac65286bcf2894c992f16d64f7dd9a, type: 3}
 --- !u!1 &5512925067183750689
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,32 +258,21 @@ MonoBehaviour:
   playerInputSpace: {fileID: 7939021170093725966}
   player: {fileID: 5512925067085383427}
   maxSpeed: 5
-  maxSwimSpeed: 5
   maxAcceleration: 8
   maxAirAcceleration: 1
-  maxSwimAcceleration: 5
   jumpHeight: 2
   maxAirJumps: 0
   maxGroundAngle: 25
   maxStairsAngle: 50
   maxSnapSpeed: 100
   probeDistance: 1
-  submergenceOffset: 0.5
-  submergenceRange: 1
-  buoyancy: 1
-  waterDrag: 1
-  swimThreshold: 0.357
   probeMask:
     serializedVersion: 2
     m_Bits: 51
   stairsMask:
     serializedVersion: 2
     m_Bits: 16384
-  waterMask:
-    serializedVersion: 2
-    m_Bits: 16
   normalMaterial: {fileID: 2100000, guid: 0e252bcb21f013341ad0c209ce67dc1f, type: 2}
-  swimmingMaterial: {fileID: 2100000, guid: 652de4238a4ca3746a9614a0c88361df, type: 2}
   baseAlignementSpeed: 4
   speed: 2
   amplitude: 0.2
@@ -328,7 +332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3310410711045641744}
   - component: {fileID: 941517608919696967}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +588,7 @@ MonoBehaviour:
   upAlignmentSpeed: 360
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 65335
+    m_Bits: 57143
   inverseCameraX: 0
   inverseCameraY: 0
 --- !u!114 &1035720131969215011

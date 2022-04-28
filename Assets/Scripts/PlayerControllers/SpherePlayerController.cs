@@ -77,9 +77,14 @@ public class SpherePlayerController : Controller {
     [SerializeField, Min(0f)]
     float ballAirRotation = 0.5f;
 
+
     [Header("Controller Color")]
     [SerializeField]
-    Color color = default;
+    [ColorUsage(true, true)]
+    Color colorOn = default;
+    [SerializeField]
+    [ColorUsage(true, true)]
+    Color colorOff = default;
 
     [Header("Checkpoints")]
     [SerializeField]
@@ -89,6 +94,8 @@ public class SpherePlayerController : Controller {
     [SerializeField]
     string helpBoxMessage;
 
+
+    Material colorMat;
 
     Quaternion baseCamDirection;
     
@@ -126,7 +133,6 @@ public class SpherePlayerController : Controller {
 
     #endregion
 
-    public Transform mirror;
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
     }
@@ -141,6 +147,7 @@ public class SpherePlayerController : Controller {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = ball.GetComponent<MeshRenderer>();
+        colorMat = meshRenderer.materials[1];
         OnValidate();
     }
     /// <summary>
@@ -235,16 +242,8 @@ public class SpherePlayerController : Controller {
             );
         }
     }
-    void CheckMirrorPosition() {
-        if (!mirror) return;
-
-        if (Physics.Raycast(this.transform.position, -upAxis, out RaycastHit hit)) {
-            mirror.transform.position = hit.point;
-        }
-    }
 
     void FixedUpdate() {
-        CheckMirrorPosition();
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
         UpdateState();
 
@@ -453,13 +452,14 @@ public class SpherePlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
+        colorMat.color = b ? colorOn : colorOff;
         playerInputSpace.gameObject.SetActive(b);
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();
     }
     public override void SetControllerLED() {
-        InputHandler.SetControllerLED(color);
+        InputHandler.SetControllerLED(colorOn);
     }
 
     public override void Respawn(Vector3 pos) {
