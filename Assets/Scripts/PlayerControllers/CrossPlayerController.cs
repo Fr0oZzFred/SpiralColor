@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CrossPlayerController : Controller {
@@ -106,8 +107,10 @@ public class CrossPlayerController : Controller {
     string helpBoxMessage;
 
     [Header("Controller Color")]
-    [SerializeField]
-    Color color = default;
+    [SerializeField] [ColorUsage(true,true)]
+    Color colorOn = default;
+    [SerializeField] [ColorUsage(true, true)]
+    Color colorOff = default;
 
     public Vector3 GetNormal {
         get {
@@ -115,6 +118,11 @@ public class CrossPlayerController : Controller {
             return previousClimbNormal;
         }
     }
+
+
+    Material colorMat;
+
+    Quaternion baseCamDirection;
 
     bool isCurrentlyPlayed = false;
 
@@ -165,9 +173,11 @@ public class CrossPlayerController : Controller {
     }
 
     void Awake() {
+        baseCamDirection = playerInputSpace.rotation;
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = cross.GetComponent<MeshRenderer>();
+        colorMat = meshRenderer.materials[1];
         OnValidate();
     }
 
@@ -523,18 +533,21 @@ public class CrossPlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        if(!IsOnButton)
+        colorMat.color = b ? colorOn : colorOff;
+        if (!IsOnButton) {
             playerInputSpace.gameObject.SetActive(b);
+        }
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();
     }
     public override void SetControllerLED() {
-        InputHandler.SetControllerLED(color);
+        InputHandler.SetControllerLED(colorOn);
     }
     public override void Respawn(Vector3 pos) {
         this.transform.position = pos;
         body.velocity = velocity = Vector3.zero;
+        SetCamRotation(baseCamDirection);
     }
     public override void SetInputSpace(Transform transform) {
         playerInputSpace = transform;

@@ -126,6 +126,7 @@ public class LevelManager : MonoBehaviour {
     /// Function called at the end of the level
     /// </summary>
     public void TriggerLevelEnd() {
+        //Arrête le joueur à coup sûr? Ou le fait disparaître?
         GameManager.Instance.UpdateProgression(LevelInt + 1);
         SoundsManager.Instance.StopCurrentMusic();
         GameManager.Instance.SetState(GameState.Score);

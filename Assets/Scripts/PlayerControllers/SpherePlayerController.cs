@@ -77,9 +77,14 @@ public class SpherePlayerController : Controller {
     [SerializeField, Min(0f)]
     float ballAirRotation = 0.5f;
 
+
     [Header("Controller Color")]
     [SerializeField]
-    Color color = default;
+    [ColorUsage(true, true)]
+    Color colorOn = default;
+    [SerializeField]
+    [ColorUsage(true, true)]
+    Color colorOff = default;
 
     [Header("Checkpoints")]
     [SerializeField]
@@ -90,6 +95,10 @@ public class SpherePlayerController : Controller {
     string helpBoxMessage;
 
 
+    Material colorMat;
+
+    Quaternion baseCamDirection;
+    
     bool isCurrentlyPlayed = false;
 
     Rigidbody body, connectedBody, previousConnectedBody;
@@ -123,6 +132,7 @@ public class SpherePlayerController : Controller {
     MeshRenderer meshRenderer;
 
     #endregion
+
     void PreventSnapToGroundP() {
         stepsSinceLastJump = -1;
     }
@@ -133,9 +143,11 @@ public class SpherePlayerController : Controller {
     }
 
     void Awake() {
+        baseCamDirection = playerInputSpace.rotation;
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = ball.GetComponent<MeshRenderer>();
+        colorMat = meshRenderer.materials[1];
         OnValidate();
     }
     /// <summary>
@@ -440,18 +452,20 @@ public class SpherePlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
+        colorMat.color = b ? colorOn : colorOff;
         playerInputSpace.gameObject.SetActive(b);
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();
     }
     public override void SetControllerLED() {
-        InputHandler.SetControllerLED(color);
+        InputHandler.SetControllerLED(colorOn);
     }
 
     public override void Respawn(Vector3 pos) {
         this.transform.position = pos;
         body.velocity = velocity = Vector3.zero;
+        SetCamRotation(baseCamDirection);
     }
     public override void SetInputSpace(Transform transform) {
         playerInputSpace = transform;

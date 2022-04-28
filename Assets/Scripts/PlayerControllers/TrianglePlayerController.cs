@@ -100,10 +100,20 @@ public class TrianglePlayerController : Controller {
     [SerializeField]
     string helpBoxMessage;
 
+
     [Header("Controller Color")]
     [SerializeField]
-    Color color = default;
+    [ColorUsage(true, true)]
+    Color colorOn = default;
+    [SerializeField]
+    [ColorUsage(true, true)]
+    Color colorOff = default;
 
+
+
+    Material colorMat;
+
+    Quaternion baseCamDirection;
 
     bool isCurrentlyPlayed = false;
 
@@ -149,9 +159,11 @@ public class TrianglePlayerController : Controller {
     }
 
     void Awake() {
+        baseCamDirection = playerInputSpace.rotation;
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = spin.GetComponent<MeshRenderer>();
+        colorMat = meshRenderer.materials[1];
         OnValidate();
     }
 
@@ -432,17 +444,19 @@ public class TrianglePlayerController : Controller {
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
         playerInputSpace.gameObject.SetActive(b);
+        colorMat.color = b ? colorOn : colorOff;
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();
     }
     public override void SetControllerLED() {
-        InputHandler.SetControllerLED(color);
+        InputHandler.SetControllerLED(colorOn);
     }
 
     public override void Respawn(Vector3 pos) {
         this.transform.position = pos;
         body.velocity = velocity = Vector3.zero;
+        SetCamRotation(baseCamDirection);
     }
     public override void SetInputSpace(Transform transform) {
         playerInputSpace = transform;
