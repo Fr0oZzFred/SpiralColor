@@ -5704,7 +5704,6 @@ GameObject:
   - component: {fileID: 253198043}
   - component: {fileID: 253198042}
   - component: {fileID: 253198041}
-  - component: {fileID: 253198040}
   m_Layer: 0
   m_Name: Cube (18)
   m_TagString: Untagged
@@ -5712,23 +5711,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &253198040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 253198039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5050a11b4d97224fa20160d64f91ef5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wheelButton: {fileID: 2089560473}
-  rotStart: {x: 0, y: 0, z: 0}
-  rotEnd: {x: 0, y: 90, z: 0}
-  limitAngle: 20
-  powerRotation: 0.01
 --- !u!64 &253198041
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20518,7 +20500,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-80750
+  m_Name: pb_Mesh23434
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -28502,7 +28484,7 @@ MonoBehaviour:
     - Test Sphere
     - Proto triangle
     - ProtoSphereTriangle
-    - PLACEHOLDER
+    - Rendering
     - "ProtoCarr\xE9Triangle"
     - "Proto CroixCarr\xE9"
   playerHandler: {fileID: 1912249472}
@@ -54005,7 +53987,7 @@ PrefabInstance:
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 253198040}
+      objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onFirstEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -54021,7 +54003,7 @@ PrefabInstance:
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onFirstEnter.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 253198040}
+      objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -54036,7 +54018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -54068,7 +54050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onFirstEnter.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onFirstEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -54625,11 +54607,11 @@ PrefabInstance:
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 253198040}
+      objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 253198040}
+      objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onFirstEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -54637,15 +54619,15 @@ PrefabInstance:
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onFirstEnter.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 253198040}
+      objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onFirstEnter.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 253198040}
+      objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onFirstEnter.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 253198040}
+      objectReference: {fileID: 0}
     - target: {fileID: 1813155093829395340, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: onLastExit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
