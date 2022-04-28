@@ -66,7 +66,7 @@ public class HUBManager : MonoBehaviour {
     }
 
     public void CloseLevelScreen() {
-        if (!cam && !playerCam) return;
+        if (GameManager.Instance.CurrentState != GameState.InHUB) return;
         playerHandler.CurrentPlayer.SetInputSpace(cam.activeInHierarchy ? cam.transform : playerCam.transform);
         playerCam.SetActive(cam.activeInHierarchy);
         cam.SetActive(!cam.activeInHierarchy);

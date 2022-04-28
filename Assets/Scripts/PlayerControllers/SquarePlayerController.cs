@@ -72,7 +72,11 @@ public class SquarePlayerController : Controller {
 
     [Header("Controller Color")]
     [SerializeField]
-    Color color = default;
+    [ColorUsage(true, true)]
+    Color colorOn = default;
+    [SerializeField]
+    [ColorUsage(true, true)]
+    Color colorOff = default;
 
     [HideInInspector] public bool IsOnButton;
 
@@ -84,6 +88,7 @@ public class SquarePlayerController : Controller {
     [SerializeField]
     string helpBoxMessage;
 
+    Material colorMat;
 
     Quaternion baseCamDirection;
 
@@ -134,6 +139,7 @@ public class SquarePlayerController : Controller {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = square.GetComponent<MeshRenderer>();
+        colorMat = meshRenderer.materials[1];
         OnValidate();
     }
     /// <summary>
@@ -412,6 +418,7 @@ public class SquarePlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
+        colorMat.color = b ? colorOn : colorOff;
         if (!IsOnButton)
             playerInputSpace.gameObject.SetActive(b);
     }
@@ -420,7 +427,7 @@ public class SquarePlayerController : Controller {
     }
 
     public override void SetControllerLED() {
-        InputHandler.SetControllerLED(color);
+        InputHandler.SetControllerLED(colorOn);
     }
     public override void Respawn(Vector3 pos) {
         this.transform.position = pos;
