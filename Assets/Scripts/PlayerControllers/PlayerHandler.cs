@@ -28,13 +28,13 @@ public class PlayerHandler : MonoBehaviour {
         }
 
         listControllerInRange = new List<Controller>();
-        player.RegisterInputs(true);
-        player.SetControllerLED();
 
         if (listController.Count == 0) return;
         for (int i = 0; i < listController.Count; i++) {
             listController[i].RegisterInputs(false);
         }
+        player.RegisterInputs(true);
+        player.SetControllerLED();
     }
 
     private void Update() {
