@@ -102,6 +102,9 @@ public class UIManager : MonoBehaviour {
                 break;
         }
     }
+    public void SetEventSystemSelectedGO(GameObject g) {
+        eventSystem.SetSelectedGameObject(g);
+    }
 
     #region InLevel
     public void DisplayGems() {

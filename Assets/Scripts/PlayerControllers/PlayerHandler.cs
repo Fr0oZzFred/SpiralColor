@@ -29,12 +29,13 @@ public class PlayerHandler : MonoBehaviour {
 
         listControllerInRange = new List<Controller>();
 
+        player.RegisterInputs(true);
+        player.SetControllerLED();
+
         if (listController.Count == 0) return;
         for (int i = 0; i < listController.Count; i++) {
             listController[i].RegisterInputs(false);
         }
-        player.RegisterInputs(true);
-        player.SetControllerLED();
     }
 
     private void Update() {
@@ -165,8 +166,8 @@ public class PlayerHandler : MonoBehaviour {
         }
         if (player == newController) {
             current.RegisterInputs(false);
-            player.SetCamRotation(current.GetCamRotation());
             player.Respawn(current.transform.position + offset);
+            player.SetCamRotation(current.GetCamRotation());
             current = null;
             player.RegisterInputs(true);
             player.SetControllerLED();

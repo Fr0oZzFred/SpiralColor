@@ -58,6 +58,7 @@ public class HUBManager : MonoBehaviour {
             else if (GameManager.Instance.Progression == i) {
                 levelRow[i].gameObject.SetActive(true);
                 levelRow[i].SetGemsProgression("???");
+                UIManager.Instance.SetEventSystemSelectedGO(levelRow[i].gameObject);
             } 
             else {
                 levelRow[i].gameObject.SetActive(false);
