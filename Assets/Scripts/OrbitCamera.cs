@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
 public class OrbitCamera : MonoBehaviour {
     #region Fields
@@ -52,7 +53,7 @@ public class OrbitCamera : MonoBehaviour {
 	[Header("Temporaire")]
 	public bool inverseCameraX, inverseCameraY;
 
-	Camera regularCamera;
+	CinemachineVirtualCamera regularCamera;
 
 	Vector3 focusPoint, previousFocusPoint;
 
@@ -63,27 +64,29 @@ public class OrbitCamera : MonoBehaviour {
 	Quaternion gravityAlignment = Quaternion.identity;
 
 	Quaternion orbitRotation;
-    #endregion
+	#endregion
+
+
     Vector3 CameraHalfExtends {
 		get {
 			Vector3 halfExtends;
 			halfExtends.y =
-				regularCamera.nearClipPlane *
-				Mathf.Tan(0.5f * Mathf.Deg2Rad * regularCamera.fieldOfView);
-			halfExtends.x = halfExtends.y * regularCamera.aspect;
+				regularCamera.m_Lens.NearClipPlane *
+				Mathf.Tan(0.5f * Mathf.Deg2Rad * regularCamera.m_Lens.FieldOfView);;
+			halfExtends.x = halfExtends.y * regularCamera.m_Lens.Aspect;
 			halfExtends.z = 0f;
 			return halfExtends;
 		}
 	}
 
 	void OnValidate() {
-		if (maxVerticalAngle < minVerticalAngle) {
+			if (maxVerticalAngle < minVerticalAngle) {
 			maxVerticalAngle = minVerticalAngle;
 		}
 	}
 
 	void Awake() {
-		regularCamera = GetComponent<Camera>();
+		regularCamera = GetComponent<CinemachineVirtualCamera>();
 		focusPoint = focus.position;
 		transform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);
 	}
@@ -100,7 +103,7 @@ public class OrbitCamera : MonoBehaviour {
 		Vector3 lookDirection = lookRotation * Vector3.forward;
 		Vector3 lookPosition = focusPoint - lookDirection * distance;
 
-		Vector3 rectOffset = lookDirection * regularCamera.nearClipPlane;
+		Vector3 rectOffset = lookDirection * regularCamera.m_Lens.NearClipPlane;
 		Vector3 rectPosition = lookPosition + rectOffset;
 		Vector3 castFrom = focus.position;
 		Vector3 castLine = rectPosition - castFrom;

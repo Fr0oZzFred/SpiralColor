@@ -28,6 +28,7 @@ public class PlayerHandler : MonoBehaviour {
         }
 
         listControllerInRange = new List<Controller>();
+
         player.RegisterInputs(true);
         player.SetControllerLED();
 
@@ -165,8 +166,8 @@ public class PlayerHandler : MonoBehaviour {
         }
         if (player == newController) {
             current.RegisterInputs(false);
-            player.SetCamRotation(current.GetCamRotation());
             player.Respawn(current.transform.position + offset);
+            player.SetCamRotation(current.GetCamRotation());
             current = null;
             player.RegisterInputs(true);
             player.SetControllerLED();

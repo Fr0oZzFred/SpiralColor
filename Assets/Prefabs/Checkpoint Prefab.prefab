@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &384750708434033707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,32 +210,35 @@ VisualEffect:
         m_Overridden: 1
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 0, y: 0.85252976, z: 2.1185474, w: 1}
+      - m_Value: {x: 0, y: 0.6039216, z: 1.4980392, w: 1}
         m_Name: Circle Color
         m_Overridden: 1
       - m_Value: {x: 0, y: 2.1185474, z: 1.7636075, w: 1}
         m_Name: Base Color
         m_Overridden: 1
-      - m_Value: {x: 0, y: 2.1185474, z: 0.5225887, w: 1}
+      - m_Value: {x: 0, y: 1.4980392, z: 0.3764706, w: 1}
         m_Name: Triangle Color
         m_Overridden: 1
-      - m_Value: {x: 0, y: 0.85252976, z: 2.1185474, w: 1}
+      - m_Value: {x: 0, y: 0.6039216, z: 1.4980392, w: 1}
         m_Name: Square Color
         m_Overridden: 1
-      - m_Value: {x: 0, y: 0.85252976, z: 2.1185474, w: 1}
+      - m_Value: {x: 0, y: 0.6039216, z: 1.4980392, w: 1}
         m_Name: Cross Color
         m_Overridden: 1
-      - m_Value: {x: 0, y: 0.85252976, z: 2.1185474, w: 1}
+      - m_Value: {x: 0, y: 0.6039216, z: 1.4980392, w: 1}
         m_Name: Second Circle Color
         m_Overridden: 1
-      - m_Value: {x: 0, y: 2.1185474, z: 1.9854449, w: 1}
+      - m_Value: {x: 0, y: 1.4980392, z: 1.4039216, w: 1}
         m_Name: Third Circle Color
         m_Overridden: 1
-      - m_Value: {x: 0, y: 0.85252976, z: 2.1185474, w: 1}
+      - m_Value: {x: 0, y: 0.6039216, z: 1.4980392, w: 1}
         m_Name: Fourth Circle Color
         m_Overridden: 1
-      - m_Value: {x: 0, y: 0.85252976, z: 2.1185474, w: 1}
+      - m_Value: {x: 0, y: 0.6039216, z: 1.4980392, w: 1}
         m_Name: Cylinder Color
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 1.4980392, z: 1.4039216, w: 1}
+        m_Name: First Circle Color
         m_Overridden: 1
     m_Uint:
       m_Array: []
