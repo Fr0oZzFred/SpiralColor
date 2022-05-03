@@ -61,6 +61,7 @@ public class Button : MonoBehaviour
             res.y = res.y * height - height * 0.5f;
             res.y += offsetStart * (1 - interpolation);
             res.y += offsetEnd * interpolation;
+            res.y += start.y;
             res.y += offset;
             square.transform.position = res;
             interpolation += jumpSpeed * Time.deltaTime;
@@ -88,6 +89,7 @@ public class Button : MonoBehaviour
         res.y += offsetStart * (1 - t);
         res.y += offsetEnd * t;
         res.y += offset;
+        res.y += start.y;
         return res;
     }
 }

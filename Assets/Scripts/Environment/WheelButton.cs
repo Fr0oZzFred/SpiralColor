@@ -90,6 +90,7 @@ public class WheelButton : MonoBehaviour
             res.y += offsetStart * (1 - interpolation);
             res.y += offsetEnd * interpolation;
             res.y += offset;
+            res.y += start.y;
             cross.transform.position = res;
             interpolation += jumpSpeed * Time.deltaTime;
             yield return null;
@@ -119,6 +120,7 @@ public class WheelButton : MonoBehaviour
         res.y += offsetStart * (1 - t);
         res.y += offsetEnd * t;
         res.y += offset;
+        res.y += start.y;
         return res;
     }
 }

@@ -2204,7 +2204,7 @@ PrefabInstance:
       objectReference: {fileID: 1949923164}
     - target: {fileID: 2888159795352606239, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: offset
-      value: 34
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2888159795352606239, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: rangeForJumping
@@ -2920,7 +2920,7 @@ PrefabInstance:
       objectReference: {fileID: 1011488733}
     - target: {fileID: 2888159795352606239, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: offset
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2888159795352606239, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: rangeForJumping
@@ -13761,7 +13761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: offset
-      value: 28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: square
@@ -20564,7 +20564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: offset
-      value: 28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: square
@@ -24290,7 +24290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: offset
-      value: 28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: square
@@ -26454,7 +26454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: offset
-      value: 28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: square
@@ -29500,7 +29500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: offset
-      value: 28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: square
@@ -29689,7 +29689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: offset
-      value: 28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: square
@@ -34804,7 +34804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: offset
-      value: 28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8300797891909285163, guid: c9ac773ba0fca9a45b9acd626b3426de, type: 3}
       propertyPath: square
@@ -35162,7 +35162,7 @@ PrefabInstance:
       objectReference: {fileID: 1949923164}
     - target: {fileID: 2888159795352606239, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: offset
-      value: 34
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2888159795352606239, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: rangeForJumping
@@ -44325,7 +44325,7 @@ PrefabInstance:
       objectReference: {fileID: 1949923164}
     - target: {fileID: 2888159795352606239, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: offset
-      value: 28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2888159795352606239, guid: e8c906a20e5b40f46a863225611129f3, type: 3}
       propertyPath: rangeForJumping
@@ -45790,34 +45790,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88b0a55a1705cb4dbd826af4ecad264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scene:
+    destination: 0
+    TargetScene: 
+    AdditiveScene: 
+    sceneList:
+    - Boot
+    - Main Menu
+    - HUB
+    - Level 0
+    - Level 1
+    - Level 2
+    - Level 3
+    - Level 4
+    - Level 5
+    - Level 6
+    - Level 7
+    - Level 8
+    - Level 9
+    - Level 10
+    - Level 11
+    - Level 12
+    - Level 13
+    - Level 14
+    - Level 15
+    - Proto Croix 1
+    - Proto Sphere
+    - Proto Croix + Sphere
+    - Proto Square
+    - Test Sphere 1
+    - Test Sphere
+    - Proto triangle
+    - ProtoSphereTriangle
+    - Rendering
+    - "ProtoCarr\xE9Triangle"
+    - "Proto CroixCarr\xE9"
   playerHandler: {fileID: 234175263}
-  Level: "Proto CroixCarr\xE9"
   music: 
+  checkpointPrefab: {fileID: 0}
   checkpoints:
   - {fileID: 1932254826}
   - {fileID: 1509040223}
   - {fileID: 366876337}
   - {fileID: 2066324520}
   - {fileID: 1294836636}
-  PopupList:
-  - Boot
-  - Main Menu
-  - HUB
-  - Level 1
-  - Level 2
-  - Level 3
-  - Level 4
-  - Proto Croix 1
-  - Proto Sphere
-  - Proto Croix + Sphere
-  - Proto Square
-  - Test Sphere 1
-  - Test Sphere
-  - Proto triangle
-  - ProtoSphereTriangle
-  - PLACEHOLDER
-  - "ProtoCarr\xE9Triangle"
-  - "Proto CroixCarr\xE9"
 --- !u!4 &2128564462
 Transform:
   m_ObjectHideFlags: 0
