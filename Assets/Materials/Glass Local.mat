@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Glass Local
+  m_Shader: {fileID: -6465566751694194690, guid: 03685d0cbc38151409e3eedd1ca8f154, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_68b21a5018cf494da72fea1fe06798e2:
+        m_Texture: {fileID: 2800000, guid: 2cc1825d31ce4f5478712f266f2d2800, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_8193d5e2437f4776ac5e2a393b026afb:
+        m_Texture: {fileID: 2800000, guid: 55d24c5c130c23244bec7c6707459498, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_c53f0701eb0647f0b4b07e21bc884730:
+        m_Texture: {fileID: 2800000, guid: d1dd54f1977fe4444b6d77bf8457656f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_d58b1c05a6d04c8797e6a55fa768629b:
+        m_Texture: {fileID: 2800000, guid: 7567f969fdac5d1478b8b461f0bdfbb4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LocalReflectionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionMap:
+        m_Texture: {fileID: 2800000, guid: 55d24c5c130c23244bec7c6707459498, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - tutu:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_2775dc4a2c404fc3a7b163a443b125ca: 1
+    - Vector1_682fa9c274f64a76856138c8c687982f: 0.5
+    m_Colors:
+    - Color_70c96be1285b47a7b52a3bf18e66946a: {r: 0.2264151, g: 0.19095764, b: 0.19095764, a: 0}
+    - Color_8825e6e3d96a4ef49bbc5eaf32fd78b6: {r: 0.2901961, g: 0.3372549, b: 0.3764706, a: 0.43137255}
+    - Vector2_24cfde7e2bd74b10b2cc115c850a8ef5: {r: 40, g: 40, b: 0, a: 0}
+  m_BuildTextureStacks: []

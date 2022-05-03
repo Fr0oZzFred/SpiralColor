@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Checkpoint Material
-  m_Shader: {fileID: -6465566751694194690, guid: 216bf1faef83333448225870bca846c5, type: 3}
+  m_Name: Glass Global
+  m_Shader: {fileID: -6465566751694194690, guid: 536ea74dad080014eafc34474accb25e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,12 +19,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_82c2915615f943c8afd13b6fcb9a71fa:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+    - _ReflectionMap:
+        m_Texture: {fileID: 2800000, guid: 55d24c5c130c23244bec7c6707459498, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Mask:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+    - tutu:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -40,17 +40,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_6ba4c9ecbb3743e99ce1852a554d5829: 1
-    - Vector1_7fc62429106d4315a967592fb7846be3: 20
-    - Vector1_ba81fbf47fc04d2391aa44029987c4c2: 1
-    - _DissolvePower: 1
-    - _MaskPower: 1
-    - _Scale: 20
+    - Vector1_a9dff5ff12f34437beded2f434a72852: 1
+    - Vector1_de256c41959345018172ba930712f3dd: 0.5
     m_Colors:
-    - Color_3297b74dec774bcd95a04ed71625dd2d: {r: 1, g: 1, b: 1, a: 1}
-    - Vector2_a181d673586f46eb80b21a573b77f95e: {r: 7, g: 0.1, b: 0, a: 0}
-    - Vector2_cddeb77e6707458dbd2855f68b88ea4d: {r: 0, g: 0.1, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _NoiseSpeed: {r: 0, g: 0.1, b: 0, a: 0}
-    - _NoiseTiling: {r: 7, g: 0.1, b: 0, a: 0}
+    - Color_a3221a01525243bd88d1c22bd4aa71b5: {r: 1.4345549, g: 1.7106075, b: 2, a: 0.43137255}
   m_BuildTextureStacks: []
