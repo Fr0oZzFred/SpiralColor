@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviour {
                 eventSystem.SetSelectedGameObject(pauseFirstSelectedGO);
                 break;
             case GameState.Score:
-                DisplayScore();
+                DisplayScore(); 
                 eventSystem.SetSelectedGameObject(scoreFirstSelectedGO);
                 break;
             case GameState.Options:
