@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class DynamicATH : MonoBehaviour{
     [SerializeField] GameObject ath;
     [SerializeField] float rangeDetection = 2f;
@@ -14,6 +11,5 @@ public class DynamicATH : MonoBehaviour{
         Vector3 p = transform.position - player.transform.position;
         if (p.magnitude < rangeDetection && LevelManager.Instance.CurrentController is PlayerController) ath.SetActive(true);
         else ath.SetActive(false);
-        ath.transform.LookAt(-Camera.main.transform.position, Vector3.up);
     }
 }
