@@ -11,5 +11,6 @@ public class DynamicATH : MonoBehaviour{
         Vector3 p = transform.position - player.transform.position;
         if (p.magnitude < rangeDetection && LevelManager.Instance.CurrentController is PlayerController) ath.SetActive(true);
         else ath.SetActive(false);
+        ath.transform.LookAt(-Camera.main.transform.position, Vector3.up);
     }
 }
