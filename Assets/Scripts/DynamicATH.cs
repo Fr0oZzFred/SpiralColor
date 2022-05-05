@@ -1,5 +1,7 @@
 using UnityEngine;
+using Cinemachine;
 public class DynamicATH : MonoBehaviour{
+    CinemachineBrain c;
     [SerializeField] GameObject ath;
     [SerializeField] float rangeDetection = 2f;
     PlayerController player;
@@ -9,8 +11,10 @@ public class DynamicATH : MonoBehaviour{
     }
     void Update(){
         Vector3 p = transform.position - player.transform.position;
-        if (p.magnitude < rangeDetection && LevelManager.Instance.CurrentController is PlayerController) ath.SetActive(true);
+        if (p.magnitude < rangeDetection && LevelManager.Instance.CurrentController is PlayerController) {
+            ath.SetActive(true);
+            ath.transform.LookAt(LevelManager.Instance.CurrentController.GetCam().position, Vector3.up);
+        }
         else ath.SetActive(false);
-        ath.transform.LookAt(-Camera.main.transform.position, Vector3.up);
     }
 }
