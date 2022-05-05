@@ -10,7 +10,7 @@ public class DeveloperMenu {
     }
     [MenuItem("Developer/GameManager/GMProgressionToMax")]
     public static void GMProgressionToMax() {
-        GameManager.Instance.UpdateProgression(4);
+        GameManager.Instance.UpdateProgression(15);
     }
     [MenuItem("Developer/GameManager/Save")]
     public static void SaveGM() {

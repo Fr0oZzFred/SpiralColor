@@ -33,7 +33,9 @@ public class GameManager : MonoBehaviour {
         Init();
     }
     private void Update() {
-        HandlePause();
+        if (InputHandler.Controller.startButton.wasPressedThisFrame) {
+            HandlePause();
+        }
     }
     private void Init() {
         Progression = 0;
@@ -129,12 +131,10 @@ public class GameManager : MonoBehaviour {
         if (CurrentState == GameState.MainMenu) return;
         if (CurrentState == GameState.Score) return;
         if (CurrentState == GameState.Loading) return;
-        if (InputHandler.Controller.startButton.wasPressedThisFrame) {
-            if (CurrentState == GameState.Pause) {
-                SetState(OldState);
-            } else {
-                SetState(GameState.Pause);
-            }
+        if (CurrentState == GameState.Pause) {
+            SetState(OldState);
+        } else {
+            SetState(GameState.Pause);
         }
     }
     public void ApplyUsername(string name) {
