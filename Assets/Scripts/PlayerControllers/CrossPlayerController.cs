@@ -578,5 +578,8 @@ public class CrossPlayerController : Controller {
         if (cam)
             cam.SetRot(q);
     }
+    public override Transform GetCam() {
+        return playerInputSpace;
+    }
     #endregion
 }

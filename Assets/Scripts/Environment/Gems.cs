@@ -30,4 +30,10 @@ public class Gems : MonoBehaviour {
             startPos.z
         );
     }
+#if UNITY_EDITOR
+    private void OnValidate() {
+        string meshName = GetComponent<MeshFilter>().sharedMesh.name;
+        this.gameObject.name = $"Gem_{meshName} {gemIndex}";
+    }
+#endif
 }

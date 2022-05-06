@@ -10,4 +10,5 @@ public abstract class Controller : MonoBehaviour {
     public abstract string GetHelpBoxMessage();
     public abstract Quaternion GetCamRotation();
     public abstract void SetCamRotation(Quaternion q);
+    public abstract Transform GetCam();
 }
