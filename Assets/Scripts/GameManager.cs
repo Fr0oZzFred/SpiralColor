@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
         }
     }
     private void Init() {
-        Progression = 0;
+        Progression = 1;
         GemsCount = 0;
     }
     public void SetState (GameState newState){

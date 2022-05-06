@@ -32,10 +32,6 @@ public class Portal : MonoBehaviour {
 
     [Header("Teleporter")]
     [SerializeField]
-    Controller controller;
-    [SerializeField]
-    float rangeDetection;
-    [SerializeField]
     List<Scenes> scenes;
     Dictionary<ScenesEnum, Scenes> scenesDico;
 
@@ -56,11 +52,6 @@ public class Portal : MonoBehaviour {
                 Debug.LogError("The" + scene.destination.ToString() + " destination already exists in the Dictonary.");
         }
     }
-    private void Update() {
-        Vector3 p = transform.position - controller.transform.position;
-        if (p.magnitude < rangeDetection) {
-        }
-    }
     public void ChangeCurrentDestination(int newCurrent) {
         current = (ScenesEnum)newCurrent;
         ChangeTextContent(current.ToString());
@@ -71,9 +62,5 @@ public class Portal : MonoBehaviour {
             SaveSystem.SaveGemmes(HUBManager.Instance.gemsPool);
             SceneManagement.Instance.LoadingRendering(scenesDico[current].TargetScene, scenesDico[current].AdditiveScene);
         }
-    }
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, rangeDetection);
     }
 }

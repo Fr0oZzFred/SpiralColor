@@ -50,12 +50,12 @@ public class HUBManager : MonoBehaviour {
 
     private void CheckLevelRow() {
         for (int i = 0; i < levelRow.Length; i++) {
-            if(i < GameManager.Instance.Progression) {
+            if(i + 1 < GameManager.Instance.Progression) {
                 levelRow[i].gameObject.SetActive(true);
                 GameManager.Instance.GetCollectedGemsOfLevel(i, out int collected, out int max);
                 levelRow[i].SetGemsProgression(collected + " / " + max);
             } 
-            else if (GameManager.Instance.Progression == i) {
+            else if (GameManager.Instance.Progression == i + 1) {
                 levelRow[i].gameObject.SetActive(true);
                 levelRow[i].SetGemsProgression("???");
                 UIManager.Instance.SetEventSystemSelectedGO(levelRow[i].gameObject);
