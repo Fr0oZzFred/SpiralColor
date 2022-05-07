@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Button : MonoBehaviour
+public class SquareButton : MonoBehaviour
 {
     [SerializeField]
     SquarePlayerController square;

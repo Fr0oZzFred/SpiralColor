@@ -9,7 +9,18 @@ public class LevelRow : MonoBehaviour {
 
     [SerializeField] TMPro.TMP_Text gemsText;
 
+    Button button;
+
+
     private void Start() {
+        Init();
+    }
+
+    public void SetGemsProgression(string text) {
+        gemsText.SetText(text);
+    }
+
+    void Init() {
         shape1.sprite = levelRow.shape1;
         shape2.sprite = levelRow.shape2;
         shape3.sprite = levelRow.shape3;
@@ -21,9 +32,11 @@ public class LevelRow : MonoBehaviour {
         shape4.gameObject.SetActive(levelRow.shape4);
 
         gems.sprite = levelRow.gems;
+
+        button = GetComponent<Button>();
     }
 
-    public void SetGemsProgression(string text) {
-        gemsText.SetText(text);
+    public void InvokeButtonEvents() {
+        button.onClick.Invoke();
     }
 }

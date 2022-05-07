@@ -102,7 +102,7 @@ public class UIManager : MonoBehaviour {
                 break;
         }
     }
-    public void SetEventSystemSelectedGO(GameObject g) {
+    public void SetEventSystemCurrentSelectedGO(GameObject g) {
         eventSystem.SetSelectedGameObject(g);
     }
 

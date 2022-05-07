@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class HUBManager : MonoBehaviour {
 
@@ -17,6 +14,8 @@ public class HUBManager : MonoBehaviour {
 
     [SerializeField] GameObject cam, playerCam;
     [SerializeField] GameObject levelScreen;
+    [SerializeField] float detectionRange = 5f;
+    bool closeToLevelScreen;
 
     LevelRow[] levelRow;
     private void Awake() {
@@ -39,7 +38,14 @@ public class HUBManager : MonoBehaviour {
         playerHandler.CurrentPlayer.RegisterInputs(true);
     }
     private void Update() {
-        if (InputHandler.Controller == null) return;
+        Vector3 p = levelScreen.transform.position - playerHandler.CurrentPlayer.transform.position;
+        if(!closeToLevelScreen && p.magnitude < detectionRange) {
+            PlayerInRangeLevelScreen();
+            closeToLevelScreen = true;
+        } else if(closeToLevelScreen && p.magnitude > detectionRange) {
+            PlayerOutRangeLevelScreen();
+            closeToLevelScreen = false;
+        }
     }
     void InitLevelScreen() {
         levelRow = new LevelRow[levelScreen.transform.childCount];
@@ -52,13 +58,13 @@ public class HUBManager : MonoBehaviour {
         for (int i = 0; i < levelRow.Length; i++) {
             if(i + 1 < GameManager.Instance.Progression) {
                 levelRow[i].gameObject.SetActive(true);
-                GameManager.Instance.GetCollectedGemsOfLevel(i, out int collected, out int max);
+                GameManager.Instance.GetCollectedGemsOfLevel(i + 1, out int collected, out int max);
                 levelRow[i].SetGemsProgression(collected + " / " + max);
             } 
             else if (GameManager.Instance.Progression == i + 1) {
                 levelRow[i].gameObject.SetActive(true);
                 levelRow[i].SetGemsProgression("???");
-                UIManager.Instance.SetEventSystemSelectedGO(levelRow[i].gameObject);
+                levelRow[i].InvokeButtonEvents();
             } 
             else {
                 levelRow[i].gameObject.SetActive(false);
@@ -71,5 +77,19 @@ public class HUBManager : MonoBehaviour {
         playerHandler.CurrentPlayer.SetInputSpace(cam.activeInHierarchy ? cam.transform : playerCam.transform);
         playerCam.SetActive(cam.activeInHierarchy);
         cam.SetActive(!cam.activeInHierarchy);
+    }
+    void PlayerInRangeLevelScreen() {
+        //Display Dynamic UI
+        UIManager.Instance.SetEventSystemCurrentSelectedGO(levelRow[GameManager.Instance.Progression - 1].gameObject);
+    }
+    void PlayerOutRangeLevelScreen() {
+        //Hide Dynamic UI
+        UIManager.Instance.SetEventSystemCurrentSelectedGO(null);
+    }
+
+
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(levelScreen.transform.position, detectionRange);
     }
 }

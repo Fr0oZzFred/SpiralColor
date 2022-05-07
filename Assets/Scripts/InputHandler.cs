@@ -163,6 +163,12 @@ public class InputHandler : MonoBehaviour {
     public static void SetControllerLED(Color color) {
         if (DS4Controller != null) DS4Controller.SetLightBarColor(color);
     }
+
+    public static bool GetTouchPadValues() {
+        if (DS4Controller == null) return Controller.selectButton.wasPressedThisFrame;
+        return DS4Controller.touchpadButton.wasPressedThisFrame;
+    }
+
     #endregion
 
     #region Gamepad Controls
