@@ -12,7 +12,7 @@ public class HUBManager : MonoBehaviour {
 
     [SerializeField] float secondsBetweenSpawn, secondsAfterSpawn;
 
-    [SerializeField] GameObject cam, playerCam;
+    [SerializeField] GameObject cam, playerCam, levelScreenCam;
     [SerializeField] GameObject levelScreen;
     [SerializeField] float detectionRange = 5f;
     bool closeToLevelScreen;
@@ -45,6 +45,10 @@ public class HUBManager : MonoBehaviour {
         } else if(closeToLevelScreen && p.magnitude > detectionRange) {
             PlayerOutRangeLevelScreen();
             closeToLevelScreen = false;
+        } else if(p.magnitude < detectionRange) {
+            CheckLevelScreenInput();
+        } else {
+            cam.SetActive(false);
         }
     }
     void InitLevelScreen() {
@@ -72,7 +76,7 @@ public class HUBManager : MonoBehaviour {
         }
     }
 
-    public void CloseLevelScreen() {
+    public void ClosePortal() {
         if (GameManager.Instance.CurrentState != GameState.InHUB) return;
         playerHandler.CurrentPlayer.SetInputSpace(cam.activeInHierarchy ? cam.transform : playerCam.transform);
         playerCam.SetActive(cam.activeInHierarchy);
@@ -80,13 +84,26 @@ public class HUBManager : MonoBehaviour {
     }
     void PlayerInRangeLevelScreen() {
         //Display Dynamic UI
-        UIManager.Instance.SetEventSystemCurrentSelectedGO(levelRow[GameManager.Instance.Progression - 1].gameObject);
+        //UIManager.Instance.SetEventSystemCurrentSelectedGO(levelRow[GameManager.Instance.Progression - 1].gameObject);
     }
     void PlayerOutRangeLevelScreen() {
         //Hide Dynamic UI
         UIManager.Instance.SetEventSystemCurrentSelectedGO(null);
     }
-
+    void CheckLevelScreenInput() {
+        cam.SetActive(true);
+        if (InputHandler.Controller.buttonWest.wasPressedThisFrame && !levelScreenCam.activeInHierarchy) {
+            cam.SetActive(false);
+            levelScreenCam.SetActive(true);
+            UIManager.Instance.SetEventSystemCurrentSelectedGO(levelRow[GameManager.Instance.Progression - 1].gameObject);
+            playerHandler.CurrentPlayer.RegisterInputs(false);
+        } else if (InputHandler.Controller.buttonEast.wasPressedThisFrame) {
+            cam.SetActive(true);
+            levelScreenCam.SetActive(false);
+            UIManager.Instance.SetEventSystemCurrentSelectedGO(null);
+            playerHandler.CurrentPlayer.RegisterInputs(true);
+        }
+    }
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.magenta;
