@@ -425,8 +425,10 @@ public class PlayerController : Controller {
         isCurrentlyPlayed = b;
         playerInputSpace.gameObject.SetActive(b);
         if (GameManager.Instance) {
-            if (GameManager.Instance.CurrentState != GameState.Pause)
+            if (HUBManager.Instance && HUBManager.Instance.playerInSelection) return;
+            else if (GameManager.Instance.CurrentState != GameState.Pause) {
                 gameObject.SetActive(b);
+            }
         } else {
             gameObject.SetActive(b);
         }

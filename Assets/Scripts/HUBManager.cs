@@ -1,23 +1,38 @@
 using System.Collections;
+using System;
 using UnityEngine;
 
 public class HUBManager : MonoBehaviour {
-
+    #region Fields
+    [Header("General")]
     [SerializeField] PlayerHandler playerHandler;
-    public static HUBManager Instance { get; private set; }
-
     [SerializeField] string musicName;
 
-    public GemsPool gemsPool;
 
+    [Header("Gems Pool")]
+    public GemsPool gemsPool;
     [SerializeField] float secondsBetweenSpawn, secondsAfterSpawn;
 
-    [SerializeField] GameObject cam, playerCam, levelScreenCam;
+
+    [Header("Level Screen")]
     [SerializeField] GameObject levelScreen;
-    [SerializeField] float detectionRange = 5f;
-    bool closeToLevelScreen;
+
+
+    [Header("Camera")]
+    [SerializeField] GameObject gemsCam;
+    [SerializeField] GameObject playerCam;
+    [SerializeField] GameObject portalCam;
+    [SerializeField] GameObject levelScreenCam;
+
+    
+    public static HUBManager Instance { get; private set; }
+
+    public bool playerInSelection;
+
+    Action Action;
 
     LevelRow[] levelRow;
+    #endregion
     private void Awake() {
         if (!Instance) Instance = this;
         GameManager.Instance.SetState(GameState.InHUB);
@@ -28,29 +43,26 @@ public class HUBManager : MonoBehaviour {
     private IEnumerator Start() {
         InitLevelScreen();
         CheckLevelRow();
+
+        //CheckForNewGems
         if (gemsPool.GemsCount >= GameManager.Instance.GemsCount) yield break;
+        SwitchCam(gemsCam, playerCam);
         playerHandler.CurrentPlayer.RegisterInputs(false);
         for (int i = gemsPool.GemsCount; i < GameManager.Instance.GemsCount; i++) {
             gemsPool.Spawn();
             yield return new WaitForSeconds(secondsBetweenSpawn);
         }
         yield return new WaitForSeconds(secondsAfterSpawn);
+        SwitchCam(playerCam, gemsCam);
         playerHandler.CurrentPlayer.RegisterInputs(true);
     }
+
     private void Update() {
-        Vector3 p = levelScreen.transform.position - playerHandler.CurrentPlayer.transform.position;
-        if(!closeToLevelScreen && p.magnitude < detectionRange) {
-            PlayerInRangeLevelScreen();
-            closeToLevelScreen = true;
-        } else if(closeToLevelScreen && p.magnitude > detectionRange) {
-            PlayerOutRangeLevelScreen();
-            closeToLevelScreen = false;
-        } else if(p.magnitude < detectionRange) {
-            CheckLevelScreenInput();
-        } else {
-            cam.SetActive(false);
-        }
+        if(Action != null)
+        Action();
     }
+
+    #region Level Screen UI
     void InitLevelScreen() {
         levelRow = new LevelRow[levelScreen.transform.childCount];
         for (int i = 0; i < levelScreen.transform.childCount; i++) {
@@ -75,38 +87,57 @@ public class HUBManager : MonoBehaviour {
             }
         }
     }
+    #endregion
 
-    public void ClosePortal() {
-        if (GameManager.Instance.CurrentState != GameState.InHUB) return;
-        playerHandler.CurrentPlayer.SetInputSpace(cam.activeInHierarchy ? cam.transform : playerCam.transform);
-        playerCam.SetActive(cam.activeInHierarchy);
-        cam.SetActive(!cam.activeInHierarchy);
+    #region Portal Area
+
+    public void OnPortalAreaEnter() {
+        SwitchCam(portalCam, playerCam);
+        playerHandler.CurrentPlayer.SetInputSpace(portalCam.transform);
     }
-    void PlayerInRangeLevelScreen() {
-        //Display Dynamic UI
-        //UIManager.Instance.SetEventSystemCurrentSelectedGO(levelRow[GameManager.Instance.Progression - 1].gameObject);
+
+    public void OnPortalAreaExit() {
+        SwitchCam(playerCam, portalCam);
+        playerHandler.CurrentPlayer.SetInputSpace(playerCam.transform);
     }
-    void PlayerOutRangeLevelScreen() {
-        //Hide Dynamic UI
-        UIManager.Instance.SetEventSystemCurrentSelectedGO(null);
+
+    #endregion
+
+
+    #region Level Screen Area
+
+    public void OnLevelScreenAreaEnter() {
+        Action += InLevelSelectionRange;
     }
-    void CheckLevelScreenInput() {
-        cam.SetActive(true);
-        if (InputHandler.Controller.buttonWest.wasPressedThisFrame && !levelScreenCam.activeInHierarchy) {
-            cam.SetActive(false);
-            levelScreenCam.SetActive(true);
-            UIManager.Instance.SetEventSystemCurrentSelectedGO(levelRow[GameManager.Instance.Progression - 1].gameObject);
+
+    public void OnLevelScreenAreaExit() {
+        Action -= InLevelSelectionRange;
+    }
+
+    void InLevelSelectionRange() {
+        Debug.Log("Afficher l'UI Square");
+        if (InputHandler.Controller.buttonWest.wasPressedThisFrame) {
+            Action -= InLevelSelectionRange;
+            Action += InLevelSelection;
+            SwitchCam(levelScreenCam, portalCam);
+            playerInSelection = true;
             playerHandler.CurrentPlayer.RegisterInputs(false);
-        } else if (InputHandler.Controller.buttonEast.wasPressedThisFrame) {
-            cam.SetActive(true);
-            levelScreenCam.SetActive(false);
-            UIManager.Instance.SetEventSystemCurrentSelectedGO(null);
-            playerHandler.CurrentPlayer.RegisterInputs(true);
+            UIManager.Instance.SetEventSystemCurrentSelectedGO(levelRow[GameManager.Instance.Progression - 1].gameObject);
         }
     }
 
-    private void OnDrawGizmosSelected() {
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(levelScreen.transform.position, detectionRange);
+    void InLevelSelection() {
+        if (InputHandler.Controller.buttonEast.wasPressedThisFrame) {
+            Action -= InLevelSelection;
+            Action += InLevelSelectionRange;
+            SwitchCam(portalCam, levelScreenCam);
+            playerHandler.CurrentPlayer.RegisterInputs(true);
+            UIManager.Instance.SetEventSystemCurrentSelectedGO(null);
+        }
+    }
+    #endregion
+    void SwitchCam(GameObject newCam, GameObject oldCam) {
+        newCam.SetActive(true);
+        oldCam.SetActive(false);
     }
 }

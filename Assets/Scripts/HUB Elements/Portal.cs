@@ -25,18 +25,18 @@ public enum ScenesEnum {
     Sphere_Triangle_Square_Cross = 15
 }
 public class Portal : MonoBehaviour {
-
+    #region Fields
     [Header("Text")]
     [SerializeField]
     TMP_Text textGO;
 
-    [Header("Teleporter")]
+    [Header("Portal")]
     [SerializeField]
     List<Scenes> scenes;
     Dictionary<ScenesEnum, Scenes> scenesDico;
 
     ScenesEnum current;
-
+    #endregion
     void ChangeTextContent(string text) {
         if (textGO) textGO.SetText(text);
     }
@@ -52,10 +52,13 @@ public class Portal : MonoBehaviour {
                 Debug.LogError("The" + scene.destination.ToString() + " destination already exists in the Dictonary.");
         }
     }
+
+
     public void ChangeCurrentDestination(int newCurrent) {
         current = (ScenesEnum)newCurrent;
         ChangeTextContent(current.ToString());
     }
+
     private void OnTriggerEnter(Collider other) {
         if (other.GetComponent<Controller>() != null) {
             PlayTestData.Instance.Restart();
