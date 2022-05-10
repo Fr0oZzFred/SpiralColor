@@ -25,22 +25,18 @@ public enum ScenesEnum {
     Sphere_Triangle_Square_Cross = 15
 }
 public class Portal : MonoBehaviour {
-
+    #region Fields
     [Header("Text")]
     [SerializeField]
     TMP_Text textGO;
 
-    [Header("Teleporter")]
-    [SerializeField]
-    Controller controller;
-    [SerializeField]
-    float rangeDetection;
+    [Header("Portal")]
     [SerializeField]
     List<Scenes> scenes;
     Dictionary<ScenesEnum, Scenes> scenesDico;
 
     ScenesEnum current;
-
+    #endregion
     void ChangeTextContent(string text) {
         if (textGO) textGO.SetText(text);
     }
@@ -56,24 +52,18 @@ public class Portal : MonoBehaviour {
                 Debug.LogError("The" + scene.destination.ToString() + " destination already exists in the Dictonary.");
         }
     }
-    private void Update() {
-        Vector3 p = transform.position - controller.transform.position;
-        if (p.magnitude < rangeDetection) {
-        }
-    }
+
+
     public void ChangeCurrentDestination(int newCurrent) {
         current = (ScenesEnum)newCurrent;
         ChangeTextContent(current.ToString());
     }
+
     private void OnTriggerEnter(Collider other) {
         if (other.GetComponent<Controller>() != null) {
             PlayTestData.Instance.Restart();
             SaveSystem.SaveGemmes(HUBManager.Instance.gemsPool);
             SceneManagement.Instance.LoadingRendering(scenesDico[current].TargetScene, scenesDico[current].AdditiveScene);
         }
-    }
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, rangeDetection);
     }
 }

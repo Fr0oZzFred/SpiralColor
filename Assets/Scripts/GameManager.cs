@@ -33,12 +33,13 @@ public class GameManager : MonoBehaviour {
         Init();
     }
     private void Update() {
+        if (InputHandler.Controller == null) return;
         if (InputHandler.Controller.startButton.wasPressedThisFrame) {
             HandlePause();
         }
     }
     private void Init() {
-        Progression = 0;
+        Progression = 1;
         GemsCount = 0;
     }
     public void SetState (GameState newState){
@@ -126,7 +127,6 @@ public class GameManager : MonoBehaviour {
         }
     }
     public void HandlePause() {
-        if (InputHandler.Controller == null) return;
         if (CurrentState == GameState.Boot) return;
         if (CurrentState == GameState.MainMenu) return;
         if (CurrentState == GameState.Score) return;

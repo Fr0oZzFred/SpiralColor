@@ -55,7 +55,8 @@ public class DetectionZone : MonoBehaviour {
 
 	void OnTriggerExit(Collider other) {
 		if (colliders.Remove(other) && colliders.Count == 0) {
-			onLastExit.Invoke();enabled = false;
+			onLastExit.Invoke();
+			enabled = false;
 		}
 	}
 }
