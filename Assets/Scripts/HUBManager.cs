@@ -16,6 +16,7 @@ public class HUBManager : MonoBehaviour {
 
     [Header("Level Screen")]
     [SerializeField] GameObject levelScreen;
+    [SerializeField] DynamicATH levelScreenAth;
 
 
     [Header("Camera")]
@@ -26,6 +27,12 @@ public class HUBManager : MonoBehaviour {
 
     
     public static HUBManager Instance { get; private set; }
+
+    public Controller CurrentController {
+        get {
+            return playerHandler.CurrentPlayer;
+        }
+    }
 
     public bool playerInSelection;
 
@@ -115,8 +122,9 @@ public class HUBManager : MonoBehaviour {
     }
 
     void InLevelSelectionRange() {
-        Debug.Log("Afficher l'UI Square");
+        levelScreenAth.DisplayATH(true);
         if (InputHandler.Controller.buttonWest.wasPressedThisFrame) {
+            levelScreenAth.DisplayATH(false);
             Action -= InLevelSelectionRange;
             Action += InLevelSelection;
             SwitchCam(levelScreenCam, portalCam);
@@ -127,7 +135,9 @@ public class HUBManager : MonoBehaviour {
     }
 
     void InLevelSelection() {
-        if (InputHandler.Controller.buttonEast.wasPressedThisFrame) {
+        if (InputHandler.Controller.buttonEast.wasPressedThisFrame ||
+            InputHandler.Controller.buttonSouth.wasPressedThisFrame) {
+            levelScreenAth.DisplayATH(true);
             Action -= InLevelSelection;
             Action += InLevelSelectionRange;
             SwitchCam(portalCam, levelScreenCam);

@@ -1,24 +1,29 @@
 using UnityEngine;
-using Cinemachine;
-public class DynamicATH : MonoBehaviour{
-    CinemachineBrain c;
+public class DynamicATH : MonoBehaviour {
+
     [SerializeField] GameObject ath;
-    [SerializeField] float rangeDetection = 2f;
     PlayerController player;
+
     private void Start() {
-        if (!LevelManager.Instance) return;
-
-        if(LevelManager.Instance.CurrentController is PlayerController)
-            player = LevelManager.Instance.CurrentController as PlayerController;
-    }
-    void Update() {
-        if (!LevelManager.Instance) return;
-
-        Vector3 p = transform.position - player.transform.position;
-        if (p.magnitude < rangeDetection && LevelManager.Instance.CurrentController is PlayerController) {
-            ath.SetActive(true);
-            ath.transform.LookAt(LevelManager.Instance.CurrentController.GetCam().position, Vector3.up);
+        if (LevelManager.Instance) {
+            if (LevelManager.Instance.CurrentController is PlayerController)
+                player = LevelManager.Instance.CurrentController as PlayerController;
         }
-        else ath.SetActive(false);
+
+        if (HUBManager.Instance) {
+            if (HUBManager.Instance.CurrentController is PlayerController)
+                player = HUBManager.Instance.CurrentController as PlayerController;
+        }
+
+        ath.SetActive(false);
+    }
+
+    void Update() {
+        //Il est pas enabled car sinon l'ath n'était pas directement en face
+        ath.transform.LookAt(player.GetCam().position, Vector3.up);
+    }
+
+    public void DisplayATH(bool b) {
+        ath.SetActive(b);
     }
 }

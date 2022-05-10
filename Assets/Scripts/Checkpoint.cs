@@ -1,14 +1,31 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+public enum CamRotation {
+    forward,
+    backward,
+    right,
+    left
+}
 public class Checkpoint : MonoBehaviour, IComparable {
 
     const string baseName = "Checkpoint n°";
+
+    [SerializeField] List<Quaternion> camRotations;
+
+    [SerializeField] CamRotation camRotationEnum;
 
     [SerializeField]
     int progression;
     public int Progression {
         get {
             return progression;
+        }
+    }
+
+    public Quaternion CamRotation {
+        get {
+            return camRotations[(int)camRotationEnum];
         }
     }
 

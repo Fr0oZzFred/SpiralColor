@@ -12,8 +12,6 @@ public class PlayerHandler : MonoBehaviour {
 
     [SerializeField] Vector3 offset = new Vector3(0,2,0);
 
-    [SerializeField] float timer = 20;
-    float time = 0;
 
     public Controller CurrentPlayer {
         get {
@@ -52,6 +50,7 @@ public class PlayerHandler : MonoBehaviour {
                     Vector3 p = item.transform.position - player.transform.position;
                     if (p.magnitude < rangeDetection && !listControllerInRange.Contains(item)) {
                         listControllerInRange.Add(item);
+                        item.DisplayATH(true);
                     }
                 }
             }
@@ -69,20 +68,14 @@ public class PlayerHandler : MonoBehaviour {
                 }
                 foreach (var item in outOfRangeControllers) {
                     listControllerInRange.Remove(item);
+                    item.DisplayATH(false);
                 }
             }
         }
 
-        if (listControllerInRange.Count == 0) {
-            time = 0;
-            if (UIManager.Instance)
-                UIManager.Instance.HideHelpMessage();
-        }
     }
 
     void CheckForChange() {
-        if(timer > 0)
-            time += Time.deltaTime;
         if (CurrentPlayer == player) {
             foreach (var item in listControllerInRange) {
                 if (item is SpherePlayerController) {
@@ -111,12 +104,6 @@ public class PlayerHandler : MonoBehaviour {
                     }
                 }
             }
-            if(time > timer) {
-                if (UIManager.Instance) {
-                    string message = listControllerInRange[0].GetHelpBoxMessage();
-                    UIManager.Instance.DisplayHelpMessage(message);
-                }
-            }
         } else if (CurrentPlayer != player) {
             if (CurrentPlayer.GetComponent<SquarePlayerController>() &&
                 CurrentPlayer.GetComponent<SquarePlayerController>().IsOnButton) {
@@ -130,10 +117,6 @@ public class PlayerHandler : MonoBehaviour {
             if (InputHandler.Controller.leftShoulder.wasPressedThisFrame ||
                     InputHandler.Controller.rightShoulder.wasPressedThisFrame) {
                 ChangePlayer(player);
-            }
-            if (time > timer) {
-                if (UIManager.Instance)
-                    UIManager.Instance.DisplayHelpMessage("Appuyer sur R1/L1");
             }
         }
     }
@@ -160,14 +143,12 @@ public class PlayerHandler : MonoBehaviour {
     /// </summary>
     /// <param name="oldIndex"></param>
     void ChangePlayer(Controller newController) {
-        time = 0;
-        if (UIManager.Instance) {
-            UIManager.Instance.HideHelpMessage();
+        foreach(var item in listControllerInRange) {
+            item.DisplayATH(false);
         }
         if (player == newController) {
             current.RegisterInputs(false);
-            player.Respawn(current.transform.position + offset);
-            player.SetCamRotation(current.GetCamRotation());
+            player.Respawn(current.transform.position + offset, current.GetCamRotation());
             current = null;
             player.RegisterInputs(true);
             player.SetControllerLED();

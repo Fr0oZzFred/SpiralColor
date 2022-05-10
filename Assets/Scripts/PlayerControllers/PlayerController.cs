@@ -75,9 +75,9 @@ public class PlayerController : Controller {
     [SerializeField]
     int[] allowedCheckpointsList;
 
-    [Header("Help Box")]
-    [SerializeField]
-    string helpBoxMessage;
+    //[Header("Ath")]
+    //[SerializeField]
+    //DynamicATH ath;
 
     [Header("Controller Color")]
     [SerializeField]
@@ -440,10 +440,10 @@ public class PlayerController : Controller {
     public override void SetControllerLED() {
         InputHandler.SetControllerLED(color);
     }
-    public override void Respawn(Vector3 pos) {
+    public override void Respawn(Vector3 pos, Quaternion rotation) {
         this.transform.position = pos;
         body.velocity = velocity = Vector3.zero;
-        SetCamRotation(baseCamDirection);
+        SetCamRotation(rotation);
     }
     public override void SetInputSpace(Transform transform) {
         playerInputSpace = transform;
@@ -463,9 +463,6 @@ public class PlayerController : Controller {
         }
         return closestCheckpoint;
     }
-    public override string GetHelpBoxMessage() {
-        return helpBoxMessage;
-    }
     public override Quaternion GetCamRotation() {
         return playerInputSpace.rotation;
     }
@@ -476,6 +473,9 @@ public class PlayerController : Controller {
     }
     public override Transform GetCam() {
         return playerInputSpace;
+    }
+    public override void DisplayATH(bool b) {
+        //No ATH for the moment
     }
     #endregion
 }
