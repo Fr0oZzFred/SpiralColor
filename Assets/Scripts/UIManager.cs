@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.Localization.Settings;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour {
     #region Fields
@@ -45,9 +44,10 @@ public class UIManager : MonoBehaviour {
     [SerializeField] TMP_Dropdown languageDropdown;
     [SerializeField] Toggle x, y;
     [SerializeField] Slider sensibility;
-    [HideInInspector] public bool XCam { get { return x.isOn; } }
-    [HideInInspector] public bool YCam { get { return y.isOn; } }
-    [HideInInspector] public float Sensitivity { get{ return sensibility.value; } }
+    [SerializeField] TMP_Text sensibilityText;
+    public bool XCam { get { return x.isOn; } }
+    public bool YCam { get { return y.isOn; } }
+    public float Sensitivity { get{ return sensibility.value; } }
     
 
     [Header("ControllerDisconnected")]
@@ -81,9 +81,6 @@ public class UIManager : MonoBehaviour {
         languageDropdown.value = index;
         languageDropdown.onValueChanged.AddListener(LocaleSelected);
     }
-    private void Update() {
-        if(Keyboard.current.lKey.wasPressedThisFrame) Debug.Log(Sensitivity);
-    }
     void OnGameStateChanged(GameState newState) {
 
         mainMenuHUD.SetActive(newState == GameState.MainMenu);
@@ -112,6 +109,7 @@ public class UIManager : MonoBehaviour {
                 eventSystem.SetSelectedGameObject(scoreFirstSelectedGO);
                 break;
             case GameState.Options:
+                UpdateSensibilityText();
                 eventSystem.SetSelectedGameObject(optionFirstSelectedGO);
                 break;
             case GameState.ControllerDisconnected:
@@ -168,6 +166,14 @@ public class UIManager : MonoBehaviour {
     }
     #endregion
 
+    #region Options
+
+    public void UpdateSensibilityText() {
+        sensibilityText.SetText(sensibility.value.ToString());
+    }
+
+    #endregion
+
     #region keyboard
     public void OpenKeyboard() {
         keyboard.SetActive(true);
@@ -188,5 +194,4 @@ public class UIManager : MonoBehaviour {
         keyboard.SetActive(false);
     }
     #endregion
-
 }
