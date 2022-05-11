@@ -2,7 +2,11 @@
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Localization.Settings;
 using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.InputSystem;
+
 public class UIManager : MonoBehaviour {
     #region Fields
     [Header("MainMenu")]
@@ -38,11 +42,17 @@ public class UIManager : MonoBehaviour {
 
     [Header("Options")]
     [SerializeField] GameObject optionsHUD;
+    [SerializeField] TMP_Dropdown languageDropdown;
+    [SerializeField] Toggle x, y;
+    [SerializeField] Slider sensibility;
+    [HideInInspector] public bool XCam { get { return x.isOn; } }
+    [HideInInspector] public bool YCam { get { return y.isOn; } }
+    [HideInInspector] public float Sensitivity { get{ return sensibility.value; } }
+    
 
     [Header("ControllerDisconnected")]
     [SerializeField] GameObject controllerDisconnectedHUD;
     [SerializeField] TMP_Text errorText;
-
 
     [Header("Event System")]
     [SerializeField] EventSystem eventSystem;
@@ -56,9 +66,23 @@ public class UIManager : MonoBehaviour {
     #endregion
     void Awake() {
         if(!Instance) Instance = this;
-    }
-    void Start() {
         GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+    }
+    IEnumerator Start() {
+        yield return LocalizationSettings.InitializationOperation;
+        List<TMP_Dropdown.OptionData> languages = new List<TMP_Dropdown.OptionData>();
+        int index = 0;
+        for(int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++) {
+            var local = LocalizationSettings.AvailableLocales.Locales[i];
+            if (LocalizationSettings.SelectedLocale == local) index = i;
+            languages.Add(new TMP_Dropdown.OptionData(local.name));
+        }
+        languageDropdown.options = languages;
+        languageDropdown.value = index;
+        languageDropdown.onValueChanged.AddListener(LocaleSelected);
+    }
+    private void Update() {
+        if(Keyboard.current.lKey.wasPressedThisFrame) Debug.Log(Sensitivity);
     }
     void OnGameStateChanged(GameState newState) {
 
@@ -103,6 +127,11 @@ public class UIManager : MonoBehaviour {
     public void SetEventSystemCurrentSelectedGO(GameObject g) {
         eventSystem.SetSelectedGameObject(g);
     }
+    #region options
+    static void LocaleSelected(int index) {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+    }
+    #endregion
 
     #region InLevel
     public void DisplayGems() {
@@ -131,6 +160,7 @@ public class UIManager : MonoBehaviour {
         loadingProgressText.text = progressText + "%";
     }
     #endregion
+
     #region Score
     public void DisplayScore() {
         GameManager.Instance.GetCollectedGemsOfLevel(LevelManager.Instance.LevelInt, out int collected, out int max);
