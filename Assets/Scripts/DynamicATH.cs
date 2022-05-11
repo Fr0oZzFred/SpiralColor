@@ -1,18 +1,19 @@
 using UnityEngine;
+public delegate Controller GetController();
 public class DynamicATH : MonoBehaviour {
 
     [SerializeField] GameObject ath;
-    PlayerController player;
+
+    GetController controller;
+
 
     private void Start() {
         if (LevelManager.Instance) {
-            if (LevelManager.Instance.CurrentController is PlayerController)
-                player = LevelManager.Instance.CurrentController as PlayerController;
+            controller = LevelManagerCurrentController;
         }
 
         if (HUBManager.Instance) {
-            if (HUBManager.Instance.CurrentController is PlayerController)
-                player = HUBManager.Instance.CurrentController as PlayerController;
+            controller = HUBManagerCurrentController;
         }
 
         ath.SetActive(false);
@@ -20,10 +21,17 @@ public class DynamicATH : MonoBehaviour {
 
     void Update() {
         //Il est pas enabled car sinon l'ath n'était pas directement en face
-        ath.transform.LookAt(player.GetCam().position, Vector3.up);
+        ath.transform.LookAt(controller().GetCam().position, Vector3.up);
     }
 
     public void DisplayATH(bool b) {
         ath.SetActive(b);
+    }
+
+    Controller LevelManagerCurrentController() {
+        return LevelManager.Instance.CurrentController;
+    }
+    Controller HUBManagerCurrentController() {
+        return HUBManager.Instance.CurrentController;
     }
 }

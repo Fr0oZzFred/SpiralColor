@@ -131,7 +131,17 @@ public class GameManager : MonoBehaviour {
         if (CurrentState == GameState.MainMenu) return;
         if (CurrentState == GameState.Score) return;
         if (CurrentState == GameState.Loading) return;
+        if (CurrentState == GameState.Options) return;
         if (CurrentState == GameState.Pause) {
+            if(OldState == GameState.Options) {
+                if (HUBManager.Instance) {
+                    SetState(GameState.InHUB);
+                    return;
+                } else if (LevelManager.Instance) {
+                    SetState(GameState.InLevel);
+                    return;
+                }
+            }
             SetState(OldState);
         } else {
             SetState(GameState.Pause);

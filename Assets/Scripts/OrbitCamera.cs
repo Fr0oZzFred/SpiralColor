@@ -26,6 +26,7 @@ public class OrbitCamera : MonoBehaviour {
 	[SerializeField, Range(1f, 360f)]
 	float rotationSpeed = 90f;
 
+
 	[Tooltip("Limite min de l'angle d'après la cible")]
 	[SerializeField, Range(-89f, 89f)]
 	float minVerticalAngle = -45f;
@@ -50,8 +51,28 @@ public class OrbitCamera : MonoBehaviour {
 	[SerializeField]
 	LayerMask obstructionMask = -1;
 
+
 	[Header("Temporaire")]
 	public bool inverseCameraX, inverseCameraY;
+	float RotationSpeed {
+		get {
+			if (UIManager.Instance) return UIManager.Instance.Sensitivity * 30f;
+			return rotationSpeed;
+		}
+	}
+
+	bool InverseCamX {
+        get {
+			if (UIManager.Instance) return UIManager.Instance.XCam;
+			return inverseCameraX;
+        }
+    }
+	bool InverseCamY {
+		get {
+			if (UIManager.Instance) return UIManager.Instance.YCam;
+			return inverseCameraY;
+		}
+	}
 
 	CinemachineVirtualCamera regularCamera;
 
@@ -80,7 +101,7 @@ public class OrbitCamera : MonoBehaviour {
 	}
 
 	void OnValidate() {
-			if (maxVerticalAngle < minVerticalAngle) {
+		if (maxVerticalAngle < minVerticalAngle) {
 			maxVerticalAngle = minVerticalAngle;
 		}
 	}
@@ -160,11 +181,11 @@ public class OrbitCamera : MonoBehaviour {
 	bool ManualRotation() {
 		Vector2 input = InputHandler.GetRightStickValues();
 		float tmp = input.x;
-		input.x = inverseCameraY ? input.y : -input.y;
-		input.y = inverseCameraX ? -tmp : tmp;
+		input.x = InverseCamY ? input.y : -input.y;
+		input.y = InverseCamX ? -tmp : tmp;
 		const float e = 0.001f;
 		if (input.x < -e || input.x > e || input.y < -e || input.y > e) {
-			orbitAngles += rotationSpeed * Time.unscaledDeltaTime * input;
+			orbitAngles += RotationSpeed * Time.unscaledDeltaTime * input;
 			lastManualRotationTime = Time.unscaledTime;
 			return true;
 		}

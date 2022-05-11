@@ -22,6 +22,9 @@ public class SquareButton : MonoBehaviour
     [SerializeField]
     [Min(0.001f)] float resolutionGizmos = 0.01f;
 
+    [SerializeField]
+    DynamicATH ath;
+
     bool currentCoroutineIsRunning;
 
     private void Update() {
@@ -31,6 +34,9 @@ public class SquareButton : MonoBehaviour
         Vector3 p = transform.position - square.transform.position;
         if (p.magnitude < rangeForJumping && square == LevelManager.Instance.CurrentController) {
             CheckForJump();
+            ath.DisplayATH(!square.IsOnButton);
+        } else {
+            ath.DisplayATH(false);
         }
     }
 
