@@ -15,8 +15,6 @@ public class UIManager : MonoBehaviour {
 
     [Header("InLevel")]
     [SerializeField] GameObject inLevelHUD;
-    [SerializeField] GameObject helpBox;
-    [SerializeField] TMP_Text helpMessage;
     [SerializeField] TMP_Text crystalText;
 
     [Header("Pause")]
@@ -110,14 +108,6 @@ public class UIManager : MonoBehaviour {
     public void DisplayGems() {
         GameManager.Instance.GetCollectedGemsOfLevel(LevelManager.Instance.LevelInt, out int collected, out int max);
         crystalText.SetText(collected + " / " + max);
-    }
-
-    public void DisplayHelpMessage(string message) {
-        helpBox.SetActive(true);
-        helpMessage.SetText(message);
-    }
-    public void HideHelpMessage() {
-        helpBox.SetActive(false);
     }
     #endregion
 

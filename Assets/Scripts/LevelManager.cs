@@ -119,7 +119,7 @@ public class LevelManager : MonoBehaviour {
 
     public void Respawn(Controller controller) {
         int index = controller.GetClosestAllowedCheckpoint(checkpointProgression);
-        controller.Respawn(checkpoints[index].transform.position);
+        controller.Respawn(checkpoints[index].transform.position, checkpoints[index].CamRotation);
     }
 
     /// <summary>
