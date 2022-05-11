@@ -96,9 +96,11 @@ public class TrianglePlayerController : Controller {
     [Header("Checkpoints")]
     [SerializeField]
     int[] allowedCheckpointsList;
-    [Header("Help Box")]
+
+
+    [Header("Ath")]
     [SerializeField]
-    string helpBoxMessage;
+    DynamicATH ath;
 
 
     [Header("Controller Color")]
@@ -453,10 +455,10 @@ public class TrianglePlayerController : Controller {
         InputHandler.SetControllerLED(colorOn);
     }
 
-    public override void Respawn(Vector3 pos) {
+    public override void Respawn(Vector3 pos, Quaternion rotation) {
         this.transform.position = pos;
         body.velocity = velocity = Vector3.zero;
-        SetCamRotation(baseCamDirection);
+        SetCamRotation(rotation);
     }
     public override void SetInputSpace(Transform transform) {
         playerInputSpace = transform;
@@ -476,9 +478,6 @@ public class TrianglePlayerController : Controller {
         }
         return closestCheckpoint;
     }
-    public override string GetHelpBoxMessage() {
-        return helpBoxMessage;
-    }
     public override Quaternion GetCamRotation() {
         return playerInputSpace.rotation;
     }
@@ -489,6 +488,9 @@ public class TrianglePlayerController : Controller {
     }
     public override Transform GetCam() {
         return playerInputSpace;
+    }
+    public override void DisplayATH(bool b) {
+        ath.DisplayATH(b);
     }
     #endregion
 }

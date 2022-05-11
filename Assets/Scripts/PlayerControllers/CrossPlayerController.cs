@@ -102,9 +102,9 @@ public class CrossPlayerController : Controller {
     [SerializeField]
     int[] allowedCheckpointsList;
 
-    [Header("Help Box")]
+    [Header("Ath")]
     [SerializeField]
-    string helpBoxMessage;
+    DynamicATH ath;
 
     [Header("Controller Color")]
     [SerializeField] [ColorUsage(true,true)]
@@ -544,10 +544,10 @@ public class CrossPlayerController : Controller {
     public override void SetControllerLED() {
         InputHandler.SetControllerLED(colorOn);
     }
-    public override void Respawn(Vector3 pos) {
+    public override void Respawn(Vector3 pos, Quaternion rotation) {
         this.transform.position = pos;
         body.velocity = velocity = Vector3.zero;
-        SetCamRotation(baseCamDirection);
+        SetCamRotation(rotation);
     }
     public override void SetInputSpace(Transform transform) {
         playerInputSpace = transform;
@@ -567,9 +567,7 @@ public class CrossPlayerController : Controller {
         }
         return closestCheckpoint;
     }
-    public override string GetHelpBoxMessage() {
-        return helpBoxMessage;
-    }
+
     public override Quaternion GetCamRotation() {
         return playerInputSpace.rotation;
     }
@@ -580,6 +578,9 @@ public class CrossPlayerController : Controller {
     }
     public override Transform GetCam() {
         return playerInputSpace;
+    }
+    public override void DisplayATH(bool b) {
+        ath.DisplayATH(b);
     }
     #endregion
 }
