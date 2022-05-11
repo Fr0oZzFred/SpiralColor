@@ -158,7 +158,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 3, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2091319772923688378
 Canvas:
@@ -874,7 +874,6 @@ MonoBehaviour:
   ballAirRotation: 0.5
   IsOnButton: 0
   allowedCheckpointsList: 
-  helpBoxMessage: Press On CROIX
   ath: {fileID: 2912947523680942753}
   colorOn: {r: 0, g: 5.709804, b: 11.984314, a: 1}
   colorOff: {r: 0, g: 0.35686275, b: 0.7490196, a: 1}

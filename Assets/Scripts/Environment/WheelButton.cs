@@ -24,9 +24,12 @@ public class WheelButton : MonoBehaviour
     [SerializeField]
     [Min(0.001f)] float resolutionGizmos = 0.01f;
 
+    [SerializeField]
+    DynamicATH ath;
+
     bool currentCoroutineIsRunning;
 
-    int i = -1;
+    int step = -1; // 0 = OnButton
 
     Vector3 startpos;
     Quaternion startRot;
@@ -36,12 +39,19 @@ public class WheelButton : MonoBehaviour
             cross = (CrossPlayerController)LevelManager.Instance.CurrentController;
         else return;
 
-        if (LevelManager.Instance.CurrentController.GetComponent<CrossPlayerController>()) {
-            if (i == 0) LevelManager.Instance.CurrentController.RegisterInputs(false);
+        if (step == 0) {
+            LevelManager.Instance.CurrentController.RegisterInputs(false); 
+            ath.DisplayATH(false);
+            CheckForJump();
+        }
+        else {
             Vector3 p = transform.position - cross.transform.position;
             if (p.magnitude < rangeForJumping && cross == LevelManager.Instance.CurrentController) {
+                ath.DisplayATH(!cross.IsOnButton);
                 CheckForJump();
-            }
+            } 
+            else 
+                ath.DisplayATH(false);
         }
     }
 
@@ -51,13 +61,13 @@ public class WheelButton : MonoBehaviour
             cross.IsOnButton = true;
             LevelManager.Instance.CurrentController.RegisterInputs(false);
             if (!currentCoroutineIsRunning) {
-                i = (i + 1) % 2;
-                if (i == 0) {
+                step = (step + 1) % 2;
+                if (step == 0) {
                     startpos = cross.transform.position;
                     startRot = cross.transform.GetChild(1).rotation;
                     StartCoroutine(JumpTrajectory(startpos, transform.position));
                 }
-                else if (i == 1) {
+                else if (step == 1) {
                     StartCoroutine(JumpTrajectory(transform.position, startpos));
                 }
             }
@@ -65,7 +75,7 @@ public class WheelButton : MonoBehaviour
     }
 
     public void RotateCross(float delta) {
-        if (!currentCoroutineIsRunning && i == 0) {
+        if (!currentCoroutineIsRunning && step == 0) {
             cross.TurnOnButton(delta * rotationSpeedOnButton);
         }
     }
@@ -78,9 +88,9 @@ public class WheelButton : MonoBehaviour
 
             Quaternion r;
             r = Quaternion.Euler(rotationOnButton);
-            if(i == 0)
+            if(step == 0)
                 cross.transform.GetChild(1).rotation = Quaternion.Lerp(cross.transform.GetChild(1).rotation, r, interpolation * rotationSpeed);
-            else if(i ==1)
+            else if(step ==1)
                 cross.transform.GetChild(1).rotation = Quaternion.Lerp(cross.transform.GetChild(1).rotation, startRot, interpolation * rotationSpeed);
 
             Vector3 res = start + (end - start) * interpolation;
@@ -95,7 +105,7 @@ public class WheelButton : MonoBehaviour
             interpolation += jumpSpeed * Time.deltaTime;
             yield return null;
         }
-        if (i == 1) {
+        if (step == 1) {
             LevelManager.Instance.CurrentController.RegisterInputs(true);
             cross.IsOnButton = false;
         }
