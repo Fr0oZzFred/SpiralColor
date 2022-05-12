@@ -5,8 +5,19 @@ using UnityEngine.UI;
 using UnityEngine.Localization.Settings;
 using System.Collections.Generic;
 using System.Collections;
-
-public class UIManager : MonoBehaviour {
+[System.Serializable]
+public class UIManagerData {
+    public bool XCam, YCam;
+    public float Sensitivity;
+    public int IndexLanguage;
+    public UIManagerData(UIManager data) {
+        XCam = data.XCam;
+        YCam = data.YCam;
+        Sensitivity = data.Sensitivity;
+        IndexLanguage = data.IndexLanguage;
+    }
+}
+    public class UIManager : MonoBehaviour {
     #region Fields
     [Header("MainMenu")]
     [SerializeField]
@@ -48,8 +59,9 @@ public class UIManager : MonoBehaviour {
     [SerializeField] TMP_Text sensibilityText;
     public bool XCam { get { return x.isOn; } }
     public bool YCam { get { return y.isOn; } }
-    public float Sensitivity { get{ return sensibility.value; } }
-    
+    public float Sensitivity { get { return sensibility.value; } }
+    public int IndexLanguage { get { return languageDropdown.value; } }
+
 
     [Header("ControllerDisconnected")]
     [SerializeField] GameObject controllerDisconnectedHUD;
@@ -70,6 +82,11 @@ public class UIManager : MonoBehaviour {
         GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
     }
     IEnumerator Start() {
+        int tmpIndexLanguage = -1;
+        if (System.IO.File.Exists(Application.persistentDataPath + "/UIManager.data")) {
+            LoadData();
+            tmpIndexLanguage = IndexLanguage;
+        }
         yield return LocalizationSettings.InitializationOperation;
         List<TMP_Dropdown.OptionData> languages = new List<TMP_Dropdown.OptionData>();
         int index = 0;
@@ -79,11 +96,12 @@ public class UIManager : MonoBehaviour {
             languages.Add(new TMP_Dropdown.OptionData(local.name));
         }
         languageDropdown.options = languages;
-        languageDropdown.value = index;
+        languageDropdown.value = tmpIndexLanguage > -1 ? tmpIndexLanguage : index;
         languageDropdown.onValueChanged.AddListener(LocaleSelected);
+        languageDropdown.onValueChanged.Invoke(languageDropdown.value);
     }
     void OnGameStateChanged(GameState newState) {
-
+        if (GameManager.Instance.OldState == GameState.Options) SaveData();
         mainMenuHUD.SetActive(newState == GameState.MainMenu);
         inHubHUD.SetActive(newState == GameState.InHUB);
         inLevelHUD.SetActive(newState == GameState.InLevel);
@@ -127,6 +145,19 @@ public class UIManager : MonoBehaviour {
     public void SetEventSystemCurrentSelectedGO(GameObject g) {
         eventSystem.SetSelectedGameObject(g);
     }
+    #region Data
+    public void SaveData() {
+        SaveSystem.SaveUIManager(this);
+    }
+    public void LoadData() {
+        UIManagerData data = SaveSystem.LoadUIManager();
+        x.isOn = data.XCam;
+        y.isOn = data.YCam;
+        sensibility.value = data.Sensitivity;
+        languageDropdown.value = data.IndexLanguage;
+    }
+    #endregion
+
     #region options
     static void LocaleSelected(int index) {
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];

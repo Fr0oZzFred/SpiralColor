@@ -30,7 +30,11 @@ public class Managers : MonoBehaviour, ISerializationCallbackReceiver  {
     public void OnAfterDeserialize() { } 
 
     private void Start() {
+#if DEVELOPMENT_BUILD
+        Cursor.visible = true;
+#else
         Cursor.visible = false;
+#endif
         DontDestroyOnLoad(this);
         if (File.Exists(Application.persistentDataPath + "/GameManager.data")) {
             GameManager.Instance.LoadGameManager();
