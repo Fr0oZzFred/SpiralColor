@@ -20,6 +20,24 @@ public static class SaveSystem {
             return data;
         } else Debug.Log("File don't exist");
         return null;
+    }    public static void SaveUIManager(UIManager gameManager) {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/UIManager.data";
+        FileStream stream = new FileStream(path, FileMode.Create);
+        UIManagerData data = new UIManagerData(gameManager);
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+    public static UIManagerData LoadUIManager() {
+        string path = Application.persistentDataPath + "/UIManager.data";
+        if (File.Exists(path)) {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+            UIManagerData data = formatter.Deserialize(stream) as UIManagerData;
+            stream.Close();
+            return data;
+        } else Debug.Log("File don't exist");
+        return null;
     }
     public static void SaveSoundsSettings(SoundsManager sounds) {
         BinaryFormatter formatter = new BinaryFormatter();
