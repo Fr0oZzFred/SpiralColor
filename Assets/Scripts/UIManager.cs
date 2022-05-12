@@ -82,8 +82,10 @@ public class UIManagerData {
         GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
     }
     IEnumerator Start() {
+        int tmpIndexLanguage = -1;
         if (System.IO.File.Exists(Application.persistentDataPath + "/UIManager.data")) {
             LoadData();
+            tmpIndexLanguage = IndexLanguage;
         }
         yield return LocalizationSettings.InitializationOperation;
         List<TMP_Dropdown.OptionData> languages = new List<TMP_Dropdown.OptionData>();
@@ -94,9 +96,9 @@ public class UIManagerData {
             languages.Add(new TMP_Dropdown.OptionData(local.name));
         }
         languageDropdown.options = languages;
-        languageDropdown.value = index;
+        languageDropdown.value = tmpIndexLanguage > -1 ? tmpIndexLanguage : index;
         languageDropdown.onValueChanged.AddListener(LocaleSelected);
-        languageDropdown.onValueChanged.Invoke(IndexLanguage);
+        languageDropdown.onValueChanged.Invoke(languageDropdown.value);
     }
     void OnGameStateChanged(GameState newState) {
         if (GameManager.Instance.OldState == GameState.Options) SaveData();
@@ -153,7 +155,6 @@ public class UIManagerData {
         y.isOn = data.YCam;
         sensibility.value = data.Sensitivity;
         languageDropdown.value = data.IndexLanguage;
-        Debug.Log(languageDropdown.value);
     }
     #endregion
 
