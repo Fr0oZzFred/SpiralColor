@@ -37,7 +37,7 @@ public class Managers : MonoBehaviour, ISerializationCallbackReceiver  {
             Debug.LogWarning("Load have to be done here");
         } else {
             GameManager.Instance.SaveGameManager();
-            Debug.LogWarning("Save have to be done here");
+            Debug.LogWarning("First Save have to be done here");
         }
         SceneManagement.Instance.LoadLevel(TargetScene);
         GameManager.Instance.SetState(baseGameState);

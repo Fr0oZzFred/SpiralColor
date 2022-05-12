@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour {
     [Header("Pause")]
     [SerializeField] GameObject pauseHUD;
     [SerializeField] GameObject restartButton;
+    [SerializeField] GameObject backToHUB_Button;
 
     [Header("Score")]
     [SerializeField] GameObject scoreHUD;
@@ -102,6 +103,7 @@ public class UIManager : MonoBehaviour {
                 break;
             case GameState.Pause:
                 restartButton.SetActive(GameManager.Instance.OldState == GameState.InLevel);
+                backToHUB_Button.SetActive(GameManager.Instance.OldState == GameState.InLevel);
                 eventSystem.SetSelectedGameObject(pauseFirstSelectedGO);
                 break;
             case GameState.Score:
