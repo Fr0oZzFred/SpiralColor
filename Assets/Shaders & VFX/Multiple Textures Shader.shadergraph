@@ -7,10 +7,10 @@
             "m_Id": "36116c41de7d4195b69b027f6c02d87c"
         },
         {
-            "m_Id": "830578efbf0a428a930dfc3799f21497"
+            "m_Id": "bacf65bdd82a4f5c9b266b1df81dd40c"
         },
         {
-            "m_Id": "bacf65bdd82a4f5c9b266b1df81dd40c"
+            "m_Id": "830578efbf0a428a930dfc3799f21497"
         },
         {
             "m_Id": "5bcaf0c12f9844d0bd066f1e2c0e25f6"
@@ -574,7 +574,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "106fc0f979724b23a77c44ddd5b31eab",
     "m_Id": 0,
-    "m_DisplayName": "Color 2",
+    "m_DisplayName": "Cross Main Color",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -820,7 +820,7 @@
     "m_Guid": {
         "m_GuidSerialized": "9c317b4a-5585-49ab-ab63-623d0bec7df2"
     },
-    "m_Name": "Color 2",
+    "m_Name": "Cross Main Color",
     "m_DefaultReferenceName": "Color_2079563226fb43618b5f16256c89b549",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -1144,7 +1144,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "3ff1c6828ca04dd3b75d874be2d40870",
     "m_Id": 0,
-    "m_DisplayName": "Color",
+    "m_DisplayName": "Cross Edge Color",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -1370,7 +1370,7 @@
     "m_Guid": {
         "m_GuidSerialized": "e91f136b-3db2-4eb7-9579-8148f664bae6"
     },
-    "m_Name": "Color",
+    "m_Name": "Cross Edge Color",
     "m_DefaultReferenceName": "Color_5bcaf0c12f9844d0bd066f1e2c0e25f6",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -2279,7 +2279,7 @@
     },
     "m_Name": "Sphere Color",
     "m_DefaultReferenceName": "Color_bacf65bdd82a4f5c9b266b1df81dd40c",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_SphereColor",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,

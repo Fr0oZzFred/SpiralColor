@@ -120,8 +120,6 @@ public class CrossPlayerController : Controller {
     }
 
 
-    Material colorMat;
-
     Quaternion baseCamDirection;
 
     bool isCurrentlyPlayed = false;
@@ -160,6 +158,8 @@ public class CrossPlayerController : Controller {
 
     MeshRenderer meshRenderer;
 
+    Material material;
+
     #endregion
 
     void PreventSnapToGroundP() {
@@ -177,7 +177,7 @@ public class CrossPlayerController : Controller {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = cross.GetComponent<MeshRenderer>();
-        colorMat = meshRenderer.materials[1];
+        material = meshRenderer.material;
         OnValidate();
     }
 
@@ -224,7 +224,7 @@ public class CrossPlayerController : Controller {
                 rotationFactor = ballAirRotation;
             }
         }
-        meshRenderer.material = ballMaterial;
+        //meshRenderer.material = ballMaterial;
 
         Vector3 movement =
             (body.velocity - lastConnectionVelocity) * Time.deltaTime;
@@ -533,7 +533,7 @@ public class CrossPlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        colorMat.color = b ? colorOn : colorOff;
+        material.color = b ? colorOn : colorOff;
         if (!IsOnButton) {
             playerInputSpace.gameObject.SetActive(b);
         }
