@@ -114,15 +114,16 @@ public class HUBManager : MonoBehaviour {
     #region Level Screen Area
 
     public void OnLevelScreenAreaEnter() {
+        levelScreenAth.DisplayATH(true);
         Action += InLevelSelectionRange;
     }
 
     public void OnLevelScreenAreaExit() {
+        levelScreenAth.DisplayATH(false);
         Action -= InLevelSelectionRange;
     }
 
     void InLevelSelectionRange() {
-        levelScreenAth.DisplayATH(true);
         if (InputHandler.Controller.buttonWest.wasPressedThisFrame) {
             levelScreenAth.DisplayATH(false);
             Action -= InLevelSelectionRange;

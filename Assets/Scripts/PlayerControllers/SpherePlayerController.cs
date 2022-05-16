@@ -59,11 +59,6 @@ public class SpherePlayerController : Controller {
     LayerMask stairsMask = -1;
 
 
-    [Header("Materials")]
-    [SerializeField]
-    Material normalMaterial = default;
-
-
     [Header("Ball Settings")]
     [Tooltip("Simplification : Vitesse de la roue donc elle avance et recule")]
     [SerializeField, Min(0.1f)]
@@ -146,7 +141,7 @@ public class SpherePlayerController : Controller {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = ball.GetComponent<MeshRenderer>();
-        colorMat = meshRenderer.materials[1];
+        colorMat = meshRenderer.material;
         OnValidate();
     }
     /// <summary>
@@ -181,7 +176,6 @@ public class SpherePlayerController : Controller {
     /// For the Ball rotation and material
     /// </summary>
     void UpdateBall() {
-        Material ballMaterial = normalMaterial;
         Vector3 rotationPlaneNormal = lastContactNormal;
         float rotationFactor = 1f;
         if (!OnGround) {
@@ -191,7 +185,6 @@ public class SpherePlayerController : Controller {
                 rotationFactor = ballAirRotation;
             }
         }
-        meshRenderer.material = ballMaterial;
 
         Vector3 movement =
             (body.velocity - lastConnectionVelocity) * Time.deltaTime;

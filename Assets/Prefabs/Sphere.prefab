@@ -631,7 +631,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.49707022
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9176815602909996663
 GameObject:
@@ -753,7 +753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
       propertyPath: m_LocalRotation.x
@@ -761,11 +761,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -777,16 +777,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 53930c8dbf34e554ebc2a19d93be26ae, type: 2}
+      objectReference: {fileID: 2100000, guid: 964f83e3d8ad8a741bdb0caea663a6f0, type: 2}
     - target: {fileID: -7511558181221131132, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 2d4294ed3312d1743a44d77a2b7546d6, type: 2}
+      objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4711208715938537054, guid: 64c0b56dbd150b1489cb8266a21e6cc9, type: 3}
     - target: {fileID: 919132149155446097, guid: db7f0caeed56eca46bafb37f5254197e, type: 3}
       propertyPath: m_Name
       value: Sphere
