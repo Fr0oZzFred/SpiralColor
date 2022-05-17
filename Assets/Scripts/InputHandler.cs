@@ -20,12 +20,12 @@ public class InputHandler : MonoBehaviour {
 
     public  static Gamepad Controller = null;
     private static DualShock4GamepadHID DS4Controller = null;
-    public string ErrorMessage {
+    public bool ErrorMessage {
         get {
             return errorMessage;
         }
     }
-    private string errorMessage = "";
+    private bool errorMessage = false;
     public static InputHandler Instance { get; private set; }
 
     /// <summary>
@@ -77,9 +77,9 @@ public class InputHandler : MonoBehaviour {
                 SetController();
             } catch {
                 if (connectedOnce) {
-                    errorMessage = "Reconnect the Gamepad please !";
+                    errorMessage = true;
                 } else {
-                    errorMessage = "Plug a Gamepad please !";
+                    errorMessage = false;
                 }
                 if (GameManager.Instance)
                     GameManager.Instance.SetState(GameState.ControllerDisconnected);

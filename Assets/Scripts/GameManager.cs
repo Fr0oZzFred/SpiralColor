@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
         if (InputHandler.Controller.startButton.wasPressedThisFrame) {
             HandlePause();
         }
+        if (InputHandler.Controller.buttonEast.wasPressedThisFrame) HandleBack();
     }
     private void Init() {
         Progression = 1;
@@ -142,9 +143,14 @@ public class GameManager : MonoBehaviour {
                     return;
                 }
             }
-            SetState(OldState);
+            SetOldState();
         } else {
             SetState(GameState.Pause);
+        }
+    }
+    public void HandleBack() {
+        if (CurrentState == GameState.Options) {
+            SetOldState();
         }
     }
     public void ApplyUsername(string name) {
