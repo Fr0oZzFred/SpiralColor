@@ -65,7 +65,8 @@ public class UIManagerData {
 
     [Header("ControllerDisconnected")]
     [SerializeField] GameObject controllerDisconnectedHUD;
-    [SerializeField] TMP_Text errorText;
+    [SerializeField] GameObject errorText1;
+    [SerializeField] GameObject errorText2;
 
     [Header("Event System")]
     [SerializeField] EventSystem eventSystem;
@@ -133,7 +134,8 @@ public class UIManagerData {
                 eventSystem.SetSelectedGameObject(optionFirstSelectedGO);
                 break;
             case GameState.ControllerDisconnected:
-                errorText.SetText(InputHandler.Instance.ErrorMessage);
+                errorText1.SetActive(InputHandler.Instance.ErrorMessage);
+                errorText2.SetActive(!InputHandler.Instance.ErrorMessage);
                 break;
             case GameState.Keyboard:
                 eventSystem.SetSelectedGameObject(keyboardFirstSelectionGO);
