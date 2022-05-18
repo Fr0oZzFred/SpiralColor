@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 public enum CamRotation {
     forward,
     backward,
@@ -15,12 +16,19 @@ public class Checkpoint : MonoBehaviour, IComparable {
 
     [SerializeField] CamRotation camRotationEnum;
 
+    [SerializeField] VisualEffect visualEffect;
+    [SerializeField] float AccelerateValue;
+    [SerializeField] float time;
+
     [SerializeField]
     int progression;
     public int Progression {
         get {
             return progression;
         }
+    }
+    void Update() {
+        if(visualEffect.GetFloat("Global Speed") > 1) visualEffect.SetFloat("Global Speed", Mathf.Lerp(visualEffect.GetFloat("Global Speed"), 1, time));
     }
 
     public Quaternion CamRotation {
@@ -44,6 +52,7 @@ public class Checkpoint : MonoBehaviour, IComparable {
 
     private void OnTriggerEnter(Collider other) {
         LevelManager.Instance.UpdateCPProgression(progression);
+        visualEffect.SetFloat("Global Speed", AccelerateValue);
     }
 
     public void SetProgression(int prog) {
