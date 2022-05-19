@@ -157,6 +157,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camRotations: []
   camRotationEnum: 0
+  visualEffect: {fileID: 0}
+  AccelerateValue: 0
+  time: 0
   progression: 2
 --- !u!4 &135611735
 Transform:
@@ -661,6 +664,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bec15432517d44240a398c184067867e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!84 &583765817
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 1713
+  m_Height: 890
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 48
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &737536391
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,7 +803,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 1188639407}
+  m_TargetTexture: {fileID: 583765817}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -1029,42 +1068,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4c247eff71c76146aef239ee1c3940e, type: 3}
---- !u!84 &1188639407
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 3
-  m_Width: 1731
-  m_Height: 912
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 48
-  m_MipMap: 1
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1298833868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,6 +1102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camRotations: []
   camRotationEnum: 0
+  visualEffect: {fileID: 0}
+  AccelerateValue: 0
+  time: 0
   progression: 1
 --- !u!4 &1298833870
 Transform:
@@ -1456,6 +1462,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camRotations: []
   camRotationEnum: 0
+  visualEffect: {fileID: 0}
+  AccelerateValue: 0
+  time: 0
   progression: 0
 --- !u!23 &1723997246
 MeshRenderer:
