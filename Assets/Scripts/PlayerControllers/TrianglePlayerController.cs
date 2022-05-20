@@ -65,11 +65,6 @@ public class TrianglePlayerController : Controller {
     LayerMask stairsMask = -1;
 
 
-    [Header("Materials")]
-    [SerializeField]
-    Material normalMaterial = default;
-
-
     [Header("Spin Settings")]
     [Tooltip("Vitesse de base")]
     [SerializeField, Min(0.1f)]
@@ -165,7 +160,7 @@ public class TrianglePlayerController : Controller {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = spin.GetComponent<MeshRenderer>();
-        colorMat = meshRenderer.materials[1];
+        colorMat = meshRenderer.material;
         OnValidate();
     }
 
@@ -223,8 +218,6 @@ public class TrianglePlayerController : Controller {
     /// For the Spin rotation and material
     /// </summary>
     void UpdateSpin() {
-        Material ballMaterial = normalMaterial;
-        meshRenderer.material = ballMaterial;
         spinPivot.LookAt(forwardAxis);
         spinPivot.localRotation = Quaternion.Euler(velocity.z, 0f, -velocity.x);
         currentSpeed = Vector3.Lerp(currentSpeed, playerInput, speed);
