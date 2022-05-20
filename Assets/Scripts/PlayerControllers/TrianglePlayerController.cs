@@ -221,7 +221,9 @@ public class TrianglePlayerController : Controller {
         spinPivot.LookAt(forwardAxis);
         spinPivot.localRotation = Quaternion.Euler(velocity.z, 0f, -velocity.x);
         currentSpeed = Vector3.Lerp(currentSpeed, playerInput, speed);
-        spin.Rotate(0f, ((Mathf.Abs(currentSpeed.x) + Mathf.Abs(currentSpeed.z)) * movementSpeed) + baseSpeed * Time.deltaTime, 0f);
+        float newSpeed = ((Mathf.Abs(currentSpeed.x) + Mathf.Abs(currentSpeed.z)) * movementSpeed) + baseSpeed * Time.deltaTime;
+        newSpeed = isCurrentlyPlayed || tornadoVFX.isActiveAndEnabled ? newSpeed : 0f; // Ajouter un Lerp ou quelque chose pour faire une transi smooth
+        spin.Rotate(0f, newSpeed, 0f);
     }
 
 

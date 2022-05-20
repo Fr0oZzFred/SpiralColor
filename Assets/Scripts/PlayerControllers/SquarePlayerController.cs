@@ -59,11 +59,6 @@ public class SquarePlayerController : Controller {
     LayerMask stairsMask = -1;
 
 
-    [Header("Materials")]
-    [SerializeField]
-    Material normalMaterial = default;
-
-
     [Header("Square Settings")]
     [Tooltip("Vitesse d'alignement de base")]
     [SerializeField]
@@ -139,7 +134,7 @@ public class SquarePlayerController : Controller {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = square.GetComponent<MeshRenderer>();
-        colorMat = meshRenderer.materials[1];
+        colorMat = meshRenderer.material;
         OnValidate();
     }
     /// <summary>
@@ -174,14 +169,12 @@ public class SquarePlayerController : Controller {
     /// For the Square rotation and material
     /// </summary>
     void UpdateSquare() {
-        Material ballMaterial = normalMaterial;
         Vector3 rotationPlaneNormal = lastContactNormal;
         if (!OnGround) {
             if (OnSteep) {
                 rotationPlaneNormal = lastSteepNormal;
             }
         }
-        meshRenderer.material = ballMaterial;
 
         Vector3 movement =
             (body.velocity - lastConnectionVelocity) * Time.deltaTime;
