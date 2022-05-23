@@ -106,6 +106,9 @@ public class TrianglePlayerController : Controller {
     [ColorUsage(true, true)]
     Color colorOff = default;
 
+    [Header("Decal")]
+    [SerializeField]
+    MeshRenderer decal;
 
 
     Material colorMat;
@@ -161,6 +164,7 @@ public class TrianglePlayerController : Controller {
         body.useGravity = false;
         meshRenderer = spin.GetComponent<MeshRenderer>();
         colorMat = meshRenderer.material;
+        decal.material.color = colorOn;
         OnValidate();
     }
 

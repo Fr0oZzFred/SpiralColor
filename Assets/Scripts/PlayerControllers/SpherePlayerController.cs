@@ -89,6 +89,11 @@ public class SpherePlayerController : Controller {
     [SerializeField]
     DynamicATH ath;
 
+
+    [Header("Decal")]
+    [SerializeField]
+    MeshRenderer decal;
+
     Material colorMat;
 
     Quaternion baseCamDirection;
@@ -142,6 +147,7 @@ public class SpherePlayerController : Controller {
         body.useGravity = false;
         meshRenderer = ball.GetComponent<MeshRenderer>();
         colorMat = meshRenderer.material;
+        decal.material.color = colorOn;
         OnValidate();
     }
     /// <summary>

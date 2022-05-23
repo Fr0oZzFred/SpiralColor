@@ -83,6 +83,11 @@ public class SquarePlayerController : Controller {
     [SerializeField]
     DynamicATH ath;
 
+
+    [Header("Decal")]
+    [SerializeField]
+    MeshRenderer decal;
+
     Material colorMat;
 
     Quaternion baseCamDirection;
@@ -135,6 +140,7 @@ public class SquarePlayerController : Controller {
         body.useGravity = false;
         meshRenderer = square.GetComponent<MeshRenderer>();
         colorMat = meshRenderer.material;
+        decal.material.color = colorOn;
         OnValidate();
     }
     /// <summary>

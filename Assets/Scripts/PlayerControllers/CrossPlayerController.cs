@@ -112,6 +112,10 @@ public class CrossPlayerController : Controller {
     [SerializeField] [ColorUsage(true, true)]
     Color colorOff = default;
 
+    [Header("Decal")]
+    [SerializeField]
+    MeshRenderer decal;
+
     public Vector3 GetNormal {
         get {
             if (previousClimbNormal == Vector3.zero) return previousContactNormal;
@@ -178,6 +182,7 @@ public class CrossPlayerController : Controller {
         body.useGravity = false;
         meshRenderer = cross.GetComponent<MeshRenderer>();
         material = meshRenderer.material;
+        decal.material.color = colorOn;
         OnValidate();
     }
 
