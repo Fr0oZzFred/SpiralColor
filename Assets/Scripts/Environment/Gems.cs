@@ -8,7 +8,7 @@ public class Gems : MonoBehaviour {
 
     public int gemIndex;
     private void Start() {
-        startPos = transform.position;
+        startPos = transform.localPosition;
         if (GameManager.Instance.gemsList[LevelManager.Instance.LevelInt].Count < FindObjectsOfType(typeof(Gems)).Length)
             GameManager.Instance.AddGem();
         else if (GameManager.Instance.CheckGem(gemIndex)) gameObject.SetActive(false);
@@ -24,7 +24,7 @@ public class Gems : MonoBehaviour {
     }
     private void Update() {
         transform.Rotate(rotSpeed * Time.deltaTime);
-        transform.position = new Vector3(
+        transform.localPosition = new Vector3(
             startPos.x,
             startPos.y + Mathf.Sin(Time.time * speed) * amplitude,
             startPos.z
