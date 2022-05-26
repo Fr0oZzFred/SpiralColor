@@ -155,6 +155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a314c1f3874d64ea95efd8c4b3298f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camRotations: []
+  camRotationEnum: 0
+  visualEffect: {fileID: 0}
+  AccelerateValue: 0
+  time: 0
   progression: 2
 --- !u!4 &135611735
 Transform:
@@ -264,12 +269,11 @@ MonoBehaviour:
   scene:
     destination: 14
     TargetScene: Level 14
-    AdditiveScene: PLACEHOLDER
+    AdditiveScene: Rendering
     sceneList:
     - Boot
     - Main Menu
     - HUB
-    - Level 0
     - Level 1
     - Level 2
     - Level 3
@@ -298,7 +302,7 @@ MonoBehaviour:
     - "Proto CroixCarr\xE9"
   playerHandler: {fileID: 1780685539}
   music: Level 1
-  checkpointPrefab: {fileID: 0}
+  checkpointPrefab: {fileID: 384750708434033707, guid: 9b2fe026a9a9c744b82970383e1bb0bd, type: 3}
   checkpoints:
   - {fileID: 1723997245}
   - {fileID: 1298833869}
@@ -323,7 +327,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-37092
+  m_Name: pb_Mesh-43868
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -763,7 +767,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 885491414}
+  m_TargetTexture: {fileID: 861627279}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -793,7 +797,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-37068
+  m_Name: pb_Mesh-43852
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -951,7 +955,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!84 &885491414
+--- !u!84 &861627279
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -965,8 +969,8 @@ RenderTexture:
   m_DownscaleFallback: 0
   m_IsAlphaChannelOptional: 0
   serializedVersion: 3
-  m_Width: 1638
-  m_Height: 837
+  m_Width: 1668
+  m_Height: 880
   m_AntiAliasing: 1
   m_MipCount: -1
   m_DepthFormat: 1
@@ -1096,6 +1100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a314c1f3874d64ea95efd8c4b3298f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camRotations: []
+  camRotationEnum: 0
+  visualEffect: {fileID: 0}
+  AccelerateValue: 0
+  time: 0
   progression: 1
 --- !u!4 &1298833870
 Transform:
@@ -1451,6 +1460,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a314c1f3874d64ea95efd8c4b3298f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camRotations: []
+  camRotationEnum: 0
+  visualEffect: {fileID: 0}
+  AccelerateValue: 0
+  time: 0
   progression: 0
 --- !u!23 &1723997246
 MeshRenderer:
@@ -1713,7 +1727,6 @@ MonoBehaviour:
   - {fileID: 431493310}
   rangeDetection: 2
   offset: {x: 0, y: 2, z: 0}
-  timer: 5
 --- !u!1 &1913377168
 GameObject:
   m_ObjectHideFlags: 0
