@@ -58,11 +58,6 @@ public class PlayerController : Controller {
     LayerMask stairsMask = -1;
 
 
-    [Header("Materials")]
-    [SerializeField]
-    Material normalMaterial = default;
-
-
     [Header("Player Settings")]
     [Tooltip("Vitesse d'alignement de base")]
     [SerializeField]
@@ -172,14 +167,12 @@ public class PlayerController : Controller {
     /// For the Square rotation and material
     /// </summary>
     void UpdatePlayer() {
-        Material playerMaterial = normalMaterial;
         Vector3 rotationPlaneNormal = lastContactNormal;
         if (!OnGround) {
             if (OnSteep) {
                 rotationPlaneNormal = lastSteepNormal;
             }
         }
-        meshRenderer.material = playerMaterial;
 
         Vector3 movement =
             (body.velocity - lastConnectionVelocity) * Time.deltaTime;
