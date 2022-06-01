@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tornado Material
+  m_Name: Shader Graphs_Tornado Shader
   m_Shader: {fileID: -6465566751694194690, guid: aec65bb1d3d7a9a4a9602fd016b47f70, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -32,29 +32,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_00e1caae036c402aba466b2338ad1329: 0.25
-    - Vector1_17cef7596ac74b68b7b117288ffd3b98: 0.2
-    - Vector1_2cc39150452f4ec3888002ad9fc525b8: 20
-    - Vector1_479322c0c27944e1b97dbdadd4f59881: 0.75
-    - Vector1_747c77372c914ee6b8ba4601c8025b9b: 1
-    - Vector1_be47c36fed784f8f9dda85e16ce3031c: 1
-    - Vector1_c0fe2c5e015444f0a3d0c7173410e016_1: 8
-    - Vector1_f071493d1a5b4261b968ea839daf5a9f: 2
-    - _Dissolve: 0.5
-    - _NoisePower: 1
+    - Vector1_68479cb26f7a49f3aaee4e07bb5a19e4: 0.25
+    - _DissolveTornado: 0.296
+    - _EffectPower: 1
     - _NoiseScale: 25
     - _TwirlAmount: 10
-    - _WoobleAmount: 0.5
-    - _WoobleDensity: 0.5
-    - _WoobleFrequency: 0.5
-    - _WoobleSpeed: 0.5
+    - _WoobleAmount: 0
+    - _WoobleDensity: 0
+    - _WoobleFrequency: 0
+    - _WoobleSpeed: 0
     m_Colors:
-    - Color_b67879cc202e47979198464fcc8c0355: {r: 0.2783019, g: 1, b: 0.47804412, a: 1}
-    - Vector2_1: {r: 0.5, g: 1, b: 0, a: 0}
-    - Vector2_6bfe466e4f8547f29443b197679d2c1e: {r: 0.5, g: 1, b: 0, a: 0}
-    - Vector2_8b8e4b590fa341bbb80ab282dee682e0: {r: -1, g: -1, b: 0, a: 0}
-    - _Color: {r: 0, g: 1, b: 0.10700178, a: 1}
+    - Vector2_69bd9d5147f442d7ae74bb84c46fef04: {r: 0, g: 1, b: 0, a: 0}
+    - _Color: {r: 0, g: 1, b: 0.13333334, a: 1}
     - _NoiseSpeed: {r: -2, g: -2, b: 0, a: 0}
     - _TwirlCenter: {r: 0.5, g: 1.5, b: 0, a: 0}
-    - _TwirlSpeed: {r: 1, g: 1, b: 0, a: 0}
+    - _TwirlSpeed: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
