@@ -33,8 +33,12 @@ public class HUBManager : MonoBehaviour {
             return playerHandler.CurrentPlayer;
         }
     }
-
-    public bool playerInSelection;
+    public bool PlayerInSelection {
+        get {
+            return playerInSelection;
+        }
+    }
+    bool playerInSelection;
 
     Action Action;
 
@@ -48,6 +52,7 @@ public class HUBManager : MonoBehaviour {
     }
 
     private IEnumerator Start() {
+        playerInSelection = false;
         InitLevelScreen();
         CheckLevelRow();
 

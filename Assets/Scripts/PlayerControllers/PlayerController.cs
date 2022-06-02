@@ -418,7 +418,7 @@ public class PlayerController : Controller {
         isCurrentlyPlayed = b;
         playerInputSpace.gameObject.SetActive(b);
         if (GameManager.Instance) {
-            if (HUBManager.Instance && HUBManager.Instance.playerInSelection) return;
+            if (HUBManager.Instance && HUBManager.Instance.PlayerInSelection) return;
             else if (GameManager.Instance.CurrentState != GameState.Pause) {
                 gameObject.SetActive(b);
             }
