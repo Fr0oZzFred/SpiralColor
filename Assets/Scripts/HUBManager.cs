@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using UnityEngine;
+
 
 public class HUBManager : MonoBehaviour {
     #region Fields
@@ -25,7 +27,17 @@ public class HUBManager : MonoBehaviour {
     [SerializeField] GameObject portalCam;
     [SerializeField] GameObject levelScreenCam;
 
-    
+
+    [Header("Doors")]
+    [SerializeField] List<Door> doors;
+    [Serializable]
+    struct Door {
+        public Animator animator;
+        public int progressionRequirement;
+    }
+
+
+
     public static HUBManager Instance { get; private set; }
 
     public Controller CurrentController {
@@ -152,6 +164,19 @@ public class HUBManager : MonoBehaviour {
         }
     }
     #endregion
+
+    #region Doors
+    public void OpenDoor(int doorIndex) {
+        if(GameManager.Instance.Progression >= doors[doorIndex].progressionRequirement) {
+            doors[doorIndex].animator.SetBool("Open", true);
+        }
+    }
+
+    public void CloseDoor(int doorIndex) {
+        doors[doorIndex].animator.SetBool("Open", false);
+    }
+    #endregion
+
     void SwitchCam(GameObject newCam, GameObject oldCam) {
         newCam.SetActive(true);
         oldCam.SetActive(false);
