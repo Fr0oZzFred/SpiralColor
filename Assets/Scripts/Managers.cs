@@ -8,7 +8,7 @@ public class Managers : MonoBehaviour, ISerializationCallbackReceiver  {
     GameState baseGameState;
 
     [ListToPopup(typeof(Managers), "TMPList")]
-    public string TargetScene;
+    public string TargetScene, RenderingScene;
 
     public static List<string> TMPList;
     [HideInInspector] public List<string> PopupList;
@@ -43,7 +43,7 @@ public class Managers : MonoBehaviour, ISerializationCallbackReceiver  {
             GameManager.Instance.SaveGameManager();
             Debug.LogWarning("First Save have to be done here");
         }
-        SceneManagement.Instance.LoadLevel(TargetScene);
+        SceneManagement.Instance.LoadingRendering(TargetScene, RenderingScene);
         GameManager.Instance.SetState(baseGameState);
     }
 }

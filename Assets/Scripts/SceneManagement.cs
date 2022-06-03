@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine.SceneManagement;
 public class SceneManagement : MonoBehaviour {
     public static SceneManagement Instance { get; private set; }
-    //Fonction pour Load 2 scène en même temps
 
     private void Awake() {
         if (!Instance) Instance = this;
@@ -36,4 +35,8 @@ public class SceneManagement : MonoBehaviour {
         }
     }
 
+    //C'est vraiment du scotch à éviter si possible
+    public void LoadHUBWithRendering() {
+        LoadingRendering("HUB", "Rendering");
+    }
 }
