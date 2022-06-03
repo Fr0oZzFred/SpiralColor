@@ -35,6 +35,12 @@ public class GemsPool : MonoBehaviour
             return gems.Count;
         }
     }
+    Vector3 pos {
+        get {
+            //Ajouter calcul pour avoir une zone de spawn et pas un seul point
+            return transform.position;
+        }
+    }
     void Awake() {
         if (System.IO.File.Exists(Application.persistentDataPath + "/GemsPool.data")) {
             LoadGemsPool();
@@ -53,11 +59,6 @@ public class GemsPool : MonoBehaviour
         }
         if (Keyboard.current.dKey.wasPressedThisFrame) {
             DestroyGems();
-        }
-    }
-    Vector3 pos {
-        get {
-            return transform.position;
         }
     }
     public void Spawn() {
