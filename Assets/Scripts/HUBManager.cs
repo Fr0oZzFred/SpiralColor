@@ -9,6 +9,7 @@ public class HUBManager : MonoBehaviour {
     [Header("General")]
     [SerializeField] PlayerHandler playerHandler;
     [SerializeField] string musicName;
+    [SerializeField] MeshRenderer shipMeshRenderer;
 
 
     [Header("Gems Pool")]
@@ -29,9 +30,16 @@ public class HUBManager : MonoBehaviour {
 
 
     [Header("Doors")]
+    const string colorPropertyRef = "_Tron";
     [SerializeField] List<Door> doors;
     [Serializable]
     struct Door {
+
+        [SerializeField] [ColorUsage(true, true)] public Color colorOn;
+        [SerializeField] [ColorUsage(true, true)] public Color colorOff;
+        public MeshRenderer doorLeftMeshRenderer;
+        public MeshRenderer doorRightMeshRenderer;
+        public MeshRenderer socleMeshRenderer;
         public Animator animator;
         public int progressionRequirement;
     }
@@ -67,6 +75,7 @@ public class HUBManager : MonoBehaviour {
         playerInSelection = false;
         InitLevelScreen();
         CheckLevelRow();
+        CheckDoors();
 
         //CheckForNewGems
         if (gemsPool.GemsCount >= GameManager.Instance.GemsCount) yield break;
@@ -78,6 +87,9 @@ public class HUBManager : MonoBehaviour {
         }
         yield return new WaitForSeconds(secondsAfterSpawn);
         SwitchCam(playerCam, gemsCam);
+
+        
+
         playerHandler.CurrentPlayer.RegisterInputs(true);
     }
 
@@ -166,6 +178,16 @@ public class HUBManager : MonoBehaviour {
     #endregion
 
     #region Doors
+    void CheckDoors() {
+        for (int i = 0; i < doors.Count; i++) {
+            bool isUnlocked = GameManager.Instance.Progression >= doors[i].progressionRequirement;
+            doors[i].doorLeftMeshRenderer.material.color = isUnlocked ? doors[i].colorOn : doors[i].colorOff;
+            doors[i].doorRightMeshRenderer.material.color = isUnlocked ? doors[i].colorOn : doors[i].colorOff;
+            doors[i].socleMeshRenderer.material.color = isUnlocked ? doors[i].colorOn : doors[i].colorOff;
+            shipMeshRenderer.material.SetColor(colorPropertyRef + (i + 1), isUnlocked ? doors[i].colorOn : doors[i].colorOff);
+        }
+        //Check Nb Orbe
+    }
     public void OpenDoor(int doorIndex) {
         if(GameManager.Instance.Progression >= doors[doorIndex].progressionRequirement) {
             doors[doorIndex].animator.SetBool("Open", true);
