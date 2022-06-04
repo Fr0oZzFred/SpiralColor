@@ -17,7 +17,11 @@
         }
     ],
     "m_GroupDatas": [],
-    "m_StickyNoteDatas": [],
+    "m_StickyNoteDatas": [
+        {
+            "m_Id": "3bfa1e9f18b3441b85b59cf9a969e274"
+        }
+    ],
     "m_Edges": [
         {
             "m_OutputSlot": {
@@ -103,6 +107,26 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "3bfa1e9f18b3441b85b59cf9a969e274",
+    "m_Title": "To do",
+    "m_Content": "Make the color living like an \nenergy driver\n\nBe Careful, I'am using this shader for the orbs fragments while we haven't modified this one.\n",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -254.0,
+        "y": 36.0,
+        "width": 200.0,
+        "height": 160.0
+    },
+    "m_Group": {
+        "m_Id": ""
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "3f1797a419754c2383bb8c1dc7368554",
     "m_Group": {
@@ -177,7 +201,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "c028c817a303434d9745a11204da02e9",
     "m_Id": 0,
-    "m_DisplayName": "Base Color",
+    "m_DisplayName": "Color",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
