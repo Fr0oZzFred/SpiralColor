@@ -30,6 +30,7 @@ public class HUBManager : MonoBehaviour {
 
 
     [Header("Doors")]
+    [SerializeField] List<GameObject> orbs;
     const string colorPropertyRef = "_Tron";
     [SerializeField] List<Door> doors;
     [Serializable]
@@ -76,7 +77,7 @@ public class HUBManager : MonoBehaviour {
         InitLevelScreen();
         CheckLevelRow();
         CheckDoors();
-
+        CheckOrbs();
         //CheckForNewGems
         if (gemsPool.GemsCount >= GameManager.Instance.GemsCount) yield break;
         SwitchCam(gemsCam, playerCam);
@@ -186,7 +187,20 @@ public class HUBManager : MonoBehaviour {
             doors[i].socleMeshRenderer.material.color = isUnlocked ? doors[i].colorOn : doors[i].colorOff;
             shipMeshRenderer.material.SetColor(colorPropertyRef + (i + 1), isUnlocked ? doors[i].colorOn : doors[i].colorOff);
         }
-        //Check Nb Orbe
+    }
+    void CheckOrbs() {
+        if (GameManager.Instance.Progression <= 1) return;
+        //Fais en brute parce que short en temps mais il faudrait le changer parce que c'est moche et pas ouf
+        orbs[0].SetActive(GameManager.Instance.Progression >=2);
+        orbs[1].SetActive(GameManager.Instance.Progression == 3);
+        orbs[2].SetActive(GameManager.Instance.Progression >= 4);
+        orbs[3].SetActive(GameManager.Instance.Progression == 5 || GameManager.Instance.Progression == 6);
+        orbs[4].SetActive(GameManager.Instance.Progression == 6);
+        orbs[5].SetActive(GameManager.Instance.Progression >= 7);
+        orbs[6].SetActive(GameManager.Instance.Progression >= 8 && GameManager.Instance.Progression <=10);
+        orbs[7].SetActive(GameManager.Instance.Progression == 9 | GameManager.Instance.Progression == 10);
+        orbs[8].SetActive(GameManager.Instance.Progression == 10);
+        orbs[9].SetActive(GameManager.Instance.Progression == 11);
     }
     public void OpenDoor(int doorIndex) {
         if(GameManager.Instance.Progression >= doors[doorIndex].progressionRequirement) {
