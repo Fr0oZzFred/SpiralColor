@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.Localization.Settings;
 using System.Collections.Generic;
 using System.Collections;
+using System;
+
 [System.Serializable]
 public class UIManagerData {
     public bool XCam, YCam;
@@ -17,8 +19,8 @@ public class UIManagerData {
         IndexLanguage = data.IndexLanguage;
     }
 }
-    public class UIManager : MonoBehaviour {
-    #region Fields
+public class UIManager : MonoBehaviour {
+#region Fields
     [Header("MainMenu")]
     [SerializeField]
     GameObject mainMenuHUD;
@@ -38,7 +40,18 @@ public class UIManagerData {
 
     [Header("Score")]
     [SerializeField] GameObject scoreHUD;
+
+    [Serializable]
+    struct OrbFragment {
+        [SerializeField] public Color flareColor;
+        public Sprite fragmentSprite;
+    }
+    [SerializeField] List<OrbFragment> orbsFragments;
+    [SerializeField] float flareSpeed;
+    [SerializeField] RectTransform flareTransform;
+    [SerializeField] Image orbsImage;
     [SerializeField] TMP_Text scoreText;
+
 
     [Header("Loading")]
     [SerializeField] GameObject loadingHUD;
@@ -76,8 +89,7 @@ public class UIManagerData {
     [SerializeField] GameObject keyboard;
     [SerializeField] TMP_Text keyboardText;
     public static UIManager Instance { get; private set; }
-
-    #endregion
+#endregion
     void Awake() {
         if(!Instance) Instance = this;
         GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -100,6 +112,16 @@ public class UIManagerData {
         languageDropdown.value = tmpIndexLanguage > -1 ? tmpIndexLanguage : index;
         languageDropdown.onValueChanged.AddListener(LocaleSelected);
         languageDropdown.onValueChanged.Invoke(languageDropdown.value);
+    }
+
+    private void Update() {
+        if (flareTransform.gameObject.activeInHierarchy) {
+            Vector3 rota = flareTransform.rotation.eulerAngles;
+            rota.z += flareSpeed * Time.deltaTime;
+            Quaternion rot = new Quaternion();
+            rot.eulerAngles = rota;
+            flareTransform.rotation = rot;
+        }
     }
     void OnGameStateChanged(GameState newState) {
         if (GameManager.Instance.OldState == GameState.Options) SaveData();
@@ -196,6 +218,8 @@ public class UIManagerData {
 
     #region Score
     public void DisplayScore() {
+        orbsImage.sprite = orbsFragments[LevelManager.Instance.LevelInt - 1].fragmentSprite;
+        flareTransform.GetComponent<Image>().color = orbsFragments[LevelManager.Instance.LevelInt - 1].flareColor;
         GameManager.Instance.GetCollectedGemsOfLevel(LevelManager.Instance.LevelInt, out int collected, out int max);
         scoreText.SetText(collected + " / " + max);
     }

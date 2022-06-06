@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.InputSystem;
 
 public class LevelManager : MonoBehaviour {
 
     #region Fields
 
-    [Header("Data")]
+    [Header("General")]
     [SerializeField] Scenes scene;
     [SerializeField] PlayerHandler playerHandler;
+    [SerializeField] PlayableDirector timeline;
+
 
     public int LevelInt => int.Parse(scene.TargetScene.Remove(0, scene.TargetScene.Length - 1));
 
@@ -104,9 +107,9 @@ public class LevelManager : MonoBehaviour {
             SoundsManager.Instance.Play(music);
         }
         if (UIManager.Instance) {
-
             UIManager.Instance.DisplayGems();
         }
+        timeline.gameObject.SetActive(false);
     }
 
     private void Update() {
@@ -126,7 +129,7 @@ public class LevelManager : MonoBehaviour {
     /// Function called at the end of the level
     /// </summary>
     public void TriggerLevelEnd() {
-        //Arrête le joueur à coup sûr? Ou le fait disparaître?
+        timeline.gameObject.SetActive(true);
         GameManager.Instance.UpdateProgression(LevelInt + 1);
         SoundsManager.Instance.StopCurrentMusic();
         GameManager.Instance.SetState(GameState.Score);
