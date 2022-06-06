@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] PlayableDirector timeline;
 
 
-    public int LevelInt => int.Parse(scene.TargetScene.Remove(0, scene.TargetScene.Length - 1));
+    public int LevelInt => int.Parse(scene.TargetScene.Remove(0, scene.TargetScene.Length - 2));
 
     [Header("Musics")]
     [SerializeField]
