@@ -17,8 +17,8 @@ public class LevelManager : MonoBehaviour {
     public int LevelInt => int.Parse(scene.TargetScene.Remove(0, scene.TargetScene.Length - 2));
 
     [Header("Musics")]
-    [SerializeField]
-    string music;
+    [SerializeField] string music;
+    [SerializeField] string scoreMusic;
 
     [Header("Checkpoints")]
     [SerializeField] Checkpoint checkpointPrefab;
@@ -110,6 +110,7 @@ public class LevelManager : MonoBehaviour {
             UIManager.Instance.DisplayGems();
         }
         timeline.gameObject.SetActive(false);
+        GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
     }
 
     private void Update() {
@@ -132,6 +133,7 @@ public class LevelManager : MonoBehaviour {
         timeline.gameObject.SetActive(true);
         GameManager.Instance.UpdateProgression(LevelInt + 1);
         SoundsManager.Instance.StopCurrentMusic();
+        SoundsManager.Instance.Play(scoreMusic);
         GameManager.Instance.SetState(GameState.Score);
     }
     /// <summary>
@@ -145,6 +147,16 @@ public class LevelManager : MonoBehaviour {
 
     public void ReloadLevel() {
         SceneManagement.Instance.LoadingRendering(scene.TargetScene, scene.AdditiveScene);
+    }
+    void OnGameStateChanged(GameState gameState) {
+        switch (gameState) {
+            case GameState.Pause:
+                SoundsManager.Instance.PauseCurrentMusic();
+                break;
+            case GameState.InLevel:
+                SoundsManager.Instance.UnPauseCurrentMusic();
+                break;
+        }
     }
 }
 

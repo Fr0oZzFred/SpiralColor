@@ -3,7 +3,7 @@ public class Gems : MonoBehaviour {
 
     [SerializeField] float speed, amplitude;
     [SerializeField] Vector3 rotSpeed;
-
+    [SerializeField] string sound;
     Vector3 startPos;
 
     public int gemIndex;
@@ -21,6 +21,7 @@ public class Gems : MonoBehaviour {
         if(!GameManager.Instance.gemsList[LevelManager.Instance.LevelInt][gemIndex]) GameManager.Instance.CollectGem(gemIndex);
         gameObject.SetActive(false);
         UIManager.Instance.DisplayGems();
+        SoundsManager.Instance.Play(sound);
     }
     private void Update() {
         transform.Rotate(rotSpeed * Time.deltaTime);

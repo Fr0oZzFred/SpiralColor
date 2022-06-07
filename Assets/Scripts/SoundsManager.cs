@@ -66,10 +66,14 @@ public class SoundsManager : MonoBehaviour {
         if (!CustomSettings()) {
             switch (newState) {
                 case GameState.MainMenu:
-                    ChangeSnapshot(0, 1f);
+                    //ChangeSnapshot(0, 1f);
+                    break;
+                case GameState.Loading:
+                    StopCurrentMusic();
+                    Play("LoadingScreenTheme");
                     break;
                 case GameState.InLevel:
-                    ChangeSnapshot(1, 1f);
+                    //ChangeSnapshot(1, 1f);
                     break;
                 case GameState.Options:
                     if (System.IO.File.Exists(Application.persistentDataPath + "/SoundsSettings.data")) {
@@ -94,7 +98,7 @@ public class SoundsManager : MonoBehaviour {
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
         }
-        current = s;
+        if (s.outputGroup.name == "Music") current = s;
         s.source.Play();
     }
     public void StopCurrentMusic() {
@@ -127,5 +131,12 @@ public class SoundsManager : MonoBehaviour {
             }
         }
         Debug.Log("Snapshot :" + name + " not found!");
+    }
+    public void PlayClickSound() {
+        Play("ButtonClick");
+    }
+
+    public void PlayButtonStartSound() {
+        Play("ButtonStart");
     }
 }

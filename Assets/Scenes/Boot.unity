@@ -2891,6 +2891,18 @@ MonoBehaviour:
           m_StringArgument: Options
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1507363202}
+        m_TargetAssemblyTypeName: SoundsManager, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &223573782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5780,6 +5792,18 @@ MonoBehaviour:
           m_StringArgument: HUB
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1507363202}
+        m_TargetAssemblyTypeName: SoundsManager, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &463741200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7503,6 +7527,18 @@ MonoBehaviour:
           m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1507363202}
+        m_TargetAssemblyTypeName: SoundsManager, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &680599615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7916,6 +7952,18 @@ MonoBehaviour:
       - m_Target: {fileID: 503716304}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: QuitApplication
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1507363202}
+        m_TargetAssemblyTypeName: SoundsManager, Assembly-CSharp
+        m_MethodName: PlayClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9648,6 +9696,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1507363202}
+        m_TargetAssemblyTypeName: SoundsManager, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &929335373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10914,6 +10974,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: HUB
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1507363202}
+        m_TargetAssemblyTypeName: SoundsManager, Assembly-CSharp
+        m_MethodName: PlayButtonStartSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1030745419
@@ -15451,7 +15523,7 @@ MonoBehaviour:
   - {fileID: 32449430}
   - {fileID: 806441997}
   sounds:
-  - name: Loading Screen
+  - name: LoadingScreenTheme
     clip: {fileID: 8300000, guid: 4842d15b9763b2e438041a5624f24204, type: 3}
     outputGroup: {fileID: 8651735518225755797, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
     pitch: 1
@@ -15469,17 +15541,41 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: In Game Theme
-    clip: {fileID: 8300000, guid: 7bbcdebf353ec244a9180da09fa7a893, type: 3}
-    outputGroup: {fileID: 8651735518225755797, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
-  - name: Level 1
+  - name: InGameTheme
     clip: {fileID: 8300000, guid: 819b045aa0e0c1a41a67f95dd30f0a19, type: 3}
     outputGroup: {fileID: 8651735518225755797, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
     pitch: 1
     loop: 1
+    source: {fileID: 0}
+  - name: WinningTheme
+    clip: {fileID: 8300000, guid: f0d19778f1d02174dbcb34707acec9d5, type: 3}
+    outputGroup: {fileID: 8651735518225755797, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GemsPickup
+    clip: {fileID: 8300000, guid: 9da0ad134cd52af4e9d632b231a237cc, type: 3}
+    outputGroup: {fileID: 7934404424806362529, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Door
+    clip: {fileID: 8300000, guid: 19b78af1d52f1a64a9a198c4236b071a, type: 3}
+    outputGroup: {fileID: 7934404424806362529, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ButtonStart
+    clip: {fileID: 8300000, guid: 609b9a0740b630342a1c9c563f83cbc2, type: 3}
+    outputGroup: {fileID: 7934404424806362529, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ButtonClick
+    clip: {fileID: 8300000, guid: aeb99583e07c05a40a63d26aedf39ede, type: 3}
+    outputGroup: {fileID: 7934404424806362529, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    pitch: 1
+    loop: 0
     source: {fileID: 0}
 --- !u!1 &1510773435
 GameObject:
@@ -16167,6 +16263,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Options
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1507363202}
+        m_TargetAssemblyTypeName: SoundsManager, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1528298157
@@ -17472,6 +17580,18 @@ MonoBehaviour:
           m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: HUB
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1507363202}
+        m_TargetAssemblyTypeName: SoundsManager, Assembly-CSharp
+        m_MethodName: PlayButtonStartSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1641844655
@@ -19668,6 +19788,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1507363202}
+        m_TargetAssemblyTypeName: SoundsManager, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1866664006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21388,6 +21520,18 @@ MonoBehaviour:
       - m_Target: {fileID: 503716304}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: QuitApplication
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1507363202}
+        m_TargetAssemblyTypeName: SoundsManager, Assembly-CSharp
+        m_MethodName: PlayClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

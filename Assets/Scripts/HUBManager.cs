@@ -205,6 +205,7 @@ public class HUBManager : MonoBehaviour {
     public void OpenDoor(int doorIndex) {
         if(GameManager.Instance.Progression >= doors[doorIndex].progressionRequirement) {
             doors[doorIndex].animator.SetBool("Open", true);
+            SoundsManager.Instance.Play("Door");
         }
     }
 

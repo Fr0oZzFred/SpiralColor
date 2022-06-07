@@ -144,13 +144,16 @@ public class GameManager : MonoBehaviour {
                 }
             }
             SetOldState();
+            SoundsManager.Instance.Play("ButtonClick");
         } else {
             SetState(GameState.Pause);
+            SoundsManager.Instance.Play("ButtonClick");
         }
     }
     public void HandleBack() {
         if (CurrentState == GameState.Options) {
             SetOldState();
+            SoundsManager.Instance.Play("ButtonClick");
         }
     }
     public void ApplyUsername(string name) {
