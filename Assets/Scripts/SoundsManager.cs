@@ -66,11 +66,9 @@ public class SoundsManager : MonoBehaviour {
         if (!CustomSettings()) {
             switch (newState) {
                 case GameState.MainMenu:
-                    //ChangeSnapshot(0, 1f);
-                    break;
-                case GameState.Loading:
                     StopCurrentMusic();
-                    Play("LoadingScreenTheme");
+                    Play("MainMenuTheme");
+                    //ChangeSnapshot(0, 1f);
                     break;
                 case GameState.InLevel:
                     //ChangeSnapshot(1, 1f);

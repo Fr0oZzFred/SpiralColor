@@ -30,7 +30,7 @@ public class Managers : MonoBehaviour, ISerializationCallbackReceiver  {
     public void OnAfterDeserialize() { } 
 
     private void Start() {
-#if DEVELOPMENT_BUILD
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
         Cursor.visible = true;
 #else
         Cursor.visible = false;

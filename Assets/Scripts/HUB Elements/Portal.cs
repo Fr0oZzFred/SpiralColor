@@ -26,9 +26,9 @@ public enum ScenesEnum {
 }
 public class Portal : MonoBehaviour {
     #region Fields
-    [Header("Text")]
-    [SerializeField]
-    TMP_Text textGO;
+    [Header("CurrentLevel")]
+    [SerializeField] LevelRow currentLevel;
+    [SerializeField] List<ScriptableLevelRow> scriptables;
 
     [Header("Portal")]
     [SerializeField]
@@ -37,10 +37,6 @@ public class Portal : MonoBehaviour {
 
     ScenesEnum current;
     #endregion
-    void ChangeTextContent(string text) {
-        if (textGO) textGO.SetText(text);
-    }
-
 
     private void Start() {
         scenesDico = new Dictionary<ScenesEnum, Scenes>();
@@ -56,7 +52,14 @@ public class Portal : MonoBehaviour {
 
     public void ChangeCurrentDestination(int newCurrent) {
         current = (ScenesEnum)newCurrent;
-        ChangeTextContent(current.ToString());
+        int index = int.Parse(scenesDico[current].TargetScene.Remove(0, scenesDico[current].TargetScene.Length - 2));
+        if (index < GameManager.Instance.Progression) {
+            GameManager.Instance.GetCollectedGemsOfLevel(index, out int collected, out int max);
+            currentLevel.SetGemsProgression(collected + " / " + max);
+        } else if (GameManager.Instance.Progression == index) {
+            currentLevel.SetGemsProgression("???");
+        }
+        currentLevel.SetLevel(scriptables[index-1]);
     }
 
     private void OnTriggerEnter(Collider other) {

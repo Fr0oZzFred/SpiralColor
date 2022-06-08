@@ -211,6 +211,7 @@ public class HUBManager : MonoBehaviour {
 
     public void CloseDoor(int doorIndex) {
         doors[doorIndex].animator.SetBool("Open", false);
+        SoundsManager.Instance.Play("Door");
     }
     #endregion
 

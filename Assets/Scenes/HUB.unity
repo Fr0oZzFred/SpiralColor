@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: c78affb07ef301f46a39fdbbe9366423, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-605930
+  m_Name: pb_Mesh-199666
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -376,13 +376,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 235154704}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -25.5, y: -0.5, z: 0}
   m_LocalScale: {x: 7.5, y: 7.5, z: 7.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 50
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &248985869
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,7 +511,7 @@ PrefabInstance:
     - target: {fileID: 5346488579996827054, guid: 9038ed5f1db0e7d44a5209bc823364eb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 69aeb61059807f6459061ae908711f51, type: 2}
+      objectReference: {fileID: 2100000, guid: 5d870a4f3bccbb54f80a8f311f12bd29, type: 2}
     - target: {fileID: 5850870229240585339, guid: 9038ed5f1db0e7d44a5209bc823364eb, type: 3}
       propertyPath: m_Name
       value: ===Socle 4===
@@ -3499,6 +3499,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8419673074919568816, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 53930c8dbf34e554ebc2a19d93be26ae, type: 2}
+    - target: {fileID: -2493373311570535184, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 53930c8dbf34e554ebc2a19d93be26ae, type: 2}
     - target: {fileID: 919132149155446097, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
       propertyPath: m_Name
       value: Vaisseau
@@ -3958,6 +3966,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1375630}
+    - target: {fileID: 2991659950884954667, guid: 4a319bf12b96150448dfa892366ddf98, type: 3}
+      propertyPath: currentLevel
+      value: 
+      objectReference: {fileID: 3625779534645093717}
     - target: {fileID: 2991659950884954674, guid: 4a319bf12b96150448dfa892366ddf98, type: 3}
       propertyPath: m_Name
       value: Portal
@@ -4846,9 +4858,20 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 4c21253682a9b57469a567fcf6ec25d7, type: 3}
 --- !u!1 &3625779534645093716 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3625779534366077847, guid: 4c21253682a9b57469a567fcf6ec25d7, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4622878544178404522, guid: 4c21253682a9b57469a567fcf6ec25d7, type: 3}
   m_PrefabInstance: {fileID: 3625779534645093715}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3625779534645093717 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4193173094322499523, guid: 4c21253682a9b57469a567fcf6ec25d7, type: 3}
+  m_PrefabInstance: {fileID: 3625779534645093715}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6284d52ec14c644cb9f069b67095cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3910289439350212536
 PrefabInstance:
   m_ObjectHideFlags: 0
