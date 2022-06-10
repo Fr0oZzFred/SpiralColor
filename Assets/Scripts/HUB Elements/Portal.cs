@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.VFX;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -30,7 +30,24 @@ public class Portal : MonoBehaviour {
     [SerializeField] LevelRow currentLevel;
     [SerializeField] List<ScriptableLevelRow> scriptables;
 
+
     [Header("Portal")]
+    [SerializeField] VisualEffect portalVFX;
+    [SerializeField] List<VFXParam> vfxParams;
+    //Note ne pas faire de list dans une struct, l'affichage est buggé
+    [System.Serializable] struct VFXParam {
+        [SerializeField] [ColorUsage(true, true)] public Color edgeColor1;
+        [SerializeField] [ColorUsage(true, true)] public Color edgeColor2;
+        [SerializeField] [ColorUsage(true, true)] public Color edgeColor3;
+        [SerializeField] [ColorUsage(true, true)] public Color edgeColor4;
+        [SerializeField] [ColorUsage(true, true)] public Color portalColor1;
+        [SerializeField] [ColorUsage(true, true)] public Color portalColor2;
+        [SerializeField] [ColorUsage(true, true)] public Color portalColor3;
+        [SerializeField] [ColorUsage(true, true)] public Color portalColor4;
+        public float dissolve;
+    }
+
+    [Header("Destination")]
     [SerializeField]
     List<Scenes> scenes;
     Dictionary<ScenesEnum, Scenes> scenesDico;
@@ -60,8 +77,21 @@ public class Portal : MonoBehaviour {
             currentLevel.SetGemsProgression("???");
         }
         currentLevel.SetLevel(scriptables[index-1]);
+        ChangePortalColor(index - 1);
     }
-
+    private void ChangePortalColor(int index) {
+        portalVFX.gameObject.SetActive(false);
+        portalVFX.SetVector4("Portal Edge Color 1", vfxParams[index].edgeColor1);
+        portalVFX.SetVector4("Portal Edge Color 2", vfxParams[index].edgeColor2);
+        portalVFX.SetVector4("Portal Edge Color 3", vfxParams[index].edgeColor3);
+        portalVFX.SetVector4("Portal Edge Color 4", vfxParams[index].edgeColor4);
+        portalVFX.SetVector4("Portal Color 1", vfxParams[index].portalColor1);
+        portalVFX.SetVector4("Portal Color 2", vfxParams[index].portalColor2);
+        portalVFX.SetVector4("Portal Color 3", vfxParams[index].portalColor3);
+        portalVFX.SetVector4("Portal Color 4", vfxParams[index].portalColor4);
+        portalVFX.SetFloat("Twirl Dissolve", vfxParams[index].dissolve);
+        portalVFX.gameObject.SetActive(true);
+    }
     private void OnTriggerEnter(Collider other) {
         if (other.GetComponent<Controller>() != null) {
             PlayTestData.Instance.Restart();

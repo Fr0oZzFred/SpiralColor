@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7114851225045281711
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7114851225045281709}
+  - component: {fileID: 7114851225045281708}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7114851225045281709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7114851225045281711}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7114851225045281708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7114851225045281711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88b0a55a1705cb4dbd826af4ecad264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skyboxRotationSpeed: 0.5
+  scene:
+    destination: 1
+    TargetScene: Level 1
+    AdditiveScene: Rendering
+    sceneList:
+    - Boot
+    - Main Menu
+    - HUB
+    - Level 1
+    - Level 2
+    - Level 3
+    - Level 4
+    - Level 5
+    - Level 6
+    - Level 7
+    - Level 8
+    - Level 9
+    - Level 10
+    - Level 11
+    - Level 12
+    - Level 13
+    - Level 14
+    - Level 15
+    - Rendering
+  playerHandler: {fileID: 0}
+  timeline: {fileID: 0}
+  music: InGameTheme
+  scoreMusic: WinningTheme
+  checkpointPrefab: {fileID: 384750708434033707, guid: 9b2fe026a9a9c744b82970383e1bb0bd, type: 3}
+  checkpoints: []
+  portalDelay: 1
+  portal: {fileID: 0}
+  colors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 16, g: 0.00000015894572, b: 0, a: 1}
+  - {r: 0.3137255, g: 11.984314, b: 0, a: 1}
+  - {r: 4, g: 0, b: 3.309804, a: 1}
+  - {r: 0, g: 5.709804, b: 11.984314, a: 1}

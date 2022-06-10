@@ -75,8 +75,7 @@ public class PlayerController : Controller {
     //DynamicATH ath;
 
     [Header("Controller Color")]
-    [SerializeField]
-    Color color = default;
+    [SerializeField] [ColorUsage(true,true)] Color color = default;
 
 
     public bool IsCurrentlyPlayed {

@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 
     #region Fields
 
     [Header("General")]
+    [SerializeField] float skyboxRotationSpeed;
     [SerializeField] Scenes scene;
     [SerializeField] PlayerHandler playerHandler;
     [SerializeField] PlayableDirector timeline;
 
+    Material skybox;
 
     public int LevelInt => int.Parse(scene.TargetScene.Remove(0, scene.TargetScene.Length - 2));
 
@@ -26,8 +29,11 @@ public class LevelManager : MonoBehaviour {
     List<Checkpoint> checkpoints;
     int checkpointProgression = 0;
 
-
-
+    [Header("Portal")]
+    [SerializeField] float portalDelay;
+    [SerializeField] Transform portal; //Gardez comme base au cas où on change d'avis sur le material des led du portal
+    VisualEffect vfx;
+    [SerializeField] [ColorUsage(true, true)] List<Color> colors;
     public Controller CurrentController {
         get {
             return playerHandler.CurrentPlayer;
@@ -111,6 +117,9 @@ public class LevelManager : MonoBehaviour {
         }
         timeline.gameObject.SetActive(false);
         GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+        skybox = RenderSettings.skybox;
+        vfx = portal.GetChild(0).GetComponentInChildren<VisualEffect>(true);
+        vfx.gameObject.SetActive(false);
     }
 
     private void Update() {
@@ -119,6 +128,8 @@ public class LevelManager : MonoBehaviour {
                 PlayTestData.Instance.Dead();
             Respawn(playerHandler.CurrentPlayer);
         }
+
+        skybox.SetFloat("_Rotation", skybox.GetFloat("_Rotation") + skyboxRotationSpeed * Time.deltaTime);
     }
 
     public void Respawn(Controller controller) {
@@ -135,6 +146,16 @@ public class LevelManager : MonoBehaviour {
         SoundsManager.Instance.StopCurrentMusic();
         SoundsManager.Instance.Play(scoreMusic);
         GameManager.Instance.SetState(GameState.Score);
+        //StartCoroutine(ChangePortalColor());
+    }
+
+    //Gardez en cas de changement de dernière minute
+    IEnumerator ChangePortalColor() {
+        yield return new WaitForSeconds(portalDelay);
+        for (int i = 1; i < colors.Count; i++) {
+            vfx.SetVector4("Portal Edge Color " + i, colors[i]);
+            vfx.SetVector4("Portal Color " + i, colors[i]);
+        }
     }
     /// <summary>
     /// Progression of checkpoints

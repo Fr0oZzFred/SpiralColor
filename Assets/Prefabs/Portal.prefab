@@ -48,7 +48,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.25
+        m_Name: Portal Edge Speed
+        m_Overridden: 0
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -1704,6 +1707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c521064d838ab00458407f2be88122b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLevel: {fileID: 0}
   scriptables:
   - {fileID: 11400000, guid: 195c6b11269705e41ac124cc33e9dbc2, type: 2}
   - {fileID: 11400000, guid: b711cc1d459b66e4f9b3b195fef54580, type: 2}
@@ -1720,6 +1724,98 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cfb83f179b9402b49952173eed85ffaf, type: 2}
   - {fileID: 11400000, guid: 0a68dadd2a404114a9458d6c62eec561, type: 2}
   - {fileID: 11400000, guid: 2d88d2816f23bd6449a2bacf72a72e64, type: 2}
+  portalVFX: {fileID: 1430676423613614683}
+  vfxParams:
+  - edgeColor1: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    edgeColor2: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    edgeColor3: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    edgeColor4: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    portalColor1: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    portalColor2: {r: 0, g: 0, b: 0, a: 0}
+    portalColor3: {r: 0, g: 0, b: 0, a: 0}
+    portalColor4: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 1.5
+  - edgeColor1: {r: 0, g: 4, b: 0, a: 1}
+    edgeColor2: {r: 0, g: 4, b: 0, a: 1}
+    edgeColor3: {r: 0, g: 4, b: 0, a: 1}
+    edgeColor4: {r: 0, g: 4, b: 0, a: 1}
+    portalColor1: {r: 0.6313726, g: 0.6313726, b: 0.6313726, a: 1}
+    portalColor2: {r: 0, g: 4, b: 0, a: 1}
+    portalColor3: {r: 0, g: 0, b: 0, a: 0}
+    portalColor4: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 1.5
+  - edgeColor1: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    edgeColor2: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    edgeColor3: {r: 0, g: 4, b: 0, a: 1}
+    edgeColor4: {r: 0, g: 4, b: 0, a: 1}
+    portalColor1: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    portalColor2: {r: 0, g: 4, b: 0, a: 1}
+    portalColor3: {r: 0, g: 0, b: 0, a: 0}
+    portalColor4: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 1.5
+  - edgeColor1: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    edgeColor2: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    edgeColor3: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    edgeColor4: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    portalColor1: {r: 0, g: 0, b: 0, a: 0}
+    portalColor2: {r: 0, g: 0, b: 0, a: 0}
+    portalColor3: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    portalColor4: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 1.5
+  - edgeColor1: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    edgeColor2: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    edgeColor3: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    edgeColor4: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    portalColor1: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    portalColor2: {r: 0, g: 0, b: 0, a: 0}
+    portalColor3: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    portalColor4: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 2.5
+  - edgeColor1: {r: 0, g: 2.0000005, b: 0, a: 1}
+    edgeColor2: {r: 0, g: 2.0000005, b: 0, a: 1}
+    edgeColor3: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    edgeColor4: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    portalColor1: {r: 0, g: 0, b: 0, a: 0}
+    portalColor2: {r: 0, g: 2.0000005, b: 0, a: 1}
+    portalColor3: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    portalColor4: {r: 0, g: 0, b: 0, a: 0}
+    dissolve: 1.5
+  - edgeColor1: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    edgeColor2: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    edgeColor3: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    edgeColor4: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    portalColor1: {r: 0, g: 0, b: 0, a: 0}
+    portalColor2: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    portalColor3: {r: 1, g: 1, b: 1, a: 1}
+    portalColor4: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    dissolve: 1.5
+  - edgeColor1: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    edgeColor2: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    edgeColor3: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    edgeColor4: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    portalColor1: {r: 2.0000005, g: 0.03141362, b: 0, a: 1}
+    portalColor2: {r: 0, g: 0, b: 0, a: 0}
+    portalColor3: {r: 0, g: 0, b: 0, a: 0}
+    portalColor4: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    dissolve: 1.5
+  - edgeColor1: {r: 0, g: 2.0000005, b: 0, a: 1}
+    edgeColor2: {r: 0, g: 2.0000005, b: 0, a: 1}
+    edgeColor3: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    edgeColor4: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    portalColor1: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 1}
+    portalColor2: {r: 0, g: 2.0000005, b: 0, a: 1}
+    portalColor3: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 1}
+    portalColor4: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    dissolve: 1.5
+  - edgeColor1: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    edgeColor2: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    edgeColor3: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    edgeColor4: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    portalColor1: {r: 0, g: 0, b: 0, a: 1}
+    portalColor2: {r: 0, g: 0, b: 0, a: 1}
+    portalColor3: {r: 2.0000005, g: 0, b: 1.6858643, a: 1}
+    portalColor4: {r: 0, g: 0.97382224, b: 2.0000005, a: 1}
+    dissolve: 1.5
   scenes:
   - destination: 1
     TargetScene: Level 1
