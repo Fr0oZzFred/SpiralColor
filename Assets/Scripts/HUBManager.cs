@@ -10,6 +10,7 @@ public class HUBManager : MonoBehaviour {
     [SerializeField] PlayerHandler playerHandler;
     [SerializeField] string musicName;
     [SerializeField] MeshRenderer shipMeshRenderer;
+    [SerializeField] Scenes creditScene;
 
 
     [Header("Gems Pool")]
@@ -80,16 +81,16 @@ public class HUBManager : MonoBehaviour {
         CheckOrbs();
 
         //CheckForNewGems
-        if (gemsPool.GemsCount >= GameManager.Instance.GemsCount) yield break;
-        SwitchCam(gemsCam, playerCam);
-        playerHandler.CurrentPlayer.RegisterInputs(false);
-        for (int i = gemsPool.GemsCount; i < GameManager.Instance.GemsCount; i++) {
-            gemsPool.Spawn();
-            yield return new WaitForSeconds(secondsBetweenSpawn);
+        if (gemsPool.GemsCount < GameManager.Instance.GemsCount) {
+            SwitchCam(gemsCam, playerCam);
+            playerHandler.CurrentPlayer.RegisterInputs(false);
+            for (int i = gemsPool.GemsCount; i < GameManager.Instance.GemsCount; i++) {
+                gemsPool.Spawn();
+                yield return new WaitForSeconds(secondsBetweenSpawn);
+            }
+            yield return new WaitForSeconds(secondsAfterSpawn);
+            SwitchCam(playerCam, gemsCam);
         }
-        yield return new WaitForSeconds(secondsAfterSpawn);
-        SwitchCam(playerCam, gemsCam);
-
         //CheckForEvents
         switch (GameManager.Instance.Progression) {
             case 2:
@@ -105,14 +106,15 @@ public class HUBManager : MonoBehaviour {
                 Debug.Log("Cross Unlocked");
                 break;
             case 15:
-                if (GameManager.Instance.GameDone) {
-                    Debug.Log("Mettre Crédit");
+                if (GameManager.Instance.GameDone && !GameManager.Instance.CreditSeenOnce) {
+                    GameManager.Instance.CreditSeenOnce = true;
+                    SceneManagement.Instance.LoadingRendering(creditScene.TargetScene, creditScene.AdditiveScene);
+                    GameManager.Instance.SetState(GameState.Credits);
                 }
                 break;
         }
-        
-
         playerHandler.CurrentPlayer.RegisterInputs(true);
+        yield return null;
     }
 
     private void Update() {

@@ -78,6 +78,10 @@ public class SoundsManager : MonoBehaviour {
                         LoadSettings();
                     }
                     break;
+                case GameState.Credits:
+                    StopCurrentMusic();
+                    Play("CreditsTheme");
+                    break;
             }
         }
     }

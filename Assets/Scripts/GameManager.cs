@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
     public string Username { get; private set; }
 
     public bool GameDone { get; private set; }
-    public bool CreditSeenOnce { get; private set; }
+    public bool CreditSeenOnce { get; set; }
     private void Awake() {
         if (Instance == null) Instance = this;
         Username = "";

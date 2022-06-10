@@ -343,7 +343,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-855364
+  m_Name: pb_Mesh-1393326
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3447,6 +3447,31 @@ MonoBehaviour:
   playerHandler: {fileID: 518684914}
   musicName: In HUB Theme
   shipMeshRenderer: {fileID: 2115857273}
+  creditScene:
+    destination: 0
+    TargetScene: Credits
+    AdditiveScene: Rendering
+    sceneList:
+    - Boot
+    - Main Menu
+    - HUB
+    - Credits
+    - Level 1
+    - Level 2
+    - Level 3
+    - Level 4
+    - Level 5
+    - Level 6
+    - Level 7
+    - Level 8
+    - Level 9
+    - Level 10
+    - Level 11
+    - Level 12
+    - Level 13
+    - Level 14
+    - Level 15
+    - Rendering
   gemsPool: {fileID: 1167014841}
   secondsBetweenSpawn: 0.2
   secondsAfterSpawn: 2
@@ -3564,10 +3589,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 53930c8dbf34e554ebc2a19d93be26ae, type: 2}
+    - target: {fileID: -4683669308469848369, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 53930c8dbf34e554ebc2a19d93be26ae, type: 2}
+    - target: {fileID: -4683669308469848369, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 012ccf4a266ab054696c015a857c4f3c, type: 2}
     - target: {fileID: -2493373311570535184, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 53930c8dbf34e554ebc2a19d93be26ae, type: 2}
+    - target: {fileID: -1326529921439819284, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 53930c8dbf34e554ebc2a19d93be26ae, type: 2}
+    - target: {fileID: -1326529921439819284, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4349e3c44118a4c4b9c859b9210c0ce1, type: 2}
     - target: {fileID: 919132149155446097, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
       propertyPath: m_Name
       value: Vaisseau
@@ -3576,6 +3617,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1f23e73493cb9ef4c87298aeacea0ddc, type: 2}
+    - target: {fileID: 3281692732827709899, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 53930c8dbf34e554ebc2a19d93be26ae, type: 2}
+    - target: {fileID: 3281692732827709899, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 940f61a13a5f48a4f850c5afdd53ecd5, type: 2}
+    - target: {fileID: 6317578925029434746, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 53930c8dbf34e554ebc2a19d93be26ae, type: 2}
+    - target: {fileID: 6317578925029434746, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 447dc03af5254104486ca887d5270761, type: 2}
     - target: {fileID: 6367826538641861355, guid: 3ac01c050dccaa749bdcb235ca161c86, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
