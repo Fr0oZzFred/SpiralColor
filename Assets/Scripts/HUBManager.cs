@@ -78,6 +78,7 @@ public class HUBManager : MonoBehaviour {
         CheckLevelRow();
         CheckDoors();
         CheckOrbs();
+
         //CheckForNewGems
         if (gemsPool.GemsCount >= GameManager.Instance.GemsCount) yield break;
         SwitchCam(gemsCam, playerCam);
@@ -89,6 +90,26 @@ public class HUBManager : MonoBehaviour {
         yield return new WaitForSeconds(secondsAfterSpawn);
         SwitchCam(playerCam, gemsCam);
 
+        //CheckForEvents
+        switch (GameManager.Instance.Progression) {
+            case 2:
+                Debug.Log("Sphere Unlocked");
+                break;
+            case 4:
+                Debug.Log("Triangle Unlocked");
+                break;
+            case 7:
+                Debug.Log("Cube Unlocked");
+                break;
+            case 11:
+                Debug.Log("Cross Unlocked");
+                break;
+            case 15:
+                if (GameManager.Instance.GameDone) {
+                    Debug.Log("Mettre Crédit");
+                }
+                break;
+        }
         
 
         playerHandler.CurrentPlayer.RegisterInputs(true);
@@ -109,10 +130,12 @@ public class HUBManager : MonoBehaviour {
 
     private void CheckLevelRow() {
         for (int i = 0; i < levelRow.Length; i++) {
-            if(i + 1 < GameManager.Instance.Progression) {
+            if(i + 1 < GameManager.Instance.Progression || GameManager.Instance.GameDone) {
                 levelRow[i].gameObject.SetActive(true);
                 GameManager.Instance.GetCollectedGemsOfLevel(i + 1, out int collected, out int max);
                 levelRow[i].SetGemsProgression(collected + " / " + max);
+                if (!GameManager.Instance.GameDone) return;
+                levelRow[i].InvokeButtonEvents();
             } 
             else if (GameManager.Instance.Progression == i + 1) {
                 levelRow[i].gameObject.SetActive(true);

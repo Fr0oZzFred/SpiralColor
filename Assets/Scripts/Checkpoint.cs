@@ -18,6 +18,7 @@ public class Checkpoint : MonoBehaviour, IComparable {
 
     [SerializeField] VisualEffect visualEffect;
     [SerializeField] float AccelerateValue;
+    [SerializeField] float cylinderPowerValue;
     [SerializeField] float time;
 
     [SerializeField]
@@ -29,6 +30,7 @@ public class Checkpoint : MonoBehaviour, IComparable {
     }
     void Update() {
         if(visualEffect.GetFloat("Global Speed") > 1) visualEffect.SetFloat("Global Speed", Mathf.Lerp(visualEffect.GetFloat("Global Speed"), 1, time));
+        if(visualEffect.GetFloat("Cylinder Power Multiplier") > 1) visualEffect.SetFloat("Cylinder Power Multiplier", Mathf.Lerp(visualEffect.GetFloat("Cylinder Power Multiplier"), 1, time));
     }
 
     public Quaternion CamRotation {
@@ -53,6 +55,10 @@ public class Checkpoint : MonoBehaviour, IComparable {
     private void OnTriggerEnter(Collider other) {
         LevelManager.Instance.UpdateCPProgression(progression);
         visualEffect.SetFloat("Global Speed", AccelerateValue);
+        visualEffect.SetFloat("Cylinder Power Multiplier", cylinderPowerValue);
+        if (visualEffect.gameObject.activeInHierarchy) {
+            SoundsManager.Instance.Play("CheckpointSound");
+        }
     }
 
     public void SetProgression(int prog) {

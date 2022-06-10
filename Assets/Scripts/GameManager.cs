@@ -7,10 +7,14 @@ public class GameManagerData{
     public int progression;
     public List<List<bool>> gemsList;
     public int gemsCount;
+    public bool gameDone;
+    public bool creditSeenOnce;
     public GameManagerData(GameManager data) {
         progression = data.Progression;
         gemsList = data.gemsList;
         gemsCount = data.GemsCount;
+        gameDone = data.GameDone;
+        creditSeenOnce = data.CreditSeenOnce;
     }
 }
 public class GameManager : MonoBehaviour {
@@ -23,7 +27,10 @@ public class GameManager : MonoBehaviour {
     public List<List<bool>> gemsList { get; private set; }
     public int GemsCount { get; private set; }
     public string Username { get; private set; }
-    private void Awake(){
+
+    public bool GameDone { get; private set; }
+    public bool CreditSeenOnce { get; private set; }
+    private void Awake() {
         if (Instance == null) Instance = this;
         Username = "";
         gemsList = new List<List<bool>>();
@@ -42,6 +49,7 @@ public class GameManager : MonoBehaviour {
     private void Init() {
         Progression = 1;
         GemsCount = 0;
+        GameDone = false;
     }
     public void SetState (GameState newState){
         if (newState == CurrentState) return;
@@ -99,6 +107,8 @@ public class GameManager : MonoBehaviour {
         Progression = data.progression;
         if (data.gemsList != null) gemsList = data.gemsList;
         GemsCount = data.gemsCount;
+        GameDone = data.gameDone;
+        CreditSeenOnce = data.creditSeenOnce;
     }
     /// <summary>
     /// Update the Progression of the storyline
@@ -106,6 +116,10 @@ public class GameManager : MonoBehaviour {
     /// <param name="prog"></param>
     public void UpdateProgression(int prog) {
         if (prog < Progression) return;
+        if (prog > 15) {
+            GameDone = true;
+            return;
+        }
         Progression = prog;
     }
     public void AddGem() {
@@ -164,6 +178,5 @@ public class GameManager : MonoBehaviour {
     }
     private void OnApplicationQuit() {
         SaveGameManager();
-        Debug.LogWarning("Save have to be done here");
     }
 }

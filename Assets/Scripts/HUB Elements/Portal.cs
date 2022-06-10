@@ -70,7 +70,7 @@ public class Portal : MonoBehaviour {
     public void ChangeCurrentDestination(int newCurrent) {
         current = (ScenesEnum)newCurrent;
         int index = int.Parse(scenesDico[current].TargetScene.Remove(0, scenesDico[current].TargetScene.Length - 2));
-        if (index < GameManager.Instance.Progression) {
+        if (index < GameManager.Instance.Progression || GameManager.Instance.GameDone) {
             GameManager.Instance.GetCollectedGemsOfLevel(index, out int collected, out int max);
             currentLevel.SetGemsProgression(collected + " / " + max);
         } else if (GameManager.Instance.Progression == index) {
