@@ -10,7 +10,6 @@ public class HUBManager : MonoBehaviour {
     [SerializeField] PlayerHandler playerHandler;
     [SerializeField] string musicName;
     [SerializeField] MeshRenderer shipMeshRenderer;
-    [SerializeField] Scenes creditScene;
 
 
     [Header("Gems Pool")]
@@ -31,6 +30,7 @@ public class HUBManager : MonoBehaviour {
 
 
     [Header("Doors")]
+    [SerializeField] List<GameObject> timelines;
     [SerializeField] List<GameObject> orbs;
     const string colorPropertyRef = "_Tron";
     [SerializeField] List<Door> doors;
@@ -77,7 +77,6 @@ public class HUBManager : MonoBehaviour {
         playerInSelection = false;
         InitLevelScreen();
         CheckLevelRow();
-        CheckDoors();
         CheckOrbs();
 
         //CheckForNewGems
@@ -91,26 +90,35 @@ public class HUBManager : MonoBehaviour {
             yield return new WaitForSeconds(secondsAfterSpawn);
             SwitchCam(playerCam, gemsCam);
         }
+
         //CheckForEvents
         switch (GameManager.Instance.Progression) {
             case 2:
-                Debug.Log("Sphere Unlocked");
+                //Sphere Unlocked
+                timelines[0].SetActive(true);
                 break;
             case 4:
-                Debug.Log("Triangle Unlocked");
+                //Triangle Unlocked
+                timelines[1].SetActive(true);
                 break;
             case 7:
-                Debug.Log("Cube Unlocked");
+                //Cube Unlocked
+                timelines[2].SetActive(true);
                 break;
             case 11:
-                Debug.Log("Cross Unlocked");
+                //Cross Unlocked
+                timelines[3].SetActive(true);
                 break;
             case 15:
                 if (GameManager.Instance.GameDone && !GameManager.Instance.CreditSeenOnce) {
                     GameManager.Instance.CreditSeenOnce = true;
-                    SceneManagement.Instance.LoadingRendering(creditScene.TargetScene, creditScene.AdditiveScene);
+                    SceneManagement.Instance.LoadCreditsWithRendering();
                     GameManager.Instance.SetState(GameState.Credits);
                 }
+                CheckDoors();
+                break;
+            default:
+                CheckDoors();
                 break;
         }
         playerHandler.CurrentPlayer.RegisterInputs(true);
@@ -136,8 +144,9 @@ public class HUBManager : MonoBehaviour {
                 levelRow[i].gameObject.SetActive(true);
                 GameManager.Instance.GetCollectedGemsOfLevel(i + 1, out int collected, out int max);
                 levelRow[i].SetGemsProgression(collected + " / " + max);
-                if (GameManager.Instance.GameDone) return;
-                levelRow[i].InvokeButtonEvents();
+                if (GameManager.Instance.GameDone) {
+                    levelRow[i].InvokeButtonEvents();
+                }
             } 
             else if (GameManager.Instance.Progression == i + 1) {
                 levelRow[i].gameObject.SetActive(true);
@@ -204,7 +213,7 @@ public class HUBManager : MonoBehaviour {
     #endregion
 
     #region Doors
-    void CheckDoors() {
+    public void CheckDoors() {
         for (int i = 0; i < doors.Count; i++) {
             bool isUnlocked = GameManager.Instance.Progression >= doors[i].progressionRequirement;
             doors[i].doorLeftMeshRenderer.material.color = isUnlocked ? doors[i].colorOn : doors[i].colorOff;
@@ -214,7 +223,12 @@ public class HUBManager : MonoBehaviour {
         }
     }
     void CheckOrbs() {
-        if (GameManager.Instance.Progression <= 1) return;
+        if (GameManager.Instance.Progression <= 1) {
+            foreach (var item in orbs) {
+                item.SetActive(false);
+            }
+            return;
+        }
         //Fais en brute parce que short en temps mais il faudrait le changer parce que c'est moche et pas ouf
         orbs[0].SetActive(GameManager.Instance.Progression >=2);
         orbs[1].SetActive(GameManager.Instance.Progression == 3);
@@ -225,7 +239,7 @@ public class HUBManager : MonoBehaviour {
         orbs[6].SetActive(GameManager.Instance.Progression >= 8 && GameManager.Instance.Progression <=10);
         orbs[7].SetActive(GameManager.Instance.Progression == 9 | GameManager.Instance.Progression == 10);
         orbs[8].SetActive(GameManager.Instance.Progression == 10);
-        orbs[9].SetActive(GameManager.Instance.Progression == 11);
+        orbs[9].SetActive(GameManager.Instance.Progression >= 11);
     }
     public void OpenDoor(int doorIndex) {
         if(GameManager.Instance.Progression >= doors[doorIndex].progressionRequirement) {
@@ -235,8 +249,10 @@ public class HUBManager : MonoBehaviour {
     }
 
     public void CloseDoor(int doorIndex) {
-        doors[doorIndex].animator.SetBool("Open", false);
-        SoundsManager.Instance.Play("Door");
+        if (GameManager.Instance.Progression >= doors[doorIndex].progressionRequirement) {
+            doors[doorIndex].animator.SetBool("Open", false);
+            SoundsManager.Instance.Play("Door");
+        }
     }
     #endregion
 

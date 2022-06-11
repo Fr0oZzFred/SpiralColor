@@ -147,10 +147,7 @@ public class GameManager : MonoBehaviour {
         if (CurrentState == GameState.Score) return;
         if (CurrentState == GameState.Loading) return;
         if (CurrentState == GameState.Options) return;
-        if(CurrentState == GameState.Credits) {
-            SceneManagement.Instance.LoadMainMenuWithRendering();
-            SetState(GameState.MainMenu);
-        }
+        if (CurrentState == GameState.Credits) return;
         if (CurrentState == GameState.Pause) {
             if(OldState == GameState.Options) {
                 if (HUBManager.Instance) {
@@ -172,6 +169,10 @@ public class GameManager : MonoBehaviour {
         if (CurrentState == GameState.Options) {
             SetOldState();
             SoundsManager.Instance.Play("ButtonClick");
+        }
+        if (CurrentState == GameState.Credits) {
+            SceneManagement.Instance.LoadMainMenuWithRendering();
+            SetState(GameState.MainMenu);
         }
     }
     public void ApplyUsername(string name) {

@@ -66,6 +66,7 @@ public class SoundsManager : MonoBehaviour {
         if (!CustomSettings()) {
             switch (newState) {
                 case GameState.MainMenu:
+                    if (GameManager.Instance.OldState == GameState.Options) return;
                     StopCurrentMusic();
                     Play("MainMenuTheme");
                     //ChangeSnapshot(0, 1f);
@@ -87,9 +88,10 @@ public class SoundsManager : MonoBehaviour {
     }
 
     bool CustomSettings() {
-        for (int i = 0; i < volumeGroup.Count; i++) {
+        //Retiré par manque de temps
+        /*for (int i = 0; i < volumeGroup.Count; i++) {
             if (volumeGroup[i].SliderValue != 1) return true;
-        }
+        }*/
         return false;
     }
     public void Play(string name)
