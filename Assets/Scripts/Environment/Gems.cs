@@ -7,7 +7,7 @@ public class Gems : MonoBehaviour {
     Vector3 startPos;
 
     public int gemIndex;
-    private void Start() {
+    private void Awake() {
         startPos = transform.localPosition;
         if (GameManager.Instance.gemsList[LevelManager.Instance.LevelInt].Count < FindObjectsOfType(typeof(Gems)).Length)
             GameManager.Instance.AddGem();

@@ -136,7 +136,7 @@ public class HUBManager : MonoBehaviour {
                 levelRow[i].gameObject.SetActive(true);
                 GameManager.Instance.GetCollectedGemsOfLevel(i + 1, out int collected, out int max);
                 levelRow[i].SetGemsProgression(collected + " / " + max);
-                if (!GameManager.Instance.GameDone) return;
+                if (GameManager.Instance.GameDone) return;
                 levelRow[i].InvokeButtonEvents();
             } 
             else if (GameManager.Instance.Progression == i + 1) {

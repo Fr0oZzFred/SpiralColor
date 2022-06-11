@@ -39,4 +39,10 @@ public class SceneManagement : MonoBehaviour {
     public void LoadHUBWithRendering() {
         LoadingRendering("HUB", "Rendering");
     }
+    public void LoadMainMenuWithRendering() {
+        LoadingRendering("Main Menu", "Rendering");
+    }
+    public void LoadCreditsWithRendering() {
+        LoadingRendering("Credits", "Rendering");
+    }
 }

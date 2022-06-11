@@ -147,6 +147,10 @@ public class GameManager : MonoBehaviour {
         if (CurrentState == GameState.Score) return;
         if (CurrentState == GameState.Loading) return;
         if (CurrentState == GameState.Options) return;
+        if(CurrentState == GameState.Credits) {
+            SceneManagement.Instance.LoadMainMenuWithRendering();
+            SetState(GameState.MainMenu);
+        }
         if (CurrentState == GameState.Pause) {
             if(OldState == GameState.Options) {
                 if (HUBManager.Instance) {
