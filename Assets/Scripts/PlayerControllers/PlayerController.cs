@@ -119,6 +119,7 @@ public class PlayerController : Controller {
 
     MeshRenderer meshRenderer;
 
+    Animator animator;
     #endregion
 
     void PreventSnapToGroundP() {
@@ -135,6 +136,7 @@ public class PlayerController : Controller {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = player.GetComponent<MeshRenderer>();
+        animator = player.GetComponent<Animator>();
         OnValidate();
     }
     /// <summary>
@@ -156,7 +158,8 @@ public class PlayerController : Controller {
             forwardAxis = ProjectDirectionOnPlane(Vector3.forward, upAxis);
         }
 
-        
+        animator.SetBool("Walking", velocity.x != 0 && velocity.z != 0);
+
         if (!OnGround)
             desiredJump |= InputHandler.Controller.buttonSouth.wasPressedThisFrame;
 
