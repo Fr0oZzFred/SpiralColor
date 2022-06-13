@@ -39,6 +39,11 @@ public class LevelManager : MonoBehaviour {
             return playerHandler.CurrentPlayer;
         }
     }
+    public bool CoroutineIsRunning {
+        get {
+            return playerHandler.CoroutineIsRunning;
+        }
+    }
 
     public static LevelManager Instance { get; private set; }
     #endregion
@@ -176,6 +181,7 @@ public class LevelManager : MonoBehaviour {
                 break;
             case GameState.InLevel:
                 SoundsManager.Instance.UnPauseCurrentMusic();
+                UIManager.Instance.DisplayGems();
                 break;
         }
     }

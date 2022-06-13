@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +11,9 @@ public class PlayerHandler : MonoBehaviour {
 
     [SerializeField] float rangeDetection = 2f;
 
-    [SerializeField] Vector3 offset = new Vector3(0,2,0);
+    [SerializeField] Vector3 offset = new Vector3(0, 2, 0);
 
-
+    public bool CoroutineIsRunning { get; private set; }
     public Controller CurrentPlayer {
         get {
             return current == null ? player : current;
@@ -34,48 +35,50 @@ public class PlayerHandler : MonoBehaviour {
         for (int i = 0; i < listController.Count; i++) {
             listController[i].RegisterInputs(false);
         }
+        CoroutineIsRunning = false;
     }
 
     private void Update() {
         if (InputHandler.Controller == null) return;
+        if (GameManager.Instance && GameManager.Instance.CurrentState == GameState.Pause) return;
         CheckForControllerInRange();
         CheckForControllerOutRange();
         CheckForChange();
     }
 
     void CheckForControllerInRange() {
-        if (listController.Count > 0) {
-            if (player.IsCurrentlyPlayed) {
-                foreach (var item in listController) {
-                    Vector3 p = item.transform.position - player.transform.position;
-                    if (p.magnitude < rangeDetection && !listControllerInRange.Contains(item)) {
-                        listControllerInRange.Add(item);
-                        item.DisplayATH(true);
-                    }
-                }
+        if (listController.Count <= 0) return;
+        if (!player.IsCurrentlyPlayed) return;
+
+        foreach (var item in listController) {
+            Vector3 p = item.transform.position - player.transform.position;
+            if (p.magnitude < rangeDetection && !listControllerInRange.Contains(item)) {
+                listControllerInRange.Add(item);
+                item.DisplayATH(true);
             }
         }
     }
+
     void CheckForControllerOutRange() {
-        if (listControllerInRange.Count > 0) {
-            if (player.IsCurrentlyPlayed) {
-                List<Controller> outOfRangeControllers = new List<Controller>();
-                foreach (var item in listControllerInRange) {
-                    Vector3 p = item.transform.position - player.transform.position;
-                    if (p.magnitude > rangeDetection) {
-                        outOfRangeControllers.Add(item);
-                    }
-                }
-                foreach (var item in outOfRangeControllers) {
-                    listControllerInRange.Remove(item);
-                    item.DisplayATH(false);
-                }
+        if (listControllerInRange.Count <= 0) return;
+        if (!player.IsCurrentlyPlayed) return;
+
+        List<Controller> outOfRangeControllers = new List<Controller>();
+        foreach (var item in listControllerInRange) {
+            Vector3 p = item.transform.position - player.transform.position;
+            if (p.magnitude > rangeDetection) {
+                outOfRangeControllers.Add(item);
             }
         }
-
+        foreach (var item in outOfRangeControllers) {
+            listControllerInRange.Remove(item);
+            item.DisplayATH(false);
+        }
     }
 
     void CheckForChange() {
+        if (CoroutineIsRunning) return;
+
         if (CurrentPlayer == player) {
             foreach (var item in listControllerInRange) {
                 if (item is SpherePlayerController) {
@@ -108,9 +111,8 @@ public class PlayerHandler : MonoBehaviour {
             if (CurrentPlayer.GetComponent<SquarePlayerController>() &&
                 CurrentPlayer.GetComponent<SquarePlayerController>().IsOnButton) {
                 return;
-            }
-            else if (CurrentPlayer.GetComponent<CrossPlayerController>() &&
-                CurrentPlayer.GetComponent<CrossPlayerController>().IsOnButton) {
+            } else if (CurrentPlayer.GetComponent<CrossPlayerController>() &&
+                  CurrentPlayer.GetComponent<CrossPlayerController>().IsOnButton) {
                 return;
 
             }
@@ -125,7 +127,7 @@ public class PlayerHandler : MonoBehaviour {
         switch (newState) {
             case GameState.InLevel:
             case GameState.InHUB:
-                if(CurrentPlayer)
+                if (CurrentPlayer)
                     CurrentPlayer.RegisterInputs(true);
                 break;
             case GameState.Pause:
@@ -143,29 +145,44 @@ public class PlayerHandler : MonoBehaviour {
     /// </summary>
     /// <param name="oldIndex"></param>
     void ChangePlayer(Controller newController) {
-        foreach(var item in listControllerInRange) {
+        foreach (var item in listControllerInRange) {
             item.DisplayATH(false);
         }
         if (player == newController) {
-            current.RegisterInputs(false);
-            player.Respawn(current.transform.position + offset, current.GetCamRotation());
-            current = null;
-            player.RegisterInputs(true);
-            player.SetControllerLED();
+            StartCoroutine(SpawnPlayerQTE());
         } else {
-            player.RegisterInputs(false);
-            newController.SetCamRotation(player.GetCamRotation());
-            if (newController is CrossPlayerController) {
-                newController.RegisterInputs(!newController.GetComponent<CrossPlayerController>().IsOnButton);
-            } 
-            else {
-                newController.RegisterInputs(true);
-            }
-            newController.SetControllerLED();
-            current = newController;
+            StartCoroutine(PlayerIntoControllerQTE(newController));
         }
     }
+    IEnumerator SpawnPlayerQTE() {
+        CoroutineIsRunning = true;
 
+        current.RegisterInputs(false);
+        yield return new WaitForSeconds(5f);
+        player.Respawn(current.transform.position + offset, current.GetCamRotation());
+        current = null;
+        player.RegisterInputs(true);
+        player.SetControllerLED();
+
+
+        CoroutineIsRunning = false;
+    }
+    IEnumerator PlayerIntoControllerQTE(Controller newController) {
+        CoroutineIsRunning = true;
+
+        player.RegisterInputs(false);
+        yield return new WaitForSeconds(5f);
+        newController.SetCamRotation(player.GetCamRotation());
+        if (newController is CrossPlayerController) {
+            newController.RegisterInputs(!newController.GetComponent<CrossPlayerController>().IsOnButton);
+        } else {
+            newController.RegisterInputs(true);
+        }
+        newController.SetControllerLED();
+        current = newController;
+
+        CoroutineIsRunning = false;
+    }
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(player.transform.position, rangeDetection);

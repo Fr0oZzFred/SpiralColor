@@ -80,6 +80,9 @@
         },
         {
             "m_Id": "ce2133b6fb4e4bdb9343d05a2c70ab99"
+        },
+        {
+            "m_Id": "24c79d060432432f825de55ba13a7272"
         }
     ],
     "m_GroupDatas": [
@@ -337,6 +340,9 @@
             },
             {
                 "m_Id": "90c9acb67393448691d92a4f91e305e2"
+            },
+            {
+                "m_Id": "24c79d060432432f825de55ba13a7272"
             }
         ]
     },
@@ -355,6 +361,9 @@
     "m_ActiveTargets": [
         {
             "m_Id": "be743f10d261468cbe42554ae58d8152"
+        },
+        {
+            "m_Id": "c24734bcca5c4bfdb0601fa6a6c83ad3"
         }
     ]
 }
@@ -451,7 +460,7 @@
     },
     "m_Name": "Interior Spread",
     "m_DefaultReferenceName": "Vector1_0ff55cd5ae574e598e156b827952316f",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "InteriorSpread_",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -486,6 +495,36 @@
         "z": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.ColorRGBMaterialSlot",
+    "m_ObjectId": "1482c6ffd9f44a6da25bb70d2a7c85c2",
+    "m_Id": 0,
+    "m_DisplayName": "Emission",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Emission",
+    "m_StageCapability": 2,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": [],
+    "m_ColorMode": 1,
+    "m_DefaultColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+    }
 }
 
 {
@@ -723,6 +762,39 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "24c79d060432432f825de55ba13a7272",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.Emission",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "1482c6ffd9f44a6da25bb70d2a7c85c2"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.Emission"
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "27e63f0dc3784b76b11fffde2e73048f",
     "m_Id": 1,
@@ -937,7 +1009,7 @@
     },
     "m_Name": "Fresnel Color",
     "m_DefaultReferenceName": "Color_4712bc640e98471c8a26df1ca0bf174b",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "FresnelColor_",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -1744,7 +1816,7 @@
     },
     "m_Name": "Interior Color",
     "m_DefaultReferenceName": "Color_b89f1d45f8094f8fbc136b14cf7623be",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "InteriorColor_",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -1788,7 +1860,7 @@
     },
     "m_Name": "Interior Pos",
     "m_DefaultReferenceName": "Vector3_c006d3a0b9204c5ebb7d2ebf0e049c14",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "InteriorPos_",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -1800,6 +1872,14 @@
         "z": 0.0,
         "w": 0.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.VFXTarget",
+    "m_ObjectId": "c24734bcca5c4bfdb0601fa6a6c83ad3",
+    "m_Lit": false,
+    "m_AlphaTest": false
 }
 
 {
@@ -2013,7 +2093,7 @@
     },
     "m_Name": "Fresnel Power",
     "m_DefaultReferenceName": "Vector1_ddf8a7baa7164bcba7ecc44a72f83f8c",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "FresnelPower_",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,

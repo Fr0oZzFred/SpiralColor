@@ -32,10 +32,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - FresnelPower_: 1
+    - InteriorSpread_: 3
     - Vector1_0ff55cd5ae574e598e156b827952316f: 3
     - Vector1_ddf8a7baa7164bcba7ecc44a72f83f8c: 1
     m_Colors:
     - Color_4712bc640e98471c8a26df1ca0bf174b: {r: 0.9254902, g: 0.54901963, b: 1.4980392, a: 1}
     - Color_b89f1d45f8094f8fbc136b14cf7623be: {r: 2.7607844, g: 0, b: 4, a: 1}
+    - FresnelColor_: {r: 0.9254902, g: 0.54901963, b: 1.4980392, a: 1}
+    - InteriorColor_: {r: 2.7607844, g: 0, b: 4, a: 1}
+    - InteriorPos_: {r: 0, g: 0, b: 0, a: 0}
     - Vector3_c006d3a0b9204c5ebb7d2ebf0e049c14: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
