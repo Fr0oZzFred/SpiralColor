@@ -105,13 +105,16 @@ public class TrianglePlayerController : Controller {
     [SerializeField]
     [ColorUsage(true, true)]
     Color colorOff = default;
+    [SerializeField]
+    [ColorUsage(true, true)]
+    Color sphereColor = default;
 
     [Header("Decal")]
     [SerializeField]
     MeshRenderer decal;
 
 
-    Material colorMat;
+    Material material;
 
     Quaternion baseCamDirection;
 
@@ -163,8 +166,7 @@ public class TrianglePlayerController : Controller {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = spin.GetComponent<MeshRenderer>();
-        colorMat = meshRenderer.material;
-        decal.material.color = colorOn;
+        material = meshRenderer.material;
         OnValidate();
     }
 
@@ -445,7 +447,9 @@ public class TrianglePlayerController : Controller {
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
         playerInputSpace.gameObject.SetActive(b);
-        colorMat.color = b ? colorOn : colorOff;
+        decal.material.color = b ? colorOn : colorOff;
+        material.color = b ? colorOn : colorOff;
+        material.SetColor("_SphereColor", b ? sphereColor : Color.black);
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();
@@ -490,6 +494,9 @@ public class TrianglePlayerController : Controller {
     }
     public override void DisplayATH(bool b) {
         ath.DisplayATH(b);
+    }
+    public override Transform GetShape() {
+        return spin;
     }
     #endregion
 }

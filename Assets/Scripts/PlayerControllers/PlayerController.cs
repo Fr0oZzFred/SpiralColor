@@ -76,7 +76,12 @@ public class PlayerController : Controller {
 
     [Header("Controller Color")]
     [SerializeField] [ColorUsage(true,true)] Color color = default;
-
+    [SerializeField] SkinnedMeshRenderer mesh;
+    public Mesh GetMesh {
+        get {
+            return mesh.sharedMesh;
+        }
+    }
 
     public bool IsCurrentlyPlayed {
         get {
@@ -415,18 +420,11 @@ public class PlayerController : Controller {
         return (stairsMask & (1 << layer)) == 0 ?
             minGroundDotProduct : minStairsDotProduct;
     }
+
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
         playerInputSpace.gameObject.SetActive(b);
-        if (GameManager.Instance) {
-            if (HUBManager.Instance && HUBManager.Instance.PlayerInSelection) return;
-            else if (GameManager.Instance.CurrentState != GameState.Pause) {
-                gameObject.SetActive(b);
-            }
-        } else {
-            gameObject.SetActive(b);
-        }
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();
@@ -471,6 +469,9 @@ public class PlayerController : Controller {
     }
     public override void DisplayATH(bool b) {
         //No ATH for the moment
+    }
+    public override Transform GetShape() {
+        return player;
     }
     #endregion
 }
