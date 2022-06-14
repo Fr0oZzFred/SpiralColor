@@ -7,12 +7,10 @@ public class GemsData {
     public int count;
     public float[] positions;
     public float[] rotations;
-    public int[] indexTypes;
     public GemsData(GemsPool data) {
         count = data.Gems.Count;
         positions = new float[3 * count];
         rotations = new float[4 * count];
-        indexTypes = new int[count];
         if (count == 0) return;
         for (int i = 0; i < count; i++) {
             positions[3 * i] = data.Gems[i].transform.position.x;
@@ -23,8 +21,6 @@ public class GemsData {
             rotations[4 * i + 1] = data.Gems[i].transform.rotation.y;
             rotations[4 * i + 2] = data.Gems[i].transform.rotation.z;
             rotations[4 * i + 3] = data.Gems[i].transform.rotation.w;
-
-            indexTypes[i] = GameManager.Instance.GemsTypesIndex[i];
         }
     }
 }
@@ -70,7 +66,7 @@ public class GemsPool : MonoBehaviour
         for (int i = 0; i < data.count; i++) {
             Vector3 position = new Vector3(data.positions[3 * i], data.positions[3 * i + 1], data.positions[3 * i + 2]);
             Quaternion rotation = new Quaternion(data.rotations[i * 4], data.rotations[i * 4 + 1], data.rotations[i * 4 + 2], data.rotations[i * 4 + 3]);
-            Gems.Add(Instantiate(prefab[data.indexTypes[i]], position, rotation));
+            Gems.Add(Instantiate(prefab[GameManager.Instance.GemsTypesIndex[i]], position, rotation));
             Gems[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
     }

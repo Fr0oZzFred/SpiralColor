@@ -88,7 +88,7 @@ public class HUBManager : MonoBehaviour {
         SwitchCam(gemsCam, playerCam);
         playerHandler.CurrentPlayer.RegisterInputs(false);
         for (int i = gemsPool.GemsCount; i < GameManager.Instance.GemsCount; i++) {
-            gemsPool.Spawn(GameManager.Instance.GemsTypesIndex[gemsPool.GemsCount + i]);
+            gemsPool.Spawn(GameManager.Instance.GemsTypesIndex[i]);
             yield return new WaitForSeconds(secondsBetweenSpawn);
             }
         yield return new WaitForSeconds(secondsAfterSpawn);

@@ -14,6 +14,7 @@ public class GameManagerData{
         gemsList = data.gemsList;
         gameDone = data.GameDone;
         creditSeenOnce = data.CreditSeenOnce;
+        gemsTypesIndex = new int[data.GemsTypesIndex.Count];
         for(int i = 0; i < data.GemsTypesIndex.Count; i++) gemsTypesIndex[i] = data.GemsTypesIndex[i];
     }
 }
