@@ -6,15 +6,16 @@ public enum GameState {Boot, MainMenu, InHUB, InLevel, Pause, Score, Loading, Cu
 public class GameManagerData{
     public int progression;
     public List<List<bool>> gemsList;
-    public int gemsCount;
     public bool gameDone;
     public bool creditSeenOnce;
+    public int[] gemsTypesIndex;
     public GameManagerData(GameManager data) {
         progression = data.Progression;
-        gemsList = data.gemsList;
-        gemsCount = data.GemsCount;
+        gemsList = data.GemsList;
         gameDone = data.GameDone;
         creditSeenOnce = data.CreditSeenOnce;
+        gemsTypesIndex = new int[data.GemsTypesIndex.Count];
+        for(int i = 0; i < data.GemsTypesIndex.Count; i++) gemsTypesIndex[i] = data.GemsTypesIndex[i];
     }
 }
 public class GameManager : MonoBehaviour {
@@ -24,8 +25,9 @@ public class GameManager : MonoBehaviour {
     public delegate void GameStateChangeHandler(GameState newState);
     public event GameStateChangeHandler OnGameStateChanged;
     public int Progression { get; private set; }
-    public List<List<bool>> gemsList { get; private set; }
-    public int GemsCount { get; private set; }
+    public List<List<bool>> GemsList { get; private set; }
+    public List<int> GemsTypesIndex { get; private set; }
+    public int GemsCount { get { return GemsTypesIndex.Count; } }
     public string Username { get; private set; }
     public bool GameDone { get; private set; }
     public bool CreditSeenOnce { get; set; }
@@ -44,9 +46,10 @@ public class GameManager : MonoBehaviour {
     private void Awake() {
         if (Instance == null) Instance = this;
         Username = "";
-        gemsList = new List<List<bool>>();
+        GemsList = new List<List<bool>>();
+        GemsTypesIndex = new List<int>();
         for (int level = 0; level < 16; level++) {
-            gemsList.Add(new List<bool>());
+            GemsList.Add(new List<bool>());
         }
         Init();
     }
@@ -59,7 +62,6 @@ public class GameManager : MonoBehaviour {
     }
     private void Init() {
         Progression = 1;
-        GemsCount = 0;
         GameDone = false;
     }
     public void SetState (GameState newState){
@@ -116,10 +118,14 @@ public class GameManager : MonoBehaviour {
     public void LoadGameManager() {
         GameManagerData data = SaveSystem.LoadGameManager();
         Progression = data.progression;
-        if (data.gemsList != null) gemsList = data.gemsList;
-        GemsCount = data.gemsCount;
+        if (data.gemsList != null) GemsList = data.gemsList;
         GameDone = data.gameDone;
         CreditSeenOnce = data.creditSeenOnce;
+        for (int i = 0; i < data.gemsTypesIndex.Length; i++) GemsTypesIndex.Add(data.gemsTypesIndex[i]);
+    }
+    public void LoadCheat() {
+        GemsList = CheatCodes.Instance.GemsLevel();
+        Progression = CheatCodes.Instance.LevelTarget;
     }
     /// <summary>
     /// Update the Progression of the storyline
@@ -134,20 +140,20 @@ public class GameManager : MonoBehaviour {
         Progression = prog;
     }
     public void AddGem() {
-        gemsList[LevelManager.Instance.LevelInt].Add(false);
+        GemsList[LevelManager.Instance.LevelInt].Add(false);
     }
-    public void CollectGem(int index) {
-        gemsList[LevelManager.Instance.LevelInt][index] = true;
-        GemsCount++;
+    public void CollectGem(int index, GemsTypes type) {
+        GemsList[LevelManager.Instance.LevelInt][index] = true;
+        GemsTypesIndex.Add((int)type);
     }
     public bool CheckGem(int index) {
-        return gemsList[LevelManager.Instance.LevelInt][index];
+        return GemsList[LevelManager.Instance.LevelInt][index];
     }
     public void GetCollectedGemsOfLevel(int level, out int collected, out int max ) {
         collected = 0;
         max = 0;
-        if (gemsList[level].Count == 0) return;
-        foreach (var isCollected in gemsList[level]) {
+        if (GemsList[level].Count == 0) return;
+        foreach (var isCollected in GemsList[level]) {
             if (isCollected) collected ++;
             max++;
         }
