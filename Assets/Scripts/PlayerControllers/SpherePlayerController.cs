@@ -80,6 +80,9 @@ public class SpherePlayerController : Controller {
     [SerializeField]
     [ColorUsage(true, true)]
     Color colorOff = default;
+    [SerializeField]
+    [ColorUsage(true, true)]
+    Color sphereColor = default;
 
     [Header("Checkpoints")]
     [SerializeField]
@@ -94,7 +97,7 @@ public class SpherePlayerController : Controller {
     [SerializeField]
     MeshRenderer decal;
 
-    Material colorMat;
+    Material material;
 
     Quaternion baseCamDirection;
     
@@ -146,8 +149,7 @@ public class SpherePlayerController : Controller {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = ball.GetComponent<MeshRenderer>();
-        colorMat = meshRenderer.material;
-        decal.material.color = colorOn;
+        material = meshRenderer.material;
         OnValidate();
     }
     /// <summary>
@@ -450,7 +452,9 @@ public class SpherePlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        colorMat.color = b ? colorOn : colorOff;
+        decal.material.color = b ? colorOn : colorOff;
+        material.color = b ? colorOn : colorOff;
+        material.SetColor("_SphereColor", b ? sphereColor : Color.black);
         playerInputSpace.gameObject.SetActive(b);
     }
     public override void PreventSnapToGround() {
@@ -496,6 +500,9 @@ public class SpherePlayerController : Controller {
     }
     public override void DisplayATH(bool b) {
         ath.DisplayATH(b);
+    }
+    public override Transform GetShape() {
+        return ball;
     }
     #endregion
 }

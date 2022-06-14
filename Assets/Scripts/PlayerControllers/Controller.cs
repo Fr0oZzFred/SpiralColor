@@ -11,4 +11,5 @@ public abstract class Controller : MonoBehaviour {
     public abstract void SetCamRotation(Quaternion q);
     public abstract Transform GetCam();
     public abstract void DisplayATH(bool b);
+    public abstract Transform GetShape();
 }
