@@ -543,7 +543,7 @@ public class CrossPlayerController : Controller {
         decal.material.color = b ? colorOn : Color.black;
         material.color = b ? colorOn : colorOff;
         material.SetColor("_SphereColor", b ? sphereColor : Color.black);
-        if (!IsOnButton || GameManager.Instance.CurrentState != GameState.Pause) {
+        if (GameManager.Instance.CurrentState != GameState.Pause && !IsOnButton) {
             playerInputSpace.gameObject.SetActive(b);
         }
     }

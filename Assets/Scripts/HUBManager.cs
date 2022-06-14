@@ -83,16 +83,18 @@ public class HUBManager : MonoBehaviour {
         CheckLevelRow();
         CheckOrbs();
 
+        UIManager.Instance.ActivateBlackBoard(true);
         //CheckForNewGems
-        if (gemsPool.GemsCount >= GameManager.Instance.GemsCount) yield break;
-        SwitchCam(gemsCam, playerCam);
-        playerHandler.CurrentPlayer.RegisterInputs(false);
-        for (int i = gemsPool.GemsCount; i < GameManager.Instance.GemsCount; i++) {
-            gemsPool.Spawn(GameManager.Instance.GemsTypesIndex[i]);
-            yield return new WaitForSeconds(secondsBetweenSpawn);
+        if (gemsPool.GemsCount < GameManager.Instance.GemsCount) {
+            SwitchCam(gemsCam, playerCam);
+            playerHandler.CurrentPlayer.RegisterInputs(false);
+            for (int i = gemsPool.GemsCount; i < GameManager.Instance.GemsCount; i++) {
+                gemsPool.Spawn(GameManager.Instance.GemsTypesIndex[i]);
+                yield return new WaitForSeconds(secondsBetweenSpawn);
             }
-        yield return new WaitForSeconds(secondsAfterSpawn);
-        SwitchCam(playerCam, gemsCam);
+            yield return new WaitForSeconds(secondsAfterSpawn);
+            SwitchCam(playerCam, gemsCam);
+        }
         
     
 
@@ -101,18 +103,22 @@ public class HUBManager : MonoBehaviour {
             case 2:
                 //Sphere Unlocked
                 timelines[0].SetActive(true);
+                yield return new WaitForSeconds(7f);
                 break;
             case 4:
                 //Triangle Unlocked
                 timelines[1].SetActive(true);
+                yield return new WaitForSeconds(7f);
                 break;
             case 7:
                 //Cube Unlocked
                 timelines[2].SetActive(true);
+                yield return new WaitForSeconds(7f);
                 break;
             case 11:
                 //Cross Unlocked
                 timelines[3].SetActive(true);
+                yield return new WaitForSeconds(7f);
                 break;
             case 15:
                 if (GameManager.Instance.GameDone && !GameManager.Instance.CreditSeenOnce) {
@@ -126,6 +132,7 @@ public class HUBManager : MonoBehaviour {
                 CheckDoors();
                 break;
         }
+        UIManager.Instance.ActivateBlackBoard(false);
         playerHandler.CurrentPlayer.RegisterInputs(true);
         yield return null;
     }
