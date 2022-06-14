@@ -30,6 +30,18 @@ public class GameManager : MonoBehaviour {
     public string Username { get; private set; }
     public bool GameDone { get; private set; }
     public bool CreditSeenOnce { get; set; }
+    public bool CoroutineIsRunning {
+        get {
+            if (LevelManager.Instance) {
+                return LevelManager.Instance.CoroutineIsRunning;
+            }
+            else if (HUBManager.Instance) {
+                return HUBManager.Instance.CoroutineIsRunning;
+            }
+            return false;
+        }
+    }
+
     private void Awake() {
         if (Instance == null) Instance = this;
         Username = "";
@@ -142,12 +154,14 @@ public class GameManager : MonoBehaviour {
         }
     }
     public void HandlePause() {
+        if (CoroutineIsRunning) return;
         if (CurrentState == GameState.Boot) return;
         if (CurrentState == GameState.MainMenu) return;
         if (CurrentState == GameState.Score) return;
         if (CurrentState == GameState.Loading) return;
         if (CurrentState == GameState.Options) return;
         if (CurrentState == GameState.Credits) return;
+
         if (CurrentState == GameState.Pause) {
             if(OldState == GameState.Options) {
                 if (HUBManager.Instance) {

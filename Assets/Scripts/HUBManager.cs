@@ -46,8 +46,6 @@ public class HUBManager : MonoBehaviour {
         public int progressionRequirement;
     }
 
-
-
     public static HUBManager Instance { get; private set; }
 
     public Controller CurrentController {
@@ -60,6 +58,12 @@ public class HUBManager : MonoBehaviour {
             return playerInSelection;
         }
     }
+    public bool CoroutineIsRunning {
+        get {
+            return playerHandler.CoroutineIsRunning;
+        }
+    }
+
     bool playerInSelection;
 
     Action Action;

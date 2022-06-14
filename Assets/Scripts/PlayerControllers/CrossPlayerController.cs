@@ -111,6 +111,9 @@ public class CrossPlayerController : Controller {
     Color colorOn = default;
     [SerializeField] [ColorUsage(true, true)]
     Color colorOff = default;
+    [SerializeField]
+    [ColorUsage(true, true)]
+    Color sphereColor = default;
 
     [Header("Decal")]
     [SerializeField]
@@ -182,7 +185,6 @@ public class CrossPlayerController : Controller {
         body.useGravity = false;
         meshRenderer = cross.GetComponent<MeshRenderer>();
         material = meshRenderer.material;
-        decal.material.color = colorOn;
         OnValidate();
     }
 
@@ -538,7 +540,9 @@ public class CrossPlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
+        decal.material.color = b ? colorOn : colorOff;
         material.color = b ? colorOn : colorOff;
+        material.SetColor("_SphereColor", b ? sphereColor : Color.black);
         if (!IsOnButton) {
             playerInputSpace.gameObject.SetActive(b);
         }
@@ -586,6 +590,9 @@ public class CrossPlayerController : Controller {
     }
     public override void DisplayATH(bool b) {
         ath.DisplayATH(b);
+    }
+    public override Transform GetShape() {
+        return cross;
     }
     #endregion
 }

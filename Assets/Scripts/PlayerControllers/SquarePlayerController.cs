@@ -72,6 +72,9 @@ public class SquarePlayerController : Controller {
     [SerializeField]
     [ColorUsage(true, true)]
     Color colorOff = default;
+    [SerializeField]
+    [ColorUsage(true, true)]
+    Color sphereColor = default;
 
     [HideInInspector] public bool IsOnButton;
 
@@ -88,7 +91,7 @@ public class SquarePlayerController : Controller {
     [SerializeField]
     MeshRenderer decal;
 
-    Material colorMat;
+    Material material;
 
     Quaternion baseCamDirection;
 
@@ -139,8 +142,7 @@ public class SquarePlayerController : Controller {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         meshRenderer = square.GetComponent<MeshRenderer>();
-        colorMat = meshRenderer.material;
-        decal.material.color = colorOn;
+        material = meshRenderer.material;
         OnValidate();
     }
     /// <summary>
@@ -417,7 +419,9 @@ public class SquarePlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        colorMat.color = b ? colorOn : colorOff;
+        decal.material.color = b ? colorOn : colorOff;
+        material.color = b ? colorOn : colorOff;
+        material.SetColor("_SphereColor", b ? sphereColor : Color.black);
         if (!IsOnButton)
             playerInputSpace.gameObject.SetActive(b);
     }
@@ -464,6 +468,9 @@ public class SquarePlayerController : Controller {
     }
     public override void DisplayATH(bool b) {
         ath.DisplayATH(b);
+    }
+    public override Transform GetShape() {
+        return square;
     }
     #endregion
 }
