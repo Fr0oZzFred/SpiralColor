@@ -1,9 +1,11 @@
 using UnityEngine;
+public enum GemsTypes { Circle, Triangle, Square, Cross }
 public class Gems : MonoBehaviour {
 
     [SerializeField] float speed, amplitude;
     [SerializeField] Vector3 rotSpeed;
     [SerializeField] string sound;
+    public GemsTypes type;
     Vector3 startPos;
 
     public int gemIndex;
@@ -18,7 +20,7 @@ public class Gems : MonoBehaviour {
             Collect();
     }
     public void Collect() {
-        if(!GameManager.Instance.gemsList[LevelManager.Instance.LevelInt][gemIndex]) GameManager.Instance.CollectGem(gemIndex);
+        if(!GameManager.Instance.gemsList[LevelManager.Instance.LevelInt][gemIndex]) GameManager.Instance.CollectGem(gemIndex, type);
         gameObject.SetActive(false);
         UIManager.Instance.DisplayGems();
         SoundsManager.Instance.Play(sound);

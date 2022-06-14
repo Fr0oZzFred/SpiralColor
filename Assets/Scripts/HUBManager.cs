@@ -80,16 +80,17 @@ public class HUBManager : MonoBehaviour {
         CheckOrbs();
 
         //CheckForNewGems
-        if (gemsPool.GemsCount < GameManager.Instance.GemsCount) {
-            SwitchCam(gemsCam, playerCam);
-            playerHandler.CurrentPlayer.RegisterInputs(false);
-            for (int i = gemsPool.GemsCount; i < GameManager.Instance.GemsCount; i++) {
-                gemsPool.Spawn();
-                yield return new WaitForSeconds(secondsBetweenSpawn);
+        if (gemsPool.GemsCount >= GameManager.Instance.GemsCount) yield break;
+        SwitchCam(gemsCam, playerCam);
+        playerHandler.CurrentPlayer.RegisterInputs(false);
+        for (int i = gemsPool.GemsCount; i < GameManager.Instance.GemsCount; i++) {
+            gemsPool.Spawn(GameManager.Instance.GemsTypesIndex[gemsPool.GemsCount + i]);
+            yield return new WaitForSeconds(secondsBetweenSpawn);
             }
-            yield return new WaitForSeconds(secondsAfterSpawn);
-            SwitchCam(playerCam, gemsCam);
-        }
+        yield return new WaitForSeconds(secondsAfterSpawn);
+        SwitchCam(playerCam, gemsCam);
+        
+    
 
         //CheckForEvents
         switch (GameManager.Instance.Progression) {
