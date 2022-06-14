@@ -540,10 +540,10 @@ public class CrossPlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        decal.material.color = b ? colorOn : colorOff;
+        decal.material.color = b ? colorOn : Color.black;
         material.color = b ? colorOn : colorOff;
         material.SetColor("_SphereColor", b ? sphereColor : Color.black);
-        if (!IsOnButton) {
+        if (GameManager.Instance.CurrentState != GameState.Pause && !IsOnButton) {
             playerInputSpace.gameObject.SetActive(b);
         }
     }

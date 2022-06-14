@@ -32,7 +32,7 @@ public class GemsPool : MonoBehaviour
     public int GemsCount { get { return Gems.Count; } }
     Vector3 pos {
         get {
-            return new Vector3(Random.Range(transform.position.x - 2, transform.position.x + 2), transform.position.y, Random.Range(transform.position.z - 2, transform.position.z + 2));
+            return new Vector3(Random.Range(transform.position.x - 1, transform.position.x + 1), transform.position.y, Random.Range(transform.position.z - 1, transform.position.z + 1));
         }
     }
     void Awake() {

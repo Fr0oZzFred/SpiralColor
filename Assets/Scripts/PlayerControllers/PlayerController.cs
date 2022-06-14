@@ -162,7 +162,8 @@ public class PlayerController : Controller {
             rightAxis = ProjectDirectionOnPlane(Vector3.right, upAxis);
             forwardAxis = ProjectDirectionOnPlane(Vector3.forward, upAxis);
         }
-
+        velocity.x = velocity.x <= 0.005f && velocity.x >= -0.005f ? 0 : velocity.x;
+        velocity.z = velocity.z <= 0.005f && velocity.z >= -0.005f ? 0 : velocity.z;
         animator.SetBool("Walking", velocity.x != 0 && velocity.z != 0);
 
         if (!OnGround)
@@ -424,7 +425,8 @@ public class PlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        playerInputSpace.gameObject.SetActive(b);
+        if(GameManager.Instance.CurrentState != GameState.Pause)
+            playerInputSpace.gameObject.SetActive(b);
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();

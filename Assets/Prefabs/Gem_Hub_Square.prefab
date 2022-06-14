@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4056667948561776587}
   - component: {fileID: 1145028749703753838}
   - component: {fileID: 2884277235129468068}
-  - component: {fileID: 4595527032686893092}
   - component: {fileID: 915382374220657290}
+  - component: {fileID: -1533058666613200038}
   m_Layer: 0
   m_Name: Gem_Hub_Square
   m_TagString: Untagged
@@ -84,19 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4595527032686893092
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3677187640140817777}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &915382374220657290
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -113,6 +100,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!64 &-1533058666613200038
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3677187640140817777}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5869761508291144630, guid: d009716c3e368354a87810b8e98743e3, type: 3}
 --- !u!1 &4595527032668595552
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,21 @@ public class CheatCodes : MonoBehaviour{
     }
     void Update() {
         if (Keyboard.current.cKey.wasPressedThisFrame) GameManager.Instance.LoadCheat();
+        if (Keyboard.current.numpad1Key.wasPressedThisFrame) LevelTarget = 1;
+        else if (Keyboard.current.numpad2Key.wasPressedThisFrame) LevelTarget = 2;
+        else if (Keyboard.current.numpad3Key.wasPressedThisFrame) LevelTarget = 3;
+        else if (Keyboard.current.numpad4Key.wasPressedThisFrame) LevelTarget = 4;
+        else if (Keyboard.current.numpad5Key.wasPressedThisFrame) LevelTarget = 5;
+        else if (Keyboard.current.numpad6Key.wasPressedThisFrame) LevelTarget = 6;
+        else if (Keyboard.current.numpad7Key.wasPressedThisFrame) LevelTarget = 7;
+        else if (Keyboard.current.numpad8Key.wasPressedThisFrame) LevelTarget = 8;
+        else if (Keyboard.current.numpad9Key.wasPressedThisFrame) LevelTarget = 9;
+        else if (Keyboard.current.numpad0Key.wasPressedThisFrame) LevelTarget = 10;
+        else if (Keyboard.current.yKey.wasPressedThisFrame) LevelTarget = 11;
+        else if (Keyboard.current.uKey.wasPressedThisFrame) LevelTarget = 12;
+        else if (Keyboard.current.iKey.wasPressedThisFrame) LevelTarget = 13;
+        else if (Keyboard.current.oKey.wasPressedThisFrame) LevelTarget = 14;
+        else if (Keyboard.current.pKey.wasPressedThisFrame) LevelTarget = 15;
     }
     public List<List<bool>> GemsLevel() {
         for (int level = 0; level < LevelTarget; level++) {

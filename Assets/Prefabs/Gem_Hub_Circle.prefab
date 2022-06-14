@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 785206470118054285}
   - component: {fileID: 4416419945537508904}
   - component: {fileID: 1922669544068244194}
-  - component: {fileID: 968032451052240481}
   - component: {fileID: 6633482017792465272}
+  - component: {fileID: 6820725752650473157}
   m_Layer: 0
   m_Name: Gem_Hub_Circle
   m_TagString: Untagged
@@ -84,19 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &968032451052240481
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121119672455775031}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.39999998, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6633482017792465272
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -113,6 +100,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!64 &6820725752650473157
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121119672455775031}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2124705421725058983, guid: a1fbe1fbde637fc4082f5976fe69ad76, type: 3}
 --- !u!1 &968032451501253834
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour {
     [Header("InHUB")]
     [SerializeField]
     GameObject inHubHUD;
+    [SerializeField] GameObject blackBoards;
 
     [Header("InLevel")]
     [SerializeField] GameObject inLevelHUD;
@@ -187,7 +188,11 @@ public class UIManager : MonoBehaviour {
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
     }
     #endregion
-
+    #region InHUB
+    public void ActivateBlackBoard(bool b) {
+        blackBoards.SetActive(b);
+    }
+    #endregion
     #region InLevel
     public void DisplayGems() {
         GameManager.Instance.GetCollectedGemsOfLevel(LevelManager.Instance.LevelInt, out int collected, out int max);
