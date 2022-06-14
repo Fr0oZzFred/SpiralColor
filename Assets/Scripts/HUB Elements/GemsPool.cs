@@ -32,8 +32,7 @@ public class GemsPool : MonoBehaviour
     public int GemsCount { get { return Gems.Count; } }
     Vector3 pos {
         get {
-            //Ajouter calcul pour avoir une zone de spawn et pas un seul point
-            return transform.position;
+            return new Vector3(Random.Range(transform.position.x - 2, transform.position.x + 2), transform.position.y, Random.Range(transform.position.z - 2, transform.position.z + 2));
         }
     }
     void Awake() {
@@ -42,19 +41,12 @@ public class GemsPool : MonoBehaviour
             LoadGemsPool();
         }
     }
-    
     private void Update() {
         if (Keyboard.current.aKey.wasPressedThisFrame) {
-            //Gems.Add(Instantiate(prefab, pos, Quaternion.identity));
+            Gems.Add(Instantiate(prefab[0], pos, Quaternion.identity));
         }
-        if (Keyboard.current.nKey.wasPressedThisFrame) {
-            SaveSystem.SaveGemmes(this);
-        }
-        if (Keyboard.current.bKey.wasPressedThisFrame) {
-            LoadGemsPool();
-        }
-        if (Keyboard.current.dKey.wasPressedThisFrame) {
-            DestroyGems();
+        if (Keyboard.current.sKey.wasPressedThisFrame) {
+            StartCoroutine(Shower());
         }
     }
     public void Spawn(int type) {
@@ -68,6 +60,12 @@ public class GemsPool : MonoBehaviour
             Quaternion rotation = new Quaternion(data.rotations[i * 4], data.rotations[i * 4 + 1], data.rotations[i * 4 + 2], data.rotations[i * 4 + 3]);
             Gems.Add(Instantiate(prefab[GameManager.Instance.GemsTypesIndex[i]], position, rotation));
             Gems[i].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        }
+    }
+    IEnumerator Shower() {
+        for (int i = 0; i < 322; i++) {
+            Instantiate(prefab[Random.Range(0, 4)], pos, Quaternion.identity);
+            yield return new WaitForSeconds(0.1f);
         }
     }
     void DestroyGems() {
