@@ -452,10 +452,11 @@ public class SpherePlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        decal.material.color = b ? colorOn : colorOff;
+        decal.material.color = b ? colorOn : Color.black;
         material.color = b ? colorOn : colorOff;
         material.SetColor("_SphereColor", b ? sphereColor : Color.black);
-        playerInputSpace.gameObject.SetActive(b);
+        if (GameManager.Instance.CurrentState != GameState.Pause)
+            playerInputSpace.gameObject.SetActive(b);
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();

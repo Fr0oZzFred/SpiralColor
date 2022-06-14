@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using Cinemachine;
 
 public class PlayerHandler : MonoBehaviour {
 
@@ -26,7 +27,11 @@ public class PlayerHandler : MonoBehaviour {
     [SerializeField] AnimationCurve curveShape;
     [SerializeField] Mesh playerMesh;
 
+    [SerializeField] CinemachineVirtualCamera playerChangeCam;
+    [SerializeField] CinemachineTargetGroup targetGroup;
+
     private void Start() {
+        playerChangeCam.gameObject.SetActive(false);
         if (GameManager.Instance) {
             GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
         }
@@ -164,12 +169,18 @@ public class PlayerHandler : MonoBehaviour {
     }
     IEnumerator SpawnPlayerQTE() {
         CoroutineIsRunning = true;
+        targetGroup.AddMember(current.transform, 1,0);
+        targetGroup.AddMember(player.transform, 1,0);
+        playerChangeCam.gameObject.SetActive(true);
         current.RegisterInputs(false);
         player.GetComponent<SphereCollider>().enabled = true;
         current.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.Respawn(current.transform.position + offset, playerChangeCam.transform.rotation);
 
         changePlayerVFX.SetMesh("Start Mesh", current.GetShape().GetComponent<MeshFilter>().mesh);
-        changePlayerVFX.SetMesh("End Mesh", player.GetMesh);
+        changePlayerVFX.SetMesh("End Mesh", playerMesh);
+        changePlayerVFX.SetFloat("Start Size", 1.1f);
+        changePlayerVFX.SetFloat("End Size", 0f);
         changePlayerVFX.SetAnimationCurve("Start Mesh Size Over Lifetime", curveShape);
         changePlayerVFX.SetAnimationCurve("End Mesh Size Over Lifetime", curvePlayer);
 
@@ -183,29 +194,44 @@ public class PlayerHandler : MonoBehaviour {
 
         yield return new WaitForSeconds(
             changePlayerVFX.GetFloat("Start Sphere Lifetime") +
-            changePlayerVFX.GetFloat("Particles Lifetime") +
-            changePlayerVFX.GetFloat("End Mesh Lifetime")
+            changePlayerVFX.GetFloat("Particles Lifetime")
         );
 
-        player.Respawn(current.transform.position + offset, current.GetCamRotation());
-        current = null;
         player.GetShape().gameObject.SetActive(true);
+        for (float i = 0; i < 50; i++) {
+            player.GetShape().transform.localScale = Vector3.one * i * 0.01f;
+            yield return new WaitForSeconds(changePlayerVFX.GetFloat("End Mesh Lifetime") * 0.01f);
+        }
+
+        yield return new WaitForSeconds(changePlayerVFX.GetFloat("End Mesh Lifetime") * 0.5f);
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        targetGroup.RemoveMember(current.transform);
+        player.SetCamRotation(playerChangeCam.transform.rotation);
         player.RegisterInputs(true);
         player.SetControllerLED();
 
 
+        targetGroup.RemoveMember(player.transform);
+        targetGroup.RemoveMember(current.transform);
+        playerChangeCam.gameObject.SetActive(false);
+        current = null;
         changePlayerVFX.gameObject.SetActive(false);
         CoroutineIsRunning = false;
     }
 
     IEnumerator PlayerIntoControllerQTE(Controller newController) {
         CoroutineIsRunning = true;
+        targetGroup.AddMember(newController.transform, 1, 0);
+        targetGroup.AddMember(player.transform, 1, 0);
+        playerChangeCam.gameObject.SetActive(true);
         player.RegisterInputs(false);
-        newController.SetCamRotation(player.GetCamRotation());
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 
         changePlayerVFX.SetMesh("Start Mesh", playerMesh);
         changePlayerVFX.SetMesh("End Mesh", newController.GetShape().GetComponent<MeshFilter>().mesh);
+        changePlayerVFX.SetFloat("Start Size", 0f);
+        changePlayerVFX.SetFloat("End Size", 1.1f);
         changePlayerVFX.SetAnimationCurve("Start Mesh Size Over Lifetime", curvePlayer);
         changePlayerVFX.SetAnimationCurve("End Mesh Size Over Lifetime", curveShape);
 
@@ -217,7 +243,11 @@ public class PlayerHandler : MonoBehaviour {
         changePlayerVFX.gameObject.transform.position = startPos;
         changePlayerVFX.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(changePlayerVFX.GetFloat("Start Sphere Lifetime") * 0.5f);
+
+        for (float i = 50; i > 0; i--) {
+            player.GetShape().transform.localScale = Vector3.one * i * 0.01f;
+            yield return new WaitForSeconds(changePlayerVFX.GetFloat("End Mesh Lifetime") * 0.01f);
+        }
 
         player.GetComponent<SphereCollider>().enabled = false;
         player.GetShape().gameObject.SetActive(false);
@@ -228,6 +258,8 @@ public class PlayerHandler : MonoBehaviour {
             changePlayerVFX.GetFloat("End Mesh Lifetime")
         );
 
+        newController.SetCamRotation(playerChangeCam.transform.rotation);
+        
         if (newController is CrossPlayerController) {
             newController.RegisterInputs(!newController.GetComponent<CrossPlayerController>().IsOnButton);
         } else {
@@ -235,6 +267,10 @@ public class PlayerHandler : MonoBehaviour {
         }
         newController.SetControllerLED();
         current = newController;
+
+        targetGroup.RemoveMember(player.transform);
+        targetGroup.RemoveMember(newController.transform);
+        playerChangeCam.gameObject.SetActive(false);
 
         changePlayerVFX.gameObject.SetActive(false);
         CoroutineIsRunning = false;
