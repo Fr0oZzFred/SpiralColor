@@ -11,7 +11,7 @@ public class Gems : MonoBehaviour {
     public int gemIndex;
     private void Awake() {
         startPos = transform.localPosition;
-        if (GameManager.Instance.gemsList[LevelManager.Instance.LevelInt].Count < FindObjectsOfType(typeof(Gems)).Length)
+        if (GameManager.Instance.GemsList[LevelManager.Instance.LevelInt].Count < FindObjectsOfType(typeof(Gems)).Length)
             GameManager.Instance.AddGem();
         else if (GameManager.Instance.CheckGem(gemIndex)) gameObject.SetActive(false);
     }
@@ -20,7 +20,7 @@ public class Gems : MonoBehaviour {
             Collect();
     }
     public void Collect() {
-        if(!GameManager.Instance.gemsList[LevelManager.Instance.LevelInt][gemIndex]) GameManager.Instance.CollectGem(gemIndex, type);
+        if(!GameManager.Instance.GemsList[LevelManager.Instance.LevelInt][gemIndex]) GameManager.Instance.CollectGem(gemIndex, type);
         gameObject.SetActive(false);
         UIManager.Instance.DisplayGems();
         SoundsManager.Instance.Play(sound);
