@@ -118,7 +118,7 @@ public class LevelManager : MonoBehaviour {
             SoundsManager.Instance.Play(music);
         }
         if (UIManager.Instance) {
-            UIManager.Instance.DisplayGems();
+            UIManager.Instance.DisplayGems(false);
         }
         timeline.gameObject.SetActive(false);
         GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -181,7 +181,7 @@ public class LevelManager : MonoBehaviour {
                 break;
             case GameState.InLevel:
                 SoundsManager.Instance.UnPauseCurrentMusic();
-                UIManager.Instance.DisplayGems();
+                UIManager.Instance.DisplayGems(false);
                 break;
         }
     }

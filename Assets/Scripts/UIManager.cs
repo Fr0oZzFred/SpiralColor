@@ -20,7 +20,8 @@ public class UIManagerData {
     }
 }
 public class UIManager : MonoBehaviour {
-#region Fields
+    #region Fields
+
     [Header("MainMenu")]
     [SerializeField]
     GameObject mainMenuHUD;
@@ -56,14 +57,15 @@ public class UIManager : MonoBehaviour {
 
     [Header("Loading")]
     [SerializeField] GameObject loadingHUD;
-    [SerializeField] Slider loadingSlider;
-    [SerializeField] TMP_Text loadingProgressText;
+    //[SerializeField] Slider loadingSlider;
+    //[SerializeField] TMP_Text loadingProgressText;
 
     [Header("Cutscene")]
     [SerializeField] GameObject cutsceneHUD;
 
     [Header("Credits")]
     [SerializeField] GameObject creditsHUD;
+    [SerializeField] List<RectTransform> flares;
 
     [Header("Options")]
     [SerializeField] GameObject optionsHUD;
@@ -119,9 +121,20 @@ public class UIManager : MonoBehaviour {
         if (flareTransform.gameObject.activeInHierarchy) {
             Vector3 rota = flareTransform.rotation.eulerAngles;
             rota.z += flareSpeed * Time.deltaTime;
-            Quaternion rot = new Quaternion();
-            rot.eulerAngles = rota;
+            Quaternion rot = new Quaternion {
+                eulerAngles = rota
+            };
             flareTransform.rotation = rot;
+        }
+        else if(GameManager.Instance.CurrentState == GameState.Credits) {
+            foreach (var item in flares) {
+                Vector3 rota = item.rotation.eulerAngles;
+                rota.z += flareSpeed * Time.deltaTime;
+                Quaternion rot = new Quaternion {
+                    eulerAngles = rota
+                };
+                item.rotation = rot;
+            }
         }
     }
     void OnGameStateChanged(GameState newState) {
@@ -194,7 +207,19 @@ public class UIManager : MonoBehaviour {
     }
     #endregion
     #region InLevel
-    public void DisplayGems() {
+    //bool utilisé pour éviter les animations lors des init
+    public void DisplayGems(bool b) {
+        if (b) {
+            StartCoroutine(AnimGemsScore());
+        } else {
+            GameManager.Instance.GetCollectedGemsOfLevel(LevelManager.Instance.LevelInt, out int collected, out int max);
+            crystalText.SetText(collected + " / " + max);
+        }
+    }
+
+    IEnumerator AnimGemsScore() {
+        crystalText.transform.GetChild(0).gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
         GameManager.Instance.GetCollectedGemsOfLevel(LevelManager.Instance.LevelInt, out int collected, out int max);
         crystalText.SetText(collected + " / " + max);
     }
@@ -207,7 +232,7 @@ public class UIManager : MonoBehaviour {
     #endregion
 
     #region LoadingScreen
-    public void UpdateLoadingScreen(float sliderValue, float progressText) {
+   /*public void UpdateLoadingScreen(float sliderValue, float progressText) {
         SetLoadingSlider(sliderValue);
         SetLoadingText(progressText);
     }
@@ -218,7 +243,7 @@ public class UIManager : MonoBehaviour {
 
     void SetLoadingText(float progressText) {
         loadingProgressText.text = progressText + "%";
-    }
+    }*/
     #endregion
 
     #region Score

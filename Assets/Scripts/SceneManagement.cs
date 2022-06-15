@@ -29,8 +29,8 @@ public class SceneManagement : MonoBehaviour {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         GameManager.Instance.SetState(GameState.Loading);
         while (!operation.isDone) {
-            float progress = Mathf.Clamp01(operation.progress / .9f);
-            UIManager.Instance.UpdateLoadingScreen(progress, progress * 100);
+            //float progress = Mathf.Clamp01(operation.progress / .9f);
+            //UIManager.Instance.UpdateLoadingScreen(progress, progress * 100);
             yield return null;
         }
     }

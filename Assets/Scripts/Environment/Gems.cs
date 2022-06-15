@@ -22,7 +22,7 @@ public class Gems : MonoBehaviour {
     public void Collect() {
         if(!GameManager.Instance.GemsList[LevelManager.Instance.LevelInt][gemIndex]) GameManager.Instance.CollectGem(gemIndex, type);
         gameObject.SetActive(false);
-        UIManager.Instance.DisplayGems();
+        UIManager.Instance.DisplayGems(true);
         SoundsManager.Instance.Play(sound);
     }
     private void Update() {
