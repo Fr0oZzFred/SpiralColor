@@ -30,6 +30,8 @@ public class CheatCodes : MonoBehaviour{
         else if (Keyboard.current.pKey.wasPressedThisFrame) LevelTarget = 15;
     }
     public List<List<bool>> GemsLevel() {
+        gemsList = new List<List<bool>>();
+        for (int i = 0; i < 16; i++) gemsList.Add(new List<bool>());
         for (int level = 0; level < LevelTarget; level++) {
             switch (level) {
                 case 1:

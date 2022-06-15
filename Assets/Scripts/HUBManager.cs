@@ -122,6 +122,8 @@ public class HUBManager : MonoBehaviour {
                 break;
             case 15:
                 if (GameManager.Instance.GameDone && !GameManager.Instance.CreditSeenOnce) {
+                    timelines[4].SetActive(true);
+                    yield return new WaitForSeconds(7f);
                     GameManager.Instance.CreditSeenOnce = true;
                     SceneManagement.Instance.LoadCreditsWithRendering();
                     GameManager.Instance.SetState(GameState.Credits);
@@ -226,13 +228,14 @@ public class HUBManager : MonoBehaviour {
 
     #region Doors
     public void CheckDoors() {
-        for (int i = 0; i < doors.Count; i++) {
+        for (int i = 0; i < doors.Count -1; i++) {
             bool isUnlocked = GameManager.Instance.Progression >= doors[i].progressionRequirement;
+            doors[i].socleMeshRenderer.material.color = isUnlocked ? doors[i].colorOn : doors[i].colorOff;
             doors[i].doorLeftMeshRenderer.material.color = isUnlocked ? doors[i].colorOn : doors[i].colorOff;
             doors[i].doorRightMeshRenderer.material.color = isUnlocked ? doors[i].colorOn : doors[i].colorOff;
-            doors[i].socleMeshRenderer.material.color = isUnlocked ? doors[i].colorOn : doors[i].colorOff;
             shipMeshRenderer.material.SetColor(colorPropertyRef + (i + 1), isUnlocked ? doors[i].colorOn : doors[i].colorOff);
         }
+        doors[4].socleMeshRenderer.material.color = GameManager.Instance.GameDone ? doors[4].colorOn : doors[4].colorOff;
     }
     void CheckOrbs() {
         if (GameManager.Instance.Progression <= 1) {
@@ -252,6 +255,11 @@ public class HUBManager : MonoBehaviour {
         orbs[7].SetActive(GameManager.Instance.Progression == 9 | GameManager.Instance.Progression == 10);
         orbs[8].SetActive(GameManager.Instance.Progression == 10);
         orbs[9].SetActive(GameManager.Instance.Progression >= 11);
+        orbs[10].SetActive(GameManager.Instance.Progression >= 12 && GameManager.Instance.Progression <= 15 && !GameManager.Instance.GameDone);
+        orbs[11].SetActive(GameManager.Instance.Progression >= 13 && GameManager.Instance.Progression <= 15 && !GameManager.Instance.GameDone);
+        orbs[12].SetActive(GameManager.Instance.Progression == 14 || GameManager.Instance.Progression == 15 && !GameManager.Instance.GameDone);
+        orbs[13].SetActive(GameManager.Instance.Progression == 15 && !GameManager.Instance.GameDone);
+        orbs[14].SetActive(GameManager.Instance.GameDone);
     }
     public void OpenDoor(int doorIndex) {
         if(GameManager.Instance.Progression >= doors[doorIndex].progressionRequirement) {
