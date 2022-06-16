@@ -88,12 +88,14 @@ public class HUBManager : MonoBehaviour {
         if (gemsPool.GemsCount < GameManager.Instance.GemsCount) {
             SwitchCam(gemsCam, playerCam);
             playerHandler.CurrentPlayer.RegisterInputs(false);
+            UIManager.Instance.UpdateCamera();
             for (int i = gemsPool.GemsCount; i < GameManager.Instance.GemsCount; i++) {
                 gemsPool.Spawn(GameManager.Instance.GemsTypesIndex[i]);
                 yield return new WaitForSeconds(secondsBetweenSpawn);
             }
             yield return new WaitForSeconds(secondsAfterSpawn);
             SwitchCam(playerCam, gemsCam);
+            UIManager.Instance.UpdateCamera();
         }
         
     
@@ -103,26 +105,31 @@ public class HUBManager : MonoBehaviour {
             case 2:
                 //Sphere Unlocked
                 timelines[0].SetActive(true);
+                UIManager.Instance.UpdateCamera();
                 yield return new WaitForSeconds(7f);
                 break;
             case 4:
                 //Triangle Unlocked
                 timelines[1].SetActive(true);
+                UIManager.Instance.UpdateCamera();
                 yield return new WaitForSeconds(7f);
                 break;
             case 7:
                 //Cube Unlocked
                 timelines[2].SetActive(true);
+                UIManager.Instance.UpdateCamera();
                 yield return new WaitForSeconds(7f);
                 break;
             case 11:
                 //Cross Unlocked
                 timelines[3].SetActive(true);
+                UIManager.Instance.UpdateCamera();
                 yield return new WaitForSeconds(7f);
                 break;
             case 15:
                 if (GameManager.Instance.GameDone && !GameManager.Instance.CreditSeenOnce) {
                     timelines[4].SetActive(true);
+                    UIManager.Instance.UpdateCamera();
                     yield return new WaitForSeconds(7f);
                     GameManager.Instance.CreditSeenOnce = true;
                     SceneManagement.Instance.LoadCreditsWithRendering();
@@ -136,6 +143,7 @@ public class HUBManager : MonoBehaviour {
         }
         UIManager.Instance.ActivateBlackBoard(false);
         playerHandler.CurrentPlayer.RegisterInputs(true);
+        UIManager.Instance.UpdateCamera();
         yield return null;
     }
 
@@ -178,11 +186,13 @@ public class HUBManager : MonoBehaviour {
 
     public void OnPortalAreaEnter() {
         SwitchCam(portalCam, playerCam);
+        UIManager.Instance.UpdateCamera();
         playerHandler.CurrentPlayer.SetInputSpace(portalCam.transform);
     }
 
     public void OnPortalAreaExit() {
         SwitchCam(playerCam, portalCam);
+        UIManager.Instance.UpdateCamera();
         playerHandler.CurrentPlayer.SetInputSpace(playerCam.transform);
     }
 
@@ -207,6 +217,7 @@ public class HUBManager : MonoBehaviour {
             Action -= InLevelSelectionRange;
             Action += InLevelSelection;
             SwitchCam(levelScreenCam, portalCam);
+            UIManager.Instance.UpdateCamera();
             playerInSelection = true;
             playerHandler.CurrentPlayer.RegisterInputs(false);
             UIManager.Instance.SetEventSystemCurrentSelectedGO(levelRow[GameManager.Instance.Progression - 1].gameObject);
@@ -220,6 +231,7 @@ public class HUBManager : MonoBehaviour {
             Action -= InLevelSelection;
             Action += InLevelSelectionRange;
             SwitchCam(portalCam, levelScreenCam);
+            UIManager.Instance.UpdateCamera();
             playerHandler.CurrentPlayer.RegisterInputs(true);
             UIManager.Instance.SetEventSystemCurrentSelectedGO(null);
         }

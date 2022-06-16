@@ -40,6 +40,7 @@ public class PlayerHandler : MonoBehaviour {
 
         player.RegisterInputs(true);
         player.SetControllerLED();
+        UIManager.Instance.UpdateCamera();
 
         if (listController.Count == 0) return;
         for (int i = 0; i < listController.Count; i++) {
@@ -172,6 +173,7 @@ public class PlayerHandler : MonoBehaviour {
         targetGroup.AddMember(current.transform, 1,0);
         targetGroup.AddMember(player.transform, 1,0);
         playerChangeCam.gameObject.SetActive(true);
+        UIManager.Instance.UpdateCamera();
         current.RegisterInputs(false);
         player.GetComponent<SphereCollider>().enabled = true;
         current.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -214,6 +216,7 @@ public class PlayerHandler : MonoBehaviour {
         targetGroup.RemoveMember(player.transform);
         targetGroup.RemoveMember(current.transform);
         playerChangeCam.gameObject.SetActive(false);
+        UIManager.Instance.UpdateCamera();
         current = null;
         changePlayerVFX.gameObject.SetActive(false);
         CoroutineIsRunning = false;
@@ -224,6 +227,7 @@ public class PlayerHandler : MonoBehaviour {
         targetGroup.AddMember(newController.transform, 1, 0);
         targetGroup.AddMember(player.transform, 1, 0);
         playerChangeCam.gameObject.SetActive(true);
+        UIManager.Instance.UpdateCamera();
         player.RegisterInputs(false);
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
@@ -271,6 +275,7 @@ public class PlayerHandler : MonoBehaviour {
         targetGroup.RemoveMember(player.transform);
         targetGroup.RemoveMember(newController.transform);
         playerChangeCam.gameObject.SetActive(false);
+        UIManager.Instance.UpdateCamera();
 
         changePlayerVFX.gameObject.SetActive(false);
         CoroutineIsRunning = false;
