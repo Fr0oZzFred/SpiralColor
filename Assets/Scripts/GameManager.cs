@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour {
     public void LoadCheat() {
         GemsList = CheatCodes.Instance.GemsLevel();
         Progression = CheatCodes.Instance.LevelTarget;
+        GemsTypesIndex = CheatCodes.Instance.GemsTypesIndex;
     }
     /// <summary>
     /// Update the Progression of the storyline
@@ -201,6 +202,7 @@ public class GameManager : MonoBehaviour {
         Application.Quit();
     }
     private void OnApplicationQuit() {
+        RenderSettings.skybox.SetFloat("_Rotation", 0f);
         SaveGameManager();
     }
 }

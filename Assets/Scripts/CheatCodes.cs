@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class CheatCodes : MonoBehaviour{
+public class CheatCodes : MonoBehaviour {
     public static CheatCodes Instance { get; private set; }
     public int LevelTarget = 10;
     public List<List<bool>> gemsList { get; private set; }
+    public List<int> GemsTypesIndex { get; private set; }
+    int randGem;
     void Awake() {
         Instance = this;
-        gemsList = new List<List<bool>>();
-        for (int i = 0; i < 16; i++) gemsList.Add(new List<bool>());
     }
     void Update() {
         if (Keyboard.current.cKey.wasPressedThisFrame) GameManager.Instance.LoadCheat();
@@ -31,50 +31,105 @@ public class CheatCodes : MonoBehaviour{
     }
     public List<List<bool>> GemsLevel() {
         gemsList = new List<List<bool>>();
+        GemsTypesIndex = new List<int>();
         for (int i = 0; i < 16; i++) gemsList.Add(new List<bool>());
         for (int level = 0; level < LevelTarget; level++) {
             switch (level) {
                 case 1:
-                    for (int i = 0; i < 8; i++) gemsList[level].Add(true);
-                    break;  
+                    for (int i = 0; i < 8; i++) {
+                        gemsList[level].Add(true);
+                        GemsTypesIndex.Add(0);
+                    }
+                    break;
                 case 2:
-                    for (int i = 0; i < 10; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 10; i++) {
+                        gemsList[level].Add(true);
+                        GemsTypesIndex.Add(1);
+                    }
                     break;
                 case 3:
-                    for (int i = 0; i < 12; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 12; i++) {
+                        gemsList[level].Add(true);
+                        randGem = Random.Range(0, 2);
+                        GemsTypesIndex.Add(randGem);
+                    }
                     break;
                 case 4:
-                    for (int i = 0; i < 10; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 10; i++) {
+                        gemsList[level].Add(true);
+                        GemsTypesIndex.Add(2);
+                    }
                     break;
                 case 5:
-                    for (int i = 0; i < 26; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 26; i++) {
+                        gemsList[level].Add(true);
+                        randGem = Random.Range(0, 2) == 1 ? 2 : 0;
+                        GemsTypesIndex.Add(randGem);
+                    }
                     break;
                 case 6:
-                    for (int i = 0; i < 14; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 14; i++) {
+                        gemsList[level].Add(true);
+                        randGem = Random.Range(1, 3);
+                        GemsTypesIndex.Add(randGem);
+                    }
                     break;
                 case 7:
-                    for (int i = 0; i < 12; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 12; i++) {
+                        gemsList[level].Add(true);
+                        GemsTypesIndex.Add(3);
+                    }
                     break;
                 case 8:
-                    for (int i = 0; i < 18; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 18; i++) {
+                        gemsList[level].Add(true);
+                        randGem = Random.Range(0, 4) < 2 ? 0 : 3;
+                        GemsTypesIndex.Add(randGem);
+                    }
                     break;
                 case 9:
-                    for (int i = 0; i < 30; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 30; i++) {
+                        gemsList[level].Add(true);
+                        randGem = Random.Range(1, 4) < 2 ? 1 : 3;
+                        GemsTypesIndex.Add(randGem);
+                    }
                     break;
                 case 10:
-                    for (int i = 0; i < 24; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 24; i++) {
+                        gemsList[level].Add(true);
+                        randGem = Random.Range(2, 4);
+                        GemsTypesIndex.Add(randGem);
+                    }
                     break;
                 case 11:
-                    for (int i = 0; i < 26; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 26; i++) {
+                        gemsList[level].Add(true);
+                        randGem = Random.Range(0, 3);
+                        GemsTypesIndex.Add(randGem);
+                    }
                     break;
                 case 12:
-                    for (int i = 0; i < 32; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 32; i++) {
+                        gemsList[level].Add(true);
+                        randGem = Random.Range(0, 3);
+                        randGem = randGem == 2 ? 3 : randGem;
+                        GemsTypesIndex.Add(randGem);
+                    }
                     break;
                 case 13:
-                    for (int i = 0; i < 38; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 38; i++) {
+                        gemsList[level].Add(true);
+                        randGem = Random.Range(1, 4);
+                        randGem = randGem == 1 ? 0 : randGem;
+                        GemsTypesIndex.Add(randGem);
+                    }
                     break;
                 case 14:
-                    for (int i = 0; i < 30; i++) gemsList[level].Add(true);
+                    for (int i = 0; i < 30; i++) {
+                        gemsList[level].Add(true);
+                        randGem = Random.Range(1, 4);
+                        GemsTypesIndex.Add(randGem);
+                    }
                     break;
             }
         }
