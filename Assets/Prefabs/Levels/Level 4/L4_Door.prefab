@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5243639393313624961}
   - component: {fileID: 9181429698255330340}
   - component: {fileID: 6381049694867155182}
-  - component: {fileID: 5714961559953437796}
+  - component: {fileID: 4404049669123579528}
   m_Layer: 0
   m_Name: L4_Door
   m_TagString: Untagged
@@ -83,8 +83,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5714961559953437796
-MeshCollider:
+--- !u!65 &4404049669123579528
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,7 +93,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1614286304851213594, guid: 28ec0fd985a543142ac6cde6db552170, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 4, y: 1, z: 6}
+  m_Center: {x: 0, y: 0, z: 0}

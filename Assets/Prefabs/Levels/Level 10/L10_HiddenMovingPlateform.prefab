@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5955719870917198137}
   - component: {fileID: 7280398924698767004}
   - component: {fileID: 4822752077377616470}
-  - component: {fileID: 6137367079830693584}
+  - component: {fileID: 8417926115245827789}
   m_Layer: 0
   m_Name: L10_HiddenMovingPlateform
   m_TagString: Untagged
@@ -83,8 +83,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6137367079830693584
-MeshCollider:
+--- !u!65 &8417926115245827789
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,7 +93,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 423796712558422770, guid: cede3d12dfa54c24eaffe7ea49c17785, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}

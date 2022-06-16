@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 481353341511064478}
   - component: {fileID: 3531323232063444027}
   - component: {fileID: 1649778220518154481}
-  - component: {fileID: -5820025284989117075}
+  - component: {fileID: 327916696138464415}
   m_Layer: 0
   m_Name: L14_LBig_Platform
   m_TagString: Untagged
@@ -83,8 +83,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &-5820025284989117075
-MeshCollider:
+--- !u!65 &327916696138464415
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,7 +93,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4940559300254064788, guid: c4c4358f905d57e46b91f2ceb072deab, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 9}
+  m_Center: {x: 0, y: 0, z: 0.5}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 454919517825051345}
   - component: {fileID: 3602854900126819700}
   - component: {fileID: 1592900121375625662}
-  - component: {fileID: 133572629749026104}
+  - component: {fileID: 6698995750336799947}
   m_Layer: 0
   m_Name: L10_LowRotatePlateform
   m_TagString: Untagged
@@ -83,8 +83,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &133572629749026104
-MeshCollider:
+--- !u!65 &6698995750336799947
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,7 +93,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2224448727954615905, guid: cf37839b68499cd43ac6ea91c511d2b5, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}

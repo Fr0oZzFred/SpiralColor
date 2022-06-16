@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.004704363, g: 0.0054050367, b: 0.0031980502, a: 1}
+  m_IndirectSpecularColor: {r: 0.0047085052, g: 0.005403299, b: 0.003197277, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -477,6 +477,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: L10_HiddenPlateform
       objectReference: {fileID: 0}
+    - target: {fileID: 5907508980924768136, guid: 676a59e38ce034b4088667fea0a37d5c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6534829380991124786, guid: 676a59e38ce034b4088667fea0a37d5c, type: 3}
       propertyPath: m_RootOrder
       value: 70
@@ -533,6 +537,10 @@ PrefabInstance:
     - target: {fileID: 4843796896140208189, guid: 234544c82037ebd479b548370a79517a, type: 3}
       propertyPath: m_Name
       value: L10_LowFixedPlateform (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843796896140208189, guid: 234544c82037ebd479b548370a79517a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 5220603467409912455, guid: 234544c82037ebd479b548370a79517a, type: 3}
       propertyPath: m_RootOrder
@@ -743,6 +751,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b712c39ab435ff46a567762804467f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!84 &181134772
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 1837
+  m_Height: 994
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 48
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &258616383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1347,6 +1391,10 @@ PrefabInstance:
     - target: {fileID: 1707816056380376497, guid: 1c6251ab937bfca489567c4d0eefd7b4, type: 3}
       propertyPath: m_Name
       value: L10_EndPlateform
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707816056380376497, guid: 1c6251ab937bfca489567c4d0eefd7b4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2087613089111514891, guid: 1c6251ab937bfca489567c4d0eefd7b4, type: 3}
       propertyPath: m_RootOrder
@@ -2405,6 +2453,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: L10_ButtonPlateform (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
 --- !u!1 &400994887
@@ -2490,6 +2542,10 @@ PrefabInstance:
     - target: {fileID: 4843796896140208189, guid: 234544c82037ebd479b548370a79517a, type: 3}
       propertyPath: m_Name
       value: L10_LowFixedPlateform (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843796896140208189, guid: 234544c82037ebd479b548370a79517a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 5220603467409912455, guid: 234544c82037ebd479b548370a79517a, type: 3}
       propertyPath: m_RootOrder
@@ -2923,6 +2979,10 @@ PrefabInstance:
     - target: {fileID: 4843796896140208189, guid: 234544c82037ebd479b548370a79517a, type: 3}
       propertyPath: m_Name
       value: L10_LowFixedPlateform (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843796896140208189, guid: 234544c82037ebd479b548370a79517a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 5220603467409912455, guid: 234544c82037ebd479b548370a79517a, type: 3}
       propertyPath: m_RootOrder
@@ -3598,7 +3658,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 1292699934}
+  m_TargetTexture: {fileID: 181134772}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -4057,6 +4117,10 @@ PrefabInstance:
     - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
       propertyPath: m_Name
       value: L10_ButtonPlateform
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
@@ -4845,6 +4909,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: L10_LowFixedPlateform (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4843796896140208189, guid: 234544c82037ebd479b548370a79517a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5220603467409912455, guid: 234544c82037ebd479b548370a79517a, type: 3}
       propertyPath: m_RootOrder
       value: 31
@@ -5323,6 +5391,10 @@ PrefabInstance:
     - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
       propertyPath: m_Name
       value: L10_ButtonPlateform (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
@@ -5897,6 +5969,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: L10_LowFixedPlateform (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4843796896140208189, guid: 234544c82037ebd479b548370a79517a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5220603467409912455, guid: 234544c82037ebd479b548370a79517a, type: 3}
       propertyPath: m_RootOrder
       value: 34
@@ -6116,6 +6192,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6332b975e100b6418bb261db78d44cb, type: 3}
+--- !u!84 &1187374514
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 1837
+  m_Height: 994
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 48
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1191346233
 GameObject:
   m_ObjectHideFlags: 0
@@ -6219,7 +6331,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 1965304605}
+  m_TargetTexture: {fileID: 1187374514}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -6886,6 +6998,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: L10_Cylinder
       objectReference: {fileID: 0}
+    - target: {fileID: 6695740702568476055, guid: 6d7139451a625d24c8a74631345280e3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d7139451a625d24c8a74631345280e3, type: 3}
 --- !u!1001 &1270389111
@@ -6946,6 +7062,10 @@ PrefabInstance:
     - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
       propertyPath: m_Name
       value: L10_ButtonPlateform (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
@@ -7019,42 +7139,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 319057550700117169, guid: 177686ef3f6b4b9479f5f6c3106ab1d5, type: 3}
   m_PrefabInstance: {fileID: 1283445824}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1292699934
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 3
-  m_Width: 1101
-  m_Height: 514
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 48
-  m_MipMap: 1
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1299135805
 GameObject:
   m_ObjectHideFlags: 0
@@ -7156,6 +7240,10 @@ PrefabInstance:
     - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
       propertyPath: m_Name
       value: L10_ButtonPlateform (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
@@ -7423,6 +7511,10 @@ PrefabInstance:
     - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
       propertyPath: m_Name
       value: L10_ButtonPlateform (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921370885868674526, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b7545ad4f2ee2545b20b3cb4fa18f86, type: 3}
@@ -9481,6 +9573,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: L10_SpawnPlateform
       objectReference: {fileID: 0}
+    - target: {fileID: 5563082352427157859, guid: 7d2a5d2bb75abb5499cde5cd0b6cd106, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6211859840273606838, guid: 7d2a5d2bb75abb5499cde5cd0b6cd106, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -9828,6 +9924,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: L10_LowFixedPlateform (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4843796896140208189, guid: 234544c82037ebd479b548370a79517a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5220603467409912455, guid: 234544c82037ebd479b548370a79517a, type: 3}
       propertyPath: m_RootOrder
       value: 35
@@ -9949,42 +10049,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1091654013005506059, guid: 177686ef3f6b4b9479f5f6c3106ab1d5, type: 3}
   m_PrefabInstance: {fileID: 1957853091}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &1965304605
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 3
-  m_Width: 1101
-  m_Height: 514
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 48
-  m_MipMap: 1
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &1979930821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10374,6 +10438,10 @@ PrefabInstance:
     - target: {fileID: 888474293143560159, guid: 3961c02e70a7ce34db233514cfe5f0cd, type: 3}
       propertyPath: m_Name
       value: ====L10_HighSpawnPlateform====
+      objectReference: {fileID: 0}
+    - target: {fileID: 888474293143560159, guid: 3961c02e70a7ce34db233514cfe5f0cd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3961c02e70a7ce34db233514cfe5f0cd, type: 3}

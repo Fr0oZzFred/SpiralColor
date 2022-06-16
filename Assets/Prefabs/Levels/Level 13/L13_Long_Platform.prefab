@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 364458851739080770}
   - component: {fileID: 3648209200383301607}
   - component: {fileID: 1532910221972235053}
-  - component: {fileID: 7460736135099105215}
+  - component: {fileID: 8381115725429640229}
   m_Layer: 0
   m_Name: L13_Long_Platform
   m_TagString: Untagged
@@ -83,8 +83,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7460736135099105215
-MeshCollider:
+--- !u!65 &8381115725429640229
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,7 +93,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2968421434808121945, guid: 5067d53f194250148a131d03fd831cc6, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1, z: 24}
+  m_Center: {x: 0, y: 0, z: 0}

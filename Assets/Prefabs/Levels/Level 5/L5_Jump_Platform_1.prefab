@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1494215245510173124}
   - component: {fileID: 2527468596319514209}
   - component: {fileID: 357939438896323243}
-  - component: {fileID: 1384361710586299945}
+  - component: {fileID: 6449251781420715274}
   m_Layer: 0
   m_Name: L5_Jump_Platform_1
   m_TagString: Untagged
@@ -83,8 +83,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1384361710586299945
-MeshCollider:
+--- !u!65 &6449251781420715274
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,7 +93,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5930853430159098036, guid: 896cc536b4a683143b6024d67464a30d, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 5, y: 1, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}
