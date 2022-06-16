@@ -33,6 +33,7 @@ public class SceneManagement : MonoBehaviour {
             //UIManager.Instance.UpdateLoadingScreen(progress, progress * 100);
             yield return null;
         }
+        UIManager.Instance.UpdateCamera();
     }
 
     //C'est vraiment du scotch à éviter si possible

@@ -91,11 +91,13 @@ public class UIManager : MonoBehaviour {
     [Header("Keyboard")]
     [SerializeField] GameObject keyboard;
     [SerializeField] TMP_Text keyboardText;
+    Canvas canvas;
     public static UIManager Instance { get; private set; }
 #endregion
     void Awake() {
         if(!Instance) Instance = this;
         GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+        canvas = GetComponent<Canvas>();
     }
     IEnumerator Start() {
         int tmpIndexLanguage = -1;
@@ -118,6 +120,10 @@ public class UIManager : MonoBehaviour {
     }
 
     private void Update() {
+        if (UnityEngine.InputSystem.Keyboard.current.hKey.wasPressedThisFrame) {
+            Debug.Log(Camera.main);
+            canvas.worldCamera = Camera.main;
+        }
         if (flareTransform.gameObject.activeInHierarchy) {
             Vector3 rota = flareTransform.rotation.eulerAngles;
             rota.z += flareSpeed * Time.deltaTime;
@@ -154,20 +160,19 @@ public class UIManager : MonoBehaviour {
         eventSystem.SetSelectedGameObject(null);
         switch (newState) {
             case GameState.MainMenu:
-                eventSystem.SetSelectedGameObject(mainMenuFirstSelectedGO);
+                StartCoroutine(WaitForEndOfTimeline(5f, mainMenuFirstSelectedGO));
                 break;
             case GameState.Pause:
                 restartButton.SetActive(GameManager.Instance.OldState == GameState.InLevel);
-                backToHUB_Button.SetActive(GameManager.Instance.OldState == GameState.InLevel);
-                eventSystem.SetSelectedGameObject(pauseFirstSelectedGO);
+                StartCoroutine(WaitForEndOfTimeline(1.5f, pauseFirstSelectedGO));
                 break;
             case GameState.Score:
-                DisplayScore(); 
-                eventSystem.SetSelectedGameObject(scoreFirstSelectedGO);
+                DisplayScore();
+                StartCoroutine(WaitForEndOfTimeline(4f, scoreFirstSelectedGO));
                 break;
             case GameState.Options:
                 UpdateSensibilityText();
-                eventSystem.SetSelectedGameObject(optionFirstSelectedGO);
+                StartCoroutine(WaitForEndOfTimeline(1.5f, optionFirstSelectedGO));
                 break;
             case GameState.ControllerDisconnected:
                 errorText1.SetActive(InputHandler.Instance.ErrorMessage);
@@ -179,6 +184,14 @@ public class UIManager : MonoBehaviour {
             default:
                 break;
         }
+    }
+    IEnumerator WaitForEndOfTimeline(float time, GameObject gameObjectToSetSelected) {
+        yield return new WaitForSeconds(time);
+        eventSystem.SetSelectedGameObject(gameObjectToSetSelected);
+    }
+    public void UpdateCamera() {
+        canvas.worldCamera = Camera.main;
+        canvas.planeDistance = 1;
     }
     public void SetEventSystemCurrentSelectedGO(GameObject g) {
         eventSystem.SetSelectedGameObject(g);
