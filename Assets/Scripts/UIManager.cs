@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     GameObject inHubHUD;
     [SerializeField] GameObject blackBoards;
+    [SerializeField] GameObject levelSelectionBlackBoards;
 
     [Header("InLevel")]
     [SerializeField] GameObject inLevelHUD;
@@ -217,6 +218,9 @@ public class UIManager : MonoBehaviour {
     #region InHUB
     public void ActivateBlackBoard(bool b) {
         blackBoards.SetActive(b);
+    }
+    public void ActivateLevelScreenBlackBoards(bool b) {
+        levelSelectionBlackBoards.SetActive(b);
     }
     #endregion
     #region InLevel

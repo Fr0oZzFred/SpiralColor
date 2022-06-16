@@ -83,6 +83,7 @@ public class HUBManager : MonoBehaviour {
         CheckLevelRow();
         CheckOrbs();
 
+        UIManager.Instance.ActivateLevelScreenBlackBoards(false);
         UIManager.Instance.ActivateBlackBoard(true);
         //CheckForNewGems
         if (gemsPool.GemsCount < GameManager.Instance.GemsCount) {
@@ -214,6 +215,7 @@ public class HUBManager : MonoBehaviour {
     void InLevelSelectionRange() {
         if (InputHandler.Controller.buttonWest.wasPressedThisFrame) {
             levelScreenAth.DisplayATH(false);
+            UIManager.Instance.ActivateLevelScreenBlackBoards(true);
             Action -= InLevelSelectionRange;
             Action += InLevelSelection;
             SwitchCam(levelScreenCam, portalCam);
@@ -221,6 +223,7 @@ public class HUBManager : MonoBehaviour {
             playerInSelection = true;
             playerHandler.CurrentPlayer.RegisterInputs(false);
             UIManager.Instance.SetEventSystemCurrentSelectedGO(levelRow[GameManager.Instance.Progression - 1].gameObject);
+            HUBManager.Instance.CurrentController.GetShape().gameObject.SetActive(false);
         }
     }
 
@@ -228,12 +231,14 @@ public class HUBManager : MonoBehaviour {
         if (InputHandler.Controller.buttonEast.wasPressedThisFrame ||
             InputHandler.Controller.buttonSouth.wasPressedThisFrame) {
             levelScreenAth.DisplayATH(true);
+            UIManager.Instance.ActivateLevelScreenBlackBoards(false);
             Action -= InLevelSelection;
             Action += InLevelSelectionRange;
             SwitchCam(portalCam, levelScreenCam);
             UIManager.Instance.UpdateCamera();
             playerHandler.CurrentPlayer.RegisterInputs(true);
             UIManager.Instance.SetEventSystemCurrentSelectedGO(null);
+            HUBManager.Instance.CurrentController.GetShape().gameObject.SetActive(true);
         }
     }
     #endregion

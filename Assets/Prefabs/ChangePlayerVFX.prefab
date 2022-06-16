@@ -58,6 +58,15 @@ VisualEffect:
       - m_Value: 1.1
         m_Name: Size
         m_Overridden: 0
+      - m_Value: 0.75
+        m_Name: Start Sphere Lifetime
+        m_Overridden: 1
+      - m_Value: 0.75
+        m_Name: Particles Lifetime
+        m_Overridden: 1
+      - m_Value: 0.75
+        m_Name: End Mesh Lifetime
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -287,6 +296,9 @@ VFXRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
