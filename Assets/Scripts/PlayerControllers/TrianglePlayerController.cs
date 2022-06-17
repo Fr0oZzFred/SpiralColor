@@ -193,7 +193,6 @@ public class TrianglePlayerController : Controller {
             UpdateSpin();
             return;
         }
-
         desiredJump |= InputHandler.Controller.buttonNorth.wasPressedThisFrame;
 
         if(body.velocity.magnitude < maxMagnitudeForTornado && InputHandler.Controller.buttonNorth.isPressed) {
@@ -209,6 +208,10 @@ public class TrianglePlayerController : Controller {
             desiredTornado = false;
             StartCoroutine(KillTornado());
         }
+
+        UIManager.Instance.UpdateTornadoTimer(time / timer);
+        UIManager.Instance.UpdateTriangleJumps(jumpPhase);
+        UIManager.Instance.UpdateMidBar(1, InputHandler.Controller.buttonNorth.isPressed);
 
         UpdateSpin();
     }
@@ -449,8 +452,10 @@ public class TrianglePlayerController : Controller {
         decal.material.color = b ? colorOn : Color.black;
         material.color = b ? colorOn : colorOff;
         material.SetColor("_SphereColor", b ? sphereColor : Color.black);
-        if(GameManager.Instance.CurrentState != GameState.Pause)
+        if(GameManager.Instance.CurrentState != GameState.Pause) {
             playerInputSpace.gameObject.SetActive(b);
+            UIManager.Instance.UpdateATH(b ? 1 : -1);
+        }
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();

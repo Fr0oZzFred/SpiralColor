@@ -35,7 +35,26 @@ public class UIManager : MonoBehaviour {
     [Header("InLevel")]
     [SerializeField] GameObject inLevelHUD;
     [SerializeField] TMP_Text crystalText;
+    [SerializeField] ATHPlayer athPlayer;
+    [SerializeField] List<ScriptableATH> aths; //As Usual 0 Sphere, 1 Triangle, 2 Square, 3 Cross;
 
+    #region ATH
+    [Serializable]
+    struct ATHPlayer {
+        public GameObject ath;
+        public Image circle;
+        public Image shape;
+        public Image barTop;
+        public Image barMiddle;
+        public Image barBottom;
+        public Image actionButtonMid;
+        public TextMeshProUGUI actionTextMid;
+        public GameObject triangleJumps;
+        public Image tornadoTimer;
+        public TextMeshProUGUI tornadoText;
+    }
+
+    #endregion
     [Header("Pause")]
     [SerializeField] GameObject pauseHUD;
     [SerializeField] GameObject restartButton;
@@ -167,6 +186,12 @@ public class UIManager : MonoBehaviour {
                 restartButton.SetActive(GameManager.Instance.OldState == GameState.InLevel);
                 StartCoroutine(WaitForEndOfTimeline(1.5f, pauseFirstSelectedGO));
                 break;
+            case GameState.InHUB:
+                athPlayer.ath.transform.SetParent(inHubHUD.transform);
+                break;
+            case GameState.InLevel:
+                athPlayer.ath.transform.SetParent(inLevelHUD.transform);
+                break;
             case GameState.Score:
                 DisplayScore();
                 StartCoroutine(WaitForEndOfTimeline(4f, scoreFirstSelectedGO));
@@ -239,6 +264,60 @@ public class UIManager : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         GameManager.Instance.GetCollectedGemsOfLevel(LevelManager.Instance.LevelInt, out int collected, out int max);
         crystalText.SetText(collected + " / " + max);
+    }
+
+    public void UpdateATH(int index) {
+        if (index > aths.Count) return;
+
+        if(index < 0) {
+            athPlayer.ath.SetActive(false);
+            return;
+        }
+
+
+        athPlayer.circle.sprite = aths[index].circle;
+        athPlayer.shape.sprite = aths[index].shape;
+        athPlayer.barTop.sprite = aths[index].top;
+        athPlayer.tornadoText.SetText(LocalizationSettings.Instance.GetSelectedLocale().name == "English (en)" ? aths[index].actionTextTopEN : aths[index].actionTextTopFR);
+        athPlayer.barMiddle.sprite = aths[index].middle;
+        athPlayer.actionButtonMid.sprite = aths[index].actionButtonMid;
+        athPlayer.actionTextMid.SetText(LocalizationSettings.Instance.GetSelectedLocale().name == "English (en)" ? aths[index].actionTextMidEN : aths[index].actionTextMidFR);
+        athPlayer.barBottom.sprite = aths[index].bottom;
+
+        athPlayer.barTop.gameObject.SetActive(aths[index].top);
+        athPlayer.barMiddle.gameObject.SetActive(aths[index].middle);
+        athPlayer.triangleJumps.SetActive(index == 1);
+
+
+
+        athPlayer.ath.SetActive(true);
+    }
+
+    public void UpdateTornadoTimer(float coef) {
+        coef = Mathf.Clamp(coef, 0, 1);
+        athPlayer.tornadoTimer.fillAmount = coef;
+    }
+
+    public void UpdateTriangleJumps(int jump) {
+        for (int i = 0; i < athPlayer.triangleJumps.transform.childCount-4; i++) {
+            athPlayer.triangleJumps.transform.GetChild(i+4).gameObject.SetActive(i >= jump);
+        }
+    }
+
+    public void UpdateMidBar(int index, bool pressed) {
+        switch (index) {
+            case 0:
+                athPlayer.barMiddle.color = pressed ? Color.red : Color.white;
+                break;
+            case 1:
+                athPlayer.barMiddle.color = pressed ? Color.green : Color.white;
+                athPlayer.barTop.color = pressed ? Color.green : Color.white;
+                break;
+            case 3:
+                athPlayer.barMiddle.color = pressed ? Color.cyan : Color.white;
+                break;
+        }
+        
     }
     #endregion
 

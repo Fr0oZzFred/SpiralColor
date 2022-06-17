@@ -212,7 +212,7 @@ public class CrossPlayerController : Controller {
             return;
         }
         desiresClimbing = InputHandler.Controller.buttonSouth.isPressed;
-
+        UIManager.Instance.UpdateMidBar(3, InputHandler.Controller.buttonSouth.isPressed);
         UpdateCross();
     }
     /// <summary>
@@ -545,6 +545,7 @@ public class CrossPlayerController : Controller {
         material.SetColor("_SphereColor", b ? sphereColor : Color.black);
         if (GameManager.Instance.CurrentState != GameState.Pause && !IsOnButton) {
             playerInputSpace.gameObject.SetActive(b);
+            UIManager.Instance.UpdateATH(b ? 3 : -1);
         }
     }
     public override void PreventSnapToGround() {

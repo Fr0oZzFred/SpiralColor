@@ -422,8 +422,10 @@ public class SquarePlayerController : Controller {
         decal.material.color = b ? colorOn : Color.black;
         material.color = b ? colorOn : colorOff;
         material.SetColor("_SphereColor", b ? sphereColor : Color.black);
-        if (GameManager.Instance.CurrentState != GameState.Pause && !IsOnButton)
+        if (GameManager.Instance.CurrentState != GameState.Pause && !IsOnButton) {
             playerInputSpace.gameObject.SetActive(b);
+            UIManager.Instance.UpdateATH(b ? 2 : -1);
+        }
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();

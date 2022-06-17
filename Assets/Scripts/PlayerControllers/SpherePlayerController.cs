@@ -178,6 +178,7 @@ public class SpherePlayerController : Controller {
         }
         desiredJump |= InputHandler.Controller.buttonEast.wasPressedThisFrame;
 
+        UIManager.Instance.UpdateMidBar(0, InputHandler.Controller.buttonEast.isPressed);
         UpdateBall();
     }
     /// <summary>
@@ -455,8 +456,10 @@ public class SpherePlayerController : Controller {
         decal.material.color = b ? colorOn : Color.black;
         material.color = b ? colorOn : colorOff;
         material.SetColor("_SphereColor", b ? sphereColor : Color.black);
-        if (GameManager.Instance.CurrentState != GameState.Pause)
+        if (GameManager.Instance.CurrentState != GameState.Pause) {
             playerInputSpace.gameObject.SetActive(b);
+            UIManager.Instance.UpdateATH(b ? 0 : -1);
+        }
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();

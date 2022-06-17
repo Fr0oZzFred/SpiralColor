@@ -425,8 +425,11 @@ public class PlayerController : Controller {
     #region Controller abstractFunctions
     public override void RegisterInputs(bool b) {
         isCurrentlyPlayed = b;
-        if(GameManager.Instance.CurrentState != GameState.Pause)
+        if(GameManager.Instance.CurrentState != GameState.Pause) {
             playerInputSpace.gameObject.SetActive(b);
+            //Au cas où
+            UIManager.Instance.UpdateATH(-1);
+        }
     }
     public override void PreventSnapToGround() {
         PreventSnapToGroundP();
