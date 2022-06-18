@@ -53,6 +53,7 @@ public class Checkpoint : MonoBehaviour, IComparable {
     }
 
     private void OnTriggerEnter(Collider other) {
+        if (LevelManager.Instance.PlayerProgressionIsGreaterThan(progression)) return;
         LevelManager.Instance.UpdateCPProgression(progression);
         visualEffect.SetFloat("Global Speed", AccelerateValue);
         visualEffect.SetFloat("Cylinder Power Multiplier", cylinderPowerValue);

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0047080796, g: 0.005403008, b: 0.0031971626, a: 1}
+  m_IndirectSpecularColor: {r: 0.004703271, g: 0.0054036127, b: 0.0031971585, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1361,7 +1361,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
+  m_CustomBlends: {fileID: 11400000, guid: 209526866e0bd1e4b870ec52a36d122a, type: 2}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1877,7 +1877,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &1936454372
+--- !u!84 &1997515254
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1891,8 +1891,8 @@ RenderTexture:
   m_DownscaleFallback: 0
   m_IsAlphaChannelOptional: 0
   serializedVersion: 3
-  m_Width: 1861
-  m_Height: 994
+  m_Width: 360
+  m_Height: 203
   m_AntiAliasing: 1
   m_MipCount: -1
   m_DepthFormat: 1
@@ -2016,7 +2016,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 1936454372}
+  m_TargetTexture: {fileID: 1997515254}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1

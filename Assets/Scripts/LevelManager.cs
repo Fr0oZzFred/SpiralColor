@@ -170,6 +170,9 @@ public class LevelManager : MonoBehaviour {
         if (prog < checkpointProgression) return;
         checkpointProgression = prog;
     }
+    public bool PlayerProgressionIsGreaterThan(int prog) {
+        return prog <= checkpointProgression;
+    }
 
     public void ReloadLevel() {
         SceneManagement.Instance.LoadingRendering(scene.TargetScene, scene.AdditiveScene);
