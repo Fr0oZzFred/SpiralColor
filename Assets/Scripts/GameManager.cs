@@ -59,6 +59,9 @@ public class GameManager : MonoBehaviour {
             HandlePause();
         }
         if (InputHandler.Controller.buttonEast.wasPressedThisFrame) HandleBack();
+        if(CurrentState == GameState.MainMenu || CurrentState == GameState.Credits) {
+            InputHandler.SetControllerLED(Color.Lerp(Color.blue, Color.white, (Mathf.Sin(Time.time) + 1) * 0.5f));
+        }
     }
     private void Init() {
         Progression = 1;

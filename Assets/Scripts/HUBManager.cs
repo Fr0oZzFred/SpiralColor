@@ -132,6 +132,7 @@ public class HUBManager : MonoBehaviour {
                     timelines[4].SetActive(true);
                     UIManager.Instance.UpdateCamera();
                     yield return new WaitForSeconds(7f);
+                    SaveSystem.SaveGemmes(gemsPool);
                     GameManager.Instance.CreditSeenOnce = true;
                     SceneManagement.Instance.LoadCreditsWithRendering();
                     GameManager.Instance.SetState(GameState.Credits);
