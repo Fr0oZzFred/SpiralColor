@@ -2087,7 +2087,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3071,7 +3071,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3903,7 +3903,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -6518,7 +6518,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -6979,7 +6979,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -8805,7 +8805,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -10373,10 +10373,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 223573781}
+    m_SelectOnDown: {fileID: 929335372}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -13391,10 +13391,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 707164168}
+    m_SelectOnDown: {fileID: 1866664005}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -16664,7 +16664,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -17825,7 +17825,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -18530,7 +18530,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -20063,7 +20063,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -20578,7 +20578,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -21385,7 +21385,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -21721,60 +21721,70 @@ MonoBehaviour:
   - name: MainMenuTheme
     clip: {fileID: 8300000, guid: 863956abf5af81d4ea6121b71d9be024, type: 3}
     outputGroup: {fileID: 8651735518225755797, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    volume: 1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: In HUB Theme
     clip: {fileID: 8300000, guid: 35ddcdae9232b434ead5ef788fbadb77, type: 3}
     outputGroup: {fileID: 8651735518225755797, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    volume: 1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: InGameTheme
     clip: {fileID: 8300000, guid: 819b045aa0e0c1a41a67f95dd30f0a19, type: 3}
     outputGroup: {fileID: 8651735518225755797, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    volume: 1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: WinningTheme
     clip: {fileID: 8300000, guid: f0d19778f1d02174dbcb34707acec9d5, type: 3}
     outputGroup: {fileID: 8651735518225755797, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: GemsPickup
     clip: {fileID: 8300000, guid: 9da0ad134cd52af4e9d632b231a237cc, type: 3}
     outputGroup: {fileID: 7934404424806362529, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Door
     clip: {fileID: 8300000, guid: 19b78af1d52f1a64a9a198c4236b071a, type: 3}
     outputGroup: {fileID: 7934404424806362529, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    volume: 0.25
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ButtonStart
     clip: {fileID: 8300000, guid: 609b9a0740b630342a1c9c563f83cbc2, type: 3}
     outputGroup: {fileID: 7934404424806362529, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ButtonClick
     clip: {fileID: 8300000, guid: aeb99583e07c05a40a63d26aedf39ede, type: 3}
     outputGroup: {fileID: 7934404424806362529, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: CheckpointSound
     clip: {fileID: 8300000, guid: 6465f700e9f4ba54c825450086b7a414, type: 3}
     outputGroup: {fileID: 7934404424806362529, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: CreditsTheme
     clip: {fileID: 8300000, guid: 389dfe389de6dac4a85f647851d4c493, type: 3}
     outputGroup: {fileID: 8651735518225755797, guid: 0c4cbff8928e40a4f8f60f008a553859, type: 2}
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -22218,7 +22228,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -23190,7 +23200,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -23477,7 +23487,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -25096,7 +25106,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -28013,7 +28023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1938855493
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28364,7 +28374,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -28861,7 +28871,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

@@ -37,7 +37,10 @@ public class Managers : MonoBehaviour, ISerializationCallbackReceiver  {
 #endif
         DontDestroyOnLoad(this);
         if (File.Exists(Application.persistentDataPath + "/GameManager.data")) {
-            GameManager.Instance.LoadGameManager();
+            GameManager.Instance.LoadGameManager(); 
+            if (File.Exists(Application.persistentDataPath + "/SoundsSettings.data")) {
+                SoundsManager.Instance.LoadSettings();
+            }
         } else {
             GameManager.Instance.SaveGameManager();
         }

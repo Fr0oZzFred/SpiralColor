@@ -39,5 +39,6 @@ public class VolumeGroup : MonoBehaviour {
     public void Load(float value) {
         slider.value = value;
         muteStock = value;
+        ChangedValue(value);
     }
 }

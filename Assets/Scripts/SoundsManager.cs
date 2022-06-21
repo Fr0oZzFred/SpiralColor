@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-[System.Serializable]
+[Serializable]
 public class SoundsSettingsData {
     public float master, music, SFX;
     public Dictionary<string, bool> pieces;
@@ -48,6 +48,7 @@ public class SoundsManager : MonoBehaviour {
             s.source.clip = s.clip;
 
             s.source.outputAudioMixerGroup = s.outputGroup;
+            s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
